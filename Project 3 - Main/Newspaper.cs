@@ -10,9 +10,9 @@ namespace Project_3___Press_Project
         public string Name { get; set; }
         public string EAN13 { get; set; }
         public decimal Price { get; set; }
-        
-        public ICollection<ShopNewspaper> ShopNewspaper { get; set; }
-        public ICollection<OrderNewspaper> OrderNewspaper { get; set; }
+        public Editor Editor { get; set; }
+        public int Periodicity { get; set; }
+        public ICollection<Catalog> Catalogs { get; set; }
 
     }
 }
