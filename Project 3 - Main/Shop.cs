@@ -10,9 +10,9 @@ namespace Project_3___Press_Project
         public string Name { get; set; }
         public Adress Adress { get; set; }
 
-        public ICollection<User> Users { get; set; }
+        public ICollection<UserShop> UserShops { get; set; }
         public ICollection<Order> Orders { get; set; }
-        public ICollection<Stock> Stocks { get; set; }
+        public ICollection<ShopCatalog> ShopCatalogs { get; set; }
 
     }
 }
