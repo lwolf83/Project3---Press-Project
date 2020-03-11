@@ -1,14 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Project_3___Press_Project.Shop">
-    <Position X="2.75" Y="3" Width="1.5" />
+  <Class Name="Project_3___Press_Project.ShopCatalog">
+    <Position X="6.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAEAACAAAAAAAAAAAAAAAAQAgAgAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Shop.cs</FileName>
+      <HashCode>QAAAAAAAAAAAAAACAAAAAAAAAACAAAAAAAAAgAAAAAg=</HashCode>
+      <FileName>ShopCatalog.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Adress" />
+      <Property Name="Shop" />
     </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Catalogs" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Project_3___Press_Project.Adress">
     <Position X="0.5" Y="3" Width="1.5" />
@@ -21,9 +24,9 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Project_3___Press_Project.Newspaper">
-    <Position X="10.5" Y="3" Width="1.5" />
+    <Position X="13.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAABAAAAAAAAAQAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <HashCode>AAQAAAAAAQAABAACQAAAAAQAAAAAAAAAAAAAEAAAAAA=</HashCode>
       <FileName>Newspaper.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -33,12 +36,9 @@
       <HashCode>AAAAAAAAAAAAAAAAAAAAAA4AAACAAAACAAAQAAAAAAA=</HashCode>
       <FileName>User.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Shop" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Project_3___Press_Project.Editor">
-    <Position X="13" Y="3" Width="1.5" />
+    <Position X="15.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAQAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Editor.cs</FileName>
@@ -65,26 +65,15 @@
       <FileName>UserRight.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Project_3___Press_Project.ShopNewspaper">
-    <Position X="6.5" Y="5.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>QAAAAAAAAAAABAAAAAAAAAAAAACAgAAAAAAAgAAAAAA=</HashCode>
-      <FileName>ShopNewspaper.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Newspaper" />
-      <Property Name="Shop" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="Project_3___Press_Project.OrderNewspaper">
+  <Class Name="Project_3___Press_Project.OrderCatalog">
     <Position X="7.75" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAEAAAAAAAAABAAAAAAAAAAAAAAAgAAAAAAAgAAAAAA=</HashCode>
+      <HashCode>EAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAgAAAAAg=</HashCode>
       <FileName>OrderNewspaper.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Order" />
-      <Property Name="Newspaper" />
+      <Property Name="Catalog" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Project_3___Press_Project.City">
@@ -112,6 +101,26 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Country" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Project_3___Press_Project.Catalog">
+    <Position X="10.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAAgAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Catalog.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Newspaper" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Project_3___Press_Project.Shop">
+    <Position X="3" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAEAACAAAAAAAAAAAAAAAAQAgAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shop.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Adress" />
     </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
