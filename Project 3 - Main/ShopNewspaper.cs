@@ -6,7 +6,7 @@ namespace Project_3___Press_Project
 {
     public class ShopNewspaper
     {
-        public Guid ShopID { get; set; }
+        public Guid ShopId { get; set; }
         public Shop Shop { get; set; }
         public Guid NewspaperId { get; set; }
         public Newspaper Newspaper { get; set; }
