@@ -9,7 +9,6 @@ namespace Project_3___Press_Project
         public Guid OrderId { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime DeliveryDate { get; set; }
-        public Editor Editor { get; set; }
         public Shop Shop { get; set; }
         public User User { get; set; }
 
