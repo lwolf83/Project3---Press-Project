@@ -13,6 +13,6 @@ namespace Project_3___Press_Project
         public Shop Shop { get; set; }
         public User User { get; set; }
 
-        public ICollection<OrderNewspaper> OrderNewspapers { get; set; }
+        public ICollection<OrderCatalog> OrderCatalogs { get; set; }
     }
 }

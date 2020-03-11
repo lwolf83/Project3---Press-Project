@@ -6,9 +6,6 @@
       <HashCode>QAAAAAAAAAAAAAACAAAAAAAAAACAAAAAAAAAgAAAAAg=</HashCode>
       <FileName>ShopCatalog.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Shop" />
-    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Catalogs" />
     </ShowAsCollectionAssociation>
@@ -54,8 +51,8 @@
       <FileName>Order.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="User" />
       <Property Name="Shop" />
+      <Property Name="User" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Project_3___Press_Project.RightService">
@@ -69,7 +66,7 @@
     <Position X="7.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAgAAAAAg=</HashCode>
-      <FileName>OrderNewspaper.cs</FileName>
+      <FileName>OrderCatalog.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Order" />
@@ -106,7 +103,7 @@
   <Class Name="Project_3___Press_Project.Catalog">
     <Position X="10.5" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAAgAAAAAAAAAAAAAg=</HashCode>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAQAAAAAAgAAAAAAAAAAAAAg=</HashCode>
       <FileName>Catalog.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

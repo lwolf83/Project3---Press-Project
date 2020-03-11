@@ -15,9 +15,9 @@ namespace Project_3___Press_Project
         public DbSet<Country> Countries { get; set; }
         public DbSet<Newspaper> Newspapers { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderNewspaper> OrderNewspapers { get; set; }
+        public DbSet<OrderCatalog> OrderCatalogs { get; set; }
         public DbSet<Shop> Shops { get; set; }
-        public DbSet<ShopNewspaper> ShopNewspapers { get; set; }
+        public DbSet<ShopCatalog> ShopCatalogs { get; set; }
         public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
@@ -27,29 +27,16 @@ namespace Project_3___Press_Project
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Join table for OrderNewspaper
-            modelBuilder.Entity<OrderNewspaper>()
-                .HasKey(on => new { on.OrderId, on.NewspaperId });
-            modelBuilder.Entity<OrderNewspaper>()
-                .HasOne(on => on.Order)
-                .WithMany(o => o.OrderNewspapers)
-                .HasForeignKey(on => on.Order);
-            modelBuilder.Entity<OrderNewspaper>()
-                .HasOne(on => on.Newspaper)
-                .WithMany(n => n.OrderNewspaper)
-                .HasForeignKey(on => on.NewspaperId);
-
-            // Join table for ShopNewspaper
-            modelBuilder.Entity<ShopNewspaper>()
-                .HasKey(sn => new { sn.ShopId, sn.NewspaperId });
-            modelBuilder.Entity<ShopNewspaper>()
-                .HasOne(sn => sn.Shop)
-                .WithMany(s => s.ShopNewspaper)
-                .HasForeignKey(sn => sn.Shop);
-            modelBuilder.Entity<ShopNewspaper>()
-                .HasOne(sn => sn.Newspaper)
-                .WithMany(n => n.ShopNewspaper)
-                .HasForeignKey(on => on.NewspaperId);
+            modelBuilder.Entity<UserShop>()
+                .HasKey(us => new { us.UserId, us. ShopId });
+            modelBuilder.Entity<UserShop>()
+                .HasOne(us => us.Shop)
+                .WithMany(s => s.UserShops)
+                .HasForeignKey(us => us.ShopId);
+            modelBuilder.Entity<UserShop>()
+                .HasOne(us => us.User)
+                .WithMany(u => u.UserShops)
+                .HasForeignKey(us => us.UserId);
         }
     }
 }
