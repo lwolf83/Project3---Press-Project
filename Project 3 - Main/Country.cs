@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Project_3___Press_Project
 {
-    public class Editor
+    public class Country
     {
-        public Guid EditorId { get; set; }
+        public Guid CountryId { get; set; }
         public string Name { get; set; }
-        public ICollection<Newspaper> Newspapers { get; set; }
+        public ICollection<Province> Province { get; set; }
     }
 }
