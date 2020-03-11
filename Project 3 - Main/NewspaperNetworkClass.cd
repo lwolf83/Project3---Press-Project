@@ -31,7 +31,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Project_3___Press_Project.User">
-    <Position X="5" Y="0.5" Width="2" />
+    <Position X="5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAA4AAACAAAACAAAQAAAAAAA=</HashCode>
       <FileName>User.cs</FileName>
@@ -106,7 +106,7 @@
   <Class Name="Project_3___Press_Project.Catalog">
     <Position X="10.5" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAAgAAAAAAAAAAAAAg=</HashCode>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAQAAAAAAgAAAAAAAAAAAAAg=</HashCode>
       <FileName>Catalog.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
