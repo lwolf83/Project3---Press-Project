@@ -4,13 +4,12 @@ using System.Text;
 
 namespace Project_3___Press_Project
 {
-    public class ShopNewspaper
+    public class ShopCatalog
     {
         public Guid ShopId { get; set; }
         public Shop Shop { get; set; }
-        public Guid NewspaperId { get; set; }
-        public Newspaper Newspaper { get; set; }
-
+        public Guid CatalogId { get; set; }
+        public ICollection<Catalog> Catalogs { get; set; }
         public int Quantity { get; set; }
     }
 }
