@@ -28,7 +28,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Project_3___Press_Project.User">
-    <Position X="5" Y="0.5" Width="2" />
+    <Position X="5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAA4AAACAAAACAAAQAAAAAAA=</HashCode>
       <FileName>User.cs</FileName>
