@@ -11,6 +11,6 @@ namespace Project_3___Press_Project
         public string Login { get; set; }
         public string Password { get; set; }
         public string Function { get; set; }
-        public ICollection<Shop> Shop { get; set; }
+        public ICollection<UserShop> UserShops { get; set; }
     }
 }

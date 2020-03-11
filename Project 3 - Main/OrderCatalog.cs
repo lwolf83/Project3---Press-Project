@@ -6,6 +6,7 @@ namespace Project_3___Press_Project
 {
     public class OrderCatalog
     {
+        public Guid OrderCatalogId { get; set; }
         public Guid OrderId { get; set; }
         public Order Order { get; set; }
         public Guid CatalogId { get; set; }
