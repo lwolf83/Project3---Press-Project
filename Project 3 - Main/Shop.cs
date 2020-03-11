@@ -12,7 +12,7 @@ namespace Project_3___Press_Project
 
         public ICollection<User> Users { get; set; }
         public ICollection<Order> Orders { get; set; }
-        public ICollection<Stock> Stocks { get; set; }
+        public ICollection<ShopNewspaper> Stocks { get; set; }
 
     }
 }
