@@ -8,11 +8,11 @@ namespace Project_3___Press_Project
 {
     public class PressContext : DbContext
     {
-        public DbSet<City> Cities { get; set; }
+        public DbSet<Country> Countries { get; set; }
         public DbSet<Province> Provinces { get; set; }
+        public DbSet<City> Cities { get; set; }
         public DbSet<Adress> Adresses { get; set; }
         public DbSet<Editor> Editors { get; set; }
-        public DbSet<Country> Countries { get; set; }
         public DbSet<Newspaper> Newspapers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderCatalog> OrderCatalogs { get; set; }
