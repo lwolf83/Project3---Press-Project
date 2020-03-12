@@ -16,102 +16,125 @@ namespace Project_3___Press_Project
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
 
-                var france = new Country();
-                france.Name = "France";
-                france.Province = new List<Province>();
+                List<Country> countries = new List<Country>();
+                countries = DataCreation.CreateCountries(2);
 
-                var regionsFr = from i in Enumerable.Range(1, 3)
-                                select new Province();
+                List<Province> provinces = new List<Province>();
+                provinces = DataCreation.CreateProvinces(countries, 3);
 
-                List<string> provinceNames = new List<string>() { "Alsace", "Ile de France", "Provence-Alpes-Côte d'Azur" };
-                List<string> cityNames = new List<string>() { "Strasbourg", "Paris", "Marseille" };
-                List<int> zipCodes = new List<int>() { 67000, 75000, 13000 };
                 List<City> cities = new List<City>();
+                cities = DataCreation.CreateCities(provinces, 3);
+
                 List<Adress> adresses = new List<Adress>();
-                int counter = 0;
-                foreach(Province region in regionsFr)
-                {
-                    region.Country = france;
-                    region.Name = provinceNames[counter];
-                    region.Cities = new List<City>();
-                    City city = new City();
-                    city.Name = cityNames[counter];
-                    city.ZipCode = zipCodes[counter];
-                    city.Province = region;
-                    cities.Add(city);
+                adresses = DataCreation.CreateAdresses(cities, 3);
 
-                    if (region.Name == "Alsace")
-                    {
-                        City Breuschwickersheim = new City();
-                        Breuschwickersheim.Name = "Breuschwickersheim";
-                        Breuschwickersheim.ZipCode = 67112;
-                        Breuschwickersheim.Province = region;
-                        region.Cities.Add(Breuschwickersheim);
-                        cities.Add(Breuschwickersheim);
-                    }
-                    region.Cities.Add(city);
-                    france.Province.Add(region);
+                List<Shop> shops = new List<Shop>();
+                shops = DataCreation.CreateShops(adresses);
 
-                    context.Add(region);
-                    counter++;
-                }
+                foreach(Country country in countries)
+                { context.Add(country); }
 
-                Random randomGenerator = new Random();
+                foreach(Province province in provinces)
+                { context.Add(province); }
+
                 foreach(City city in cities)
-                {
-                    Adress adress = new Adress();
-                    adress.StreetName = "rue de l'église";
-                    adress.StreetNumber = randomGenerator.Next(1, 100);
-                    adress.City = city;
-                    adresses.Add(adress);
+                { context.Add(city); }
 
-                    context.Add(city);
-                    context.Add(adress);
-                }
-
-                var germany = new Country();
-                germany.Province = new List<Province>();
-                germany.Name = "Deutschland";
-
-                Province province = new Province();
-                province.Name = "Berlin Land";
-                province.Country = germany;
-                province.Cities = new List<City>();
-
-                City berlin = new City();
-                berlin.Name = "Berlin";
-                berlin.ZipCode = 10117;
-                berlin.Province = province;
-
-                Adress berlinerAddress = new Adress();
-                berlinerAddress.StreetNumber = randomGenerator.Next(1, 100);
-                berlinerAddress.StreetName = "Unter den Linden";
-                berlinerAddress.City = berlin;
-                adresses.Add(berlinerAddress);
-
-                province.Cities.Add(berlin);
-                germany.Province.Add(province);
-
-                context.Add(province);
-                context.Add(berlin);
-                context.Add(berlinerAddress);
-
-                context.Add(france);
-                context.Add(germany);
-
-                List<string> shopNames = new List<string>() { "Le grand bazar", "L'antre du journal", "Magazine moi", "Le kiosque à Dudule", "Das Nachbarbrötchen" };
-                int counterShopNames = 0;
                 foreach(Adress adress in adresses)
-                {
-                    Shop shop = new Shop();
-                    shop.Name = shopNames[counterShopNames];
-                    shop.Adress = adress;
-                    counterShopNames++;
-                    context.Add(shop);
-                }
+                { context.Add(adress); }
+
+                foreach(Shop shop in shops)
+                { context.Add(shop); }
 
                 context.SaveChanges();
             }
+        }
+
+        public static List<Country> CreateCountries(int numberOfCountries)
+        {
+            List<Country> countries = new List<Country>();
+
+            for (int i = 0; i < numberOfCountries; i++ )
+            {
+                Country country = new Country();
+                country.Name = $"Country n° {numberOfCountries}";
+                countries.Add(country);
+            }
+
+            return countries;
+        }
+
+        public static List<Province> CreateProvinces(List<Country> countries, int numberOfProvincePerCountry)
+        {
+            List<Province> provinces = new List<Province>();
+            int provincesCounter = 0;
+            foreach(Country country in countries)
+            {
+                for (int i = 0; i<numberOfProvincePerCountry; i++)
+                {
+                    Province province = new Province();
+                    province.Name = $"Province n° {provincesCounter};{numberOfProvincePerCountry}";
+                    province.Country = country;
+                    provinces.Add(province);
+                    provincesCounter++;
+                }
+                country.Province = provinces;
+            }
+            return provinces;
+        }
+
+        public static List<City> CreateCities(List<Province> provinces, int numberOfCitiesPerProvince)
+        {
+            List<City> cities = new List<City>();
+            int cityCounter = 0;
+            foreach(Province province in provinces)
+            {
+                for (int i = 0; i<numberOfCitiesPerProvince; i++)
+                {
+                    City city = new City();
+                    city.Name = $"city n° {cityCounter};{numberOfCitiesPerProvince}";
+                    city.ZipCode = $"{1000 + numberOfCitiesPerProvince}";
+                    city.Province = province;
+                    cities.Add(city);
+                    cityCounter++;
+                }
+                province.Cities = cities;
+            }
+            return cities;
+        }
+
+        public static List<Adress> CreateAdresses(List<City> cities, int numberOfAdressesPerCity)
+        {
+            List<Adress> adresses = new List<Adress>();
+            int adressesCounter = 0;
+            foreach(City city in cities)
+            {
+                for (int i = 0; i<numberOfAdressesPerCity; i++)
+                {
+                    Adress adress = new Adress();
+                    adress.StreetNumber = $"{numberOfAdressesPerCity}";
+                    adress.StreetName = $"street n° {adressesCounter};{numberOfAdressesPerCity}";
+                    adress.City = city;
+                    adresses.Add(adress);
+                    adressesCounter++;
+                }
+            }
+            return adresses;
+        }
+
+        public static List<Shop> CreateShops (List<Adress> adresses)
+        {
+            List<Shop> shops = new List<Shop>();
+            int shopCounter = 0;
+            foreach (Adress adress in adresses)
+            {
+                Shop shop = new Shop();
+                shop.Name = $"Shop n° {shopCounter}";
+                shop.Adress = adress;
+                shopCounter++;
+                shops.Add(shop);
+            }
+            return shops;
         }
     }
 }
