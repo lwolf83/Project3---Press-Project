@@ -10,15 +10,7 @@ namespace Project_3___Press_Project
         {
             DataCreation.CreateData();
 
-            //List<string[]> regions = CSVDataReader.GetDataEntries(@"..\..\..\..\regions.csv");
-            //foreach (string[] entry in regions)
-            //{
-            //    foreach (string str in entry)
-            //    {
-            //        Console.Write(str + " ");
-            //    }
-            //    Console.WriteLine();
-            //}
+            
         }
     }
 }
