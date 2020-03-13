@@ -10,6 +10,7 @@ namespace Project_3___Press_Project
     {
         public DbSet<City> Cities { get; set; }
         public DbSet<Province> Provinces { get; set; }
+        public DbSet<Department> Departments { get; set; }
         public DbSet<Adress> Adresses { get; set; }
         public DbSet<Editor> Editors { get; set; }
         public DbSet<Country> Countries { get; set; }

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Project_3___Press_Project.ShopCatalog">
-    <Position X="6.75" Y="5.25" Width="1.5" />
+    <Position X="7.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAAAAAAAAAAAAACAAAAAAAAAACAAAAAAAAAgAAAAAg=</HashCode>
+      <HashCode>QAAAAAAAAIAAAAACAAAAAAAAAACAAAAAAAAAgAAAAAg=</HashCode>
       <FileName>ShopCatalog.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -30,7 +30,7 @@
   <Class Name="Project_3___Press_Project.User">
     <Position X="5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAA4AAACAAAACAAAQAAAAAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAA4AAAAAAAACAAAQAAAAAAA=</HashCode>
       <FileName>User.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -47,7 +47,7 @@
   <Class Name="Project_3___Press_Project.Order">
     <Position X="5.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>GAABAAAAAAAAAAAARAAAAAAAAACAAAAAAAAAEAAAAAA=</HashCode>
+      <HashCode>GAABAgAAAAAAAAAABAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Order.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -65,7 +65,7 @@
   <Class Name="Project_3___Press_Project.OrderCatalog">
     <Position X="7.75" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAgAAAAAg=</HashCode>
+      <HashCode>ECEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAgAAAAAg=</HashCode>
       <FileName>OrderCatalog.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -76,24 +76,24 @@
   <Class Name="Project_3___Press_Project.City">
     <Position X="0.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAABAAAAAAAAAAAAAAQAAAAAAAABAAAAAgAAAAA=</HashCode>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAQAEAAAAAABAAAAAAAAAAA=</HashCode>
       <FileName>City.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Province" />
+      <Property Name="Department" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Project_3___Press_Project.Country">
-    <Position X="3" Y="6.75" Width="1.5" />
+    <Position X="5.25" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAAgAAAAA=</HashCode>
       <FileName>Country.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Project_3___Press_Project.Province">
-    <Position X="0.5" Y="6.75" Width="1.5" />
+    <Position X="2.75" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAACAAAAAAAAAQAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAQAAAAAACAAAACAAAAQAAAIAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Province.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -113,11 +113,21 @@
   <Class Name="Project_3___Press_Project.Shop">
     <Position X="3" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAEAACAAAAAAAAAAAAAAAAQAgAgAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>QAUAAAAAAAAAAAAAAAAAACQAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Shop.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Adress" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Project_3___Press_Project.Department">
+    <Position X="0.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAQAAAgBAAAA=</HashCode>
+      <FileName>Department.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Province" />
     </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
