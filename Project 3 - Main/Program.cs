@@ -6,7 +6,7 @@ namespace Project_3___Press_Project
     {
         static void Main(string[] args)
         {
-            DataCreation.CreateData();
+            //DataCreation.CreateData();
         }
     }
 }
