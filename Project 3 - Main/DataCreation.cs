@@ -106,11 +106,11 @@ namespace Project_3___Press_Project
                     City city = new City();
                     city.Name = $"city n° {cityCounter};{numberOfCitiesPerProvince}";
                     city.ZipCode = $"{1000 + numberOfCitiesPerProvince}";
-                    city.Province = province;
+                    //city.Province = province;
                     cities.Add(city);
                     cityCounter++;
                 }
-                province.Cities = cities;
+                //province.Cities = cities;
             }
             return cities;
         }
