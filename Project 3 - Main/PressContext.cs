@@ -37,6 +37,18 @@ namespace Project_3___Press_Project
                 .HasOne(us => us.User)
                 .WithMany(u => u.UserShops)
                 .HasForeignKey(us => us.UserId);
+
+
+            modelBuilder.Entity<ShopCatalog>()
+                .HasKey(sc => new { sc.CatalogId, sc.ShopId });
+            modelBuilder.Entity<ShopCatalog>()
+                .HasOne(sc => sc.Catalog)
+                .WithMany(s => s.ShopCatalogs)
+                .HasForeignKey(sc => sc.CatalogId);
+            modelBuilder.Entity<ShopCatalog>()
+                .HasOne(sc => sc.Shop)
+                .WithMany(c => c.ShopCatalogs)
+                .HasForeignKey(sc => sc.ShopId);
         }
     }
 }

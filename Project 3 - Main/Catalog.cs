@@ -10,5 +10,7 @@ namespace Project_3___Press_Project
         public Newspaper Newspaper { get; set; }
         public OrderCatalog OrderCatalog { get; set; }
         public DateTime PublicationDate { get; set; }
+
+        public ICollection<ShopCatalog> ShopCatalogs { get; set; }
     }
 }

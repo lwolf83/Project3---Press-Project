@@ -44,10 +44,7 @@ namespace Project_3___Press_Project
                 List<OrderCatalog> orderCatalogs = new List<OrderCatalog>();
                 orderCatalogs = DataCreation.CreateOrderCatalogs(catalogs);
 
-                List<Order> orders = new List<Order>();
-                orders = DataCreation.CreateOrders(orderCatalogs);
-
-                DataCreation.LinkOrderToShop(orders, shops);
+                
 
                 List<User> users = new List<User>();
                 users = DataCreation.CreateUsers(100);
@@ -58,46 +55,27 @@ namespace Project_3___Press_Project
                 List<ShopCatalog> shopCatalogs = new List<ShopCatalog>();
                 shopCatalogs = DataCreation.CreateShopCatalogs(shops, catalogs);
 
-                foreach (Country country in countries)
-                { context.Add(country); }
+                List<Order> orders = new List<Order>();
+                orders = DataCreation.CreateOrders(orderCatalogs, users, userShops);
 
-                foreach (Province province in provinces)
-                { context.Add(province); }
+                DataCreation.LinkOrderToShop(orders, shops);
 
-                foreach (City city in cities)
-                { context.Add(city); }
-
-                foreach (Adress adress in adresses)
-                { context.Add(adress); }
-
-                foreach (Shop shop in shops)
-                { context.Add(shop); }
-
-                foreach (Editor editor in editors)
-                { context.Add(editor); }
-
-                foreach (Newspaper newspaper in newspapers)
-                { context.Add(newspaper); }
-
-                foreach (Catalog catalog in catalogs)
-                { context.Add(catalog); }
-
-                foreach (OrderCatalog orderCatalog in orderCatalogs)
-                { context.Add(orderCatalog); }
-
-                foreach (Order order in orders)
-                { context.Add(order); }
-
-                foreach (User user in users)
-                { context.Add(user); }
-
-                foreach (UserShop userShop in userShops)
-                { context.Add(userShop); }
-
-                foreach(ShopCatalog shopCatalog in shopCatalogs)
-                { context.Add(shopCatalog); }
+                context.AddRange(countries);
+                context.AddRange(provinces);
+                context.AddRange(cities);
+                context.AddRange(adresses);
+                context.AddRange(shops);
+                context.AddRange(editors);
+                context.AddRange(newspapers);
+                context.AddRange(catalogs);
+                context.AddRange(orderCatalogs);
+                context.AddRange(orders);
+                context.AddRange(users);
+                context.AddRange(userShops);
+                context.AddRange(shopCatalogs);
 
                 context.SaveChanges();
+                Console.WriteLine("fini");
             }
         }
 
@@ -121,15 +99,17 @@ namespace Project_3___Press_Project
             int provincesCounter = 0;
             foreach (Country country in countries)
             {
+                List<Province> provincesPerCountry = new List<Province>();
                 for (int i = 0; i < numberOfProvincePerCountry; i++)
                 {
                     Province province = new Province();
                     province.Name = $"Province n° {provincesCounter};{numberOfProvincePerCountry}";
                     province.Country = country;
                     provinces.Add(province);
+                    provincesPerCountry.Add(province);
                     provincesCounter++;
                 }
-                country.Province = provinces;
+                country.Province = provincesPerCountry;
             }
             return provinces;
         }
@@ -140,6 +120,7 @@ namespace Project_3___Press_Project
             int cityCounter = 0;
             foreach (Province province in provinces)
             {
+                List<City> citiesPerProvince = new List<City>();
                 for (int i = 0; i < numberOfCitiesPerProvince; i++)
                 {
                     City city = new City();
@@ -147,9 +128,10 @@ namespace Project_3___Press_Project
                     city.ZipCode = $"{1000 + numberOfCitiesPerProvince}";
                     city.Province = province;
                     cities.Add(city);
+                    citiesPerProvince.Add(city);
                     cityCounter++;
                 }
-                province.Cities = cities;
+                province.Cities = citiesPerProvince;
             }
             return cities;
         }
@@ -207,6 +189,7 @@ namespace Project_3___Press_Project
             int editorCounter = 0;
             foreach (Editor editor in editors)
             {
+                List<Newspaper> newspapersPerEditor = new List<Newspaper>();
                 for (int i = 0; i < numberOfNewspaperPerEditor; i++)
                 {
                     Newspaper newspaper = new Newspaper();
@@ -217,8 +200,9 @@ namespace Project_3___Press_Project
                     newspaper.Periodicity = randomGenerator.Next(1, 28);
 
                     newspapers.Add(newspaper);
+                    newspapersPerEditor.Add(newspaper);
                 }
-                editor.Newspapers = newspapers;
+                editor.Newspapers = newspapersPerEditor;
                 editorCounter++;
             }
             return newspapers;
@@ -230,6 +214,7 @@ namespace Project_3___Press_Project
             List<Catalog> catalogs = new List<Catalog>();
             foreach (Newspaper newspaper in newspapers)
             {
+                List<Catalog> catalogsPerNewspaper = new List<Catalog>();
                 for (int i = 0; i < numberOfCatalogsPerNewspaper; i++)
                 {
                     Catalog catalog = new Catalog();
@@ -238,23 +223,12 @@ namespace Project_3___Press_Project
                     catalog.PublicationDate = DateTime.Today + TimeSpan.FromDays(periodicity * numberOfCatalogsPerNewspaper);
 
                     catalogs.Add(catalog);
+                    catalogsPerNewspaper.Add(catalog);
                 }
-                newspaper.Catalogs = catalogs;
+                newspaper.Catalogs = catalogsPerNewspaper;
             }
             return catalogs;
         }
-
-        // Méthode à virer
-        /*public static int GetPeriodicityOfANewspaper(Newspaper newspaper, Context context)
-        {
-            var periodicityList = (from news in context.Newspapers
-                                where news.NewspaperId == newspaper.NewspaperId
-                                select news.Periodicity).ToList();
-
-            int periodicity = periodicityList[0];
-
-            return periodicity;
-        }*/
 
         public static List<OrderCatalog> CreateOrderCatalogs(List<Catalog> catalogs)
         {
@@ -274,48 +248,79 @@ namespace Project_3___Press_Project
             return orderCatalogs;
         }
 
-        public static List<Order> CreateOrders(List<OrderCatalog> orderCatalogs)
+        // Rajouter ShopId et UserId
+        public static List<Order> CreateOrders(List<OrderCatalog> orderCatalogs, List<User> users, List<UserShop> userShops)
         {
             Random randomGenerator = new Random();
             List<Order> orders = new List<Order>();
+            List<Shop> shopsHavingOrders = new List<Shop>();
+
+
+            /*foreach(Shop shop in shops)
+            {
+                List<Order> ordersPerShop = new List<Order>();
+
+            }*/
+
             foreach (OrderCatalog orderCatalog in orderCatalogs)
             {
+                int randomUser = randomGenerator.Next(0, users.Count);
                 Order order = new Order();
                 // Rajouter liste d'orderCatalog, vérifier avec le CreateOrderCatalog des catalog
                 order.OrderDate = orderCatalog.Catalog.PublicationDate;
                 order.DeliveryDate = orderCatalog.Catalog.PublicationDate + TimeSpan.FromDays(randomGenerator.Next(1, 5));
+                order.OrderCatalogs = orderCatalogs;
                 orderCatalog.Order = order;
                 orderCatalog.OrderId = order.OrderId;
-
+                order.User = users[randomUser];
+                order.UserId = users[randomUser].UserId;
+                foreach(UserShop userShop in userShops)
+                {
+                    if (userShop.User == users[randomUser] && userShop.Shop != null)
+                    {
+                        order.Shop = userShop.Shop;
+                        order.ShopId = userShop.ShopId;
+                        shopsHavingOrders.Add(userShop.Shop);
+                    }
+                }
                 orders.Add(order);
             }
+            foreach(Shop shop in shopsHavingOrders)
+            {
+                shop.Orders = orders;
+            }
+            
             return orders;
         }
 
         public static void LinkOrderToShop(List<Order> orders, List<Shop> shops)
         {
-            List<Order> ordersForAShop = new List<Order>();
             int ordersCount = orders.Count(); // 25
             int shopsCount = shops.Count(); // 15
-            int shopsRest = ordersCount % shopsCount; // 10
-            int numberOfOrderPerShops = shopsCount / shopsRest; // 1
+            int ordersRestPerShop = ordersCount % shopsCount; // 10
+            int numberOfShopsPerOrdersRest = shopsCount / ordersRestPerShop; // 1
 
-            for (int j = 0; j < shopsRest; j++)
+            for (int j = 0; j < ordersRestPerShop; j++)
             {
+                List<Order> ordersForAShop = new List<Order>();
+
                 ordersForAShop.Add(orders[j]);
+                shops[0].Orders = ordersForAShop;
             }
 
             for (int i = 0; i < shopsCount; i++)
             {
-                for (int j = shopsRest; j < numberOfOrderPerShops; j++)
+                List<Order> ordersForAShop = new List<Order>();
+
+                for (int j = ordersRestPerShop; j < numberOfShopsPerOrdersRest; j++)
                 {
                     ordersForAShop.Add(orders[j]);
                     orders[j].Shop = shops[i];
                 }
                 shops[i].Orders = ordersForAShop;
-                ordersForAShop.Clear();
             }
         }
+
 
         public static List<User> CreateUsers(int numberOfUsers)
         {
@@ -325,21 +330,19 @@ namespace Project_3___Press_Project
                 User user = new User();
                 user.Name = $"user n° {i}";
                 user.Login = "user";
-                user.Password = "1234";
+                user.Password = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"; // mdp = 1234 crypté SHA 256
                 user.Function = "userFunction";
                 users.Add(user);
             }
             return users;
         }
-        /////////////////////// Nombre d'utilisateurs dans DB insuffisant (54 à la place des 100 prévus.)
-        ///// Revoir la méthode
-        ////* ******************************************************************************************************/
+        
         public static List<UserShop> LinkUserToShop(List<User> users, List<Shop> shops)
         {
             List<UserShop> userShops = new List<UserShop>();
             int usersCount = users.Count();
-            int usersPerShops = (shops.Count()) / usersCount;
-            int restUsers = (shops.Count()) % usersCount;
+            int usersPerShops = usersCount/(shops.Count());
+            int restUsers = usersCount % (shops.Count());
             int counter = 0;
 
             foreach (Shop shop in shops)
@@ -365,6 +368,7 @@ namespace Project_3___Press_Project
                     userShop.User = users[usersPerShops + i];
                     userShop.UserId = users[usersPerShops + i].UserId;
                     userShops.Add(userShop);
+                    counter ++;
                 }
             }
             return userShops;
@@ -372,25 +376,29 @@ namespace Project_3___Press_Project
 
         public static List<ShopCatalog> CreateShopCatalogs(List<Shop> shops, List<Catalog> catalogs)
         {
-            List<ShopCatalog> tempShopCatalogs = new List<ShopCatalog>();
+            
             List<ShopCatalog> shopCatalogs = new List<ShopCatalog>();
             Random randomGenerator = new Random();
+            int i = 0;
 
             foreach (Shop shop in shops)
             {
-                foreach(Catalog catalog in catalogs)
+                List<ShopCatalog> tempShopCatalogs = new List<ShopCatalog>();
+                foreach (Catalog catalog in catalogs)
                 {
+                    catalog.ShopCatalogs = new List<ShopCatalog>();
                     ShopCatalog shopCatalog = new ShopCatalog();
                     shopCatalog.Shop = shop;
                     shopCatalog.ShopId = shop.ShopId;
-                    shopCatalog.Catalogs = catalogs;
-                    shopCatalog.CatalogId = catalog.CatalogId;
+                    shopCatalog.Catalog = catalog;
+                    shopCatalog.CatalogId = catalogs[i].CatalogId;
                     shopCatalog.Quantity = randomGenerator.Next(0, 1000);
                     tempShopCatalogs.Add(shopCatalog);
                     shopCatalogs.Add(shopCatalog);
+                    catalog.ShopCatalogs.Add(shopCatalog);
                 }
                 shop.ShopCatalogs = tempShopCatalogs;
-                tempShopCatalogs.Clear();
+         
             }
             return shopCatalogs;
         }

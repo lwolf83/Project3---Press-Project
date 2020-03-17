@@ -12,7 +12,6 @@ namespace Project_3___Press_Project
 
         public ICollection<UserShop> UserShops { get; set; }
         public ICollection<Order> Orders { get; set; }
-
         public ICollection<ShopCatalog> ShopCatalogs { get; set; }
 
 

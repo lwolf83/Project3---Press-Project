@@ -4,20 +4,20 @@
     <Position X="6.75" Y="5.25" Width="1.5" />
     <AssociationLine Name="Shop" Type="Project_3___Press_Project.Shop" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="6.75" Y="6.062" />
-        <Point X="3.75" Y="6.062" />
+        <Point X="6.75" Y="5.969" />
+        <Point X="3.75" Y="5.969" />
         <Point X="3.75" Y="4.873" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>QAAAAAAAAIAAAAACAAAAAAAAAACAAAAAAAAAgAAAAAg=</HashCode>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAABAACAAAAAAAAAgAAAAAg=</HashCode>
       <FileName>ShopCatalog.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Shop" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="Catalogs" />
+      <Property Name="Catalog" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Project_3___Press_Project.Adress">
@@ -113,7 +113,7 @@
   <Class Name="Project_3___Press_Project.Catalog">
     <Position X="10.5" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAAAAAAAAAAAQAAAAAAgAAAAAAAAAAAAAg=</HashCode>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAASAAAAAAgAAAAAAAAAAAAAg=</HashCode>
       <FileName>Catalog.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -137,8 +137,8 @@
       <FileName>UserShop.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Shop" />
       <Property Name="User" />
+      <Property Name="Shop" />
     </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
