@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Project_3___Press_Project
 {
-    class DataCreation
+    public class DataCreation
     {
         public static void CreateData()
         {
@@ -15,7 +15,6 @@ namespace Project_3___Press_Project
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
-
 
                 List<Country> countries = new List<Country>();
                 countries = DataCreation.CreateCountries(2);
