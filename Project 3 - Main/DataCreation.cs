@@ -55,11 +55,6 @@ namespace Project_3___Press_Project
                 List<ShopCatalog> shopCatalogs = new List<ShopCatalog>();
                 shopCatalogs = DataCreation.CreateShopCatalogs(shops, catalogs);
 
-                List<Order> orders = new List<Order>();
-                orders = DataCreation.CreateOrders(orderCatalogs, users, userShops);
-
-                DataCreation.LinkOrderToShop(orders, shops);
-
                 context.AddRange(countries);
                 context.AddRange(provinces);
                 context.AddRange(cities);
@@ -69,11 +64,15 @@ namespace Project_3___Press_Project
                 context.AddRange(newspapers);
                 context.AddRange(catalogs);
                 context.AddRange(orderCatalogs);
-                context.AddRange(orders);
-                context.AddRange(users);
                 context.AddRange(userShops);
                 context.AddRange(shopCatalogs);
+                context.AddRange(users);
 
+                List<Order> orders = new List<Order>();
+                orders = DataCreation.CreateOrders(shops, orderCatalogs, userShops, users);
+
+                context.AddRange(orders);
+               
                 context.SaveChanges();
                 Console.WriteLine("fini");
             }
@@ -248,80 +247,38 @@ namespace Project_3___Press_Project
             return orderCatalogs;
         }
 
-        // Rajouter ShopId et UserId
-        public static List<Order> CreateOrders(List<OrderCatalog> orderCatalogs, List<User> users, List<UserShop> userShops)
+       
+
+        public static List<Order> CreateOrders(List<Shop> shops, List<OrderCatalog> orderCatalogs, List<UserShop> userShops, List<User> users)
         {
             Random randomGenerator = new Random();
             List<Order> orders = new List<Order>();
-            List<Shop> shopsHavingOrders = new List<Shop>();
 
-
-            /*foreach(Shop shop in shops)
+            foreach (Shop shop in shops)
             {
-                List<Order> ordersPerShop = new List<Order>();
-
-            }*/
-
-            foreach (OrderCatalog orderCatalog in orderCatalogs)
-            {
-                int randomUser = randomGenerator.Next(0, users.Count);
-                Order order = new Order();
-                // Rajouter liste d'orderCatalog, vérifier avec le CreateOrderCatalog des catalog
-                order.OrderDate = orderCatalog.Catalog.PublicationDate;
-                order.DeliveryDate = orderCatalog.Catalog.PublicationDate + TimeSpan.FromDays(randomGenerator.Next(1, 5));
-                order.OrderCatalogs = orderCatalogs;
-                orderCatalog.Order = order;
-                orderCatalog.OrderId = order.OrderId;
-                order.User = users[randomUser];
-                order.UserId = users[randomUser].UserId;
-                foreach(UserShop userShop in userShops)
+                List<Order> temporaryOrders = new List<Order>();
+                for (int orderCounterPerShop = 0; orderCounterPerShop < 3; orderCounterPerShop++)
                 {
-                    if (userShop.User == users[randomUser] && userShop.Shop != null)
-                    {
-                        order.Shop = userShop.Shop;
-                        order.ShopId = userShop.ShopId;
-                        shopsHavingOrders.Add(userShop.Shop);
-                    }
+                    Order order = new Order();
+                    order.OrderCatalogs = orderCatalogs;
+                    order.Shop = shop;
+                    order.ShopId = shop.ShopId;
+                    order.OrderDate = DateTime.Now + TimeSpan.FromDays(randomGenerator.Next(1, 100));
+                    order.DeliveryDate = order.OrderDate + TimeSpan.FromDays(randomGenerator.Next(1, 10));
+                    var usershopAvecUser = userShops.Where(x => x.ShopId == shop.ShopId).FirstOrDefault();
+                    var user = users.Where(x => x.UserId == usershopAvecUser.UserId).FirstOrDefault();
+                    order.User = user;
+                    order.UserId = order.User.UserId;
+                    orders.Add(order);
+                    temporaryOrders.Add(order);
                 }
-                orders.Add(order);
+                shop.Orders = temporaryOrders;
             }
-            foreach(Shop shop in shopsHavingOrders)
-            {
-                shop.Orders = orders;
-            }
-            
             return orders;
+
         }
 
-        public static void LinkOrderToShop(List<Order> orders, List<Shop> shops)
-        {
-            int ordersCount = orders.Count(); // 25
-            int shopsCount = shops.Count(); // 15
-            int ordersRestPerShop = ordersCount % shopsCount; // 10
-            int numberOfShopsPerOrdersRest = shopsCount / ordersRestPerShop; // 1
-
-            for (int j = 0; j < ordersRestPerShop; j++)
-            {
-                List<Order> ordersForAShop = new List<Order>();
-
-                ordersForAShop.Add(orders[j]);
-                shops[0].Orders = ordersForAShop;
-            }
-
-            for (int i = 0; i < shopsCount; i++)
-            {
-                List<Order> ordersForAShop = new List<Order>();
-
-                for (int j = ordersRestPerShop; j < numberOfShopsPerOrdersRest; j++)
-                {
-                    ordersForAShop.Add(orders[j]);
-                    orders[j].Shop = shops[i];
-                }
-                shops[i].Orders = ordersForAShop;
-            }
-        }
-
-
+       
         public static List<User> CreateUsers(int numberOfUsers)
         {
             List<User> users = new List<User>();

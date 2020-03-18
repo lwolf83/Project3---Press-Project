@@ -4,8 +4,8 @@
     <Position X="6.75" Y="5.25" Width="1.5" />
     <AssociationLine Name="Shop" Type="Project_3___Press_Project.Shop" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="6.75" Y="5.969" />
-        <Point X="3.75" Y="5.969" />
+        <Point X="6.75" Y="5.887" />
+        <Point X="3.75" Y="5.887" />
         <Point X="3.75" Y="4.873" />
       </Path>
     </AssociationLine>
@@ -15,10 +15,8 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Shop" />
-    </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
       <Property Name="Catalog" />
-    </ShowAsCollectionAssociation>
+    </ShowAsAssociation>
   </Class>
   <Class Name="Project_3___Press_Project.Adress">
     <Position X="0.5" Y="3" Width="1.5" />
@@ -57,7 +55,7 @@
   <Class Name="Project_3___Press_Project.Order">
     <Position X="5.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>GAABAgAAAAAAAAAABAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>WAABAgAAAAAAAAAABAAAAAgAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Order.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
