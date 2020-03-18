@@ -1,0 +1,79 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignColors" Version="1.2.2" />
+    <PackageReference Include="MaterialDesignThemes" Version="3.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Project 3 - Main\Project 3 - Press Project.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="App.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="MainWindow.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="UserControlAccount.xaml.cs">
+      <DependentUpon>UserControlAccount.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="UserControlEditor.xaml.cs">
+      <DependentUpon>UserControlEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="UserControlLogin.xaml.cs">
+      <DependentUpon>UserControlLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="UserControlSetting.xaml.cs">
+      <DependentUpon>UserControlSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="UserControlShop.xaml.cs">
+      <DependentUpon>UserControlShop.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="UserControlStat.xaml.cs">
+      <DependentUpon>UserControlStat.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="UserControlAccount.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControlEditor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControlLogin.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControlSetting.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControlShop.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControlStat.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>
