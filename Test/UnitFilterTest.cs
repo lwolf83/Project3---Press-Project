@@ -14,12 +14,16 @@ namespace Project_3___Press_Project
             Country country2 = new Country { Name = "Espagne" };
             Province province1 = new Province { Name = "Grand-Est" , Country = country1 };
             Province province2 = new Province { Name = "Catalogne", Country = country2 };
-            
-            for(int i = 0; i < 10; i++)
-            {
-                Province currentProvince = i < 5 ? province1 : province2;
+            Department department1 = new Department { DepartmentName = "Haut-Rhin", Province = province1 };
+            Department department2 = new Department { DepartmentName = "Pyrenées", Province = province2 };
 
-                City currentCity = new City { Name = "City" + i, ZipCode = i.ToString(), Province = currentProvince };
+            // Laurent: Rajout de 2 départments. Dans le "for" suivant, remplacement des provinces par départements et currentDepartment
+
+            for (int i = 0; i < 10; i++)
+            {
+                Department currentDepartment = i < 5 ? department1 : department2;
+
+                City currentCity = new City { Name = "City" + i, ZipCode = i.ToString(), Department = currentDepartment };
 
                 Adress currentAdress = new Adress { City = currentCity, StreetName = "Street " + i, StreetNumber = i.ToString() };
                 Shop currentShop = new Shop { Name = "Shop " + i, Adress = currentAdress };

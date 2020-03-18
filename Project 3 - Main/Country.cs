@@ -8,6 +8,6 @@ namespace Project_3___Press_Project
     {
         public Guid CountryId { get; set; }
         public string Name { get; set; }
-        public ICollection<Province> Province { get; set; }
+        public virtual ICollection<Province> Province { get; set; }
     }
 }

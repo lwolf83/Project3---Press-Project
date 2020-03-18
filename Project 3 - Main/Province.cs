@@ -7,8 +7,9 @@ namespace Project_3___Press_Project
     public class Province
     {
         public Guid ProvinceId { get; set; }
+        public string ProvinceCode { get; set; }
         public string Name { get; set; }
-        public ICollection<City> Cities {get ; set; }
         public Country Country { get; set; }
+        public virtual ICollection<Department> Departments { get; set; }
     }
 }
