@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Test\NUnitTestProject1.csproj" />
     <ProjectReference Include="..\UI\NavigationDrawerPopUpMenu2\NavigationDrawerPopUpMenu2.csproj" />
   </ItemGroup>
 
