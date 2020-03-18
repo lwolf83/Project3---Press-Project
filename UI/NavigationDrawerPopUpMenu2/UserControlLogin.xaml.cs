@@ -21,5 +21,32 @@ namespace NavigationDrawerPopUpMenu2
         {
             InitializeComponent();
         }
+
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            IAuthentification authentification = new Authentification();
+             txtPasswordBox.Password = authentification.CryptPassword(txtPasswordBox.Password);
+
+            if (authentification.LoginUsers(txtUserNameBox.Text, txtPasswordBox.Password))
+            {
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.notConnected = false;
+                mainWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Not valid Username or/and Password");
+                Reset();
+            }
+        }
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Reset();
+        }
+        private void Reset()
+        {
+            txtUserNameBox.Text = String.Empty;
+            txtPasswordBox.Password = String.Empty;
+        }
     }
 }
