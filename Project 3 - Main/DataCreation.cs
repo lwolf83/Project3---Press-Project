@@ -16,35 +16,21 @@ namespace Project_3___Press_Project
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
 
-                List<Country> countries = new List<Country>();
-                countries = DataCreation.CreateCountries(2);
-
-                List<Province> provinces = new List<Province>();
-                provinces = DataCreation.CreateProvinces(countries, 3);
-
                 List<City> cities = new List<City>();
-                cities = DataCreation.CreateCities(provinces, 3);
+                cities = DataCreation.PopulateDBLocations_FromCSV(context);
+
+                Random randomGenerator = new Random();
+                List<City> randomCities = new List<City>();
+                for (int counter = 0; counter < 3; counter++)
+                {
+                    randomCities.Add(cities[randomGenerator.Next(0, cities.Count)]);
+                }
 
                 List<Adress> adresses = new List<Adress>();
-                adresses = DataCreation.CreateAdresses(cities, 3);
+                adresses = DataCreation.CreateAdresses(randomCities, 3);
 
                 List<Shop> shops = new List<Shop>();
                 shops = DataCreation.CreateShops(adresses);
-
-                foreach(Country country in countries)
-                { context.Add(country); }
-
-                foreach(Province province in provinces)
-                { context.Add(province); }
-
-                foreach(City city in cities)
-                { context.Add(city); }
-
-                foreach(Adress adress in adresses)
-                { context.Add(adress); }
-
-                foreach(Shop shop in shops)
-                { context.Add(shop); }
 
                 List<Editor> editors = new List<Editor>();
                 editors = DataCreation.CreateEditors(3);
@@ -52,67 +38,52 @@ namespace Project_3___Press_Project
                 List<Newspaper> newspapers = new List<Newspaper>();
                 newspapers = DataCreation.CreateNewspapers(editors, 25);
 
-                foreach (Editor editor in editors)
-                { context.Add(editor); }
-
-                foreach (Newspaper newspaper in newspapers)
-                { context.Add(newspaper); }
+                context.AddRange(adresses);
+                context.AddRange(shops);
+                context.AddRange(editors);
+                context.AddRange(newspapers);
 
                 context.SaveChanges();
             }
         }
 
-        public static List<Country> CreateCountries(int numberOfCountries)
+        public static List<City> PopulateDBLocations_FromCSV(PressContext context)
         {
-            List<Country> countries = new List<Country>();
+            var country = new Country { Name = "France" };
+            context.Add(country);
 
-            for (int i = 0; i < numberOfCountries; i++ )
-            {
-                Country country = new Country();
-                country.Name = $"Country n° {numberOfCountries}";
-                countries.Add(country);
-            }
+            var provincesData = CSVDataReader.GetDataEntries(@"..\..\..\..\regions.csv");
+            var manyProvinces = from i in Enumerable.Range(0, provincesData.Count)
+                                select new Province
+                                { ProvinceCode = provincesData[i][0], Name = provincesData[i][1], Country = country };
+            context.AddRange(manyProvinces);
+            context.SaveChanges();
 
-            return countries;
-        }
+            var departmentsData = CSVDataReader.GetDataEntries(@"..\..\..\..\departments.csv");
+            var manyDepartments = from i in Enumerable.Range(0, departmentsData.Count)
+                                    select new Department
+                                    {
+                                        ProvinceCode = departmentsData[i][0],
+                                        DepartmentCode = departmentsData[i][1],
+                                        DepartmentName = departmentsData[i][2],
+                                        Province = context.Provinces.Where(p => p.ProvinceCode.Equals(departmentsData[i][0])).First()
+                                    };
+            context.AddRange(manyDepartments);
+            context.SaveChanges();
 
-        public static List<Province> CreateProvinces(List<Country> countries, int numberOfProvincePerCountry)
-        {
-            List<Province> provinces = new List<Province>();
-            int provincesCounter = 0;
-            foreach(Country country in countries)
-            {
-                for (int i = 0; i<numberOfProvincePerCountry; i++)
-                {
-                    Province province = new Province();
-                    province.Name = $"Province n° {provincesCounter};{numberOfProvincePerCountry}";
-                    province.Country = country;
-                    provinces.Add(province);
-                    provincesCounter++;
-                }
-                country.Province = provinces;
-            }
-            return provinces;
-        }
+            var citiesData = CSVDataReader.GetDataEntries(@"..\..\..\..\cities.csv");
+            var manyCities = from i in Enumerable.Range(0, citiesData.Count)
+                                select new City
+                                {
+                                    DepartmentCode = citiesData[i][0],
+                                    ZipCode = citiesData[i][1],
+                                    Name = citiesData[i][2],
+                                    Department = context.Departments.Where(d => d.DepartmentCode.Equals(citiesData[i][0])).First()
+                                };
+            context.AddRange(manyCities);
+            context.SaveChanges();
 
-        public static List<City> CreateCities(List<Province> provinces, int numberOfCitiesPerProvince)
-        {
-            List<City> cities = new List<City>();
-            int cityCounter = 0;
-            foreach(Province province in provinces)
-            {
-                for (int i = 0; i<numberOfCitiesPerProvince; i++)
-                {
-                    City city = new City();
-                    city.Name = $"city n° {cityCounter};{numberOfCitiesPerProvince}";
-                    city.ZipCode = $"{1000 + numberOfCitiesPerProvince}";
-                    //city.Province = province;
-                    cities.Add(city);
-                    cityCounter++;
-                }
-                //province.Cities = cities;
-            }
-            return cities;
+            return manyCities.ToList();
         }
 
         public static List<Adress> CreateAdresses(List<City> cities, int numberOfAdressesPerCity)
