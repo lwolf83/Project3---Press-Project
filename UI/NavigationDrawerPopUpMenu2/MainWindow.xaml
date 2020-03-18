@@ -39,7 +39,9 @@
                     <StackPanel Width="150">
                         <Button Content="Help"/>
                         <Separator/>
-                        <Button Content="Logout"/>
+                        <Button Content="Logout" Click="ButtonLogout_Click"/>
+                        <Separator/>
+                        <Button Content="Close" Click="ButtonCloseApplication_Click"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
             </StackPanel>

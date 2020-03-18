@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace NavigationDrawerPopUpMenu2
 {
@@ -20,6 +21,8 @@ namespace NavigationDrawerPopUpMenu2
     /// </summary>
     public partial class MainWindow : Window
     {
+        public bool notConnected { get; set; } = true;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -36,13 +39,31 @@ namespace NavigationDrawerPopUpMenu2
             ButtonCloseMenu.Visibility = Visibility.Collapsed;
             ButtonOpenMenu.Visibility = Visibility.Visible;
         }
+        private void ButtonLogout_Click(object sender, RoutedEventArgs e)
+        {
+            GridMain.Children.Clear();
+            notConnected = true;
+        }
+
+        private void ButtonCloseApplication_Click(object sender, RoutedEventArgs e)
+        {
+            string message = "Do you want to quit the application";
+            string title = "Close Application";
+            System.Windows.Forms.MessageBoxButtons buttons = System.Windows.Forms.MessageBoxButtons.YesNo;
+            System.Windows.Forms.DialogResult result = MessageBox.Show(message, title, buttons);
+
+            if (result == System.Windows.Forms.DialogResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }        
+        }
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UserControl usc = null;
             GridMain.Children.Clear();
-            bool isConnected = true;
-            if(isConnected)
+            
+            if(notConnected)
             {
                 usc = new UserControlLogin();
                 GridMain.Children.Add(usc);
