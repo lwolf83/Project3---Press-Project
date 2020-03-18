@@ -22,6 +22,7 @@ namespace Project_3___Press_Project
         public DbSet<Shop> Shops { get; set; }
         public DbSet<ShopCatalog> ShopCatalogs { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserShop> UserShops { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
@@ -40,6 +41,18 @@ namespace Project_3___Press_Project
                 .HasOne(us => us.User)
                 .WithMany(u => u.UserShops)
                 .HasForeignKey(us => us.UserId);
+
+
+            modelBuilder.Entity<ShopCatalog>()
+                .HasKey(sc => new { sc.CatalogId, sc.ShopId });
+            modelBuilder.Entity<ShopCatalog>()
+                .HasOne(sc => sc.Catalog)
+                .WithMany(s => s.ShopCatalogs)
+                .HasForeignKey(sc => sc.CatalogId);
+            modelBuilder.Entity<ShopCatalog>()
+                .HasOne(sc => sc.Shop)
+                .WithMany(c => c.ShopCatalogs)
+                .HasForeignKey(sc => sc.ShopId);
         }
     }
 }
