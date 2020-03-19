@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="UserInterface.UserControlAddShop"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UserInterface"
+             mc:Ignorable="d" 
+             >
+    <Grid Background="#FFFCCFCF" Height="800" Width="800">
+        <Grid Margin="82,28,82,707">
+            <Label Content="Add a new Shop: " HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="30" FontWeight="Bold"/>
+        </Grid>
+        <Grid Margin="82,98,65,145" Background="#FFFAFAFA">
+            <StackPanel>
+                <WrapPanel>
+                    <Label Content="* Street name :   " HorizontalAlignment="Left" Margin="51,30,0,0" VerticalAlignment="Top" Height="42" Width="458" FontFamily="Segoe UI Semibold" FontSize="22"/>
+                    <TextBox Text="" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="50,0,0,0" Width="550" Height="35" FontSize="20" Background="White"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="* Street number :   " HorizontalAlignment="Left" Margin="51,30,0,0" VerticalAlignment="Top" Height="42" Width="458" FontFamily="Segoe UI Semibold" FontSize="22"/>
+                    <TextBox Text="" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="50,0,0,0" Width="550" Height="35" FontSize="20" Background="White"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="* City :   " HorizontalAlignment="Left" Margin="51,30,0,0" VerticalAlignment="Top" Height="42" Width="458" FontFamily="Segoe UI Semibold" FontSize="22"/>
+                    <TextBox Text="" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="50,0,0,0" Width="550" Height="35" FontSize="20" Background="White"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="* Shop name :   " HorizontalAlignment="Left" Margin="51,30,0,0" VerticalAlignment="Top" Height="42" Width="458" FontFamily="Segoe UI Semibold" FontSize="22"/>
+                    <TextBox Text="" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="50,0,0,0" Width="550" Height="35" FontSize="20" Background="White"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="* - required field" HorizontalAlignment="Left" Margin="51,30,0,0" VerticalAlignment="Top" Height="42" Width="458" FontFamily="Segoe UI" FontSize="20" FontStyle="Normal"/>
+                </WrapPanel>
+
+            </StackPanel>
+        </Grid>
+        <Grid Margin="80,673,65,29" Background="#FFF1A9E7">
+            <Button Content="Save" HorizontalAlignment="Left" Margin="62,0,0,0" VerticalAlignment="Center" Height="78" Width="226" FontFamily="Segoe UI Semibold" FontSize="30"/>
+            <Button Content="Cancel" HorizontalAlignment="Left" Margin="369,0,0,0" VerticalAlignment="Center" Height="78" Width="226" FontFamily="Segoe UI Semibold" FontSize="30"/>
+        </Grid>
+
+    </Grid>
+</UserControl>
