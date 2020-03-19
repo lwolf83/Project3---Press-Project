@@ -53,8 +53,6 @@ namespace Project_3___Press_Project
                 List<ShopCatalog> shopCatalogs = new List<ShopCatalog>();
                 shopCatalogs = DataCreation.CreateShopCatalogs(shops, catalogs);
 
-
-                context.AddRange(cities);
                 context.AddRange(adresses);
                 context.AddRange(shops);
                 context.AddRange(editors);
