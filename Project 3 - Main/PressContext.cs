@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 
+
 namespace Project_3___Press_Project
 {
     public class PressContext : DbContext
@@ -53,6 +54,15 @@ namespace Project_3___Press_Project
                 .HasOne(sc => sc.Shop)
                 .WithMany(c => c.ShopCatalogs)
                 .HasForeignKey(sc => sc.ShopId);
+
+            modelBuilder.Entity<OrderCatalog>()
+                .HasOne<Order>(oc => oc.Order)
+                .WithMany(oc => oc.OrderCatalogs)
+                .HasForeignKey(oc => oc.OrderId);
+
+            modelBuilder.Entity<OrderCatalog>()
+                .HasOne(c => c.Catalog)
+                .WithOne(oc => oc.OrderCatalog);
         }
     }
 }

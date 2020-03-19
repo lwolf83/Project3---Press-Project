@@ -41,8 +41,8 @@ namespace Project_3___Press_Project
                 List<Catalog> catalogs = new List<Catalog>();
                 catalogs = DataCreation.CreateCatalogs(newspapers, 2);
 
-                List<OrderCatalog> orderCatalogs = new List<OrderCatalog>();
-                orderCatalogs = DataCreation.CreateOrderCatalogs(catalogs);
+                /*List<OrderCatalog> orderCatalogs = new List<OrderCatalog>();
+                orderCatalogs = DataCreation.CreateOrderCatalogs(catalogs);*/
 
                 List<User> users = new List<User>();
                 users = DataCreation.CreateUsers(100);
@@ -59,16 +59,25 @@ namespace Project_3___Press_Project
                 context.AddRange(newspapers);
 
                 context.AddRange(catalogs);
-                context.AddRange(orderCatalogs);
+                //context.AddRange(orderCatalogs);
                 context.AddRange(userShops);
                 context.AddRange(shopCatalogs);
                 context.AddRange(users);
 
                 List<Order> orders = new List<Order>();
-                orders = DataCreation.CreateOrders(shops, orderCatalogs, userShops, users);
-
+                orders = DataCreation.CreateOrders(shops, userShops, users);
+                //DataCreation.LinkOrderToOrderCatalog(orders, orderCatalogs);
                 context.AddRange(orders);
-               
+
+                List<OrderCatalog> orderCatalogs = new List<OrderCatalog>();
+                orderCatalogs = DataCreation.CreateOrderCatalogsV2(orders);
+
+                DataCreation.LinkOrderCatalogToCatalog(orderCatalogs, catalogs);
+
+                context.AddRange(orderCatalogs);
+
+                
+
                 context.SaveChanges();
                 Console.WriteLine("fini");
             }
@@ -208,6 +217,7 @@ namespace Project_3___Press_Project
             return catalogs;
         }
 
+
         public static List<OrderCatalog> CreateOrderCatalogs(List<Catalog> catalogs)
         {
             List<OrderCatalog> orderCatalogs = new List<OrderCatalog>();
@@ -226,9 +236,46 @@ namespace Project_3___Press_Project
             return orderCatalogs;
         }
 
-       
+        public static List<OrderCatalog> CreateOrderCatalogsV2(List<Order> orders)
+        {
+            List<OrderCatalog> orderCatalogs = new List<OrderCatalog>();
 
-        public static List<Order> CreateOrders(List<Shop> shops, List<OrderCatalog> orderCatalogs, List<UserShop> userShops, List<User> users)
+            foreach(Order order in orders)
+            {
+                List<OrderCatalog> tempOrderCatalog = new List<OrderCatalog>();
+                for (int counter = 0; counter<3; counter++)
+                {
+                    OrderCatalog orderCatalog = new OrderCatalog();
+                    orderCatalog.Order = order;
+                    orderCatalog.OrderId = order.OrderId;
+
+                    tempOrderCatalog.Add(orderCatalog);
+                    orderCatalogs.Add(orderCatalog);
+                }
+                order.OrderCatalogs = tempOrderCatalog;
+            }
+            return orderCatalogs;
+        }
+
+        public static void LinkOrderCatalogToCatalog(List<OrderCatalog> orderCatalogs, List<Catalog> catalogs)
+        {
+            int catalogCounter = 0;
+            foreach(OrderCatalog orderCatalog in orderCatalogs)
+            {
+                if (catalogCounter >= catalogs.Count)
+                {
+                    catalogCounter = 0;
+                }
+                orderCatalog.Catalog = catalogs[catalogCounter];
+                orderCatalog.CatalogId = catalogs[catalogCounter].CatalogId;
+                catalogs[catalogCounter].OrderCatalog = orderCatalog;
+
+                catalogCounter = catalogCounter + 1;
+            }
+        }
+
+
+        public static List<Order> CreateOrders(List<Shop> shops, List<UserShop> userShops, List<User> users)
         {
             Random randomGenerator = new Random();
             List<Order> orders = new List<Order>();
@@ -239,7 +286,11 @@ namespace Project_3___Press_Project
                 for (int orderCounterPerShop = 0; orderCounterPerShop < 3; orderCounterPerShop++)
                 {
                     Order order = new Order();
-                    order.OrderCatalogs = orderCatalogs;
+                    /*order.OrderCatalogs = orderCatalogs;
+                    foreach (OrderCatalog orderCatalog in orderCatalogs)
+                    {
+                        orderCatalog.Order = order;
+                    }*/
                     order.Shop = shop;
                     order.ShopId = shop.ShopId;
                     order.OrderDate = DateTime.Now + TimeSpan.FromDays(randomGenerator.Next(1, 100));
@@ -254,7 +305,23 @@ namespace Project_3___Press_Project
                 shop.Orders = temporaryOrders;
             }
             return orders;
+        }
 
+        public static void LinkOrderToOrderCatalog(List<Order> orders, List<OrderCatalog> orderCatalogs)
+        {
+            Random randomGenerator = new Random();
+            foreach(Order order in orders)
+            {
+                List<OrderCatalog> tempOrderCatalog = new List<OrderCatalog>();
+                for (int counter = 0; counter<3; counter++)
+                {
+                    int randomNumber = randomGenerator.Next(0, orderCatalogs.Count);
+                    tempOrderCatalog.Add(orderCatalogs[randomNumber]);
+                    orderCatalogs[randomNumber].Order = order;
+                    orderCatalogs[randomNumber].OrderId = order.OrderId;
+                }
+                order.OrderCatalogs = tempOrderCatalog;
+            }
         }
 
        
