@@ -75,7 +75,10 @@ namespace Project_3___Press_Project
                 DataCreation.LinkOrderCatalogToCatalog(orderCatalogs, catalogs);
 
                 context.AddRange(orderCatalogs);
-
+                foreach(OrderCatalog order in orderCatalogs)
+                {
+                    Console.WriteLine(order.OrderId + " - - " + order.CatalogId);
+                }
                 
 
                 context.SaveChanges();
