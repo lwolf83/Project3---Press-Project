@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Linq;
+using Project_3___Press_Project;
 
 namespace UserInterface
 {
@@ -26,6 +27,29 @@ namespace UserInterface
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
+            bool formFilled = CheckFormFilled();
+            if (formFilled)
+            {
+                string shopName = ShopName.Text;
+                string streetNumber = StrNum.Text;
+                string streetName = StrName.Text;
+                string cityName = City.Text;
+                bool shopCreated = DataFromGUI.AddShop(shopName, streetNumber, streetName, cityName);
+                if (shopCreated)
+                {
+                    Reset();
+                    //Show green message - shop creation successfull
+                }
+                else
+                {
+                    Reset();
+                    //Show red message - shop creation failed due to invalid City
+                }
+            }
+            else
+            {
+                //Show a yellow message telling to complete the form
+            }
 
         }
 
@@ -33,10 +57,32 @@ namespace UserInterface
         {
             Reset();
         }
-
+        
         private void Reset()
         {
+            List<TextBox> textChildren = GetTextFieldsFromWrapPanels();
+            foreach (TextBox tB in textChildren)
+            {
+                tB.Text = String.Empty;
+            }
+        }
 
+        private bool CheckFormFilled()
+        {
+            bool isFilled = true;
+            List<TextBox> textChildren = GetTextFieldsFromWrapPanels();
+            foreach (TextBox tB in textChildren)
+            {
+                if (tB.Text == String.Empty)
+                {
+                    isFilled = false;
+                }
+            }
+            return isFilled;
+        }
+
+        private List<TextBox> GetTextFieldsFromWrapPanels()
+        {
             List<TextBox> textChildren = new List<TextBox>();
             var wrapChildren = from child in TextStack.Children.OfType<WrapPanel>()
                                select child;
@@ -45,8 +91,9 @@ namespace UserInterface
             {
                 var textBoxes = (from tB in child.Children.OfType<TextBox>()
                                  select tB).ToList();
-                textBoxes[0].Text = String.Empty;
+                textChildren.AddRange(textBoxes);
             }
+            return textChildren;
         }
     }
 }
