@@ -8,7 +8,7 @@ namespace Project_3___Press_Project
     [TestFixture]
     class TestAuthentification
     {
-        User user1 = new User() { Name = "Jean", Password = "1234" };
+        /*User user1 = new User() { Name = "Jean", Password = "1234" };
         User user2 = new User() { Name = "Li", Password = "5678" };
 
         [SetUp]
@@ -27,6 +27,6 @@ namespace Project_3___Press_Project
 
             Assert.AreEqual(false, value1);
             Assert.AreEqual(false, value2);
-        }
+        }*/
     }
 }

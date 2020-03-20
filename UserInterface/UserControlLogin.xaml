@@ -14,5 +14,6 @@
         <Label Foreground="White" Content="Password" HorizontalAlignment="Left" Height="30" Margin="83,180,0,0" VerticalAlignment="Top" Width="105" FontFamily="Arial" FontSize="20"/>
         <Button Foreground="Black" Click="btnCancel_Click" Content="Cancel" HorizontalAlignment="Left" Margin="202,230,0,0" VerticalAlignment="Top" Height="30" Width="100" FontFamily="Arial" FontSize="20"/>
         <Button Foreground="Black" Click="BtnLogin_Click" Content="Login" HorizontalAlignment="Left" Margin="340,230,0,0" VerticalAlignment="Top" Height="30" Width="100" FontFamily="Arial" FontSize="20"/>
+        <TextBlock x:Name="txtMessageBox" HorizontalAlignment="Left" Height="19" Margin="183,300,0,0" Text="Invalid UserName or/and Password" TextWrapping="Wrap" VerticalAlignment="Top" Width="274" FontFamily="Arial" FontSize="16" TextAlignment="Justify" Foreground="OrangeRed" FontWeight="Bold" Visibility="Collapsed"/>
     </Grid>
 </UserControl>

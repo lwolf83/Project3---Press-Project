@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,8 +14,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-//using MessageBox = System.Windows.Forms.MessageBox;
-
 namespace UserInterface
 {
     /// <summary>
@@ -22,7 +21,7 @@ namespace UserInterface
     /// </summary>
     public partial class MainWindow : Window
     {
-        public bool notConnected { get; set; } = true;
+        public static bool notConnected { get; set; } = true;
 
         public MainWindow()
         {
@@ -40,23 +39,19 @@ namespace UserInterface
             ButtonCloseMenu.Visibility = Visibility.Collapsed;
             ButtonOpenMenu.Visibility = Visibility.Visible;
         }
+
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
+            UserControl usc = new UserControlLogoutClose("Logout");
             GridMain.Children.Clear();
-            notConnected = true;
+            GridMain.Children.Add(usc);
         }
 
         private void ButtonCloseApplication_Click(object sender, RoutedEventArgs e)
-        {/*
-            string message = "Do you want to quit the application";
-            string title = "Close Application";
-            System.Windows.Forms.MessageBoxButtons buttons = System.Windows.Forms.MessageBoxButtons.YesNo;
-            System.Windows.Forms.DialogResult result = MessageBox.Show(message, title, buttons);
-
-            if (result == System.Windows.Forms.DialogResult.Yes)
-            {
-                Application.Current.Shutdown();
-            }        */
+        {            
+            UserControl usc = new UserControlLogoutClose("Close");
+            GridMain.Children.Clear();
+            GridMain.Children.Add(usc);                      
         }
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -96,8 +91,7 @@ namespace UserInterface
                     default:
                         break;
                 }
-            }
-            
+            }            
         }
         // To remove the following method. Just for test purposes + button in XAML
         private void ButtonAddShopPage_Click(object sender, RoutedEventArgs e)
