@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Project_3___Press_Project;
 
-namespace NavigationDrawerPopUpMenu2
+namespace UserInterface
 {
     public partial class UserControlLogin : UserControl
     {

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NavigationDrawerPopUpMenu2
+namespace UserInterface
 {
     public partial class UserControlStat : UserControl
     {

@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NavigationDrawerPopUpMenu2
+namespace UserInterface
 {
     /// <summary>
     /// Interaction logic for UserControlLogoutClose.xaml
