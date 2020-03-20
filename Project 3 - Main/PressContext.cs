@@ -12,10 +12,10 @@ namespace Project_3___Press_Project
         public DbSet<Country> Countries { get; set; }
         public DbSet<Province> Provinces { get; set; }
         public DbSet<Department> Departments { get; set; }
-
+        public DbSet<Catalog> Catalogs { get; set; }
         public DbSet<City> Cities { get; set; }
 
-        public DbSet<Adress> Adresses { get; set; }
+        public DbSet<Address> Adresses { get; set; }
         public DbSet<Editor> Editors { get; set; }
         public DbSet<Newspaper> Newspapers { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -57,11 +57,11 @@ namespace Project_3___Press_Project
 
             modelBuilder.Entity<OrderCatalog>()
                 .HasOne<Order>(oc => oc.Order)
-                .WithMany(oc => oc.OrderCatalogs)
+                .WithMany(o => o.OrderCatalogs)
                 .HasForeignKey(oc => oc.OrderId);
 
             modelBuilder.Entity<OrderCatalog>()
-                .HasOne(c => c.Catalog)
+                .HasOne<Catalog>(c => c.Catalog)
                 .WithOne(oc => oc.OrderCatalog);
         }
     }

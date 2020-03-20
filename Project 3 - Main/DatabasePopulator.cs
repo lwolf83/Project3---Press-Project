@@ -7,149 +7,115 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Project_3___Press_Project
 {
-    public class DataCreation
+    public class ContextPopulator
     {
-        public static void CreateData()
+        private PressContext context;
+
+        public ContextPopulator()
         {
-            using (var context = new PressContext())
+            context = new PressContext();
+        }
+
+        public void Populate()
+        {
+            /*
+            //context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+
+            List<City> cities = new List<City>();
+            cities = ContextPopulator.PopulateDBLocations_FromCSV(context);
+
+            Random randomGenerator = new Random();
+            List<City> randomCities = new List<City>();
+            IEnumerable<City> DBcities = context.Cities.AsEnumerable();
+            for (int counter = 0; counter < 15; counter++)
             {
-                context.Database.EnsureDeleted();
-                context.Database.EnsureCreated();
-
-                List<City> cities = new List<City>();
-                cities = DataCreation.PopulateDBLocations_FromCSV(context);
-
-                Random randomGenerator = new Random();
-                List<City> randomCities = new List<City>();
-                for (int counter = 0; counter < 3; counter++)
-                {
-                    randomCities.Add(cities[randomGenerator.Next(0, cities.Count)]);
-                }
-
-                List<Adress> adresses = new List<Adress>();
-                adresses = DataCreation.CreateAdresses(randomCities, 3);
-
-                List<Shop> shops = new List<Shop>();
-                shops = DataCreation.CreateShops(adresses);
-
-                List<Editor> editors = new List<Editor>();
-                editors = DataCreation.CreateEditors(3);
-
-                List<Newspaper> newspapers = new List<Newspaper>();
-                newspapers = DataCreation.CreateNewspapers(editors, 3);
-
-                List<Catalog> catalogs = new List<Catalog>();
-                catalogs = DataCreation.CreateCatalogs(newspapers, 2);
-
-                /*List<OrderCatalog> orderCatalogs = new List<OrderCatalog>();
-                orderCatalogs = DataCreation.CreateOrderCatalogs(catalogs);*/
-
-                List<User> users = new List<User>();
-                users = DataCreation.CreateUsers(100);
-
-                List<UserShop> userShops = new List<UserShop>();
-                userShops = DataCreation.LinkUserToShop(users, shops);
-
-                List<ShopCatalog> shopCatalogs = new List<ShopCatalog>();
-                shopCatalogs = DataCreation.CreateShopCatalogs(shops, catalogs);
-
-                context.AddRange(adresses);
-                context.AddRange(shops);
-                context.AddRange(editors);
-                context.AddRange(newspapers);
-
-                context.AddRange(catalogs);
-                //context.AddRange(orderCatalogs);
-                context.AddRange(userShops);
-                context.AddRange(shopCatalogs);
-                context.AddRange(users);
-
-                List<Order> orders = new List<Order>();
-                orders = DataCreation.CreateOrders(shops, userShops, users);
-                //DataCreation.LinkOrderToOrderCatalog(orders, orderCatalogs);
-                context.AddRange(orders);
-
-                List<OrderCatalog> orderCatalogs = new List<OrderCatalog>();
-                orderCatalogs = DataCreation.CreateOrderCatalogsV2(orders);
-
-                DataCreation.LinkOrderCatalogToCatalog(orderCatalogs, catalogs);
-
-                context.AddRange(orderCatalogs);
-                foreach(OrderCatalog order in orderCatalogs)
-                {
-                    Console.WriteLine(order.OrderId + " - - " + order.CatalogId);
-                }
-                
-
-                context.SaveChanges();
-                Console.WriteLine("fini");
+                randomCities.Add(DBcities.ElementAt(counter));
             }
+            Console.WriteLine(randomCities[0].Name);
+            Console.WriteLine(randomCities[1].Name);
+            Console.WriteLine(randomCities[2].Name);
+
+            List<Address> addresses = ContextPopulator.CreateAddresses(randomCities, 1);
+            //IEnumerable<Address> DBAdresses = ;
+
+            List<Shop> shops = new List<Shop>();
+            shops = ContextPopulator.CreateShops(addresses);
+
+            List<Editor> editors = new List<Editor>();
+            editors = ContextPopulator.CreateEditors(3);
+
+            List<Newspaper> newspapers = new List<Newspaper>();
+            newspapers = ContextPopulator.CreateNewspapers(editors, 3);
+
+            List<Catalog> catalogs = new List<Catalog>();
+            catalogs = ContextPopulator.CreateCatalogs(newspapers, 2);
+
+            List<User> users = new List<User>();
+            users = ContextPopulator.CreateUsers(100);
+
+            List<UserShop> userShops = new List<UserShop>();
+            userShops = ContextPopulator.LinkUserToShop(users, shops);
+
+            List<ShopCatalog> shopCatalogs = new List<ShopCatalog>();
+            shopCatalogs = ContextPopulator.CreateShopCatalogs(shops, catalogs);
+
+            List<Order> orders = new List<Order>();
+            orders = ContextPopulator.CreateOrders(shops, userShops, users);
+            context.AddRange(orders);
+
+            // Bug sur CreateOrderCatalogsV2 et/ou LinkOrderCatalogToCatalog
+            // https://docs.microsoft.com/fr-fr/ef/core/saving/concurrency
+            List<OrderCatalog> orderCatalogs = new List<OrderCatalog>();
+            orderCatalogs = ContextPopulator.CreateOrderCatalogs(orders);
+
+            ContextPopulator.LinkOrderCatalogToCatalog(orderCatalogs, catalogs);
+
+            context.AddRange(shops);
+            context.AddRange(editors);
+            context.AddRange(newspapers);
+            context.AddRange(catalogs);
+            context.AddRange(userShops);
+            context.AddRange(shopCatalogs);
+            context.AddRange(users);
+
+               
+
+            context.AddRange(orderCatalogs);
+
+            context.SaveChanges();
+            Console.WriteLine("fini");*/
         }
 
-
-        public static List<City> PopulateDBLocations_FromCSV(PressContext context)
+        public static List<Address> CreateAddresses(List<City> cities, int numberOfAdressesPerCity)
         {
-            var country = new Country { Name = "France" };
-            context.Add(country);
-
-            var provincesData = CSVDataReader.GetDataEntries(@"..\..\..\..\regions.csv");
-            var manyProvinces = from i in Enumerable.Range(0, provincesData.Count)
-                                select new Province
-                                { ProvinceCode = provincesData[i][0], Name = provincesData[i][1], Country = country };
-            context.AddRange(manyProvinces);
-            context.SaveChanges();
-
-            var departmentsData = CSVDataReader.GetDataEntries(@"..\..\..\..\departments.csv");
-            var manyDepartments = from i in Enumerable.Range(0, departmentsData.Count)
-                                    select new Department
-                                    {
-                                        ProvinceCode = departmentsData[i][0],
-                                        DepartmentCode = departmentsData[i][1],
-                                        DepartmentName = departmentsData[i][2],
-                                        Province = context.Provinces.Where(p => p.ProvinceCode.Equals(departmentsData[i][0])).First()
-                                    };
-            context.AddRange(manyDepartments);
-            context.SaveChanges();
-
-            var citiesData = CSVDataReader.GetDataEntries(@"..\..\..\..\cities.csv");
-            var manyCities = from i in Enumerable.Range(0, citiesData.Count)
-                                select new City
-                                {
-                                    DepartmentCode = citiesData[i][0],
-                                    ZipCode = citiesData[i][1],
-                                    Name = citiesData[i][2],
-                                    Department = context.Departments.Where(d => d.DepartmentCode.Equals(citiesData[i][0])).First()
-                                };
-            context.AddRange(manyCities);
-            context.SaveChanges();
-
-            return manyCities.ToList();
-        }
-
-        public static List<Adress> CreateAdresses(List<City> cities, int numberOfAdressesPerCity)
-        {
-            List<Adress> adresses = new List<Adress>();
+            List<Address> adresses = new List<Address>();
             int adressesCounter = 0;
             foreach (City city in cities)
             {
                 for (int i = 0; i < numberOfAdressesPerCity; i++)
                 {
-                    Adress adress = new Adress();
-                    adress.StreetNumber = $"{numberOfAdressesPerCity}";
-                    adress.StreetName = $"street n° {adressesCounter};{numberOfAdressesPerCity}";
-                    adress.City = city;
-                    adresses.Add(adress);
+                    Address address = new Address();
+                    address.StreetNumber = $"{numberOfAdressesPerCity}";
+                    address.StreetName = $"street n° {adressesCounter};{numberOfAdressesPerCity}";
+                    address.City = city;
+                    adresses.Add(address);
                     adressesCounter++;
                 }
             }
+            /*using (var context = new PressContext())
+            {
+                context.AddRange(adresses);
+                context.SaveChanges();
+            }*/
             return adresses;
         }
 
-        public static List<Shop> CreateShops(List<Adress> adresses)
+        public static List<Shop> CreateShops(List<Address> adresses)
         {
             List<Shop> shops = new List<Shop>();
             int shopCounter = 0;
-            foreach (Adress adress in adresses)
+            foreach (Address adress in adresses)
             {
                 Shop shop = new Shop();
                 shop.Name = $"Shop n° {shopCounter}";
@@ -220,28 +186,10 @@ namespace Project_3___Press_Project
             return catalogs;
         }
 
-
-        public static List<OrderCatalog> CreateOrderCatalogs(List<Catalog> catalogs)
+        public static List<OrderCatalog> CreateOrderCatalogs(List<Order> orders)
         {
             List<OrderCatalog> orderCatalogs = new List<OrderCatalog>();
-            foreach (Catalog catalog in catalogs)
-            {
-                Random randomGenerator = new Random();
-                OrderCatalog orderCatalog = new OrderCatalog();
-                orderCatalog.Catalog = catalog;
-                orderCatalog.CatalogId = catalog.CatalogId;
-                orderCatalog.Quantity = randomGenerator.Next(10, 1000);
-
-                catalog.OrderCatalog = orderCatalog;
-
-                orderCatalogs.Add(orderCatalog);
-            }
-            return orderCatalogs;
-        }
-
-        public static List<OrderCatalog> CreateOrderCatalogsV2(List<Order> orders)
-        {
-            List<OrderCatalog> orderCatalogs = new List<OrderCatalog>();
+            Random randomGenerator = new Random();
 
             foreach(Order order in orders)
             {
@@ -251,7 +199,7 @@ namespace Project_3___Press_Project
                     OrderCatalog orderCatalog = new OrderCatalog();
                     orderCatalog.Order = order;
                     orderCatalog.OrderId = order.OrderId;
-
+                    orderCatalog.Quantity = randomGenerator.Next(100, 1000);
                     tempOrderCatalog.Add(orderCatalog);
                     orderCatalogs.Add(orderCatalog);
                 }
@@ -289,11 +237,6 @@ namespace Project_3___Press_Project
                 for (int orderCounterPerShop = 0; orderCounterPerShop < 3; orderCounterPerShop++)
                 {
                     Order order = new Order();
-                    /*order.OrderCatalogs = orderCatalogs;
-                    foreach (OrderCatalog orderCatalog in orderCatalogs)
-                    {
-                        orderCatalog.Order = order;
-                    }*/
                     order.Shop = shop;
                     order.ShopId = shop.ShopId;
                     order.OrderDate = DateTime.Now + TimeSpan.FromDays(randomGenerator.Next(1, 100));
@@ -313,10 +256,10 @@ namespace Project_3___Press_Project
         public static void LinkOrderToOrderCatalog(List<Order> orders, List<OrderCatalog> orderCatalogs)
         {
             Random randomGenerator = new Random();
-            foreach(Order order in orders)
+            foreach (Order order in orders)
             {
                 List<OrderCatalog> tempOrderCatalog = new List<OrderCatalog>();
-                for (int counter = 0; counter<3; counter++)
+                for (int counter = 0; counter < 3; counter++)
                 {
                     int randomNumber = randomGenerator.Next(0, orderCatalogs.Count);
                     tempOrderCatalog.Add(orderCatalogs[randomNumber]);
@@ -327,7 +270,7 @@ namespace Project_3___Press_Project
             }
         }
 
-       
+
         public static List<User> CreateUsers(int numberOfUsers)
         {
             List<User> users = new List<User>();
