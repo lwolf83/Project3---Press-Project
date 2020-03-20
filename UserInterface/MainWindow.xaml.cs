@@ -93,5 +93,13 @@ namespace UserInterface
                 }
             }            
         }
+        // To remove the following method. Just for test purposes + button in XAML
+        private void ButtonAddShopPage_Click(object sender, RoutedEventArgs e)
+        {
+            UserControl usc = null;
+            GridMain.Children.Clear();
+            usc = new UserControlAddShop();
+            GridMain.Children.Add(usc);
+        }
     }
 }
