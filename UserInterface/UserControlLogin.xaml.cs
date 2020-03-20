@@ -29,13 +29,9 @@ namespace NavigationDrawerPopUpMenu2
 
             if (authentification.LoginUsers(txtUserNameBox.Text, txtPasswordBox.Password))
             {
-                UserControl usc = new UserControlShop();
-                (this.Parent as MainWindow).GridMain.Children.Add(usc);
-
-                /*
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.notConnected = false;
-                mainWindow.Show();*/
+                MainWindow.notConnected = false;
+                UserControl usc = new UserControlLogoutClose();
+                this.Content = usc;
             }
             else
             {

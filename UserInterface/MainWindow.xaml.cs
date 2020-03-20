@@ -21,7 +21,7 @@ namespace NavigationDrawerPopUpMenu2
     /// </summary>
     public partial class MainWindow : Window
     {
-        public bool notConnected { get; set; } = true;
+        public static bool notConnected { get; set; } = true;
 
         public MainWindow()
         {
@@ -42,33 +42,16 @@ namespace NavigationDrawerPopUpMenu2
 
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
-            LogoutMessageBox.Visibility = Visibility.Visible;
-        }
-
-        private void ButtonLogoutApplicationYes_Click(object sender, RoutedEventArgs e)
-        {
-            notConnected = true;
-            LogoutMessageBox.Visibility = Visibility.Collapsed;
-        }
-
-        private void ButtonLogoutApplicationNo_Click(object sender, RoutedEventArgs e)
-        {
-            LogoutMessageBox.Visibility = Visibility.Collapsed;
+            UserControl usc = new UserControlLogoutClose("Logout");
+            GridMain.Children.Clear();
+            GridMain.Children.Add(usc);
         }
 
         private void ButtonCloseApplication_Click(object sender, RoutedEventArgs e)
-        {
-            CloseMessageBox.Visibility = Visibility.Visible;
-        }
-
-        private void ButtonCloseApplicationYes_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-        private void ButtonCloseApplicationNo_Click(object sender, RoutedEventArgs e)
-        {
-            CloseMessageBox.Visibility = Visibility.Collapsed;
+        {            
+            UserControl usc = new UserControlLogoutClose("Close");
+            GridMain.Children.Clear();
+            GridMain.Children.Add(usc);                      
         }
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
