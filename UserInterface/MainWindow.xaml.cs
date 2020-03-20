@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 //using MessageBox = System.Windows.Forms.MessageBox;
 
-namespace NavigationDrawerPopUpMenu2
+namespace UserInterface
 {
     /// <summary>
     /// Interação lógica para MainWindow.xam
@@ -98,6 +98,14 @@ namespace NavigationDrawerPopUpMenu2
                 }
             }
             
+        }
+        // To remove the following method. Just for test purposes + button in XAML
+        private void ButtonAddShopPage_Click(object sender, RoutedEventArgs e)
+        {
+            UserControl usc = null;
+            GridMain.Children.Clear();
+            usc = new UserControlAddShop();
+            GridMain.Children.Add(usc);
         }
     }
 }
