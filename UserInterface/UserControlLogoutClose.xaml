@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="NavigationDrawerPopUpMenu2.UserControlLogoutClose"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NavigationDrawerPopUpMenu2"
+             mc:Ignorable="d"
+             Background="#FFDEDEDE">
+    <Grid Height="600" Width="600">
+        <Grid x:Name="LogoutMessageBox" HorizontalAlignment="Center" Height="110" Margin="0,153,0,0" VerticalAlignment="Top" Width="380" Visibility="Collapsed">
+            <TextBlock Height="30" Margin="10,10,10,70" Text="Do you want to Log out ?" TextWrapping="Wrap" Width="auto" Foreground="Black" TextAlignment="Center" FontFamily="Arial" FontSize="20" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="60" VerticalAlignment="Bottom"  Width="360">
+                <Button x:Name="bntLogoutApplication_Yes" Click="ButtonLogoutApplicationYes_Click" Content="Yes" Margin="30,10,50,10" Width="110" Background="#FF183FEE" BorderBrush="#FF183FEE" FontFamily="Arial" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                <Button x:Name="bntLogoutApplication_Non" Click="ButtonLogoutApplicationNo_Click" Content="No" Margin="30,10,50,10" Width="110" Background="#FF183FEE" BorderBrush="#FF183FEE" FontFamily="Arial" FontSize="20" FontWeight="Bold" Foreground="White"/>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="CloseMessageBox" HorizontalAlignment="Center" Height="110" Margin="0,153,0,0" VerticalAlignment="Top" Width="380" Visibility="Collapsed">
+            <TextBlock Height="30" Margin="10,10,10,70" Text="Do you want to quit the application ?" TextWrapping="Wrap" Width="auto" Foreground="Black" TextAlignment="Center" FontFamily="Arial" FontSize="20" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="60" VerticalAlignment="Bottom"  Width="360">
+                <Button x:Name="bntCloseApplication_Yes" Click="ButtonCloseApplicationYes_Click" Content="Yes" Margin="30,10,50,10" Width="110" Background="#FF183FEE" BorderBrush="#FF183FEE" FontFamily="Arial" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                <Button x:Name="bntCloseApplication_No" Click="ButtonCloseApplicationNo_Click" Content="No" Margin="30,10,50,10" Width="110" Background="#FF183FEE" BorderBrush="#FF183FEE" FontFamily="Arial" FontSize="20" FontWeight="Bold" Foreground="White"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
