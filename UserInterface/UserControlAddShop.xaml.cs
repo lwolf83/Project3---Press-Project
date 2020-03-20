@@ -38,17 +38,23 @@ namespace UserInterface
                 if (shopCreated)
                 {
                     Reset();
-                    //Show green message - shop creation successfull
+                    MessageGrid.Background = Brushes.LightGreen;
+                    Message.Content = "Shop is successfully created !";
+                    MessageGrid.Visibility = Visibility.Visible;
                 }
                 else
                 {
                     Reset();
-                    //Show red message - shop creation failed due to invalid City
+                    MessageGrid.Background = Brushes.IndianRed;
+                    Message.Content = "Shop creation failed. Please enter a valid city";
+                    MessageGrid.Visibility = Visibility.Visible;
                 }
             }
             else
             {
-                //Show a yellow message telling to complete the form
+                MessageGrid.Background = Brushes.LightGoldenrodYellow;
+                Message.Content = "Please fill up all the required fields !";
+                MessageGrid.Visibility = Visibility.Visible;
             }
 
         }
@@ -94,6 +100,11 @@ namespace UserInterface
                 textChildren.AddRange(textBoxes);
             }
             return textChildren;
+        }
+
+        private void OkButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageGrid.Visibility = Visibility.Hidden;
         }
     }
 }
