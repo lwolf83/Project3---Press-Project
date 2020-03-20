@@ -10,12 +10,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Project_3___Press_Project;
 
-namespace NavigationDrawerPopUpMenu2
+namespace UserInterface
 {
-    /// <summary>
-    /// Interaction logic for UserControlLogoutClose.xaml
-    /// </summary>
     public partial class UserControlLogoutClose : UserControl
     {
         public UserControlLogoutClose(string text = null)
@@ -24,8 +22,9 @@ namespace NavigationDrawerPopUpMenu2
 
             if (text is "Logout")
             {
-                if (MainWindow.notConnected)
+                if (UserSingleton.GetInstance.IsAuthenticated)
                 {
+                    UserSingleton.GetInstance.Disconnect();
                     UserControl usc = new UserControlLogin();
                     this.Content = usc;                    
                 }
@@ -42,7 +41,7 @@ namespace NavigationDrawerPopUpMenu2
 
         private void ButtonLogoutApplicationYes_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.notConnected = true;
+            UserSingleton.GetInstance.Disconnect();
             LogoutMessageBox.Visibility = Visibility.Collapsed;
         }
 

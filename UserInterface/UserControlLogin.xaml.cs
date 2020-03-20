@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Project_3___Press_Project;
 
-namespace NavigationDrawerPopUpMenu2
+namespace UserInterface
 {
     public partial class UserControlLogin : UserControl
     {
@@ -25,12 +25,10 @@ namespace NavigationDrawerPopUpMenu2
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            IAuthentification authentification = new Authentification();
-
-            if (authentification.LoginUsers(txtUserNameBox.Text, txtPasswordBox.Password))
+            UserSingleton.GetInstance.Init(txtUserNameBox.Text, txtPasswordBox.Password);
+            if (UserSingleton.GetInstance.IsAuthenticated)
             {
-                MainWindow.notConnected = false;
-                UserControl usc = new UserControlLogoutClose();
+                UserControl usc = new UserControlShop();
                 this.Content = usc;
             }
             else
