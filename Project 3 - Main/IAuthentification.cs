@@ -6,6 +6,6 @@ namespace Project_3___Press_Project
 {
     public interface IAuthentification
     {
-        bool LoginUsers(string username, string password);
+        bool LoginUsers(string login, string password);
     }
 }

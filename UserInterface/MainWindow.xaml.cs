@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
-//using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace NavigationDrawerPopUpMenu2
 {
@@ -40,23 +39,36 @@ namespace NavigationDrawerPopUpMenu2
             ButtonCloseMenu.Visibility = Visibility.Collapsed;
             ButtonOpenMenu.Visibility = Visibility.Visible;
         }
+
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
-            GridMain.Children.Clear();
+            LogoutMessageBox.Visibility = Visibility.Visible;
+        }
+
+        private void ButtonLogoutApplicationYes_Click(object sender, RoutedEventArgs e)
+        {
             notConnected = true;
+            LogoutMessageBox.Visibility = Visibility.Collapsed;
+        }
+
+        private void ButtonLogoutApplicationNo_Click(object sender, RoutedEventArgs e)
+        {
+            LogoutMessageBox.Visibility = Visibility.Collapsed;
         }
 
         private void ButtonCloseApplication_Click(object sender, RoutedEventArgs e)
-        {/*
-            string message = "Do you want to quit the application";
-            string title = "Close Application";
-            System.Windows.Forms.MessageBoxButtons buttons = System.Windows.Forms.MessageBoxButtons.YesNo;
-            System.Windows.Forms.DialogResult result = MessageBox.Show(message, title, buttons);
+        {
+            CloseMessageBox.Visibility = Visibility.Visible;
+        }
 
-            if (result == System.Windows.Forms.DialogResult.Yes)
-            {
-                Application.Current.Shutdown();
-            }        */
+        private void ButtonCloseApplicationYes_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void ButtonCloseApplicationNo_Click(object sender, RoutedEventArgs e)
+        {
+            CloseMessageBox.Visibility = Visibility.Collapsed;
         }
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -96,8 +108,7 @@ namespace NavigationDrawerPopUpMenu2
                     default:
                         break;
                 }
-            }
-            
+            }            
         }
     }
 }

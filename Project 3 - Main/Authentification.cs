@@ -8,13 +8,13 @@ namespace Project_3___Press_Project
 {
     public class Authentification : IAuthentification
     {
-        public bool LoginUsers(string username, string password)
+        public bool LoginUsers(string login, string password)
         {
             String encryptedPassword = CryptPassword(password.ToString());
 
             using (var context = new PressContext())
             {
-                return context.Users.Where(x => x.Name.Equals(username) && x.Password.Equals(encryptedPassword)).Any();
+                return context.Users.Where(x => x.Login.Equals(login) && x.Password.Equals(encryptedPassword)).Any();
             }
         }
         private String CryptPassword(string password)
