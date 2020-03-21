@@ -6,5 +6,7 @@
              xmlns:local="clr-namespace:UserInterface"
              mc:Ignorable="d" 
              >
-    <Grid Background="#FF185726" Height="800" Width="800"/>
+    <Grid Background="#FF185726" Height="800" Width="800">
+        <Button Content="AddShop" Click="ButtonAddShopPage_Click" Margin="324,254,64,514"/>
+    </Grid>
 </UserControl>
