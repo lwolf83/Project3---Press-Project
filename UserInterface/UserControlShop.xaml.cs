@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Project_3___Press_Project;
 
 namespace UserInterface
 {
@@ -20,6 +21,12 @@ namespace UserInterface
         public UserControlShop()
         {
             InitializeComponent();
+        }
+
+        private void ButtonAddShopPage_Click(object sender, RoutedEventArgs e)
+        {
+            UserControl usc = new UserControlAddShop();
+            this.Content = usc;
         }
     }
 }

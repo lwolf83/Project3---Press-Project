@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Project_3___Press_Project;
 
 namespace UserInterface
 {
@@ -21,11 +22,11 @@ namespace UserInterface
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static bool notConnected { get; set; } = true;
-
         public MainWindow()
         {
             InitializeComponent();
+            UserControl usc = new UserControlLogin();
+            GridMain.Children.Add(usc);
         }
         
         private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
@@ -59,7 +60,7 @@ namespace UserInterface
             UserControl usc = null;
             GridMain.Children.Clear();
             
-            if(notConnected)
+            if(!UserSingleton.GetInstance.IsAuthenticated)
             {
                 usc = new UserControlLogin();
                 GridMain.Children.Add(usc);

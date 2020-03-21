@@ -25,12 +25,10 @@ namespace UserInterface
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            IAuthentification authentification = new Authentification();
-
-            if (authentification.LoginUsers(txtUserNameBox.Text, txtPasswordBox.Password))
+            UserSingleton.GetInstance.Init(txtUserNameBox.Text, txtPasswordBox.Password);
+            if (UserSingleton.GetInstance.IsAuthenticated)
             {
-                MainWindow.notConnected = false;
-                UserControl usc = new UserControlLogoutClose();
+                UserControl usc = new UserControlShop();
                 this.Content = usc;
             }
             else
