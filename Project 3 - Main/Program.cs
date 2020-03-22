@@ -17,14 +17,18 @@ namespace Project_3___Press_Project
                 Console.WriteLine(c);
             }*/
 
-            CSVImporter importer = new CSVImporter();
+            /*CSVImporter importer = new CSVImporter();
             importer.BaseDirectoryPath = AppDomain.CurrentDomain.BaseDirectory;
-            IEnumerable<Department> provinces = importer.ImportDepartments();
+            IEnumerable<Province> provinces = importer.ImportProvinces();
 
-            foreach(var p in provinces)
+            foreach (var c in provinces)
             {
-                Console.WriteLine(p);
-            }
+                Console.WriteLine(c);
+            }*/
+
+            ContextPopulator populator = new ContextPopulator();
+            populator.Populate();
+            Console.WriteLine("fini");
         }
     }
 }

@@ -85,7 +85,89 @@ namespace Project_3___Press_Project
 
             context.SaveChanges();
             Console.WriteLine("fini");*/
+
+            //context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+
+            /*string france = "France";
+            List<String> countries = new List<string>();
+            countries.Add(france);
+            ContextPopulator populator = new ContextPopulator();
+            populator.CreateCountry();
+            populator.ImportProvincesInDB();
+            populator.ImportDepartmentsInDB();
+            populator.ImportCitiesInDB();*/
+
+            //List<City> citiesInMemory = context.Cities.ToList();
+
+            foreach(City city in context.Cities.ToList())
+            {
+                //city.Department = context.Departments.Where(d => d.DepartmentCode.Equals(city.DepartmentCode));
+                var dpt = from Departments in context.Departments
+                          join Cities in context.Cities on Departments.DepartmentCode equals Cities.DepartmentCode
+                          where ((Departments.DepartmentCode == Cities.DepartmentCode) && (Cities.CityId == city.CityId))
+                          select new Department() {DepartmentCode = Departments.DepartmentCode, DepartmentId = Departments.DepartmentId, DepartmentName = Departments.DepartmentName };
+
+                city.Department = dpt.FirstOrDefault();
+
+                /*SELECT Department.DepartmentId FROM Departments
+                INNER JOIN Cities ON cities.departmentId = departments.departmentId
+                Where departmentId = cities.DepartmentId*/
+            }
+
+            context.SaveChanges();
         }
+
+        public void CreateCountry()
+        {
+            Country country = new Country { Name = "France" };
+            context.Add(country);
+            
+            context.SaveChanges();
+        }
+
+        public void ImportProvincesInDB()
+        {
+            CSVImporter importer = new CSVImporter();
+            importer.BaseDirectoryPath = AppDomain.CurrentDomain.BaseDirectory;
+            IEnumerable<Province> provinces = importer.ImportProvinces();
+
+            context.AddRange(provinces);
+            context.SaveChanges();
+
+
+            //context.Countries.First().Province = provinces.ToList();
+            foreach (Province province in context.Provinces)
+            {
+                Console.WriteLine(provinces);
+                //province.Country = context.Countries.First();
+            }
+            context.SaveChanges();
+            
+        }
+
+        public void ImportDepartmentsInDB()
+        {
+            CSVImporter importer = new CSVImporter();
+            importer.BaseDirectoryPath = AppDomain.CurrentDomain.BaseDirectory;
+            IEnumerable<Department> departments = importer.ImportDepartments();
+
+            context.AddRange(departments);
+            context.SaveChanges();
+
+        }
+
+        public void ImportCitiesInDB()
+        {
+            CSVImporter importer = new CSVImporter();
+            importer.BaseDirectoryPath = AppDomain.CurrentDomain.BaseDirectory;
+            IEnumerable<City> cities = importer.ImportCities();
+
+            context.AddRange(cities);
+            context.SaveChanges();
+        }
+
+
 
         public static List<Address> CreateAddresses(List<City> cities, int numberOfAdressesPerCity)
         {
