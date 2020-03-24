@@ -33,36 +33,19 @@ namespace Project_3___Press_Project
             populator.ImportCitiesInDB();
             populator.LinkLocations();
 
-
             populator.CreateAddresses(5);
-
             populator.CreateShops();
-
             populator.CreateEditors(3);
-
             populator.CreateNewspapers(3);
-
             populator.CreateCatalogs(2);
-
             populator.CreateUsers(100);
-
             populator.LinkUserToShop();
-
             populator.CreateShopCatalogs();
-
             populator.CreateOrders();
-
-
-            // Bug sur CreateOrderCatalogsV2 et/ou LinkOrderCatalogToCatalog
-            // https://docs.microsoft.com/fr-fr/ef/core/saving/concurrency
             populator.CreateOrderCatalogs();
-
-
-            
 
             context.SaveChanges();
             Console.WriteLine("fini"); 
-
         }
 
         public void CreateCountry()
@@ -143,7 +126,6 @@ namespace Project_3___Press_Project
 
             context.SaveChanges();
         }
-
 
 
         public void CreateAddresses(int numberOfCitiesWithAnAddress)
@@ -326,23 +308,7 @@ namespace Project_3___Press_Project
             context.SaveChanges();
         }
 
-        public void LinkOrderToOrderCatalog(List<Order> orders, List<OrderCatalog> orderCatalogs)
-        {
-            Random randomGenerator = new Random();
-            foreach (Order order in orders)
-            {
-                List<OrderCatalog> tempOrderCatalog = new List<OrderCatalog>();
-                for (int counter = 0; counter < 3; counter++)
-                {
-                    int randomNumber = randomGenerator.Next(0, orderCatalogs.Count);
-                    tempOrderCatalog.Add(orderCatalogs[randomNumber]);
-                    orderCatalogs[randomNumber].Order = order;
-                    orderCatalogs[randomNumber].OrderId = order.OrderId;
-                }
-                order.OrderCatalogs = tempOrderCatalog;
-            }
-        }
-
+        
         public void CreateUsers(int numberOfUsers)
         {
             for (int i = 0; i < numberOfUsers; i++)
