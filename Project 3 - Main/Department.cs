@@ -12,5 +12,10 @@ namespace Project_3___Press_Project
         public string DepartmentName { get; set; }
         public Province Province { get; set; }
         public virtual ICollection<City> Cities { get; set; }
+
+        public override string ToString()
+        {
+            return $"{DepartmentName} - {ProvinceCode} - {DepartmentCode}";
+        }
     }
 }

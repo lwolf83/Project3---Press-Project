@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="Project_3___Press_Project.Address" Collapsed="true">
+    <Position X="1.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACIAAAIAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Adress.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="City" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Project_3___Press_Project.Catalog">
+    <Position X="9.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAASAAAAAAgAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Catalog.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Newspaper" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Project_3___Press_Project.City" Collapsed="true">
+    <Position X="1.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAQAEAAAAAABAAAAAABAAAA=</HashCode>
+      <FileName>City.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project_3___Press_Project.Country">
+    <Position X="1.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Country.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Province" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Project_3___Press_Project.Department" Collapsed="true">
+    <Position X="1.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAEAAAAgAAAAAAAAAAAAAAAAAAAAQAAAgBAAAA=</HashCode>
+      <FileName>Department.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Cities" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Project_3___Press_Project.Editor">
+    <Position X="13" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAQAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Editor.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Newspapers" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Project_3___Press_Project.Newspaper">
+    <Position X="11.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAQAABAACQAAAAAQAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Newspaper.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Editor" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Catalogs" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Project_3___Press_Project.Order" Collapsed="true">
+    <Position X="5.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>WAABAgAAAAAAAAAABAAAAAgAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Order.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Shop" />
+      <Property Name="User" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="OrderCatalogs" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Project_3___Press_Project.OrderCatalog">
+    <Position X="7.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ECEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAgAAAAAg=</HashCode>
+      <FileName>OrderCatalog.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Catalog" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Project_3___Press_Project.Province" Collapsed="true">
+    <Position X="1.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAACAAAACAAAAQAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Province.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Departments" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Project_3___Press_Project.Shop" Collapsed="true">
+    <Position X="3.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAUAAAAAAAAAAAAAAAAAACQAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shop.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Orders" />
+      <Property Name="ShopCatalogs" />
+      <Property Name="UserShops" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Project_3___Press_Project.ShopCatalog">
+    <Position X="5.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAABAACAAAAAAAAAgAAAAAg=</HashCode>
+      <FileName>ShopCatalog.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Catalog" />
+      <Property Name="Shop" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Project_3___Press_Project.User" Collapsed="true">
+    <Position X="5.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAA4AAAAAAAACAAAQAAAAAAA=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="UserShops" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Project_3___Press_Project.UserShop" Collapsed="true">
+    <Position X="3.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAABAAAAAAAAAAAAAAAAAAgAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserShop.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

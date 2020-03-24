@@ -8,7 +8,7 @@ namespace Project_3___Press_Project
     {
         public Guid CatalogId { get; set; }
         public Newspaper Newspaper { get; set; }
-        public OrderCatalog OrderCatalog { get; set; }
+        public IEnumerable<OrderCatalog> OrderCatalogs { get; set; }
         public DateTime PublicationDate { get; set; }
 
         public ICollection<ShopCatalog> ShopCatalogs { get; set; }

@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 
+
 namespace Project_3___Press_Project
 {
     public class PressContext : DbContext
@@ -11,10 +12,10 @@ namespace Project_3___Press_Project
         public DbSet<Country> Countries { get; set; }
         public DbSet<Province> Provinces { get; set; }
         public DbSet<Department> Departments { get; set; }
-
+        public DbSet<Catalog> Catalogs { get; set; }
         public DbSet<City> Cities { get; set; }
 
-        public DbSet<Adress> Adresses { get; set; }
+        public DbSet<Address> Adresses { get; set; }
         public DbSet<Editor> Editors { get; set; }
         public DbSet<Newspaper> Newspapers { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -26,7 +27,7 @@ namespace Project_3___Press_Project
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            builder.UseSqlServer(@"Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=Project3_Press;Integrated Security=True");
+            builder.UseSqlServer(@"Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=Project3_PressV2;Integrated Security=True; MultipleActiveResultSets=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -53,6 +54,15 @@ namespace Project_3___Press_Project
                 .HasOne(sc => sc.Shop)
                 .WithMany(c => c.ShopCatalogs)
                 .HasForeignKey(sc => sc.ShopId);
+
+            modelBuilder.Entity<OrderCatalog>()
+                .HasOne<Order>(oc => oc.Order)
+                .WithMany(o => o.OrderCatalogs)
+                .HasForeignKey(oc => oc.OrderId);
+/*
+            modelBuilder.Entity<OrderCatalog>()
+                .HasOne<Catalog>(c => c.Catalog)
+                .WithOne(oc => oc.OrderCatalog);*/
         }
     }
 }

@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Project_3___Press_Project
 {
-    public class Adress
+    public class Address
     {
-        public Guid AdressId { get; set; }
+        public Guid AddressId { get; set; }
         public string StreetNumber { get; set; }
         public string StreetName { get; set; }
         public City City { get; set; }
