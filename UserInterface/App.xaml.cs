@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace NavigationDrawerPopUpMenu2
+namespace UserInterface
 {
     /// <summary>
     /// Interação lógica para App.xaml

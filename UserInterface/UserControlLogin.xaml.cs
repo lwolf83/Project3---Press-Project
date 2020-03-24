@@ -12,8 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Project_3___Press_Project;
 
-namespace NavigationDrawerPopUpMenu2
+namespace UserInterface
 {
     public partial class UserControlLogin : UserControl
     {
@@ -24,20 +25,17 @@ namespace NavigationDrawerPopUpMenu2
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            /*IAuthentification authentification = new Authentification();
-             txtPasswordBox.Password = authentification.CryptPassword(txtPasswordBox.Password);
-
-            if (authentification.LoginUsers(txtUserNameBox.Text, txtPasswordBox.Password))
+            UserSingleton.GetInstance.Init(txtUserNameBox.Text, txtPasswordBox.Password);
+            if (UserSingleton.GetInstance.IsAuthenticated)
             {
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.notConnected = false;
-                mainWindow.Show();
+                UserControl usc = new UserControlShop();
+                this.Content = usc;
             }
             else
             {
-                MessageBox.Show("Not valid Username or/and Password");
+                txtMessageBox.Visibility = Visibility.Visible;
                 Reset();
-            }*/
+            }
         }
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {

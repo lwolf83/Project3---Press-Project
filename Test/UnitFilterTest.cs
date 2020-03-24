@@ -5,7 +5,7 @@ namespace Project_3___Press_Project
 {
     public class FilterTests
     {
-        private List<Shop> Shops { get; set; } = new List<Shop>();
+       /* private List<Shop> Shops { get; set; } = new List<Shop>();
 
         [SetUp]
         public void Setup()
@@ -80,6 +80,6 @@ namespace Project_3___Press_Project
 
             shopResult = Shops;
             Assert.AreEqual(shopResult, ShopFilter.ByProvince(Shops, ""));
-        }
+        }*/
     }
 }
