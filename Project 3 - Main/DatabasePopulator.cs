@@ -86,33 +86,43 @@ namespace Project_3___Press_Project
             context.SaveChanges();
             Console.WriteLine("fini");*/
 
-            //context.Database.EnsureDeleted();
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
-            /*string france = "France";
+            string france = "France";
             List<String> countries = new List<string>();
             countries.Add(france);
             ContextPopulator populator = new ContextPopulator();
             populator.CreateCountry();
             populator.ImportProvincesInDB();
             populator.ImportDepartmentsInDB();
-            populator.ImportCitiesInDB();*/
+            populator.ImportCitiesInDB();
 
             //List<City> citiesInMemory = context.Cities.ToList();
 
-            foreach(City city in context.Cities.ToList())
+            foreach (City city in context.Cities.ToList())
             {
-                //city.Department = context.Departments.Where(d => d.DepartmentCode.Equals(city.DepartmentCode));
                 var dpt = from Departments in context.Departments
                           join Cities in context.Cities on Departments.DepartmentCode equals Cities.DepartmentCode
                           where ((Departments.DepartmentCode == Cities.DepartmentCode) && (Cities.CityId == city.CityId))
-                          select new Department() {DepartmentCode = Departments.DepartmentCode, DepartmentId = Departments.DepartmentId, DepartmentName = Departments.DepartmentName };
+                          select Departments;
 
                 city.Department = dpt.FirstOrDefault();
+            }
 
-                /*SELECT Department.DepartmentId FROM Departments
-                INNER JOIN Cities ON cities.departmentId = departments.departmentId
-                Where departmentId = cities.DepartmentId*/
+            foreach (Department department in context.Departments.ToList())
+            {
+                var prv = from Provinces in context.Provinces
+                          join Departments in context.Departments on Provinces.ProvinceCode equals Departments.ProvinceCode
+                          where ((Provinces.ProvinceCode == Departments.ProvinceCode) && (Departments.DepartmentId == department.DepartmentId))
+                          select Provinces;
+
+                department.Province = prv.FirstOrDefault();
+            }
+
+            foreach(Province province in context.Provinces.ToList())
+            {
+                province.Country = context.Countries.FirstOrDefault();
             }
 
             context.SaveChanges();
