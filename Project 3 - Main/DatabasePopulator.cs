@@ -18,73 +18,8 @@ namespace Project_3___Press_Project
 
         public void Populate()
         {
-            /*
-            //context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
+            ContextPopulator populator = new ContextPopulator();
 
-            List<City> cities = new List<City>();
-            cities = ContextPopulator.PopulateDBLocations_FromCSV(context);
-
-            Random randomGenerator = new Random();
-            List<City> randomCities = new List<City>();
-            IEnumerable<City> DBcities = context.Cities.AsEnumerable();
-            for (int counter = 0; counter < 15; counter++)
-            {
-                randomCities.Add(DBcities.ElementAt(counter));
-            }
-            Console.WriteLine(randomCities[0].Name);
-            Console.WriteLine(randomCities[1].Name);
-            Console.WriteLine(randomCities[2].Name);
-
-            List<Address> addresses = ContextPopulator.CreateAddresses(randomCities, 1);
-            //IEnumerable<Address> DBAdresses = ;
-
-            List<Shop> shops = new List<Shop>();
-            shops = ContextPopulator.CreateShops(addresses);
-
-            List<Editor> editors = new List<Editor>();
-            editors = ContextPopulator.CreateEditors(3);
-
-            List<Newspaper> newspapers = new List<Newspaper>();
-            newspapers = ContextPopulator.CreateNewspapers(editors, 3);
-
-            List<Catalog> catalogs = new List<Catalog>();
-            catalogs = ContextPopulator.CreateCatalogs(newspapers, 2);
-
-            List<User> users = new List<User>();
-            users = ContextPopulator.CreateUsers(100);
-
-            List<UserShop> userShops = new List<UserShop>();
-            userShops = ContextPopulator.LinkUserToShop(users, shops);
-
-            List<ShopCatalog> shopCatalogs = new List<ShopCatalog>();
-            shopCatalogs = ContextPopulator.CreateShopCatalogs(shops, catalogs);
-
-            List<Order> orders = new List<Order>();
-            orders = ContextPopulator.CreateOrders(shops, userShops, users);
-            context.AddRange(orders);
-
-            // Bug sur CreateOrderCatalogsV2 et/ou LinkOrderCatalogToCatalog
-            // https://docs.microsoft.com/fr-fr/ef/core/saving/concurrency
-            List<OrderCatalog> orderCatalogs = new List<OrderCatalog>();
-            orderCatalogs = ContextPopulator.CreateOrderCatalogs(orders);
-
-            ContextPopulator.LinkOrderCatalogToCatalog(orderCatalogs, catalogs);
-
-            context.AddRange(shops);
-            context.AddRange(editors);
-            context.AddRange(newspapers);
-            context.AddRange(catalogs);
-            context.AddRange(userShops);
-            context.AddRange(shopCatalogs);
-            context.AddRange(users);
-
-               
-
-            context.AddRange(orderCatalogs);
-
-            context.SaveChanges();
-            Console.WriteLine("fini");*/
 
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
@@ -92,40 +27,42 @@ namespace Project_3___Press_Project
             string france = "France";
             List<String> countries = new List<string>();
             countries.Add(france);
-            ContextPopulator populator = new ContextPopulator();
             populator.CreateCountry();
             populator.ImportProvincesInDB();
             populator.ImportDepartmentsInDB();
             populator.ImportCitiesInDB();
+            populator.LinkLocations();
 
-            //List<City> citiesInMemory = context.Cities.ToList();
 
-            foreach (City city in context.Cities.ToList())
-            {
-                var dpt = from Departments in context.Departments
-                          join Cities in context.Cities on Departments.DepartmentCode equals Cities.DepartmentCode
-                          where ((Departments.DepartmentCode == Cities.DepartmentCode) && (Cities.CityId == city.CityId))
-                          select Departments;
+            populator.CreateAddresses(5);
 
-                city.Department = dpt.FirstOrDefault();
-            }
+            populator.CreateShops();
 
-            foreach (Department department in context.Departments.ToList())
-            {
-                var prv = from Provinces in context.Provinces
-                          join Departments in context.Departments on Provinces.ProvinceCode equals Departments.ProvinceCode
-                          where ((Provinces.ProvinceCode == Departments.ProvinceCode) && (Departments.DepartmentId == department.DepartmentId))
-                          select Provinces;
+            populator.CreateEditors(3);
 
-                department.Province = prv.FirstOrDefault();
-            }
+            populator.CreateNewspapers(3);
 
-            foreach(Province province in context.Provinces.ToList())
-            {
-                province.Country = context.Countries.FirstOrDefault();
-            }
+            populator.CreateCatalogs(2);
+
+            populator.CreateUsers(100);
+
+            populator.LinkUserToShop();
+
+            populator.CreateShopCatalogs();
+
+            populator.CreateOrders();
+
+
+            // Bug sur CreateOrderCatalogsV2 et/ou LinkOrderCatalogToCatalog
+            // https://docs.microsoft.com/fr-fr/ef/core/saving/concurrency
+            populator.CreateOrderCatalogs();
+
+
+            
 
             context.SaveChanges();
+            Console.WriteLine("fini"); 
+
         }
 
         public void CreateCountry()
@@ -177,35 +114,65 @@ namespace Project_3___Press_Project
             context.SaveChanges();
         }
 
-
-
-        public static List<Address> CreateAddresses(List<City> cities, int numberOfAdressesPerCity)
+        public void LinkLocations()
         {
-            List<Address> adresses = new List<Address>();
-            int adressesCounter = 0;
-            foreach (City city in cities)
+            foreach (City city in context.Cities)
             {
-                for (int i = 0; i < numberOfAdressesPerCity; i++)
-                {
-                    Address address = new Address();
-                    address.StreetNumber = $"{numberOfAdressesPerCity}";
-                    address.StreetName = $"street n° {adressesCounter};{numberOfAdressesPerCity}";
-                    address.City = city;
-                    adresses.Add(address);
-                    adressesCounter++;
-                }
+                var dpt = from Departments in context.Departments
+                          join Cities in context.Cities on Departments.DepartmentCode equals Cities.DepartmentCode
+                          where ((Departments.DepartmentCode == Cities.DepartmentCode) && (Cities.CityId == city.CityId))
+                          select Departments;
+
+                city.Department = dpt.FirstOrDefault();
             }
-            /*using (var context = new PressContext())
+
+            foreach (Department department in context.Departments)
             {
-                context.AddRange(adresses);
-                context.SaveChanges();
-            }*/
-            return adresses;
+                var prv = from Provinces in context.Provinces
+                          join Departments in context.Departments on Provinces.ProvinceCode equals Departments.ProvinceCode
+                          where ((Provinces.ProvinceCode == Departments.ProvinceCode) && (Departments.DepartmentId == department.DepartmentId))
+                          select Provinces;
+
+                department.Province = prv.FirstOrDefault();
+            }
+
+            foreach (Province province in context.Provinces)
+            {
+                province.Country = context.Countries.FirstOrDefault();
+            }
+
+            context.SaveChanges();
         }
 
-        public static List<Shop> CreateShops(List<Address> adresses)
+
+
+        public void CreateAddresses(int numberOfCitiesWithAnAddress)
         {
-            List<Shop> shops = new List<Shop>();
+            var randomCities = (from Cities in context.Cities
+                                orderby Cities.CityId ascending
+                                select Cities).Take(numberOfCitiesWithAnAddress);
+
+            Random randomGenerator = new Random();
+            int adressesCounter = 0;
+            foreach (City city in randomCities)
+            {
+                Address address = new Address();
+                address.StreetNumber = $"{randomGenerator.Next(1,1000)}";
+                address.StreetName = $"street n° {adressesCounter};{randomGenerator.Next(1,100)}";
+                address.City = city;
+                adressesCounter++;
+                context.Add(address);
+            }
+            context.SaveChanges();
+            
+        }
+
+        public void CreateShops()
+        {
+            var adresses = from Address in context.Adresses
+                           select Address;
+
+
             int shopCounter = 0;
             foreach (Address adress in adresses)
             {
@@ -213,27 +180,28 @@ namespace Project_3___Press_Project
                 shop.Name = $"Shop n° {shopCounter}";
                 shop.Adress = adress;
                 shopCounter++;
-                shops.Add(shop);
+                context.Add(shop);
             }
-            return shops;
+            context.SaveChanges();
         }
 
-        public static List<Editor> CreateEditors(int numberOfDesiredEditors)
+        public void CreateEditors(int numberOfDesiredEditors)
         {
-            List<Editor> editors = new List<Editor>();
             for (int i = 0; i < numberOfDesiredEditors; i++)
             {
                 Editor editor = new Editor();
                 editor.Name = $"Editor n° {i}";
-                editors.Add(editor);
+                context.Add(editor);
             }
-            return editors;
+            context.SaveChanges();
         }
 
-        public static List<Newspaper> CreateNewspapers(List<Editor> editors, int numberOfNewspaperPerEditor)
+        public void CreateNewspapers(int numberOfNewspaperPerEditor)
         {
+            var editors = from Editors in context.Editors
+                          select Editors;
+
             Random randomGenerator = new Random();
-            List<Newspaper> newspapers = new List<Newspaper>();
             int editorCounter = 0;
             foreach (Editor editor in editors)
             {
@@ -247,19 +215,21 @@ namespace Project_3___Press_Project
                     newspaper.Editor = editor;
                     newspaper.Periodicity = randomGenerator.Next(1, 28);
 
-                    newspapers.Add(newspaper);
                     newspapersPerEditor.Add(newspaper);
+                    context.Add(newspaper);
                 }
                 editor.Newspapers = newspapersPerEditor;
                 editorCounter++;
             }
-            return newspapers;
+            context.SaveChanges();
         }
 
 
-        public static List<Catalog> CreateCatalogs(List<Newspaper> newspapers, int numberOfCatalogsPerNewspaper)
+        public void CreateCatalogs(int numberOfCatalogsPerNewspaper)
         {
-            List<Catalog> catalogs = new List<Catalog>();
+            var newspapers = from Newspapers in context.Newspapers
+                             select Newspapers;
+
             foreach (Newspaper newspaper in newspapers)
             {
                 List<Catalog> catalogsPerNewspaper = new List<Catalog>();
@@ -270,82 +240,93 @@ namespace Project_3___Press_Project
                     int periodicity = newspaper.Periodicity;
                     catalog.PublicationDate = DateTime.Today + TimeSpan.FromDays(periodicity * numberOfCatalogsPerNewspaper);
 
-                    catalogs.Add(catalog);
                     catalogsPerNewspaper.Add(catalog);
+                    context.Add(catalog);
                 }
                 newspaper.Catalogs = catalogsPerNewspaper;
             }
-            return catalogs;
+            context.SaveChanges();
         }
 
-        public static List<OrderCatalog> CreateOrderCatalogs(List<Order> orders)
+        public void CreateOrderCatalogs()
         {
-            List<OrderCatalog> orderCatalogs = new List<OrderCatalog>();
             Random randomGenerator = new Random();
 
-            foreach(Order order in orders)
+            var orders = (from Orders in context.Orders
+                         select Orders).ToList();
+
+            var catalogs = (from Catalogs in context.Catalogs
+                           select Catalogs).ToList();
+
+            int numberOfOrdersPerCatalogs = orders.Count() / catalogs.Count();
+            int restOffOrdersDividedByCatalogs = orders.Count() % catalogs.Count();
+            int counter = 0;
+
+            foreach(Catalog catalog in catalogs)
             {
-                List<OrderCatalog> tempOrderCatalog = new List<OrderCatalog>();
-                for (int counter = 0; counter<3; counter++)
+                for (int i=0; i<numberOfOrdersPerCatalogs; i++)
                 {
                     OrderCatalog orderCatalog = new OrderCatalog();
-                    orderCatalog.Order = order;
-                    orderCatalog.OrderId = order.OrderId;
-                    orderCatalog.Quantity = randomGenerator.Next(100, 1000);
-                    tempOrderCatalog.Add(orderCatalog);
-                    orderCatalogs.Add(orderCatalog);
+                    orderCatalog.Catalog = catalog;
+                    orderCatalog.CatalogId = catalog.CatalogId;
+                    orderCatalog.Order = orders[counter];
+                    orderCatalog.OrderId = orders[counter].OrderId;
+                    orderCatalog.Quantity = randomGenerator.Next(100, 10000);
+                    context.Add(orderCatalog);
+                    counter = counter + 1;
                 }
-                order.OrderCatalogs = tempOrderCatalog;
             }
-            return orderCatalogs;
-        }
-
-        public static void LinkOrderCatalogToCatalog(List<OrderCatalog> orderCatalogs, List<Catalog> catalogs)
-        {
-            int catalogCounter = 0;
-            foreach(OrderCatalog orderCatalog in orderCatalogs)
+            if(restOffOrdersDividedByCatalogs > 0)
             {
-                if (catalogCounter >= catalogs.Count)
+                for(int i=0; i<restOffOrdersDividedByCatalogs; i++)
                 {
-                    catalogCounter = 0;
+                    OrderCatalog orderCatalog = new OrderCatalog();
+                    orderCatalog.Catalog = catalogs[i];
+                    orderCatalog.CatalogId = catalogs[i].CatalogId;
+                    orderCatalog.Order = orders[counter];
+                    orderCatalog.OrderId = orders[counter].OrderId;
+                    orderCatalog.Quantity = randomGenerator.Next(100, 10000);
+                    context.Add(orderCatalog);
+                    counter = counter + 1;
                 }
-                orderCatalog.Catalog = catalogs[catalogCounter];
-                orderCatalog.CatalogId = catalogs[catalogCounter].CatalogId;
-                catalogs[catalogCounter].OrderCatalog = orderCatalog;
-
-                catalogCounter = catalogCounter + 1;
             }
+            context.SaveChanges();
         }
 
 
-        public static List<Order> CreateOrders(List<Shop> shops, List<UserShop> userShops, List<User> users)
+        public void CreateOrders()
         {
-            Random randomGenerator = new Random();
-            List<Order> orders = new List<Order>();
+            var shops = from Shops in context.Shops
+                        select Shops;
 
-            foreach (Shop shop in shops)
+            Random randomGenerator = new Random();
+
+            foreach(Shop shop in shops)
             {
-                List<Order> temporaryOrders = new List<Order>();
-                for (int orderCounterPerShop = 0; orderCounterPerShop < 3; orderCounterPerShop++)
+                var users = from Users in context.Users
+                            join UserShops in context.UserShops on Users.UserId equals UserShops.UserId
+                            where UserShops.ShopId == shop.ShopId
+                            select Users;
+
+                List<Order> orders = new List<Order>();
+                foreach(User user in users)
                 {
                     Order order = new Order();
                     order.Shop = shop;
                     order.ShopId = shop.ShopId;
-                    order.OrderDate = DateTime.Now + TimeSpan.FromDays(randomGenerator.Next(1, 100));
-                    order.DeliveryDate = order.OrderDate + TimeSpan.FromDays(randomGenerator.Next(1, 10));
-                    var usershopAvecUser = userShops.Where(x => x.ShopId == shop.ShopId).FirstOrDefault();
-                    var user = users.Where(x => x.UserId == usershopAvecUser.UserId).FirstOrDefault();
+                    order.OrderDate = DateTime.Now - TimeSpan.FromDays(randomGenerator.Next(11,50));
+                    order.DeliveryDate = order.OrderDate + TimeSpan.FromDays(randomGenerator.Next(1,10));
                     order.User = user;
-                    order.UserId = order.User.UserId;
+                    order.UserId = user.UserId;
                     orders.Add(order);
-                    temporaryOrders.Add(order);
+                    context.Add(order);
                 }
-                shop.Orders = temporaryOrders;
+                shop.Orders = orders;
             }
-            return orders;
+            context.SaveChanges();
         }
 
-        public static void LinkOrderToOrderCatalog(List<Order> orders, List<OrderCatalog> orderCatalogs)
+        public void LinkOrderToOrderCatalog(List<Order> orders, List<OrderCatalog> orderCatalogs)
         {
             Random randomGenerator = new Random();
             foreach (Order order in orders)
@@ -362,25 +343,28 @@ namespace Project_3___Press_Project
             }
         }
 
-
-        public static List<User> CreateUsers(int numberOfUsers)
+        public void CreateUsers(int numberOfUsers)
         {
-            List<User> users = new List<User>();
             for (int i = 0; i < numberOfUsers; i++)
             {
                 User user = new User();
-                user.Name = $"user n° {i}";
-                user.Login = "user";
+                user.Name = $"user{i}";
+                user.Login = $"user{i}";
                 user.Password = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"; // mdp = 1234 crypté SHA 256
                 user.Function = "userFunction";
-                users.Add(user);
+                context.Add(user);
             }
-            return users;
+            context.SaveChanges();
         }
         
-        public static List<UserShop> LinkUserToShop(List<User> users, List<Shop> shops)
+        public void LinkUserToShop()
         {
-            List<UserShop> userShops = new List<UserShop>();
+            var shops = (from Shops in context.Shops
+                        select Shops).ToList();
+
+            var users = (from Users in context.Users
+                        select Users).ToList();
+
             int usersCount = users.Count();
             int usersPerShops = usersCount/(shops.Count());
             int restUsers = usersCount % (shops.Count());
@@ -395,7 +379,7 @@ namespace Project_3___Press_Project
                     userShop.ShopId = shop.ShopId;
                     userShop.User = users[i + counter];
                     userShop.UserId = users[i + counter].UserId;
-                    userShops.Add(userShop);
+                    context.Add(userShop);
                 }
                 counter += usersPerShops;
             }
@@ -408,40 +392,42 @@ namespace Project_3___Press_Project
                     userShop.ShopId = shops[i].ShopId;
                     userShop.User = users[usersPerShops + i];
                     userShop.UserId = users[usersPerShops + i].UserId;
-                    userShops.Add(userShop);
+                    context.Add(userShop);
                     counter ++;
                 }
             }
-            return userShops;
+            context.SaveChanges();
         }
 
-        public static List<ShopCatalog> CreateShopCatalogs(List<Shop> shops, List<Catalog> catalogs)
+        public void CreateShopCatalogs()
         {
-            
-            List<ShopCatalog> shopCatalogs = new List<ShopCatalog>();
-            Random randomGenerator = new Random();
-            int i = 0;
+            var shops = from Shops in context.Shops
+                        select Shops;
 
-            foreach (Shop shop in shops)
+            var catalogs = (from Catalogs in context.Catalogs
+                           select Catalogs).ToList();
+
+            Random randomGenerator = new Random();
+
+            foreach(Shop shop in shops)
             {
-                List<ShopCatalog> tempShopCatalogs = new List<ShopCatalog>();
-                foreach (Catalog catalog in catalogs)
+                List<ShopCatalog> shopCatalogs = new List<ShopCatalog>();
+                foreach(Catalog catalog in catalogs)
                 {
-                    catalog.ShopCatalogs = new List<ShopCatalog>();
                     ShopCatalog shopCatalog = new ShopCatalog();
+                    shopCatalog.Catalog = catalog;
+                    shopCatalog.CatalogId = catalog.CatalogId;
+                    shopCatalog.Quantity = randomGenerator.Next(1, 1000);
                     shopCatalog.Shop = shop;
                     shopCatalog.ShopId = shop.ShopId;
-                    shopCatalog.Catalog = catalog;
-                    shopCatalog.CatalogId = catalogs[i].CatalogId;
-                    shopCatalog.Quantity = randomGenerator.Next(0, 1000);
-                    tempShopCatalogs.Add(shopCatalog);
                     shopCatalogs.Add(shopCatalog);
-                    catalog.ShopCatalogs.Add(shopCatalog);
+
+                    context.Add(shopCatalog);
                 }
-                shop.ShopCatalogs = tempShopCatalogs;
-         
+                shop.ShopCatalogs = shopCatalogs;
             }
-            return shopCatalogs;
+            context.SaveChanges();
+
         }
     }
 }

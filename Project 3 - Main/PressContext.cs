@@ -59,10 +59,10 @@ namespace Project_3___Press_Project
                 .HasOne<Order>(oc => oc.Order)
                 .WithMany(o => o.OrderCatalogs)
                 .HasForeignKey(oc => oc.OrderId);
-
+/*
             modelBuilder.Entity<OrderCatalog>()
                 .HasOne<Catalog>(c => c.Catalog)
-                .WithOne(oc => oc.OrderCatalog);
+                .WithOne(oc => oc.OrderCatalog);*/
         }
     }
 }
