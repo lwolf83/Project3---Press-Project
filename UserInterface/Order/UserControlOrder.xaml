@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="UserInterface.UserControlOrder"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UserInterface"
+             mc:Ignorable="d" 
+             Background="#FFBF39DC" Width="800" Height="400">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+                <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <Label x:Name="Shop" Width="100" Height="30">Shop</Label>
+                        <ComboBox Name="cmbShops" Width="200" Height="30">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+                <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        
+                    <Label x:Name="lblCatalog" Width="100" Height="30">Edition</Label>
+                    <ComboBox Name="cmbCatalog" Width="200" Height="30">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat=" {0} - {1}">
+                                            <Binding Path="Newspaper.Name"/>
+                                            <Binding Path="CatalogId"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+               
+                </Grid>
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="lblQuantity" Width="100" Height="30">Quantity</Label>
+                    <TextBox  x:Name="txtQuantity" Width="100" Height="30"></TextBox>
+                </StackPanel>
+            </Grid>
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="btnAdd" Click="BtnAdd_Click">Add</Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

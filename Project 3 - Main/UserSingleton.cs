@@ -51,5 +51,33 @@ namespace Project_3___Press_Project
             IsAuthenticated = false;
         }
 
+        public IEnumerable<Shop> GetShops()
+        {
+            using (var context = new PressContext())
+            {
+                List<Shop> Shops = context.Shops.ToList();
+                List<UserShop> UserShops = context.UserShops.ToList();
+
+                var currentShop =  (from u in UserShops
+                                    join s in Shops on u.ShopId equals s.ShopId
+                                   where u.UserId == UserSingleton.GetInstance.User.UserId
+                                   select s).ToList();
+
+                return currentShop;
+            }
+
+        }
+
+        public IEnumerable<Catalog> GetCatalog()
+        {
+            using (var context = new PressContext())
+            {
+                List<Newspaper> newspapers = context.Newspapers.ToList();
+                List<Catalog> catalogs = context.Catalogs.ToList();
+                return catalogs;
+            }
+           
+        }
+
     }
 }

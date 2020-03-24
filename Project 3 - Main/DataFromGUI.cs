@@ -17,7 +17,7 @@ namespace Project_3___Press_Project
             {
                 using (var context = new PressContext())
                 {
-                    Adress adress = context.Adresses.AsEnumerable().Last();
+                    Address adress = context.Adresses.AsEnumerable().Last();
                     Shop shop = new Shop();
                     shop.Name = shopName;
                     shop.Adress = adress;
@@ -45,7 +45,7 @@ namespace Project_3___Press_Project
                 else
                 {
                     Random randomGenerator = new Random();
-                    Adress adress = new Adress();
+                    Address adress = new Address();
                     adress.StreetNumber = StreetNumber;
                     adress.StreetName = StreetName;
                     adress.City = cities[randomGenerator.Next(0, cities.Count)];

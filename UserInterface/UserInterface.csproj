@@ -43,6 +43,9 @@
     <Compile Update="UserControlSetting.xaml.cs">
       <DependentUpon>UserControlSetting.xaml</DependentUpon>
     </Compile>
+    <Compile Update="UserControlShop - Copier - Copier.xaml.cs">
+      <DependentUpon>UserControlShop.xaml</DependentUpon>
+    </Compile>
     <Compile Update="UserControlShop.xaml.cs">
       <DependentUpon>UserControlShop.xaml</DependentUpon>
     </Compile>
