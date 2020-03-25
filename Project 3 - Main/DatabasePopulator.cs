@@ -20,13 +20,12 @@ namespace Project_3___Press_Project
         {
             ContextPopulator populator = new ContextPopulator();
 
-
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
-            string france = "France";
+       /*     string france = "France";
             List<String> countries = new List<string>();
-            countries.Add(france);
+            countries.Add(france);*/
             populator.CreateCountry();
             populator.ImportProvincesInDB();
             populator.ImportDepartmentsInDB();
@@ -43,9 +42,6 @@ namespace Project_3___Press_Project
             populator.CreateShopCatalogs();
             populator.CreateOrders();
             populator.CreateOrderCatalogs();
-
-            context.SaveChanges();
-            Console.WriteLine("fini"); 
         }
 
         public void CreateCountry()
@@ -63,17 +59,7 @@ namespace Project_3___Press_Project
             IEnumerable<Province> provinces = importer.ImportProvinces();
 
             context.AddRange(provinces);
-            context.SaveChanges();
-
-
-            //context.Countries.First().Province = provinces.ToList();
-            foreach (Province province in context.Provinces)
-            {
-                Console.WriteLine(provinces);
-                //province.Country = context.Countries.First();
-            }
-            context.SaveChanges();
-            
+            context.SaveChanges();            
         }
 
         public void ImportDepartmentsInDB()
