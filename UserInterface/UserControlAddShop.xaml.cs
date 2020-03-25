@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Linq;
 using Project_3___Press_Project;
+using WPFTextBoxAutoComplete;
 
 namespace UserInterface
 {
@@ -23,6 +24,8 @@ namespace UserInterface
         public UserControlAddShop()
         {
             InitializeComponent();
+            IEnumerable<City> cities = ShopAdder_DB.GetCity();
+            List<string> cityNames = cities.Select(x => x.Name).ToList();
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
@@ -34,7 +37,7 @@ namespace UserInterface
                 string streetNumber = StrNum.Text;
                 string streetName = StrName.Text;
                 string cityName = City.Text;
-                bool shopCreated = DataFromGUI.AddShop(shopName, streetNumber, streetName, cityName);
+                bool shopCreated = ShopAdder_DB.AddShop(shopName, streetNumber, streetName, cityName);
                 if (shopCreated)
                 {
                     Reset();
@@ -71,6 +74,8 @@ namespace UserInterface
             {
                 tB.Text = String.Empty;
             }
+            Zip.Text = String.Empty;
+            Dept.Text = String.Empty;
         }
 
         private bool CheckFormFilled()

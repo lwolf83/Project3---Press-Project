@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UserInterface"
+             xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
              mc:Ignorable="d" 
              >
     <Grid Background="#FFFCE4E4" Height="600" Width="1000">
@@ -12,23 +13,32 @@
         </Grid>
         <Grid x:Name="GridForm" Margin="20,92,20,197" Background="#FFFAFAFA">
             <StackPanel x:Name="TextStack">
-                <WrapPanel Margin="0,10,0,20">
-                    <Label Content="* Street name : " HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
-                    <TextBox x:Name="StrName" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="20,0,0,0" Width="700" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                <WrapPanel Margin="0,10,0,10">
+                    <Label Content="* Shop name : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                    <TextBox x:Name="ShopName" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="700" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
                 </WrapPanel>
-                <WrapPanel Margin="0,0,0,20">
-                    <Label Content="* Street number : " HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
-                    <TextBox x:Name="StrNum" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="20,0,0,0" Width="700" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                <WrapPanel Margin="0,0,0,10">
+                    <Label Content="* City : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                    <TextBox x:Name="City" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="700" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
                 </WrapPanel>
-                <WrapPanel Margin="0,0,0,20">
-                    <Label Content="* City : " HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
-                    <TextBox x:Name="City" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="20,0,0,0" Width="700" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                <WrapPanel Margin="0,0,0,10">
+                    <Label Content="* Street name:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                    <TextBox x:Name="StrName" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="700" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
                 </WrapPanel>
-                <WrapPanel Margin="0,0,0,20">
-                    <Label Content="* Shop name : " HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
-                    <TextBox x:Name="ShopName" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="20,0,0,0" Width="700" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                <WrapPanel Margin="0,0,0,10">
+                    <Label Content="* Street number : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                    <TextBox x:Name="StrNum" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="700" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
                 </WrapPanel>
-
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <WrapPanel Margin="0,0,0,10">
+                        <Label Content="ZipCode : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="100" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                        <TextBox x:Name="Zip" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                    </WrapPanel>
+                    <WrapPanel Margin="10,0,0,10">
+                        <Label Content="Departement : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="150" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                        <TextBox x:Name="Dept" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                    </WrapPanel>
+                </StackPanel>
                 <Label Content="* - required field" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI" FontSize="16"/>
             </StackPanel>
         </Grid>
