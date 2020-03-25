@@ -131,7 +131,7 @@ namespace Project_3___Press_Project
         public void CreateAddresses(int numberOfCitiesWithAnAddress)
         {
             var randomCities = (from Cities in context.Cities
-                                orderby Cities.CityId ascending
+                                orderby Cities.Name ascending
                                 select Cities).Take(numberOfCitiesWithAnAddress);
 
             Random randomGenerator = new Random();

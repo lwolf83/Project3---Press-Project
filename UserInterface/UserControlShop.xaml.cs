@@ -69,24 +69,24 @@ namespace UserInterface
 
         public void OnCitiesSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
-            ComboBoxItem selectedCity = (ComboBoxItem)(sender as ComboBox).SelectedItem;
+            String selectedCity = (String) (sender as ComboBox).SelectedItem;
             ShopFilter shopFilter = new ShopFilter();
-            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromACity(CityFilteringSelection);
+            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromACity(selectedCity);
         }
 
 
         public void OnDepartmentsSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
-            ComboBoxItem selectedDepartment = (ComboBoxItem)(sender as ComboBox).SelectedItem;
+            String selectedDepartment = (String)(sender as ComboBox).SelectedItem;
             ShopFilter shopFilter = new ShopFilter();
-            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromADepartment(DepartmentFilteringSelection);
+            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromADepartment(selectedDepartment);
         }
 
         public void OnProvincesSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
-            ComboBoxItem selectedProvince = (ComboBoxItem)(sender as ComboBox).SelectedItem;
+            String selectedProvince = (String)(sender as ComboBox).SelectedItem;
             ShopFilter shopFilter = new ShopFilter();
-            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromAProvince(ProvinceFilteringSelection);
+            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromAProvince(selectedProvince);
         }
 
         private void ButtonAddShopPage_Click(object sender, RoutedEventArgs e)

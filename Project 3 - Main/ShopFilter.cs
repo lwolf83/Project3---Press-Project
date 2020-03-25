@@ -76,29 +76,32 @@ namespace Project_3___Press_Project
             return provincesHavingShops.ToList();
         }
 
-        public IEnumerable<Shop> GetShopsFromACity(string cityName)
+        public IEnumerable<ShopCity> GetShopsFromACity(string cityName)
         {
             var shops = from s in context.Shops
                         join a in context.Adresses on s.Adress.AddressId equals a.AddressId
                         join c in context.Cities on a.City.CityId equals c.CityId
                         where c.Name == cityName
-                        select s;
-
+                        orderby s.Name
+                        select new ShopCity { Shop = s, City = c };
+            
             return shops.ToList();
         }
 
-        public IEnumerable<Shop> GetShopsFromADepartment(string departmentName)
+        public IEnumerable<ShopCity> GetShopsFromADepartment(string departmentName)
         {
             var shops = from s in context.Shops
                         join a in context.Adresses on s.Adress.AddressId equals a.AddressId
                         join c in context.Cities on a.City.CityId equals c.CityId
                         join d in context.Departments on c.Department.DepartmentId equals d.DepartmentId
                         where d.DepartmentName == departmentName
-                        select s;
+                        orderby s.Name
+                        select new ShopCity { Shop = s, City = c };
+
             return shops.ToList();
         }
 
-        public IEnumerable<Shop> GetShopsFromAProvince(string provinceName)
+        public IEnumerable<ShopCity> GetShopsFromAProvince(string provinceName)
         {
             var shops = from s in context.Shops
                         join a in context.Adresses on s.Adress.AddressId equals a.AddressId
@@ -106,7 +109,8 @@ namespace Project_3___Press_Project
                         join d in context.Departments on c.Department.DepartmentId equals d.DepartmentId
                         join p in context.Provinces on d.Province.ProvinceId equals p.ProvinceId
                         where p.Name == provinceName
-                        select s;
+                        orderby s.Name
+                        select new ShopCity { Shop = s, City = c };
             return shops.ToList();
         }
 
