@@ -12,7 +12,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Linq;
 using Project_3___Press_Project;
-using WPFTextBoxAutoComplete;
 
 namespace UserInterface
 {
@@ -90,6 +89,10 @@ namespace UserInterface
                 {
                     isFilled = false;
                 }
+            }
+            if (City.Text == String.Empty)
+            {
+                isFilled = false;
             }
             return isFilled;
         }
