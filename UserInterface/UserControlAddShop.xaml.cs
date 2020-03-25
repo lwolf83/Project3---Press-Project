@@ -21,11 +21,12 @@ namespace UserInterface
     /// </summary>
     public partial class UserControlAddShop : UserControl
     {
+        public List<string> cityNames { get; set; }
         public UserControlAddShop()
         {
             InitializeComponent();
             IEnumerable<City> cities = ShopAdder_DB.GetCity();
-            List<string> cityNames = cities.Select(x => x.Name).ToList();
+            cityNames = cities.Select(x => x.Name).ToList();
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
@@ -76,6 +77,7 @@ namespace UserInterface
             }
             Zip.Text = String.Empty;
             Dept.Text = String.Empty;
+            City.Text = String.Empty;
         }
 
         private bool CheckFormFilled()
@@ -110,6 +112,79 @@ namespace UserInterface
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             MessageGrid.Visibility = Visibility.Hidden;
+        }
+
+        private void City_KeyUp(object sender, KeyEventArgs e)
+        {
+            bool found = false;
+            string query = (sender as TextBox).Text;
+            Border.MouseLeave += (sender, e) =>
+            {
+                Border.Visibility = Visibility.Collapsed;
+            };
+
+            if (query.Length == 0)
+            {
+                resultStack.Children.Clear();
+                Border.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                Border.Visibility = Visibility.Visible;
+            }
+
+            resultStack.Children.Clear();
+  
+            foreach (var city in cityNames)
+            {
+                if (city.ToLower().StartsWith(query.ToLower()))
+                { 
+                    AddItem(city);
+                    found = true;
+                }
+            }
+            if (!found)
+            {
+                TextBlock block = new TextBlock();
+                block.Text = "No results found.";
+                block.Margin = new Thickness(2, 3, 2, 3);
+                block.Foreground = Brushes.Black;
+                block.MouseLeave += (sender, e) =>
+                {
+                    Border.Visibility = Visibility.Collapsed;
+                };
+                resultStack.Children.Add(block);
+            }
+        }
+
+        private void AddItem(string text)
+        {
+            TextBlock block = new TextBlock(); 
+            block.Text = text;
+ 
+            block.Margin = new Thickness(2, 3, 2, 3);
+            block.Cursor = Cursors.Hand;
+            block.Foreground = Brushes.Black;
+
+            // Mouse events   
+            block.MouseLeftButtonUp += (sender, e) =>
+            {
+                City.Text = (sender as TextBlock).Text;
+                Border.Visibility = Visibility.Collapsed;
+            };
+
+            block.MouseEnter += (sender, e) =>
+            {
+                TextBlock b = sender as TextBlock;
+                b.Background = Brushes.PeachPuff;
+            };
+
+            block.MouseLeave += (sender, e) =>
+            {
+                TextBlock b = sender as TextBlock;
+                b.Background = Brushes.Transparent;
+            };
+            resultStack.Children.Add(block);
         }
     }
 }
