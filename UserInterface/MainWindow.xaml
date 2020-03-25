@@ -31,7 +31,6 @@
     
     <Grid Background="#FFDEDEDE">
         <Grid x:Name="GridMain" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="540" Width="1010">
-            <Button Content="AddShop" Click="ButtonAddShopPage_Click" Margin="324,254,274,254"/>
         </Grid>
         <Grid Height="60" VerticalAlignment="Top" Background="#FF5C99D6">
             <Grid.Effect>
