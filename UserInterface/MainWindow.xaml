@@ -79,6 +79,12 @@
                             <TextBlock Text="Shops" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
+                    <ListViewItem x:Name="ItemOrder" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Money100" Height="25" Width="25" Margin="10"/>
+                            <TextBlock Text="Command" VerticalAlignment="Center" Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
                     <ListViewItem x:Name="ItemEditor" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Newspaper" Height="25" Width="25" Margin="10"/>

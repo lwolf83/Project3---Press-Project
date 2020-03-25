@@ -77,6 +77,10 @@ namespace UserInterface
                         usc = new UserControlEditor();
                         GridMain.Children.Add(usc);
                         break;
+                    case "ItemOrder":
+                        usc = new UserControlOrder();
+                        GridMain.Children.Add(usc);
+                        break;
                     case "ItemStat":
                         usc = new UserControlStat();
                         GridMain.Children.Add(usc);
