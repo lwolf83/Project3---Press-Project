@@ -21,6 +21,72 @@ namespace UserInterface
         public UserControlShop()
         {
             InitializeComponent();
+            ShopFilter shopFilter = new ShopFilter();
+            ShopDisplaying_ListView.ItemsSource = shopFilter.GetAllShops();
+
+
+            CityNameFilteringSelection.ItemsSource = shopFilter.GetCitiesHavingShops();
+            DepartmentNameFilteringSelection.ItemsSource = shopFilter.GetDepartmentsHavingShops();
+            var provinceNames = shopFilter.GetProvincesHavingShops();
+            ProvinceNameFilteringSelection.ItemsSource = provinceNames;
+        }
+
+        public string CityFilteringSelection { get => Name; }
+        public string DepartmentFilteringSelection { get => Name; }
+        public string ProvinceFilteringSelection { get => Name; }
+
+
+        public void OnLocationFilteringSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBoxItem selectedItem = (ComboBoxItem)(sender as ComboBox).SelectedItem;
+
+            if (selectedItem.Name == "CitiesSelection")
+            {
+                CityNameFilteringSelection.Visibility = Visibility.Visible;
+                ProvinceNameFilteringSelection.Visibility = Visibility.Collapsed;
+                DepartmentNameFilteringSelection.Visibility = Visibility.Collapsed;
+            }
+            else if (selectedItem.Name == "DepartmentsSelection")
+            {
+                CityNameFilteringSelection.Visibility = Visibility.Collapsed;
+                ProvinceNameFilteringSelection.Visibility = Visibility.Collapsed;
+                DepartmentNameFilteringSelection.Visibility = Visibility.Visible;
+            }
+            else if (selectedItem.Name == "ProvincesSelection")
+            {
+                CityNameFilteringSelection.Visibility = Visibility.Collapsed;
+                ProvinceNameFilteringSelection.Visibility = Visibility.Visible;
+                DepartmentNameFilteringSelection.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                CityNameFilteringSelection.Visibility = Visibility.Collapsed;
+                ProvinceNameFilteringSelection.Visibility = Visibility.Collapsed;
+                DepartmentNameFilteringSelection.Visibility = Visibility.Collapsed;
+                throw new Exception();
+            }
+        }
+
+        public void OnCitiesSelectionChanged(object sender, SelectionChangedEventArgs args)
+        {
+            String selectedCity = (String) (sender as ComboBox).SelectedItem;
+            ShopFilter shopFilter = new ShopFilter();
+            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromACity(selectedCity);
+        }
+
+
+        public void OnDepartmentsSelectionChanged(object sender, SelectionChangedEventArgs args)
+        {
+            String selectedDepartment = (String)(sender as ComboBox).SelectedItem;
+            ShopFilter shopFilter = new ShopFilter();
+            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromADepartment(selectedDepartment);
+        }
+
+        public void OnProvincesSelectionChanged(object sender, SelectionChangedEventArgs args)
+        {
+            String selectedProvince = (String)(sender as ComboBox).SelectedItem;
+            ShopFilter shopFilter = new ShopFilter();
+            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromAProvince(selectedProvince);
         }
 
         private void ButtonAddShopPage_Click(object sender, RoutedEventArgs e)

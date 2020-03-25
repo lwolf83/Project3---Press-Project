@@ -33,7 +33,7 @@ namespace Project_3___Press_Project
             populator.ImportCitiesInDB();
             populator.LinkLocations();
 
-            populator.CreateAddresses(5);
+            populator.CreateAddresses(100);
             populator.CreateShops();
             populator.CreateEditors(3);
             populator.CreateNewspapers(3);
@@ -131,19 +131,22 @@ namespace Project_3___Press_Project
         public void CreateAddresses(int numberOfCitiesWithAnAddress)
         {
             var randomCities = (from Cities in context.Cities
-                                orderby Cities.CityId ascending
+                                orderby Cities.Name ascending
                                 select Cities).Take(numberOfCitiesWithAnAddress);
 
             Random randomGenerator = new Random();
             int adressesCounter = 0;
             foreach (City city in randomCities)
             {
-                Address address = new Address();
-                address.StreetNumber = $"{randomGenerator.Next(1,1000)}";
-                address.StreetName = $"street n° {adressesCounter};{randomGenerator.Next(1,100)}";
-                address.City = city;
-                adressesCounter++;
-                context.Add(address);
+                for (int i = 0; i < 10; i++)
+                {
+                    Address address = new Address();
+                    address.StreetNumber = $"{randomGenerator.Next(1, 1000)}";
+                    address.StreetName = $"street n° {adressesCounter};{randomGenerator.Next(1, 100)}";
+                    address.City = city;
+                    adressesCounter++;
+                    context.Add(address);
+                }
             }
             context.SaveChanges();
             
