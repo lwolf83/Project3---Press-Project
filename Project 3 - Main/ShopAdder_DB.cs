@@ -13,9 +13,18 @@ namespace Project_3___Press_Project
         {
             using (var context = new PressContext())
             {
-                List<Department> departments = context.Departments.ToList();
                 List<City> cities = context.Cities.ToList();
                 return cities;
+            }
+
+        }
+
+        public static IEnumerable<Department> GetDepartment()
+        {
+            using (var context = new PressContext())
+            {
+                List<Department> departments = context.Departments.ToList();
+                return departments;
             }
 
         }

@@ -19,7 +19,7 @@
 
         <Grid Grid.Column="0" Grid.Row="1">
             <StackPanel Orientation="Vertical">
-                <TextBlock FontFamily="Arial" FontWeight="Heavy" FontSize="15" HorizontalAlignment="Center"> Filter by: </TextBlock>
+                <TextBlock FontFamily="Arial" FontWeight="Heavy" FontSize="15" HorizontalAlignment="Center"> Filter by:</TextBlock>
                 <ComboBox Name="ShopFilteringEntity" Background="#c9d7e9" Foreground="Black" Margin="10" SelectionChanged="OnLocationFilteringSelectionChanged">
                     <ComboBoxItem Name="CitiesSelection">Cities</ComboBoxItem>
                     <ComboBoxItem Name="DepartmentsSelection">Departments</ComboBoxItem>
@@ -28,10 +28,10 @@
                 <ComboBox Name="CityNameFilteringSelection" Foreground="Black" Visibility="Collapsed" SelectionChanged="OnCitiesSelectionChanged"/>
                 <ComboBox Name="DepartmentNameFilteringSelection" Foreground="Black" SelectedItem="{Binding DepartmentFilteringSelection}" Visibility="Collapsed" SelectionChanged="OnDepartmentsSelectionChanged"/>
                 <ComboBox Name="ProvinceNameFilteringSelection" Foreground="Black" SelectedItem="{Binding ProvinceFilteringSelection}" Visibility="Collapsed" SelectionChanged="OnProvincesSelectionChanged"/>
-                
+
             </StackPanel>
         </Grid>
-        
+
         <Grid Grid.Column="1" Grid.Row="1" Margin="20,0,10,60">
             <ListView HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" Name="ShopDisplaying_ListView" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False">
                 <ListView.Resources>
@@ -61,8 +61,9 @@
                 </ListView.View>
             </ListView>
         </Grid>
-
-        <Button Content="AddShop" Click="ButtonAddShopPage_Click" Margin="324,254,64,514"/>
+        <Grid Margin="10,120,10,480" Grid.Row="1">
+            <Button Content="AddShop" Click="ButtonAddShopPage_Click" />
+        </Grid>
 
     </Grid>
 </UserControl>
