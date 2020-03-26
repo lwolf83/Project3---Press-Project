@@ -23,12 +23,9 @@ namespace UserInterface
             InitializeComponent();
             ShopFilter shopFilter = new ShopFilter();
             ShopDisplaying_ListView.ItemsSource = shopFilter.GetAllShops();
-
-
             CityNameFilteringSelection.ItemsSource = shopFilter.GetCitiesHavingShops();
             DepartmentNameFilteringSelection.ItemsSource = shopFilter.GetDepartmentsHavingShops();
-            var provinceNames = shopFilter.GetProvincesHavingShops();
-            ProvinceNameFilteringSelection.ItemsSource = provinceNames;
+            ProvinceNameFilteringSelection.ItemsSource = shopFilter.GetProvincesHavingShops();
         }
 
         public string CityFilteringSelection { get => Name; }
