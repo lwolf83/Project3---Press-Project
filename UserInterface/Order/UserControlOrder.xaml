@@ -4,105 +4,54 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UserInterface"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             Background="#FF4086C1" Width="800" Height="400">
-<UserControl.Resources>
-        <Style x:Key="alternateColor" TargetType="{x:Type ListViewItem}">
-            <Style.Triggers>
-                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                    <Setter Property="Background" Value="LightBlue"/>
-                </Trigger>
-                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                    <Setter Property="Background" Value="AliceBlue"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-</UserControl.Resources>
+             Background="#FFBF39DC" Width="800" Height="400">
     <Grid>
-        <Grid HorizontalAlignment="Left" Width="800">
+        <StackPanel Orientation="Vertical">
+                <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <Label x:Name="Shop" Width="100" Height="30">Shop</Label>
+                        <ComboBox Name="cmbShops" Width="200" Height="30">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+                <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        
+                    <Label x:Name="lblCatalog" Width="100" Height="30">Edition</Label>
+                    <ComboBox Name="cmbCatalog" Width="200" Height="30">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat=" {0} - {1}">
+                                            <Binding Path="Newspaper.Name"/>
+                                            <Binding Path="CatalogId"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+               
+                </Grid>
             <Grid>
-                <StackPanel Orientation="Vertical" Margin="0,0,0,269" Width="400" HorizontalAlignment="Left">
-                    <Grid>
-                        <StackPanel Orientation="Horizontal">
-                            <Label x:Name="lblShop" Width="100" Height="30">Shop</Label>
-                            <ComboBox Name="cmbShops" Width="200" Height="30" SelectionChanged="CmdInitShops">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}" />
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </StackPanel>
-                    </Grid>
-                    <Grid>
-                        <StackPanel Orientation="Horizontal">
-                            <Label x:Name="lblCatalog" Width="100" Height="30">Edition</Label>
-                            <ComboBox Name="cmbCatalog" Width="200" Height="30">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock>
-                                            <TextBlock.Text>
-                                                <MultiBinding StringFormat=" {0} - {1}">
-                                                    <Binding Path="Newspaper.Name"/>
-                                                    <Binding Path="Name"/>
-                                                </MultiBinding>
-                                            </TextBlock.Text>
-                                        </TextBlock>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </StackPanel>
-                    </Grid>
-                    <Grid>
-                        <StackPanel Orientation="Horizontal">
-                            <Label x:Name="lblQuantity" Width="100" Height="30">Quantity</Label>
-                            <TextBox  x:Name="txtQuantity" Width="100" Height="30"></TextBox>
-                        </StackPanel>
-                    </Grid>
-                    <Grid VerticalAlignment="Center">
-                        <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
-                            <Button x:Name="btnAdd" Click="BtnAdd_Click" Width="98" Height="28">Add</Button>
-                        </StackPanel>
-                    </Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="lblQuantity" Width="100" Height="30">Quantity</Label>
+                    <TextBox  x:Name="txtQuantity" Width="100" Height="30"></TextBox>
                 </StackPanel>
             </Grid>
-        </Grid>
-        <Grid Margin="0,140,0,220">
-            <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
-                <Button x:Name="BtnValidateOrder" Content="Validate your order" Click="BtnValidateOrderCommand" Width="350" Margin="10, 0,10,0"></Button>
-                <Button x:Name="BtnSeeHistory" Tag="current" Content="See order history" Click="BtnSeeHistoriqueCommand" Width="350" Margin="10, 0,10,0"></Button>
-            </StackPanel>
-        </Grid>
-        <Grid Margin="10,200,10,10">
-            <ListView x:Name="lvOrderCatalog" AlternationCount="2" ItemContainerStyle="{StaticResource alternateColor}" ScrollViewer.VerticalScrollBarVisibility="Auto" >
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Shop" DisplayMemberBinding="{Binding Order.Shop.Name}" Width="200"></GridViewColumn>
-                        <GridViewColumn Header="Newspaper" DisplayMemberBinding="{Binding Catalog.Newspaper.Name}" Width="200"></GridViewColumn>
-                        <GridViewColumn Header="Edition" DisplayMemberBinding="{Binding Catalog.Name}" Width="200"></GridViewColumn>
-                        <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity}" Width="50"></GridViewColumn>
-                        <GridViewColumn Width="Auto">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button x:Name="btnDeleteOrder" Click="BtnDeleteOrderCommand" Tag="{Binding OrderCatalogId}">
-                                        <materialDesign:PackIcon Kind="Garbage" Width="20" Height="20"/>
-                                    </Button>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-                <ListView.GroupStyle>
-                    <GroupStyle>
-                        <GroupStyle.HeaderTemplate>
-                            <DataTemplate>
-                                <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Order.Shop.Name}"/>
-                            </DataTemplate>
-                        </GroupStyle.HeaderTemplate>
-                    </GroupStyle>
-                </ListView.GroupStyle>
-            </ListView>
-        </Grid>
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="btnAdd" Click="BtnAdd_Click">Add</Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
     </Grid>
 </UserControl>
