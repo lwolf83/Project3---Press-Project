@@ -73,7 +73,7 @@ namespace UserInterface
         
         private void Reset()
         {
-            List<TextBox> textChildren = GetTextFieldsFromWrapPanels();
+            List<TextBox> textChildren = GetTextFieldsFromChildren();
             foreach (TextBox tB in textChildren)
             {
                 tB.Text = String.Empty;
@@ -86,7 +86,7 @@ namespace UserInterface
         private bool CheckFormFilled()
         {
             bool isFilled = true;
-            List<TextBox> textChildren = GetTextFieldsFromWrapPanels();
+            List<TextBox> textChildren = GetTextFieldsFromChildren();
             foreach (TextBox tB in textChildren)
             {
                 if (tB.Text == String.Empty)
@@ -101,9 +101,18 @@ namespace UserInterface
             return isFilled;
         }
 
-        private List<TextBox> GetTextFieldsFromWrapPanels()
+        private List<TextBox> GetTextFieldsFromChildren()
         {
             List<TextBox> textChildren = new List<TextBox>();
+
+            //foreach(UIElement child in parent.Children)
+            //{
+            //    if (child.GetType() == typeof(TextBox))
+            //    { textChildren.Add((TextBox)child); }
+            //    else if (child.GetType() == typeof(Panel))
+            //    { GetTextFieldsFromChildren((Panel)child); }
+            //}
+
             var wrapChildren = from child in TextStack.Children.OfType<WrapPanel>()
                                select child;
 
