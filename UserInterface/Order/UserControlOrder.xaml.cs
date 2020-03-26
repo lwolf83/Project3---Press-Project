@@ -22,44 +22,101 @@ namespace UserInterface
         {
             InitializeComponent();
 
-            IEnumerable<Shop> shops = UserSingleton.GetInstance.GetShops();
-            cmbShops.ItemsSource = shops;
+            IEnumerable<Shop> userShops = UserSingleton.GetInstance.GetShops();
+            cmbShops.ItemsSource = userShops;
 
             IEnumerable<Catalog> catalogs = UserSingleton.GetInstance.GetCatalog();
             cmbCatalog.ItemsSource = catalogs;
+
+            lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();
+
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            using(var context = new PressContext())
+            Shop shop = (Shop)cmbShops.SelectedItem;
+            bool shopNotOk = (shop is null);
+            if(shopNotOk)
             {
-                Shop shop = (Shop) cmbShops.SelectedItem;
-                Catalog catalog = (Catalog) cmbCatalog.SelectedItem;
-                int quantity = Convert.ToInt32(txtQuantity.Text);
-
-                Order order = new Order();
-                order.Shop = shop;
-                order.ShopId = shop.ShopId;
-                order.User = UserSingleton.GetInstance.User;
-                order.UserId = UserSingleton.GetInstance.User.UserId;
-                context.Orders.Update(order);
-                context.SaveChanges();
-
-                OrderCatalog newOrder = new OrderCatalog();
-                //newOrder.Catalog = catalog;
-                newOrder.CatalogId = catalog.CatalogId;
-                newOrder.Quantity = quantity;
-                //newOrder.Order = order;
-                newOrder.OrderId = order.OrderId;
-              
-                context.OrderCatalogs.Update(newOrder);
-                context.SaveChanges();
-
-
-
+                lblShop.Background = new SolidColorBrush(Colors.Red);
+                lblShop.Foreground = new SolidColorBrush(Colors.White);
+                lblShop.Content = lblShop.Content + " (Required)";
             }
-               
+
+
+            Catalog catalog = (Catalog)cmbCatalog.SelectedItem;
+            bool catalogNotOk = (catalog is null);
+            if (catalogNotOk)
+            {
+                lblCatalog.Background = new SolidColorBrush(Colors.Red);
+            }
+
+            bool quantityNotOk = String.IsNullOrWhiteSpace(txtQuantity.Text);
+            if (quantityNotOk)
+            {
+                lblQuantity.Background = new SolidColorBrush(Colors.Red);
+            }
+
+            if(!shopNotOk && !catalogNotOk && !quantityNotOk)
+            { 
+                int quantity = Convert.ToInt32(txtQuantity.Text);
+                OrderCatalogAction.Add(shop, catalog, quantity);
+                lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();
+            }
+
+
         }
 
+        public void BtnDeleteOrderCommand(object sender, RoutedEventArgs e)
+        { 
+            Guid orderCatalogIdToDelete = (Guid) ((Button)sender).Tag;
+            using(var context = new PressContext())
+            {
+                OrderCatalog orderCatalog = context.OrderCatalogs.Where(o => o.OrderCatalogId == orderCatalogIdToDelete).FirstOrDefault();
+                context.Remove(orderCatalog);
+                context.SaveChanges();
+                lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();
+            }
+          
+        }
+
+        public void BtnSeeHistoriqueCommand(object sender, RoutedEventArgs e)
+        {
+            string tag = (string) ((Button)sender).Tag;
+            if (tag == "current")
+            {
+                BtnSeeHistory.Content = "See current order";
+                lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs("In Production");
+                BtnSeeHistory.Tag = "history";
+            }
+            else
+            {
+                BtnSeeHistory.Content = "See order history";
+                lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();
+                BtnSeeHistory.Tag = "current";
+            }
+        }
+
+        public void BtnValidateOrderCommand(object sender, RoutedEventArgs e)
+        {
+            using(var context = new PressContext())
+            {
+                IEnumerable<OrderCatalog> orderValidated = UserSingleton.GetInstance.GetOrderCatalogs();
+                foreach(OrderCatalog orderCatalog in orderValidated)
+                {
+                    orderCatalog.Order.State = "In Production";
+                }
+                context.UpdateRange(orderValidated);
+                context.SaveChanges();
+                lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();
+            }
+
+        }
+
+        public void CmdInitShops(object sender, RoutedEventArgs e)
+        {
+           
+        
+        }
     }
 }
