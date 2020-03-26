@@ -20,20 +20,19 @@ namespace Project_3___Press_Project
         {
             ContextPopulator populator = new ContextPopulator();
 
-
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
-            string france = "France";
+       /*     string france = "France";
             List<String> countries = new List<string>();
-            countries.Add(france);
+            countries.Add(france);*/
             populator.CreateCountry();
             populator.ImportProvincesInDB();
             populator.ImportDepartmentsInDB();
             populator.ImportCitiesInDB();
             populator.LinkLocations();
 
-            populator.CreateAddresses(5);
+            populator.CreateAddresses(100);
             populator.CreateShops();
             populator.CreateEditors(3);
             populator.CreateNewspapers(3);
@@ -43,9 +42,6 @@ namespace Project_3___Press_Project
             populator.CreateShopCatalogs();
             populator.CreateOrders();
             populator.CreateOrderCatalogs();
-
-            context.SaveChanges();
-            Console.WriteLine("fini"); 
         }
 
         public void CreateCountry()
@@ -63,17 +59,7 @@ namespace Project_3___Press_Project
             IEnumerable<Province> provinces = importer.ImportProvinces();
 
             context.AddRange(provinces);
-            context.SaveChanges();
-
-
-            //context.Countries.First().Province = provinces.ToList();
-            foreach (Province province in context.Provinces)
-            {
-                Console.WriteLine(provinces);
-                //province.Country = context.Countries.First();
-            }
-            context.SaveChanges();
-            
+            context.SaveChanges();            
         }
 
         public void ImportDepartmentsInDB()
@@ -131,19 +117,22 @@ namespace Project_3___Press_Project
         public void CreateAddresses(int numberOfCitiesWithAnAddress)
         {
             var randomCities = (from Cities in context.Cities
-                                orderby Cities.CityId ascending
+                                orderby Cities.Name ascending
                                 select Cities).Take(numberOfCitiesWithAnAddress);
 
             Random randomGenerator = new Random();
             int adressesCounter = 0;
             foreach (City city in randomCities)
             {
-                Address address = new Address();
-                address.StreetNumber = $"{randomGenerator.Next(1,1000)}";
-                address.StreetName = $"street n° {adressesCounter};{randomGenerator.Next(1,100)}";
-                address.City = city;
-                adressesCounter++;
-                context.Add(address);
+                for (int i = 0; i < 10; i++)
+                {
+                    Address address = new Address();
+                    address.StreetNumber = $"{randomGenerator.Next(1, 1000)}";
+                    address.StreetName = $"street n° {adressesCounter};{randomGenerator.Next(1, 100)}";
+                    address.City = city;
+                    adressesCounter++;
+                    context.Add(address);
+                }
             }
             context.SaveChanges();
             

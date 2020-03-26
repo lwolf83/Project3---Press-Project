@@ -43,14 +43,14 @@ namespace UserInterface
 
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
-            UserControl usc = new UserControlLogoutClose("Logout");
+            UserControl usc = new UserControlLogout();
             GridMain.Children.Clear();
             GridMain.Children.Add(usc);
         }
 
         private void ButtonCloseApplication_Click(object sender, RoutedEventArgs e)
         {            
-            UserControl usc = new UserControlLogoutClose("Close");
+            UserControl usc = new UserControlClose();
             GridMain.Children.Clear();
             GridMain.Children.Add(usc);                      
         }
@@ -97,14 +97,6 @@ namespace UserInterface
                         break;
                 }
             }            
-        }
-        // To remove the following method. Just for test purposes + button in XAML
-        private void ButtonAddShopPage_Click(object sender, RoutedEventArgs e)
-        {
-            UserControl usc = null;
-            GridMain.Children.Clear();
-            usc = new UserControlAddShop();
-            GridMain.Children.Add(usc);
         }
     }
 }

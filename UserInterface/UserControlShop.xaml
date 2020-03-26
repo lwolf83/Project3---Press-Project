@@ -6,7 +6,60 @@
              xmlns:local="clr-namespace:UserInterface"
              mc:Ignorable="d" 
              >
-    <Grid Background="#FF185726" Height="800" Width="800">
-        <Button Content="AddShop" Click="ButtonAddShopPage_Click" Margin="324,254,64,514"/>
+    <Grid Background="#a5bdda" Height="1000" Width="1000" Margin="0,20,0,40" HorizontalAlignment="Right">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Shops interface" Name="ShopTextBlock" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center" FontWeight="Bold" Foreground="#253d5a"/>
+
+        <Grid Grid.Column="0" Grid.Row="1">
+            <StackPanel Orientation="Vertical">
+                <TextBlock FontFamily="Arial" FontWeight="Heavy" FontSize="15" HorizontalAlignment="Center"> Filter by:</TextBlock>
+                <ComboBox Name="ShopFilteringEntity" Background="#c9d7e9" Foreground="Black" Margin="10" SelectionChanged="OnLocationFilteringSelectionChanged">
+                    <ComboBoxItem Name="CitiesSelection">Cities</ComboBoxItem>
+                    <ComboBoxItem Name="DepartmentsSelection">Departments</ComboBoxItem>
+                    <ComboBoxItem Name="ProvincesSelection">Provinces</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Margin="10" Name="CityNameFilteringSelection" Foreground="Black" Visibility="Collapsed" SelectionChanged="OnCitiesSelectionChanged"/>
+                <ComboBox Margin="10" Name="DepartmentNameFilteringSelection" Foreground="Black" Visibility="Collapsed" SelectionChanged="OnDepartmentsSelectionChanged"/>
+                <ComboBox Margin="10" Name="ProvinceNameFilteringSelection" Foreground="Black" Visibility="Collapsed" SelectionChanged="OnProvincesSelectionChanged"/>
+                <Button Margin="10,120,10,480" Content="AddShop" Click="ButtonAddShopPage_Click" />
+            </StackPanel>
+        </Grid>
+        
+        <Grid Grid.Column="1" Grid.Row="1" Margin="20,0,10,60">
+            <ListView HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" Name="ShopDisplaying_ListView">
+                <ListView.Resources>
+                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="260" Header="Shops name" x:Name="ShopNames">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ShopName}" Cursor="Arrow"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="260" Header="Cities name" x:Name="ShopCities">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding CityName}" Cursor="Hand"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
     </Grid>
 </UserControl>

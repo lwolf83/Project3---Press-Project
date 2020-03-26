@@ -34,13 +34,10 @@ namespace Project_3___Press_Project
         public void Init(string login, string password)
         {
             IAuthentification authentification = new Authentification();
-            IsAuthenticated = authentification.LoginUsers(login, password);
-            if(IsAuthenticated)
+            User = authentification.LoginUsers(login, password);
+            if(User != null)
             {
-                using (var context = new PressContext())
-                {
-                    User = context.Users.ToList().Where(u => u.Login == login).FirstOrDefault();
-                }
+                IsAuthenticated = true;
             }
         }
 

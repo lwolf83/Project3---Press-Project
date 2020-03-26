@@ -7,8 +7,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Project_3___Press_Project
 {
-    public class DataFromGUI
+    public class ShopAdder_DB
     {
+        public static IEnumerable<City> GetCity()
+        {
+            using (var context = new PressContext())
+            {
+                var cities = context.Cities.ToList();
+                return cities;
+            }
+
+        }
+
+        public static IEnumerable<Department> GetDepartment()
+        {
+            using (var context = new PressContext())
+            {
+                List<Department> departments = context.Departments.ToList();
+                return departments;
+            }
+
+        }
+
         public static bool AddShop(string shopName, string streetNumber, string streetName, string cityName)
         {
             bool shopCreated = true;
