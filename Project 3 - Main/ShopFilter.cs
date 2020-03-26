@@ -15,7 +15,6 @@ namespace Project_3___Press_Project
             context = new PressContext();
         }
 
-
         public IEnumerable<Shop> GetAllShops()
         {
             IEnumerable<Shop> shops = context.Shops.AsEnumerable();

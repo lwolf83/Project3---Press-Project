@@ -21,9 +21,7 @@ namespace UserInterface
         public UserControlShop()
         {
             InitializeComponent();
-
             ShopDisplaying_ListView.ItemsSource = AllShops;
-
             CityNameFilteringSelection.ItemsSource = ShopFilter.GetCitiesHavingShops(AllShops);
             DepartmentNameFilteringSelection.ItemsSource = ShopFilter.GetDepartmentsHavingShops(AllShops);
             ProvinceNameFilteringSelection.ItemsSource = ShopFilter.GetProvincesHavingShops(AllShops);
@@ -35,7 +33,6 @@ namespace UserInterface
         public ShopFilter ShopFilter = new ShopFilter();
         public IEnumerable<Shop> AllShops { get => ShopFilter.GetAllShops();}
         
-
 
         public void OnLocationFilteringSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
