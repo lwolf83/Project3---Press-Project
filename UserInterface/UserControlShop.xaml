@@ -56,9 +56,12 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                     </GridView>
-
-
                 </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="MouseDoubleClick"  Handler="ViewShopDetails_MouseDoubleClick" />
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
         <Grid Margin="10,120,10,480" Grid.Row="1">
