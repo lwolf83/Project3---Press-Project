@@ -98,7 +98,7 @@ namespace UserInterface
         private void ViewShopDetails_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ListViewItem item = sender as ListViewItem;
-            object obj = item.Content;
+            var obj = item.Content;
             Guid shopId = ((ShopCity)obj).ShopId;
 
             UserControl usc = new UserControlDisplayShopDetails(shopId);
