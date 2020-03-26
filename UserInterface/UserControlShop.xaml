@@ -14,7 +14,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="5*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
         
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Shops interface" Name="ShopTextBlock" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center" FontWeight="Bold" Foreground="#253d5a"/>
@@ -27,9 +27,45 @@
                     <ComboBoxItem Name="DepartmentsSelection">Departments</ComboBoxItem>
                     <ComboBoxItem Name="ProvincesSelection">Provinces</ComboBoxItem>
                 </ComboBox>
-                <ComboBox Margin="10" Name="CityNameFilteringSelection" Foreground="Black" Visibility="Collapsed" SelectionChanged="OnCitiesSelectionChanged"/>
-                <ComboBox Margin="10" Name="DepartmentNameFilteringSelection" Foreground="Black" Visibility="Collapsed" SelectionChanged="OnDepartmentsSelectionChanged"/>
-                <ComboBox Margin="10" Name="ProvinceNameFilteringSelection" Foreground="Black" Visibility="Collapsed" SelectionChanged="OnProvincesSelectionChanged"/>
+                <ComboBox Margin="10" Name="CityNameFilteringSelection" Foreground="Black" Visibility="Collapsed" SelectionChanged="OnCitiesSelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Name}" />
+                                    <TextBlock Text=" - "/>
+                                    <TextBlock Text="{Binding ZipCode}" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox Margin="10" Name="DepartmentNameFilteringSelection" Foreground="Black" Visibility="Collapsed" SelectionChanged="OnDepartmentsSelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding DepartmentName}" />
+                                    <TextBlock Text=" - "/>
+                                    <TextBlock Text="{Binding DepartmentCode}" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox Margin="10" Name="ProvinceNameFilteringSelection" Foreground="Black" Visibility="Collapsed" SelectionChanged="OnProvincesSelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Name}" />
+                                    <TextBlock Text=" - "/>
+                                    <TextBlock Text="{Binding ProvinceCode}" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
                 <Button Margin="10,120,10,480" Content="AddShop" Click="ButtonAddShopPage_Click" />
             </StackPanel>
         </Grid>
@@ -43,17 +79,24 @@
                 </ListView.Resources>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Width="260" Header="Shops name" x:Name="ShopNames">
+                        <GridViewColumn Width="200" Header="Shops name" x:Name="ShopNames">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding ShopName}" Cursor="Arrow"/>
+                                    <TextBlock Text="{Binding Name}" Cursor="Arrow"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="260" Header="Cities name" x:Name="ShopCities">
+                        <GridViewColumn Width="200" Header="Cities name" x:Name="ShopCities">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding CityName}" Cursor="Hand"/>
+                                    <TextBlock Text="{Binding Adress.City.Name}" Cursor="Hand"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="200" Header="Cities ZipCode" x:Name="ShopCitiesZipCode">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Adress.City.ZipCode}" Cursor="Hand"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

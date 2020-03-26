@@ -21,16 +21,20 @@ namespace UserInterface
         public UserControlShop()
         {
             InitializeComponent();
-            ShopFilter shopFilter = new ShopFilter();
-            ShopDisplaying_ListView.ItemsSource = shopFilter.GetAllShops();
-            CityNameFilteringSelection.ItemsSource = shopFilter.GetCitiesHavingShops();
-            DepartmentNameFilteringSelection.ItemsSource = shopFilter.GetDepartmentsHavingShops();
-            ProvinceNameFilteringSelection.ItemsSource = shopFilter.GetProvincesHavingShops();
+
+            ShopDisplaying_ListView.ItemsSource = AllShops;
+
+            CityNameFilteringSelection.ItemsSource = ShopFilter.GetCitiesHavingShops(AllShops);
+            DepartmentNameFilteringSelection.ItemsSource = ShopFilter.GetDepartmentsHavingShops(AllShops);
+            ProvinceNameFilteringSelection.ItemsSource = ShopFilter.GetProvincesHavingShops(AllShops);
         }
 
         public string CityFilteringSelection { get => Name; }
         public string DepartmentFilteringSelection { get => Name; }
         public string ProvinceFilteringSelection { get => Name; }
+        public ShopFilter ShopFilter = new ShopFilter();
+        public IEnumerable<Shop> AllShops { get => ShopFilter.GetAllShops();}
+        
 
 
         public void OnLocationFilteringSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -66,24 +70,24 @@ namespace UserInterface
 
         public void OnCitiesSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
-            String selectedCity = (String) (sender as ComboBox).SelectedItem;
+            City selectedCity = (City) (sender as ComboBox).SelectedItem;
             ShopFilter shopFilter = new ShopFilter();
-            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromACity(selectedCity);
+            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromACity(AllShops, selectedCity);
         }
 
 
         public void OnDepartmentsSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
-            String selectedDepartment = (String)(sender as ComboBox).SelectedItem;
+            Department selectedDepartment = (Department)(sender as ComboBox).SelectedItem;
             ShopFilter shopFilter = new ShopFilter();
-            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromADepartment(selectedDepartment);
+            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromADepartment(AllShops, selectedDepartment);
         }
 
         public void OnProvincesSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
-            String selectedProvince = (String)(sender as ComboBox).SelectedItem;
+            Province selectedProvince = (Province)(sender as ComboBox).SelectedItem;
             ShopFilter shopFilter = new ShopFilter();
-            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromAProvince(selectedProvince);
+            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromAProvince(AllShops, selectedProvince);
         }
 
         private void ButtonAddShopPage_Click(object sender, RoutedEventArgs e)

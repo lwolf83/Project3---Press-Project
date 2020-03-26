@@ -15,80 +15,76 @@ namespace Project_3___Press_Project
             context = new PressContext();
         }
 
-        public IEnumerable<ShopCity> GetAllShops()
-        {
-            var shops = from s in context.Shops
-                        join a in context.Adresses on s.Adress.AddressId equals a.AddressId
-                        join c in context.Cities on a.City.CityId equals c.CityId
-                        orderby c.CityId
-                        select new ShopCity {Shop =  s, City = c };
 
-            return shops.ToList();
+        public IEnumerable<Shop> GetAllShops()
+        {
+            IEnumerable<Shop> shops = context.Shops.AsEnumerable();
+            IEnumerable<Address> addresses = context.Adresses.AsEnumerable();
+            IEnumerable<City> cities = context.Cities.AsEnumerable();
+            IEnumerable<Department> departments = context.Departments.AsEnumerable();
+            IEnumerable<Province> provinces = context.Provinces.AsEnumerable();
+            IEnumerable<Country> countries = context.Countries.AsEnumerable();
+
+            IEnumerable<Shop> shopList = from s in shops
+                                        join a in addresses on s.Adress.AddressId equals a.AddressId
+                                        join c in cities on a.City.CityId equals c.CityId
+                                        join d in departments on c.Department.DepartmentId equals d.DepartmentId
+                                        join p in provinces on d.Province.ProvinceId equals p.ProvinceId
+                                        join co in countries on p.Country.CountryId equals co.CountryId
+                                        orderby s.Name
+                                        select s;
+            return shopList.ToList();
         }
 
-        public IEnumerable<String> GetCitiesHavingShops()
+        public IEnumerable<City> GetCitiesHavingShops(IEnumerable<Shop> shops)
         {
-            var citiesHavingShops = (from c in context.Cities
-                                    join a in context.Adresses on c.CityId equals a.City.CityId
-                                    join s in context.Shops on a.AddressId equals s.Adress.AddressId
-                                    select c.Name).Distinct();
+            var citiesHavingShops = (from c in shops
+                                     orderby c.Adress.City.Name
+                                     select c.Adress.City).Distinct();
             return citiesHavingShops.ToList();
         }
 
-        public IEnumerable<String> GetDepartmentsHavingShops()
+        public IEnumerable<Department> GetDepartmentsHavingShops(IEnumerable<Shop> shops)
         {
-            var departmentsHavingShops = (from d in context.Departments
-                                         join c in context.Cities on d.DepartmentCode equals c.DepartmentCode
-                                         join a in context.Adresses on c.CityId equals a.City.CityId
-                                         join s in context.Shops on a.AddressId equals s.Adress.AddressId
-                                         select d.DepartmentName).Distinct();
+            var departmentsHavingShops = (from s in shops
+                                          orderby s.Adress.City.Department.DepartmentName
+                                          select s.Adress.City.Department).Distinct();
             return departmentsHavingShops.ToList();
         }
 
-        public IEnumerable<String> GetProvincesHavingShops()
+        public IEnumerable<Province> GetProvincesHavingShops(IEnumerable<Shop> shops)
         {
-            var provincesHavingShops = (from p in context.Provinces
-                                       join d in context.Departments on p.ProvinceCode equals d.ProvinceCode
-                                       join c in context.Cities on d.DepartmentCode equals c.DepartmentCode
-                                       join a in context.Adresses on c.CityId equals a.City.CityId
-                                       join s in context.Shops on a.AddressId equals s.Adress.AddressId
-                                       select p.Name).Distinct();
+            var provincesHavingShops = (from s in shops
+                                        orderby s.Adress.City.Department.Province.Name
+                                        select s.Adress.City.Department.Province).Distinct();
             return provincesHavingShops.ToList();
         }
 
-        public IEnumerable<ShopCity> GetShopsFromACity(string cityName)
+        public IEnumerable<Shop> GetShopsFromACity(IEnumerable<Shop> allShops, City city)
         {
-            var shops = from s in context.Shops
-                        join a in context.Adresses on s.Adress.AddressId equals a.AddressId
-                        join c in context.Cities on a.City.CityId equals c.CityId
-                        where c.Name == cityName
+            var shops = from s in allShops
+                        where s.Adress.City.Name == city.Name
+                        orderby s.Adress.City.Name
                         orderby s.Name
-                        select new ShopCity { Shop = s, City = c };
+                        select s;
             return shops.ToList();
         }
 
-        public IEnumerable<ShopCity> GetShopsFromADepartment(string departmentName)
+        public IEnumerable<Shop> GetShopsFromADepartment(IEnumerable<Shop> allShops, Department department)
         {
-            var shops = from s in context.Shops
-                        join a in context.Adresses on s.Adress.AddressId equals a.AddressId
-                        join c in context.Cities on a.City.CityId equals c.CityId
-                        join d in context.Departments on c.Department.DepartmentId equals d.DepartmentId
-                        where d.DepartmentName == departmentName
+            var shops = from s in allShops
+                        where s.Adress.City.Department.DepartmentName == department.DepartmentName
                         orderby s.Name
-                        select new ShopCity { Shop = s, City = c };
+                        select s;
             return shops.ToList();
         }
 
-        public IEnumerable<ShopCity> GetShopsFromAProvince(string provinceName)
+        public IEnumerable<Shop> GetShopsFromAProvince(IEnumerable<Shop> allShops, Province province)
         {
-            var shops = from s in context.Shops
-                        join a in context.Adresses on s.Adress.AddressId equals a.AddressId
-                        join c in context.Cities on a.City.CityId equals c.CityId
-                        join d in context.Departments on c.Department.DepartmentId equals d.DepartmentId
-                        join p in context.Provinces on d.Province.ProvinceId equals p.ProvinceId
-                        where p.Name == provinceName
+            var shops = from s in allShops
+                        where s.Adress.City.Department.Province.Name == province.Name
                         orderby s.Name
-                        select new ShopCity { Shop = s, City = c };
+                        select s;
             return shops.ToList();
         }
 
