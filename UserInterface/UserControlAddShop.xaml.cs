@@ -20,11 +20,15 @@ namespace UserInterface
     /// </summary>
     public partial class UserControlAddShop : UserControl
     {
+        IEnumerable<City> cities { get; set; }
+        IEnumerable<Department> departments { get; set; }
         public List<string> cityNames { get; set; }
+        
         public UserControlAddShop()
         {
             InitializeComponent();
-            IEnumerable<City> cities = ShopAdder_DB.GetCity();
+            departments = ShopAdder_DB.GetDepartment();
+            cities = ShopAdder_DB.GetCity();
             cityNames = cities.Select(x => x.Name).ToList();
         }
 
@@ -69,7 +73,7 @@ namespace UserInterface
         
         private void Reset()
         {
-            List<TextBox> textChildren = GetTextFieldsFromWrapPanels();
+            List<TextBox> textChildren = GetTextFieldsFromChildren();
             foreach (TextBox tB in textChildren)
             {
                 tB.Text = String.Empty;
@@ -82,7 +86,7 @@ namespace UserInterface
         private bool CheckFormFilled()
         {
             bool isFilled = true;
-            List<TextBox> textChildren = GetTextFieldsFromWrapPanels();
+            List<TextBox> textChildren = GetTextFieldsFromChildren();
             foreach (TextBox tB in textChildren)
             {
                 if (tB.Text == String.Empty)
@@ -97,9 +101,18 @@ namespace UserInterface
             return isFilled;
         }
 
-        private List<TextBox> GetTextFieldsFromWrapPanels()
+        private List<TextBox> GetTextFieldsFromChildren()
         {
             List<TextBox> textChildren = new List<TextBox>();
+
+            //foreach(UIElement child in parent.Children)
+            //{
+            //    if (child.GetType() == typeof(TextBox))
+            //    { textChildren.Add((TextBox)child); }
+            //    else if (child.GetType() == typeof(Panel))
+            //    { GetTextFieldsFromChildren((Panel)child); }
+            //}
+
             var wrapChildren = from child in TextStack.Children.OfType<WrapPanel>()
                                select child;
 
@@ -120,12 +133,8 @@ namespace UserInterface
         private void City_KeyUp(object sender, KeyEventArgs e)
         {
             bool found = false;
-            string query = (sender as TextBox).Text;
-            Border.MouseLeave += (sender, e) =>
-            {
-                Border.Visibility = Visibility.Collapsed;
-            };
-
+            string query = City.Text;
+            
             if (query.Length == 0)
             {
                 resultStack.Children.Clear();
@@ -152,10 +161,6 @@ namespace UserInterface
                 block.Text = "No results found.";
                 block.Margin = new Thickness(2, 3, 2, 3);
                 block.Foreground = Brushes.Black;
-                block.MouseLeave += (sender, e) =>
-                {
-                    Border.Visibility = Visibility.Collapsed;
-                };
                 resultStack.Children.Add(block);
             }
         }
@@ -174,6 +179,9 @@ namespace UserInterface
             {
                 City.Text = (sender as TextBlock).Text;
                 Border.Visibility = Visibility.Collapsed;
+                string deptCode = cities.Where(c => c.Name.Equals(City.Text)).Select(c => c.DepartmentCode).FirstOrDefault();
+                Zip.Text = cities.Where(c => c.Name.Equals(City.Text)).Select(c => c.ZipCode).FirstOrDefault();
+                Dept.Text = departments.Where(d => d.DepartmentCode.Equals(deptCode)).Select(d => d.DepartmentName).FirstOrDefault();
             };
 
             block.MouseEnter += (sender, e) =>
@@ -188,6 +196,11 @@ namespace UserInterface
                 b.Background = Brushes.Transparent;
             };
             resultStack.Children.Add(block);
+        }
+
+        private void Border_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Border.Visibility = Visibility.Collapsed;
         }
     }
 }
