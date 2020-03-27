@@ -13,6 +13,7 @@ namespace Project_3___Press_Project
         public Guid ShopId { get; set; }
         public User User { get; set; }
         public Guid UserId { get; set; }
+        public string State { get; set; }
 
         public ICollection<OrderCatalog> OrderCatalogs { get; set; }
     }
