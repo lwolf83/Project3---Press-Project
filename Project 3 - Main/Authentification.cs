@@ -18,7 +18,6 @@ namespace Project_3___Press_Project
                 return context.Users.Where(x => x.Login.Equals(login) && x.Password.Equals(encryptedPassword)).SingleOrDefault();
             }
         }
-
         private String CryptPassword(string password)
         {
             byte[] passwordBytes = Encoding.UTF8.GetBytes(password);

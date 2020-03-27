@@ -22,50 +22,43 @@ namespace UserInterface
         {
             InitializeComponent();
 
-            IEnumerable<Shop> userShops = UserSingleton.GetInstance.GetShops();
-            cmbShops.ItemsSource = userShops;
+            IEnumerable<Shop> shops = UserSingleton.GetInstance.GetShops();
+            cmbShops.ItemsSource = shops;
 
             IEnumerable<Catalog> catalogs = UserSingleton.GetInstance.GetCatalog();
             cmbCatalog.ItemsSource = catalogs;
+<<<<<<< HEAD
 
             lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();          
 
+=======
+>>>>>>> master
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            Shop shop = (Shop)cmbShops.SelectedItem;
-            bool shopNotOk = (shop is null);
-            if(shopNotOk)
+            using(var context = new PressContext())
             {
-                lblShop.Background = new SolidColorBrush(Colors.Red);
-                lblShop.Foreground = new SolidColorBrush(Colors.White);
-                lblShop.Content = lblShop.Content + " (Required)";
-            }
-
-
-            Catalog catalog = (Catalog)cmbCatalog.SelectedItem;
-            bool catalogNotOk = (catalog is null);
-            if (catalogNotOk)
-            {
-                lblCatalog.Background = new SolidColorBrush(Colors.Red);
-            }
-
-            bool quantityNotOk = String.IsNullOrWhiteSpace(txtQuantity.Text);
-            if (quantityNotOk)
-            {
-                lblQuantity.Background = new SolidColorBrush(Colors.Red);
-            }
-
-            if(!shopNotOk && !catalogNotOk && !quantityNotOk)
-            { 
+                Shop shop = (Shop) cmbShops.SelectedItem;
+                Catalog catalog = (Catalog) cmbCatalog.SelectedItem;
                 int quantity = Convert.ToInt32(txtQuantity.Text);
+<<<<<<< HEAD
                 OrderCatalogAction.Add(shop, catalog, quantity);
                 lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();
                 DisplayCurrent();
             }
+=======
+>>>>>>> master
 
+                Order order = new Order();
+                order.Shop = shop;
+                order.ShopId = shop.ShopId;
+                order.User = UserSingleton.GetInstance.User;
+                order.UserId = UserSingleton.GetInstance.User.UserId;
+                context.Orders.Update(order);
+                context.SaveChanges();
 
+<<<<<<< HEAD
         }
 
         public void BtnDeleteOrderCommand(object sender, RoutedEventArgs e)
@@ -137,5 +130,23 @@ namespace UserInterface
             BtnSeeHistory.Tag = "current";
             BtnValidateOrder.Visibility = Visibility.Visible;
         }
+=======
+                OrderCatalog newOrder = new OrderCatalog();
+                //newOrder.Catalog = catalog;
+                newOrder.CatalogId = catalog.CatalogId;
+                newOrder.Quantity = quantity;
+                //newOrder.Order = order;
+                newOrder.OrderId = order.OrderId;
+              
+                context.OrderCatalogs.Update(newOrder);
+                context.SaveChanges();
+
+
+
+            }
+               
+        }
+
+>>>>>>> master
     }
 }

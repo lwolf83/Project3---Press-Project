@@ -12,7 +12,6 @@ namespace Project_3___Press_Project
         public Guid CatalogId { get; set; }
         public Catalog Catalog { get; set; }
         public int Quantity { get; set; }
-        public DateTime CreatedAt { get; set; }
     }
 
 }

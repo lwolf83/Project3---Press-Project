@@ -13,7 +13,7 @@ namespace Project_3___Press_Project
         {
             using (var context = new PressContext())
             {
-                var cities = context.Cities.ToList();
+                List<City> cities = context.Cities.ToList();
                 return cities;
             }
 
