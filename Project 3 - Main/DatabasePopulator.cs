@@ -200,7 +200,7 @@ namespace Project_3___Press_Project
         {
             var newspapers = from Newspapers in context.Newspapers
                              select Newspapers;
-
+            int cpt = 0;
             foreach (Newspaper newspaper in newspapers)
             {
                 List<Catalog> catalogsPerNewspaper = new List<Catalog>();
@@ -210,7 +210,8 @@ namespace Project_3___Press_Project
                     catalog.Newspaper = newspaper;
                     int periodicity = newspaper.Periodicity;
                     catalog.PublicationDate = DateTime.Today + TimeSpan.FromDays(periodicity * numberOfCatalogsPerNewspaper);
-
+                    catalog.Name = "Edition " + cpt;
+                    cpt++;
                     catalogsPerNewspaper.Add(catalog);
                     context.Add(catalog);
                 }
@@ -238,6 +239,7 @@ namespace Project_3___Press_Project
                 for (int i=0; i<numberOfOrdersPerCatalogs; i++)
                 {
                     OrderCatalog orderCatalog = new OrderCatalog();
+                    orderCatalog.CreatedAt = DateTime.Now;
                     orderCatalog.Catalog = catalog;
                     orderCatalog.CatalogId = catalog.CatalogId;
                     orderCatalog.Order = orders[counter];
@@ -289,6 +291,7 @@ namespace Project_3___Press_Project
                     order.DeliveryDate = order.OrderDate + TimeSpan.FromDays(randomGenerator.Next(1,10));
                     order.User = user;
                     order.UserId = user.UserId;
+                    order.State = "In progress";
                     orders.Add(order);
                     context.Add(order);
                 }

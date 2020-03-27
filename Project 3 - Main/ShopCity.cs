@@ -8,7 +8,6 @@ namespace Project_3___Press_Project
     {
         public Shop Shop { get; set; }
         public string ShopName { get => Shop.Name; }
-        public Guid ShopId { get => Shop.ShopId; }
         public City City { get; set; }
         public string CityName { get => City.Name; }
     }
