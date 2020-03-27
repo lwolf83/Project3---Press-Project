@@ -67,10 +67,10 @@ namespace Project_3___Press_Project
             int shopCounter = 0;
             foreach (Address address in addresses)
             {
-                Shop shop1 = new Shop { Adress = address, Name = $"shop n°{shopCounter}" };
+                Shop shop1 = new Shop { Adress = address, Name = $"shop n°{shopCounter}" + address.City.Name };
                 shopCounter = shopCounter + 1;
                 Shops.Add(shop1);
-                Shop shop2 = new Shop { Adress = address, Name = $"shop n°{shopCounter}" };
+                Shop shop2 = new Shop { Adress = address, Name = $"shop n°{shopCounter}" + address.City.Name };
                 shopCounter = shopCounter + 1;
                 Shops.Add(shop2);
             }
@@ -84,51 +84,163 @@ namespace Project_3___Press_Project
             City colmar = (from c in Cities
                            where c.Name == "Colmar"
                            select c).First();
-            IEnumerable<Shop> shopsInStrasbourg = shopFilter.GetShopsFromACity(Shops, colmar);
-            Assert.AreEqual(shopsTest, shopsInStrasbourg);
+            IEnumerable<Shop> shopsInColmar = shopFilter.GetShopsFromACity(Shops, colmar);
+            Assert.AreEqual(shopsTest, shopsInColmar);
 
-            Assert.IsTrue(true);
-            List<Shop> shopResult;
-
-            shopResult = new List<Shop>() { Shops[6], Shops[7] };
-            Assert.AreEqual(shopResult, ShopFilter.ByCity(Shops, "City3"));
-
-            shopResult = new List<Shop>() { Shops[6], Shops[9] };
-            Assert.AreNotEqual(shopResult, ShopFilter.ByCity(Shops, "City3"));
-
-            shopResult = new List<Shop>();
-            Assert.AreEqual(shopResult, ShopFilter.ByCity(Shops, "Cyty3"));
-
-            shopResult = Shops;
-            Assert.AreEqual(shopResult, ShopFilter.ByCity(Shops, ""));
         }
 
         [Test]
-        public void TestShopFilterByProvince()
+        public void TestShopFilterByWrongCity()
         {
-            List<Shop> shopResult;
-            shopResult = new List<Shop>() { Shops[0], Shops[1], Shops[2], Shops[3], Shops[4], Shops[5], Shops[6], Shops[7], Shops[8], Shops[9] };
-            Assert.AreEqual(shopResult, ShopFilter.ByCountry(Shops, "Grand-Est"));
-
-            shopResult = new List<Shop>() { };
-            Assert.AreEqual(shopResult, ShopFilter.ByProvince(Shops, "Gra-Est"));
-
-            shopResult = Shops;
-            Assert.AreEqual(shopResult, ShopFilter.ByProvince(Shops, ""));
+            List<Shop> shopsTest = new List<Shop>() { Shops[0], Shops[1], Shops[2], Shops[3] };
+            ShopFilter shopFilter = new ShopFilter();
+            City strasbourg = (from c in Cities
+                           where c.Name == "Strasbourg"
+                           select c).First();
+            IEnumerable<Shop> filteredShops = shopFilter.GetShopsFromACity(Shops, strasbourg);
+            Assert.AreNotEqual(shopsTest, filteredShops);
         }
 
         [Test]
-        public void TestShopFilterByCountry()
+        public void TestShopFilteredByDepartments()
         {
-            List<Shop> shopResult;
-            shopResult = new List<Shop>() { Shops[0], Shops[1], Shops[2], Shops[3], Shops[4], Shops[5], Shops[6], Shops[7], Shops[8], Shops[9] };
-            Assert.AreEqual(shopResult, ShopFilter.ByProvince(Shops, "France"));
+            List<Shop> shopsTest = new List<Shop>() { Shops[0], Shops[1], Shops[2], Shops[3], Shops[4], Shops[5], Shops[6], Shops[7] };
+            ShopFilter shopFilter = new ShopFilter();
+            Department hautRhin = (from d in Departments
+                                 where d.DepartmentName == "Haut-Rhin"
+                                 select d).First();
+            IEnumerable<Shop> filteredShops = shopFilter.GetShopsFromADepartment(Shops, hautRhin);
 
-            shopResult = new List<Shop>() { };
-            Assert.AreEqual(shopResult, ShopFilter.ByProvince(Shops, "Fra"));
+            Assert.AreEqual(shopsTest, filteredShops);
+        }
 
-            shopResult = Shops;
-            Assert.AreEqual(shopResult, ShopFilter.ByProvince(Shops, ""));
+        [Test]
+        public void TestShopFilteredByWrongDepartments()
+        {
+            List<Shop> shopsTest = new List<Shop>() { Shops[0], Shops[1], Shops[2], Shops[3], Shops[4], Shops[5], Shops[6], Shops[7] };
+            ShopFilter shopFilter = new ShopFilter();
+            Department Doubs = (from d in Departments
+                                   where d.DepartmentName == "Doubs"
+                                   select d).First();
+            IEnumerable<Shop> filteredShops = shopFilter.GetShopsFromADepartment(Shops, Doubs);
+
+            Assert.AreNotEqual(shopsTest, filteredShops);
+        }
+
+        [Test]
+        public void TestShopFilteredByProvince()
+        {
+            List<Shop> shopsTest = new List<Shop>();
+            for(int i=0; i<16; i++)
+            {
+                shopsTest.Add(Shops[i]);
+            }
+            List<Shop> ordererShopsTest = (from s in shopsTest
+                                          orderby s.Name
+                                          select s).ToList();
+            ShopFilter shopFilter = new ShopFilter();
+            Province alsace = (from p in Provinces
+                                 where p.Name == "Alsace"
+                                 select p).First();
+            IEnumerable<Shop> filteredShops = shopFilter.GetShopsFromAProvince(Shops, alsace);
+
+            Assert.AreEqual(ordererShopsTest, filteredShops);
+        }
+
+        [Test]
+        public void TestShopFilteredByWrongProvince()
+        {
+            List<Shop> shopsTest = new List<Shop>();
+            for (int i = 0; i < 16; i++)
+            {
+                shopsTest.Add(Shops[i]);
+            }
+            List<Shop> ordererShopsTest = (from s in shopsTest
+                                           orderby s.Name
+                                           select s).ToList();
+            ShopFilter shopFilter = new ShopFilter();
+            Province francheComte = (from p in Provinces
+                               where p.Name == "Franche-Comté"
+                               select p).First();
+            IEnumerable<Shop> filteredShops = shopFilter.GetShopsFromAProvince(Shops, francheComte);
+
+            Assert.AreNotEqual(ordererShopsTest, filteredShops);
+        }
+
+        [Test]
+        public void TestGetProvincesHavingShops()
+        {
+            List<Shop> shopsOfAlsace = new List<Shop>() { Shops[1], Shops[11] };
+            List<Province> alsace = (from p in Provinces
+                                      where p.Name == "Alsace"
+                                      select p).ToList();
+            ShopFilter shopFilter = new ShopFilter();
+            List<Province> getProvinceFromShops = shopFilter.GetProvincesHavingShops(shopsOfAlsace).ToList();
+            Assert.AreEqual(getProvinceFromShops, alsace);
+        }
+
+        [Test]
+        public void TestGetWrongProvincesHavingShops()
+        {
+            List<Shop> shopsOfAlsace = new List<Shop>() { Shops[1], Shops[11] };
+            List<Province> francheComte = (from p in Provinces
+                                     where p.Name == "Franche-Comté"
+                                     select p).ToList();
+            ShopFilter shopFilter = new ShopFilter();
+            List<Province> getProvinceFromShops = shopFilter.GetProvincesHavingShops(shopsOfAlsace).ToList();
+            Assert.AreNotEqual(getProvinceFromShops, francheComte);
+        }
+
+        [Test]
+        public void TestGetDepartmentsHavingShops()
+        {
+            List<Shop> shopsOfHautRhin = new List<Shop>() { Shops[0], Shops[6]};
+            List<Department> hautRhin = (from d in Departments
+                                     where d.DepartmentName == "Haut-Rhin"
+                                     select d).ToList();
+            ShopFilter shopFilter = new ShopFilter();
+            List<Department> getDepartmentFromShops = shopFilter.GetDepartmentsHavingShops(shopsOfHautRhin).ToList();
+            Assert.AreEqual(getDepartmentFromShops, hautRhin);
+        }
+
+        [Test]
+        public void TestGetWrongDepartmentsHavingShops()
+        {
+            List<Shop> shopsOfHautRhin = new List<Shop>() { Shops[0], Shops[6] };
+            List<Department> doubs = (from d in Departments
+                                         where d.DepartmentName == "Doubs"
+                                         select d).ToList();
+            ShopFilter shopFilter = new ShopFilter();
+            List<Department> getDepartmentFromShops = shopFilter.GetDepartmentsHavingShops(shopsOfHautRhin).ToList();
+            Assert.AreNotEqual(getDepartmentFromShops, doubs);
+        }
+
+        [Test]
+        public void TestGetCitiesHavingShops()
+        {
+            List<Shop> shopsOfBesanconAndStrasbourg = new List<Shop>() { Shops[16], Shops[18], Shops[9] };
+            List<City> cities = new List<City>();
+            cities.Add((from c in Cities
+                                    where c.Name == "Besançon"
+                                    select c).First());
+            cities.Add((from c in Cities
+                          where c.Name == "Strasbourg"
+                          select c).First());
+            ShopFilter shopFilter = new ShopFilter();
+            List<City> getDepartmentFromShops = shopFilter.GetCitiesHavingShops(shopsOfBesanconAndStrasbourg).ToList();
+            Assert.AreEqual(getDepartmentFromShops, cities);
+        }
+
+        [Test]
+        public void TestGetWrongCitiesHavingShops()
+        {
+            List<Shop> shopsOfBesancon = new List<Shop>() { Shops[16], Shops[18] };
+            List<City> strasbourg = (from c in Cities
+                                   where c.Name == "Strasbourg"
+                                   select c).ToList();
+            ShopFilter shopFilter = new ShopFilter();
+            List<City> getDepartmentFromShops = shopFilter.GetCitiesHavingShops(shopsOfBesancon).ToList();
+            Assert.AreNotEqual(getDepartmentFromShops, strasbourg);
         }
     }
 }

@@ -22,6 +22,7 @@ namespace UserInterface
         public UserControlShop()
         {
             InitializeComponent();
+            AllShops = UserSingleton.GetInstance.AllShops;
             ShopDisplaying_ListView.ItemsSource = AllShops;
             CityNameFilteringSelection.ItemsSource = ShopFilter.GetCitiesHavingShops(AllShops);
             DepartmentNameFilteringSelection.ItemsSource = ShopFilter.GetDepartmentsHavingShops(AllShops);
@@ -33,14 +34,14 @@ namespace UserInterface
         public string ProvinceFilteringSelection { get => Name; }
         public ShopFilter ShopFilter = new ShopFilter();
         public MainWindow mainWindow { get => new MainWindow(); }
-        public IEnumerable<Shop> AllShops { get => mainWindow.AllShops;}
+        public IEnumerable<Shop> AllShops { get; set; }
         
 
 
 
         public void OnLocationFilteringSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBoxItem selectedItem = (ComboBoxItem)(sender as ComboBox).SelectedItem;
+            ComboBoxItem selectedItem = (ComboBoxItem) ShopFilteringEntity.SelectedItem;
 
             if (selectedItem.Name == "CitiesSelection")
             {
@@ -93,6 +94,8 @@ namespace UserInterface
 
         private void ReinitializeShopList_Btn(object sender, RoutedEventArgs e)
         {
+            UserSingleton.GetInstance.AllShops = ShopFilter.GetAllShops();
+            AllShops = UserSingleton.GetInstance.AllShops;
             ShopDisplaying_ListView.ItemsSource = AllShops;
             CityNameFilteringSelection.Visibility = Visibility.Collapsed;
             ProvinceNameFilteringSelection.Visibility = Visibility.Collapsed;

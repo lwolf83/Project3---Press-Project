@@ -14,9 +14,12 @@ namespace Project_3___Press_Project
 
         public User User { get; private set; } = new User();
         public bool IsAuthenticated { get; private set; } = false;
+        public IEnumerable<Shop> AllShops { get; set; }
 
         private UserSingleton()
         {
+            ShopFilter sf = new ShopFilter();
+            AllShops = sf.GetAllShops();
         }        
 
         public static UserSingleton GetInstance
