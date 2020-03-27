@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="UserInterface.UserControlDisplayShopDetails"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UserInterface"
+             mc:Ignorable="d" 
+             Background="#FFFCE4E4">
+    <Grid>
+        <Grid Margin="12,35,103,512">
+            <Label Content="Shop details: " HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Arial" FontSize="25" FontWeight="Bold" Margin="25,6,0,0"/>
+        </Grid>
+        <Grid x:Name="GridForm" Margin="20,92,20,197" Background="#FFFAFAFA">
+            <StackPanel x:Name="TextStack">
+                <WrapPanel Margin="0,10,0,10">
+                    <Label Content="Shop name : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                    <TextBlock x:Name="ShopName" Text="{Binding ShopName}" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="650" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                </WrapPanel>
+                <WrapPanel Margin="0,0,0,10">
+                    <Label Content="City : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                    <TextBlock x:Name="CityName" Text="{Binding CityName}" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="650" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                </WrapPanel>
+                <WrapPanel Margin="0,0,0,10">
+                    <Label Content="Street name:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                    <TextBlock x:Name="StreetName" Text="{Binding StreetName}" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="650" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                </WrapPanel>
+                <WrapPanel Margin="0,0,0,10">
+                    <Label Content="Street number : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                    <TextBlock x:Name="StreetNumber" Text="{Binding StreetNumber}" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="650" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                </WrapPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <WrapPanel Margin="0,0,0,10">
+                        <Label Content="ZipCode : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="100" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                        <TextBlock x:Name="ZipCode" Text="{Binding ZipCode}" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                    </WrapPanel>
+                    <WrapPanel Margin="10,0,0,10">
+                        <Label Content="Departement : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="150" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                        <TextBlock x:Name="DepartmentName" Text="{Binding DepartmentName}" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                    </WrapPanel>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
