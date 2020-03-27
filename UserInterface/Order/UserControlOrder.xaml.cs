@@ -28,7 +28,7 @@ namespace UserInterface
             IEnumerable<Catalog> catalogs = UserSingleton.GetInstance.GetCatalog();
             cmbCatalog.ItemsSource = catalogs;
 
-            lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();
+            lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();          
 
         }
 
@@ -62,6 +62,7 @@ namespace UserInterface
                 int quantity = Convert.ToInt32(txtQuantity.Text);
                 OrderCatalogAction.Add(shop, catalog, quantity);
                 lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();
+                DisplayCurrent();
             }
 
 
@@ -69,13 +70,32 @@ namespace UserInterface
 
         public void BtnDeleteOrderCommand(object sender, RoutedEventArgs e)
         { 
-            Guid orderCatalogIdToDelete = (Guid) ((Button)sender).Tag;
+            
             using(var context = new PressContext())
             {
-                OrderCatalog orderCatalog = context.OrderCatalogs.Where(o => o.OrderCatalogId == orderCatalogIdToDelete).FirstOrDefault();
-                context.Remove(orderCatalog);
-                context.SaveChanges();
-                lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();
+                var orderCatalog = ((ListViewItem)sender).Content;
+                string tag = (string) BtnSeeHistory.Tag;
+                if (tag == "current")
+                { 
+                    string msgtext = "Are you sure to delete this order ?";
+                    string txt = "Delete Order";
+                    MessageBoxButton button = MessageBoxButton.YesNo;
+                    MessageBoxResult result = MessageBox.Show(msgtext, txt, button);
+
+                    switch (result)
+                    {
+                        case MessageBoxResult.Yes:
+                            context.Remove(orderCatalog);
+                            context.SaveChanges();
+                            DisplayCurrent();
+                            break;
+                        case MessageBoxResult.No:
+                            break;
+                        case MessageBoxResult.Cancel:
+                            break;
+                    }
+                }
+
             }
           
         }
@@ -85,38 +105,37 @@ namespace UserInterface
             string tag = (string) ((Button)sender).Tag;
             if (tag == "current")
             {
-                BtnSeeHistory.Content = "See current order";
-                lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs("In Production");
-                BtnSeeHistory.Tag = "history";
+                DisplayHistory();
             }
             else
             {
-                BtnSeeHistory.Content = "See order history";
-                lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();
-                BtnSeeHistory.Tag = "current";
+                DisplayCurrent();
             }
         }
 
         public void BtnValidateOrderCommand(object sender, RoutedEventArgs e)
         {
-            using(var context = new PressContext())
-            {
-                IEnumerable<OrderCatalog> orderValidated = UserSingleton.GetInstance.GetOrderCatalogs();
-                foreach(OrderCatalog orderCatalog in orderValidated)
-                {
-                    orderCatalog.Order.State = "In Production";
-                }
-                context.UpdateRange(orderValidated);
-                context.SaveChanges();
-                lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();
-            }
+            OrderCatalogAction.PutOrderCurrentInProduction();
+            DisplayCurrent();
 
         }
 
-        public void CmdInitShops(object sender, RoutedEventArgs e)
+
+
+        private void DisplayHistory()
         {
-           
-        
+            BtnSeeHistory.Content = "See current order";
+            lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs("In Production");
+            BtnSeeHistory.Tag = "history";
+            BtnValidateOrder.Visibility = Visibility.Collapsed;
+        }
+
+        private void DisplayCurrent()
+        {
+            BtnSeeHistory.Content = "See order history";
+            lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();
+            BtnSeeHistory.Tag = "current";
+            BtnValidateOrder.Visibility = Visibility.Visible;
         }
     }
 }
