@@ -22,12 +22,22 @@ namespace UserInterface
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ShopFilter ShopFilter = new ShopFilter();
+        public IEnumerable<Shop> AllShops { get => ShopFilter.GetAllShops(); }
+
         public MainWindow()
         {
             InitializeComponent();
             UserControl usc = new UserControlLogin();
             GridMain.Children.Add(usc);
         }
+
+        public IEnumerable<Shop> ReturnAllShops()
+        {
+            IEnumerable<Shop> shops = AllShops;
+            return AllShops;
+        }
+
         
         private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
         {

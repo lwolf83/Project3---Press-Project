@@ -51,11 +51,11 @@ namespace Project_3___Press_Project
             City arbois = new City { Department = jura, Name = "Arbois", ZipCode = "39013" };
             Cities.Add(arbois);
 
-            List <City> cities = new List<City> { colmar, mulhouse, strasbourg, cronenbourg, besancon, burnevillers, dole, arbois };
+            List<City> cities = new List<City> { colmar, mulhouse, strasbourg, cronenbourg, besancon, burnevillers, dole, arbois };
 
             Random randomGenerator = new Random();
             List<Address> addresses = new List<Address>();
-            foreach(City city in cities)
+            foreach (City city in cities)
             {
                 Address address1 = new Address { City = city, StreetName = "street", StreetNumber = randomGenerator.Next(1, 200).ToString() };
                 Address address2 = new Address { City = city, StreetName = "street", StreetNumber = randomGenerator.Next(1, 200).ToString() };
@@ -65,7 +65,7 @@ namespace Project_3___Press_Project
             Addresses = addresses;
 
             int shopCounter = 0;
-            foreach(Address address in addresses)
+            foreach (Address address in addresses)
             {
                 Shop shop1 = new Shop { Adress = address, Name = $"shop n°{shopCounter}" };
                 shopCounter = shopCounter + 1;
@@ -82,13 +82,13 @@ namespace Project_3___Press_Project
             List<Shop> shopsTest = new List<Shop>() { Shops[0], Shops[1], Shops[2], Shops[3] };
             ShopFilter shopFilter = new ShopFilter();
             City colmar = (from c in Cities
-                              where c.Name == "Colmar"
-                              select c).First();
-            IEnumerable <Shop> shopsInStrasbourg = shopFilter.GetShopsFromACity(Shops, colmar);
+                           where c.Name == "Colmar"
+                           select c).First();
+            IEnumerable<Shop> shopsInStrasbourg = shopFilter.GetShopsFromACity(Shops, colmar);
             Assert.AreEqual(shopsTest, shopsInStrasbourg);
 
-
-            /*List<Shop> shopResult;
+            Assert.IsTrue(true);
+            List<Shop> shopResult;
 
             shopResult = new List<Shop>() { Shops[6], Shops[7] };
             Assert.AreEqual(shopResult, ShopFilter.ByCity(Shops, "City3"));
@@ -100,10 +100,10 @@ namespace Project_3___Press_Project
             Assert.AreEqual(shopResult, ShopFilter.ByCity(Shops, "Cyty3"));
 
             shopResult = Shops;
-            Assert.AreEqual(shopResult, ShopFilter.ByCity(Shops, ""));*/
+            Assert.AreEqual(shopResult, ShopFilter.ByCity(Shops, ""));
         }
 
-       /* [Test]
+        [Test]
         public void TestShopFilterByProvince()
         {
             List<Shop> shopResult;
@@ -129,6 +129,6 @@ namespace Project_3___Press_Project
 
             shopResult = Shops;
             Assert.AreEqual(shopResult, ShopFilter.ByProvince(Shops, ""));
-        }*/
+        }
     }
 }

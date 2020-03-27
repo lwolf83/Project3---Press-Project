@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Project_3___Press_Project;
 
+
 namespace UserInterface
 {
     public partial class UserControlShop : UserControl
@@ -31,8 +32,11 @@ namespace UserInterface
         public string DepartmentFilteringSelection { get => Name; }
         public string ProvinceFilteringSelection { get => Name; }
         public ShopFilter ShopFilter = new ShopFilter();
-        public IEnumerable<Shop> AllShops { get => ShopFilter.GetAllShops();}
+        public MainWindow mainWindow { get => new MainWindow(); }
+        public IEnumerable<Shop> AllShops { get => mainWindow.AllShops;}
         
+
+
 
         public void OnLocationFilteringSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -85,6 +89,14 @@ namespace UserInterface
             Province selectedProvince = (Province)(sender as ComboBox).SelectedItem;
             ShopFilter shopFilter = new ShopFilter();
             ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromAProvince(AllShops, selectedProvince);
+        }
+
+        private void ReinitializeShopList_Btn(object sender, RoutedEventArgs e)
+        {
+            ShopDisplaying_ListView.ItemsSource = AllShops;
+            CityNameFilteringSelection.Visibility = Visibility.Collapsed;
+            ProvinceNameFilteringSelection.Visibility = Visibility.Collapsed;
+            DepartmentNameFilteringSelection.Visibility = Visibility.Collapsed;
         }
 
         private void ButtonAddShopPage_Click(object sender, RoutedEventArgs e)
