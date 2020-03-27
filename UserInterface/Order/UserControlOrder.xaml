@@ -4,14 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UserInterface"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-<<<<<<< HEAD
              Background="#FF4086C1" Width="800" Height="400">
     <UserControl.Resources>
         <Style x:Key="alternateColor" TargetType="{x:Type ListViewItem}">
-            <EventSetter Event="MouseDoubleClick" Handler="BtnDeleteOrderCommand" />
+            <EventSetter Event="MouseDoubleClick" Handler="BtnDeleteOrderCommand"/>
             <Style.Triggers>
-                
                 <Trigger Property="ItemsControl.AlternationIndex" Value="0">
                     <Setter Property="Background" Value="LightBlue"/>
                 </Trigger>
@@ -19,8 +18,8 @@
                     <Setter Property="Background" Value="AliceBlue"/>
                 </Trigger>
             </Style.Triggers>
-            
         </Style>
+
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -76,7 +75,12 @@
         </StackPanel>
 
         <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4">
-            <ListView x:Name="lvOrderCatalog" HorizontalAlignment="Center" HorizontalContentAlignment="Center" AlternationCount="2" ItemContainerStyle="{StaticResource alternateColor}" ScrollViewer.VerticalScrollBarVisibility="Auto" >
+            <ListView x:Name="lvOrderCatalog" 
+                      HorizontalAlignment="Center" 
+                      HorizontalContentAlignment="Center" 
+                      AlternationCount="2" 
+                      ItemContainerStyle="{StaticResource alternateColor}" 
+                      ScrollViewer.VerticalScrollBarVisibility="Auto" >
                 <ListView.Resources>
                     <Style TargetType="GridViewColumnHeader">
                         <Setter Property="Visibility" Value="Visible" />
@@ -96,55 +100,6 @@
         <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button x:Name="BtnValidateOrder" Content="Validate your order" Click="BtnValidateOrderCommand" Width="350" Margin="10, 0,10,0"></Button>
             <Button x:Name="BtnSeeHistory" Tag="current" Content="See order history" Click="BtnSeeHistoriqueCommand" Width="700" Margin="10, 5,10,5"></Button>
-=======
-             Background="#FFBF39DC" Width="800" Height="400">
-    <Grid>
-        <StackPanel Orientation="Vertical">
-                <Grid>
-                    <StackPanel Orientation="Horizontal">
-                        <Label x:Name="Shop" Width="100" Height="30">Shop</Label>
-                        <ComboBox Name="cmbShops" Width="200" Height="30">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Name}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </StackPanel>
-                </Grid>
-                <Grid>
-                    <StackPanel Orientation="Horizontal">
-                        
-                    <Label x:Name="lblCatalog" Width="100" Height="30">Edition</Label>
-                    <ComboBox Name="cmbCatalog" Width="200" Height="30">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock>
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat=" {0} - {1}">
-                                            <Binding Path="Newspaper.Name"/>
-                                            <Binding Path="CatalogId"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </StackPanel>
-               
-                </Grid>
-            <Grid>
-                <StackPanel Orientation="Horizontal">
-                    <Label x:Name="lblQuantity" Width="100" Height="30">Quantity</Label>
-                    <TextBox  x:Name="txtQuantity" Width="100" Height="30"></TextBox>
-                </StackPanel>
-            </Grid>
-            <Grid>
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="btnAdd" Click="BtnAdd_Click">Add</Button>
-                </StackPanel>
-            </Grid>
->>>>>>> master
         </StackPanel>
     </Grid>
 

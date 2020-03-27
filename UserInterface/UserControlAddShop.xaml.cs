@@ -20,16 +20,16 @@ namespace UserInterface
     /// </summary>
     public partial class UserControlAddShop : UserControl
     {
-        IEnumerable<City> cities { get; set; }
-        IEnumerable<Department> departments { get; set; }
-        public List<string> cityNames { get; set; }
+        public IEnumerable<City> cities { get; set; }
+        public IEnumerable<Department> departments { get; set; }
+        public IEnumerable<string> cityNames { get; set; }
         
         public UserControlAddShop()
         {
             InitializeComponent();
             departments = ShopAdder_DB.GetDepartment();
             cities = ShopAdder_DB.GetCity();
-            cityNames = cities.Select(x => x.Name).ToList();
+            cityNames = cities.Select(x => x.Name).ToList().Distinct();
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)

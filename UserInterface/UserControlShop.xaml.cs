@@ -23,12 +23,9 @@ namespace UserInterface
             InitializeComponent();
             ShopFilter shopFilter = new ShopFilter();
             ShopDisplaying_ListView.ItemsSource = shopFilter.GetAllShops();
-
-
             CityNameFilteringSelection.ItemsSource = shopFilter.GetCitiesHavingShops();
             DepartmentNameFilteringSelection.ItemsSource = shopFilter.GetDepartmentsHavingShops();
-            var provinceNames = shopFilter.GetProvincesHavingShops();
-            ProvinceNameFilteringSelection.ItemsSource = provinceNames;
+            ProvinceNameFilteringSelection.ItemsSource = shopFilter.GetProvincesHavingShops();
         }
 
         public string CityFilteringSelection { get => Name; }
@@ -92,16 +89,6 @@ namespace UserInterface
         private void ButtonAddShopPage_Click(object sender, RoutedEventArgs e)
         {
             UserControl usc = new UserControlAddShop();
-            this.Content = usc;
-        }
-
-        private void ViewShopDetails_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            ListViewItem item = sender as ListViewItem;
-            object obj = item.Content;
-            Guid shopId = ((ShopCity)obj).ShopId;
-
-            UserControl usc = new UserControlDisplayShopDetails(shopId);
             this.Content = usc;
         }
     }
