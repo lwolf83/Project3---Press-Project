@@ -1,29 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Project_3___Press_Project
 {
-    public class OrderCatalogAction
+    public class OrderCatalogFactory
     {
-        public static void Add(Shop shop, Catalog catalog, int quantity)
+        public static OrderCatalog Create(Order order, Catalog catalog)
         {
+            OrderCatalog newOrder;
             using (var context = new PressContext())
             {
-                Order order = UserSingleton.GetInstance.GetCurrentOrder(shop);
-
-               
-
-                OrderCatalog newOrder = new OrderCatalog();
+                newOrder = new OrderCatalog();
                 newOrder.CatalogId = catalog.CatalogId;
-                newOrder.Quantity = quantity;
+                newOrder.Quantity = 0;
                 newOrder.OrderId = order.OrderId;
                 newOrder.Order = order;
                 newOrder.CreatedAt = DateTime.Now;
-                context.OrderCatalogs.Update(newOrder);
-                context.SaveChanges();
             }
 
+            return newOrder;
+        }
+
+        public static OrderCatalog Load(Order order, Catalog catalog)
+        {
+            OrderCatalog orderLoaded;
+            using(var context = new PressContext())
+            {
+                orderLoaded = context.OrderCatalogs.Where(o => o.OrderId == order.OrderId && o.CatalogId == catalog.CatalogId).FirstOrDefault();
+            }
+            return orderLoaded;
         }
 
         public static void PutOrderCurrentInProduction()

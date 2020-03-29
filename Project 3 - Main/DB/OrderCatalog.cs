@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Project_3___Press_Project
 {
-    public class OrderCatalog
+    public partial class OrderCatalog
     {
         public Guid OrderCatalogId { get; set; }
         public Guid OrderId { get; set; }
