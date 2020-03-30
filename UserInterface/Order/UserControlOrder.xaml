@@ -34,9 +34,8 @@
             <RowDefinition Height="80" />
         </Grid.RowDefinitions>
 
-
         <StackPanel Grid.Column="0" Grid.Row="0" Margin="10, 0, 10, 0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-            <Label x:Name="lblShop" Foreground="White" FontWeight="Bold" >Shop</Label>
+            <Label x:Name="lblShop" Style="{StaticResource DefaultInput}">Shop</Label>
             <ComboBox Name="cmbShops" ToolTip="Your shop destination" Background="White" Foreground="#FF4086C1" FontWeight="Bold">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -48,7 +47,7 @@
 
 
         <StackPanel Grid.Column="1" Grid.Row="0" Margin="10, 0, 10, 0" Orientation="Vertical"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
-            <Label x:Name="lblCatalog"  Foreground="White" FontWeight="Bold">Edition</Label>
+            <Label x:Name="lblCatalog"  Style="{StaticResource DefaultInput}">Edition</Label>
             <ComboBox Name="cmbCatalog" Background="White" Foreground="#FF4086C1" FontWeight="Bold">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -66,7 +65,7 @@
         </StackPanel>
 
         <StackPanel Grid.Column="2" Grid.Row="0" Margin="10, 0, 10, 0" Orientation="Vertical"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
-            <Label x:Name="lblQuantity"  Foreground="White" FontWeight="Bold">Quantity</Label>
+            <Label x:Name="lblQuantity" Style="{StaticResource DefaultInput}">Quantity</Label>
             <TextBox  x:Name="txtQuantity" Background="White" Foreground="#FF4086C1" FontWeight="Bold"></TextBox>
         </StackPanel>
 

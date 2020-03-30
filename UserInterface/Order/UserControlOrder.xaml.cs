@@ -30,14 +30,9 @@ namespace UserInterface
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
             Shop shop = (Shop)cmbShops.SelectedItem;
-            bool shopNotOk = (shop is null);
-
             Catalog catalog = (Catalog)cmbCatalog.SelectedItem;
-            bool catalogNotOk = (catalog is null);
-
-            bool quantityNotOk = String.IsNullOrWhiteSpace(txtQuantity.Text) || Convert.ToInt32(txtQuantity.Text) > 200;
-
-            if (!shopNotOk && !catalogNotOk && !quantityNotOk)
+            
+            if (IsValidOrderParameters(shop, catalog, txtQuantity.Text))
             {
                 int quantity = Convert.ToInt32(txtQuantity.Text);
                 Order order = OrderFactory.Create(UserSingleton.GetInstance.User, shop, DateTime.Now);
@@ -51,7 +46,7 @@ namespace UserInterface
                     if (result == MessageBoxResult.Yes)
                     {
                         orderCatalog = OrderCatalogFactory.Load(order, catalog);
-                        orderCatalog.Quantity = Convert.ToInt32(txtQuantity.Text);
+                        orderCatalog.Quantity = quantity;
                         orderCatalog.Save();
                         orderCatalog.ActivateOrder("In progress");
                     }
@@ -59,15 +54,24 @@ namespace UserInterface
                 else
                 {
                     orderCatalog = OrderCatalogFactory.Create(order, catalog);
-                    orderCatalog.Quantity = Convert.ToInt32(txtQuantity.Text);
+                    orderCatalog.Quantity = quantity;
                     orderCatalog.Save();
                     orderCatalog.ActivateOrder("In progress");
                 }
-
-                
-
                 DisplayCurrent();
             }
+        }
+
+        private bool IsValidOrderParameters(Shop shop, Catalog catalog, string quantity)
+        {
+            bool shopOk = !(shop is null);
+            bool catalogOk = !(catalog is null);
+
+            bool quantityOk = !String.IsNullOrWhiteSpace(quantity);
+            quantityOk = quantityOk && quantity.All(char.IsDigit);
+            quantityOk = quantityOk && Convert.ToInt32(quantity) < 200;
+
+            return shopOk && catalogOk && quantityOk;
         }
 
         public void BtnDeleteOrderCommand(object sender, RoutedEventArgs e)
