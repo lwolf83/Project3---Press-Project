@@ -9,7 +9,7 @@
              Background="#FF4086C1" Width="800" Height="400">
     <UserControl.Resources>
         <Style x:Key="alternateColor" TargetType="{x:Type ListViewItem}">
-            <EventSetter Event="MouseDoubleClick" Handler="BtnDeleteOrderCommand"/>
+            
             <Style.Triggers>
                 <Trigger Property="ItemsControl.AlternationIndex" Value="0">
                     <Setter Property="Background" Value="LightBlue"/>
@@ -34,10 +34,9 @@
             <RowDefinition Height="80" />
         </Grid.RowDefinitions>
 
-
-        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-            <Label x:Name="lblShop" >Shop</Label>
-            <ComboBox Name="cmbShops" ToolTip="Your shop destination">
+        <StackPanel Grid.Column="0" Grid.Row="0" Margin="10, 0, 10, 0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+            <Label x:Name="lblShop" Style="{StaticResource DefaultInput}">Shop</Label>
+            <ComboBox Name="cmbShops" ToolTip="Your shop destination" Background="White" Foreground="#FF4086C1" FontWeight="Bold">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
@@ -47,9 +46,9 @@
         </StackPanel>
 
 
-        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
-            <Label x:Name="lblCatalog">Edition</Label>
-            <ComboBox Name="cmbCatalog">
+        <StackPanel Grid.Column="1" Grid.Row="0" Margin="10, 0, 10, 0" Orientation="Vertical"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
+            <Label x:Name="lblCatalog"  Style="{StaticResource DefaultInput}">Edition</Label>
+            <ComboBox Name="cmbCatalog" Background="White" Foreground="#FF4086C1" FontWeight="Bold">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>
@@ -65,22 +64,23 @@
             </ComboBox>
         </StackPanel>
 
-        <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Vertical"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
-            <Label x:Name="lblQuantity">Quantity</Label>
-            <TextBox  x:Name="txtQuantity"></TextBox>
+        <StackPanel Grid.Column="2" Grid.Row="0" Margin="10, 0, 10, 0" Orientation="Vertical"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
+            <Label x:Name="lblQuantity" Style="{StaticResource DefaultInput}">Quantity</Label>
+            <TextBox  x:Name="txtQuantity" Background="White" Foreground="#FF4086C1" FontWeight="Bold"></TextBox>
         </StackPanel>
 
         <StackPanel Grid.Column="3" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button x:Name="btnAdd" Click="BtnAdd_Click" Width="98" Height="28">Add</Button>
         </StackPanel>
 
-        <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4">
+        <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4">
             <ListView x:Name="lvOrderCatalog" 
                       HorizontalAlignment="Center" 
                       HorizontalContentAlignment="Center" 
                       AlternationCount="2" 
                       ItemContainerStyle="{StaticResource alternateColor}" 
-                      ScrollViewer.VerticalScrollBarVisibility="Auto" >
+                      ScrollViewer.VerticalScrollBarVisibility="Visible"
+                      >
                 <ListView.Resources>
                     <Style TargetType="GridViewColumnHeader">
                         <Setter Property="Visibility" Value="Visible" />
@@ -88,14 +88,15 @@
                 </ListView.Resources>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Shop" DisplayMemberBinding="{Binding Order.Shop.Name}" Width="190"></GridViewColumn>
+                        <GridViewColumn Header="Shop" DisplayMemberBinding="{Binding Path=Order.OrderDate, StringFormat='{}{0:dd/MM/yyyy}'}" Width="100"></GridViewColumn>
+                        <GridViewColumn Header="Shop" DisplayMemberBinding="{Binding Order.Shop.Name}" Width="150"></GridViewColumn>
                         <GridViewColumn Header="Newspaper" DisplayMemberBinding="{Binding Catalog.Newspaper.Name}" Width="190"></GridViewColumn>
-                        <GridViewColumn Header="Edition" DisplayMemberBinding="{Binding Catalog.Name}" Width="190"></GridViewColumn>
-                        <GridViewColumn Header="Qty" DisplayMemberBinding="{Binding Quantity}" Width="190"></GridViewColumn>
+                        <GridViewColumn Header="Edition" DisplayMemberBinding="{Binding Catalog.Name}" Width="150"></GridViewColumn>
+                        <GridViewColumn Header="Qty" DisplayMemberBinding="{Binding Quantity}" Width="100"></GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
-        </StackPanel>
+        </Grid>
 
         <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button x:Name="BtnValidateOrder" Content="Validate your order" Click="BtnValidateOrderCommand" Width="350" Margin="10, 0,10,0"></Button>

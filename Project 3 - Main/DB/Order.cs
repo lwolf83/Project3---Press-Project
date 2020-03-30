@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Project_3___Press_Project
 {
-    public class Order
+    public partial class Order
     {
         public Guid OrderId { get; set; }
         public DateTime OrderDate { get; set; }

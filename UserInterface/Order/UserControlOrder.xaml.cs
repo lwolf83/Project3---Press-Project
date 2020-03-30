@@ -30,34 +30,48 @@ namespace UserInterface
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
             Shop shop = (Shop)cmbShops.SelectedItem;
-            bool shopNotOk = (shop is null);
-            if (shopNotOk)
-            {
-                lblShop.Background = new SolidColorBrush(Colors.Red);
-                lblShop.Foreground = new SolidColorBrush(Colors.White);
-                lblShop.Content = lblShop.Content + " (Required)";
-            }
-
             Catalog catalog = (Catalog)cmbCatalog.SelectedItem;
-            bool catalogNotOk = (catalog is null);
-            if (catalogNotOk)
-            {
-                lblCatalog.Background = new SolidColorBrush(Colors.Red);
-            }
-
-            bool quantityNotOk = String.IsNullOrWhiteSpace(txtQuantity.Text);
-            if (quantityNotOk)
-            {
-                lblQuantity.Background = new SolidColorBrush(Colors.Red);
-            }
-
-            if (!shopNotOk && !catalogNotOk && !quantityNotOk)
+            
+            if (IsValidOrderParameters(shop, catalog, txtQuantity.Text))
             {
                 int quantity = Convert.ToInt32(txtQuantity.Text);
-                OrderCatalogAction.Add(shop, catalog, quantity);
-                lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();
+                Order order = OrderFactory.Create(UserSingleton.GetInstance.User, shop, DateTime.Now);
+                OrderCatalog orderCatalog;
+                if (OrderCatalog.Exist(order, catalog))
+                {
+                    string msgtext = "An order already exist. Do you want to replace it ?";
+                    string txt = "Delete Order";
+                    MessageBoxButton button = MessageBoxButton.YesNo;
+                    MessageBoxResult result = MessageBox.Show(msgtext, txt, button);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        orderCatalog = OrderCatalogFactory.Load(order, catalog);
+                        orderCatalog.Quantity = quantity;
+                        orderCatalog.Save();
+                        orderCatalog.ActivateOrder("In progress");
+                    }
+                }
+                else
+                {
+                    orderCatalog = OrderCatalogFactory.Create(order, catalog);
+                    orderCatalog.Quantity = quantity;
+                    orderCatalog.Save();
+                    orderCatalog.ActivateOrder("In progress");
+                }
                 DisplayCurrent();
             }
+        }
+
+        private bool IsValidOrderParameters(Shop shop, Catalog catalog, string quantity)
+        {
+            bool shopOk = !(shop is null);
+            bool catalogOk = !(catalog is null);
+
+            bool quantityOk = !String.IsNullOrWhiteSpace(quantity);
+            quantityOk = quantityOk && quantity.All(char.IsDigit);
+            quantityOk = quantityOk && Convert.ToInt32(quantity) < 200;
+
+            return shopOk && catalogOk && quantityOk;
         }
 
         public void BtnDeleteOrderCommand(object sender, RoutedEventArgs e)
@@ -107,7 +121,7 @@ namespace UserInterface
 
         public void BtnValidateOrderCommand(object sender, RoutedEventArgs e)
         {
-            OrderCatalogAction.PutOrderCurrentInProduction();
+            OrderCatalogFactory.PutOrderCurrentInProduction();
             DisplayCurrent();
 
         }
@@ -128,9 +142,6 @@ namespace UserInterface
             BtnValidateOrder.Visibility = Visibility.Visible;
         }
 
-        private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
 
-        }
     }
 }
