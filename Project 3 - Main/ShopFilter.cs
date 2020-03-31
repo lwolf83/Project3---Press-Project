@@ -97,5 +97,11 @@ namespace Project_3___Press_Project
             return shops.ToList();
         }
 
+        public Shop GetShopDetail(Guid shopId)
+        {
+            IEnumerable<Shop> AllShops = UserSingleton.GetInstance.AllShops;
+            return AllShops.Where(i => i.ShopId.Equals(shopId)).FirstOrDefault();
+        }
+
     }
 }

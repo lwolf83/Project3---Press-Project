@@ -107,5 +107,14 @@ namespace UserInterface
             UserControl usc = new UserControlAddShop();
             this.Content = usc;
         }
+        private void ViewShopDetails_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ListViewItem item = sender as ListViewItem;
+            object obj = item.Content;
+            Guid shopId = ((Shop)obj).ShopId;
+
+            UserControl usc = new UserControlDisplayShopDetails(shopId);
+            this.Content = usc;
+        }
     }
 }
