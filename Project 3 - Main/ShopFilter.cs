@@ -103,5 +103,22 @@ namespace Project_3___Press_Project
             return AllShops.Where(i => i.ShopId.Equals(shopId)).FirstOrDefault();
         }
 
+
+        public IEnumerable<ShopCatalog> GetAllShopCatalogs()
+        {
+            IEnumerable<ShopCatalog> shopCatalogs = context.ShopCatalogs.AsEnumerable();
+            IEnumerable<Shop> shops = context.Shops.AsEnumerable();
+            IEnumerable<Catalog> catalogs = context.Catalogs.AsEnumerable();
+            IEnumerable<Newspaper> newspapers = context.Newspapers.AsEnumerable();
+
+            IEnumerable<ShopCatalog> dataShopCatalog = from sc in shopCatalogs
+                                                join s in shops on sc.Shop.ShopId equals s.ShopId
+                                                join cat in catalogs on sc.Catalog.CatalogId equals cat.CatalogId
+                                                join n in newspapers on cat.Newspaper.NewspaperId equals n.NewspaperId
+                                                orderby s.Name
+                                                select sc;
+            return dataShopCatalog.ToList();
+        }
+
     }
 }
