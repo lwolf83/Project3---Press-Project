@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Linq;
 using Project_3___Press_Project;
 
 
@@ -34,7 +35,8 @@ namespace UserInterface
 
         private void btnCheck_Click(object sender, RoutedEventArgs e)
         {
-
+            Shop selectedShop = (Shop)cmbShops.SelectedItem;
+            stockList.ItemsSource = AllShopCatalogs.Where(sc => sc.Shop.ShopId == selectedShop.ShopId);
         }
     }
 }

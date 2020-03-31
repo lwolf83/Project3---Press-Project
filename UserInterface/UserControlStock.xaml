@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:UserInterface"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             Background="IndianRed" Width="800" Height="400">
+             Background="IndianRed" Width="950" Height="450">
     <UserControl.Resources>
         <Style x:Key="alternateColor" TargetType="{x:Type ListViewItem}">
 
@@ -62,7 +62,7 @@
                 </ListView.Resources>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="EAN13 code" DisplayMemberBinding="{Binding Path=Order.OrderDate, StringFormat='{}{0:dd/MM/yyyy}'}" Width="140"></GridViewColumn>
+                        <GridViewColumn Header="EAN13 code" DisplayMemberBinding="{Binding Catalog.Newspaper.EAN13}" Width="140"></GridViewColumn>
                         <GridViewColumn Header="Newspaper" DisplayMemberBinding="{Binding Catalog.Newspaper.Name}" Width="150"></GridViewColumn>
                         <GridViewColumn Header="Edition" DisplayMemberBinding="{Binding Catalog.Name}" Width="190"></GridViewColumn>
                         <GridViewColumn Header="Qty" DisplayMemberBinding="{Binding Quantity}" Width="100"></GridViewColumn>
