@@ -22,13 +22,14 @@ namespace UserInterface
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ShopFilter ShopFilter = new ShopFilter();
         public MainWindow()
         {
             InitializeComponent();
             UserControl usc = new UserControlLogin();
             GridMain.Children.Add(usc);
         }
-        
+                
         private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
         {
             ButtonCloseMenu.Visibility = Visibility.Visible;
