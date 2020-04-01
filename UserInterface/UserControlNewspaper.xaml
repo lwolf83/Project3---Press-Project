@@ -1,0 +1,152 @@
+﻿<UserControl x:Class="UserInterface.UserControlNewspaper"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UserInterface"
+             mc:Ignorable="d" 
+             >
+    <Grid Background="#a5bdda" Height="1000" Width="1000" Margin="0,20,0,40" HorizontalAlignment="Right">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="6*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Newspapers" Name="ShopTextBlock" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center" FontWeight="Bold" Foreground="#253d5a"/>
+        
+        <!-- Newspaper addition / modification buttons -->
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <Button x:Name="AddNewspaper" Content="Add a newspaper" HorizontalAlignment="Center" Click="AddNewspaper_Btn" Margin="10,100,10,30"/>
+            <Button x:Name="ModifyNewspaper" HorizontalAlignment="Center" Click="ModifyNewspaper_Btn" Height="58" Width="140">
+                <TextBlock Text="Modify existing newspaper" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Button>
+        </StackPanel>
+
+        <!-- Adding newspaper Grid -->
+        <Grid Grid.Row="1" Grid.Column="1" Visibility="Visible" x:Name="AddNewspaper_Grid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Margin="0,0,0,0">
+                <TextBlock Text="Name" VerticalAlignment="Center" Margin="20"/>
+                <TextBox Name="NewspaperName_textBox" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="18" Foreground="Black" Background="White"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0">
+                <TextBlock Text="Periodicity (D) :" VerticalAlignment="Center" Margin="20"/>
+                <TextBox Name="NewspaperPeriodicity_textBox" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="18" Foreground="Black" Background="White" PreviewTextInput="CheckInputHasOnlyNumbers"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" Margin="0,0,0,0">
+                <TextBlock Text="EAN13" Margin="20" VerticalAlignment="Center" />
+                <TextBox x:Name="NewspaperEAN13_textBox" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="18" Foreground="Black" Background="White" PreviewTextInput="CheckInputHasOnlyNumbers"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
+                <TextBlock Text="Price (€)" Margin="20" VerticalAlignment="Center"/>
+                <TextBox x:Name="NewspaperPrice_textBox" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="18" Foreground="Black" Background="White" PreviewTextInput="CheckNewspaperPrice_textBox"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center">
+                <TextBlock Text="First publication date (dd/MM/yyyy)" Margin="0,20,0,20" VerticalAlignment="Center"/>
+                <TextBox x:Name="NewspaperFirstPublicationDate_textBox" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="18" Foreground="Black" Background="White" PreviewTextInput="CheckDateInputCaracters"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center">
+                <TextBlock Text="Editor" Margin="20" VerticalAlignment="Center"/>
+                <ComboBox Margin="10" Name="EditorNameFilteringSelection_comboBox" Foreground="Black">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <TextBlock Text="{Binding Name}" />
+                            </Border>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            
+            <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="50" Height="60" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#253d5a" Click="ConfirmNewspaperAddition_Btn">
+                <TextBlock Text="Confirm newspaper addition" TextWrapping="Wrap"/>
+            </Button>
+            
+            <!-- Wrong input message -->
+            <StackPanel x:Name="WarningCheckInputs_Display" Visibility="Collapsed" Height="150" Width="320" Background="Red" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3">
+                <TextBlock Text="! Invalid inputs" TextWrapping="Wrap" FontSize="25" Width="300" Foreground="Yellow" Margin="0,30" TextAlignment="Center" VerticalAlignment="Center"/>
+                <Button Content="OK" Click="WarningCheckInputs_Btn" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            </StackPanel>
+            <StackPanel x:Name="NewspaperAdditionOk_Display" Visibility="Collapsed" Height="100" Width="300" Background="#253d5a" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3">
+                <TextBlock Text="Newspaper added" TextWrapping="Wrap" FontSize="20" Width="300" Foreground="Yellow" Margin="0,15" TextAlignment="Center" VerticalAlignment="Center"/>
+                <Button Content="OK" Click="NewspaperAddedWell_Btn" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            </StackPanel>
+            <StackPanel x:Name="ErrorInput_Display" Visibility="Collapsed" Height="100" Width="300" Background="#253d5a" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3">
+                <TextBlock Name="ErrorNewspaperAddition_TextBlock" TextWrapping="Wrap" FontSize="20" Width="300" Foreground="Yellow" Margin="0,15" TextAlignment="Center" VerticalAlignment="Center"/>
+                <Button Content="OK" Click="ErrorInput_Btn" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            </StackPanel>
+        </Grid>
+
+        
+        <!-- Modifying newspaper Grid-->
+        <Grid Grid.Row="1" Grid.Column="1" Visibility="Collapsed" x:Name="ModifyNewspaperlv_grid">
+            <ListView  Name="ModifyNewspaper_lv">
+                <ListView.Resources>
+                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="150" Header="Newspaper name" x:Name="NewspaperNames_lvHeader">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" Cursor="Arrow"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="150" Header="EAN13" x:Name="EANCode_lvHeader">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding EAN13}" Cursor="Arrow"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="100" Header="Price (€)" x:Name="NewspaperPrice_lvHeader">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Price}" Cursor="Arrow"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="150" Header="Editor name" x:Name="EditorName_lvHeader">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Editor.Name}" Cursor="Arrow"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="150" Header="Newspaper periodicity" x:Name="NewspaperPeriodicity_lvHeader">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Periodicity}" Cursor="Arrow"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="MouseDoubleClick"  Handler="ModifySelectedNewspaper_MouseDoubleClick" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </Grid>
+    </Grid>
+</UserControl>

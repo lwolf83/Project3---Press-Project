@@ -21,5 +21,11 @@ namespace UserInterface
         {
             InitializeComponent();
         }
+
+        private void NewspaperModificationPage_Btn(object sender, RoutedEventArgs e)
+        {
+            UserControl usc = new UserControlNewspaper();
+            this.Content = usc;
+        }
     }
 }
