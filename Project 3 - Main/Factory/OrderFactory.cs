@@ -7,7 +7,7 @@ namespace Project_3___Press_Project
 {
     public class OrderFactory
     {
-        public static Order Create(User user, Shop shop, DateTime orderDate)
+        public static Order CreateOrLoad(User user, Shop shop, DateTime orderDate)
         {
             var context = new PressContext();
 
