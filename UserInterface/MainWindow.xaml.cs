@@ -22,12 +22,11 @@ namespace UserInterface
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ShopFilter ShopFilter = new ShopFilter();
+        
         public MainWindow()
         {
             InitializeComponent();
-            UserControl usc = new UserControlLogin();
-            GridMain.Children.Add(usc);
+            UserControlSetter.SetGridMain(GridMain, "ItemLogin");
         }
                 
         private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
@@ -44,59 +43,24 @@ namespace UserInterface
 
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
-            UserControl usc = new UserControlLogout();
-            GridMain.Children.Clear();
-            GridMain.Children.Add(usc);
+            UserControlSetter.SetGridMain(GridMain, "ItemLogout");
         }
 
         private void ButtonCloseApplication_Click(object sender, RoutedEventArgs e)
-        {            
-            UserControl usc = new UserControlClose();
-            GridMain.Children.Clear();
-            GridMain.Children.Add(usc);                      
+        {
+            UserControlSetter.SetGridMain(GridMain, "ItemClose");                     
         }
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            UserControl usc = null;
-            GridMain.Children.Clear();
-            
+        {           
             if(!UserSingleton.GetInstance.IsAuthenticated)
             {
-                usc = new UserControlLogin();
-                GridMain.Children.Add(usc);
+                UserControlSetter.SetGridMain(GridMain, "ItemLogin");
             }
             else
             {
-                switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
-                {
-                    case "ItemShop":
-                        usc = new UserControlShop();
-                        GridMain.Children.Add(usc);
-                        break;
-                    case "ItemEditor":
-                        usc = new UserControlEditor();
-                        GridMain.Children.Add(usc);
-                        break;
-                    case "ItemOrder":
-                        usc = new UserControlOrder();
-                        GridMain.Children.Add(usc);
-                        break;
-                    case "ItemStat":
-                        usc = new UserControlStat();
-                        GridMain.Children.Add(usc);
-                        break;
-                    case "ItemAccount":
-                        usc = new UserControlAccount();
-                        GridMain.Children.Add(usc);
-                        break;
-                    case "ItemSetting":
-                        usc = new UserControlSetting();
-                        GridMain.Children.Add(usc);
-                        break;
-                    default:
-                        break;
-                }
+                string menuAction = ((ListViewItem)((ListView)sender).SelectedItem).Name;
+                UserControlSetter.SetGridMain(GridMain, menuAction);
             }            
         }
     }

@@ -79,7 +79,8 @@
                       HorizontalContentAlignment="Center" 
                       AlternationCount="2" 
                       ItemContainerStyle="{StaticResource alternateColor}" 
-                      ScrollViewer.VerticalScrollBarVisibility="Visible"
+                      ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                      MouseDoubleClick="lvOrderCatalog_MouseDoubleClick"
                       >
                 <ListView.Resources>
                     <Style TargetType="GridViewColumnHeader">

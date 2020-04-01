@@ -33,20 +33,7 @@ namespace Project_3___Press_Project
             return orderLoaded;
         }
 
-        public static void PutOrderCurrentInProduction()
-        {
-            using (var context = new PressContext())
-            {
-                IEnumerable<OrderCatalog> orderValidated = UserSingleton.GetInstance.GetOrderCatalogs();
-                foreach (OrderCatalog orderCatalog in orderValidated)
-                {
-                    orderCatalog.Order.State = "In Production";
-                }
-                context.UpdateRange(orderValidated);
-                context.SaveChanges();
 
-            }
-        }
 
     }
 }
