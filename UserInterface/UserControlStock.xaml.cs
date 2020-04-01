@@ -36,20 +36,21 @@ namespace UserInterface
         private void btnCheck_Click(object sender, RoutedEventArgs e)
         {
             Shop selectedShop = (Shop)cmbShops.SelectedItem;
-            stockList.ItemsSource = AllShopCatalogs.Where(sc => sc.Shop.ShopId == selectedShop.ShopId);
+            if (selectedShop != null)
+            {
+                stockList.ItemsSource = AllShopCatalogs.Where(sc => sc.Shop.ShopId == selectedShop.ShopId);
+            }
         }
 
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ListViewItem item = sender as ListViewItem;
             object obj = item.Content;
-            Guid newspaperId = ((ShopCatalog)obj).Catalog.Newspaper.NewspaperId;
             string EAN13 = ((ShopCatalog)obj).Catalog.Newspaper.EAN13;
-            string editorName = ((ShopCatalog)obj).Catalog.Newspaper.Editor.Name;
 
             UserControlModifyNewspaper usc = new UserControlModifyNewspaper();
             usc.EAN13 = EAN13;
-
+            usc.PrefillEAN13();
             this.Content = usc;
         }
     }

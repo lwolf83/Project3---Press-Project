@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:UserInterface"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             Background="IndianRed" Width="950" Height="450">
+             Background="IndianRed" Width="1000" Height="600">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
@@ -14,8 +14,8 @@
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="110" />
-            <RowDefinition />
+            <RowDefinition Height="150" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="180, 0, 60, 0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center">
