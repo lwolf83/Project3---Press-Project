@@ -59,42 +59,8 @@ namespace UserInterface
             }
             else
             {
-<<<<<<< HEAD
-                switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
-                {
-                    case "ItemShop":
-                        usc = new UserControlShop();
-                        GridMain.Children.Add(usc);
-                        break;
-                    case "ItemEditor":
-                        UserControlJournal ucj = new UserControlJournal();
-                        GridMain.Children.Add(ucj);
-                        /*usc = new UserControlEditor();
-                        GridMain.Children.Add(usc);*/
-                        break;
-                    case "ItemOrder":
-                        usc = new UserControlOrder();
-                        GridMain.Children.Add(usc);
-                        break;
-                    case "ItemStat":
-                        usc = new UserControlStat();
-                        GridMain.Children.Add(usc);
-                        break;
-                    case "ItemAccount":
-                        usc = new UserControlAccount();
-                        GridMain.Children.Add(usc);
-                        break;
-                    case "ItemSetting":
-                        usc = new UserControlSetting();
-                        GridMain.Children.Add(usc);
-                        break;
-                    default:
-                        break;
-                }
-=======
                 string menuAction = ((ListViewItem)((ListView)sender).SelectedItem).Name;
                 UserControlSetter.SetGridMain(GridMain, menuAction);
->>>>>>> master
             }            
         }
     }
