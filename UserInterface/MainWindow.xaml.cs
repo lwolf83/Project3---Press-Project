@@ -75,8 +75,10 @@ namespace UserInterface
                         GridMain.Children.Add(usc);
                         break;
                     case "ItemEditor":
-                        usc = new UserControlEditor();
-                        GridMain.Children.Add(usc);
+                        UserControlJournal ucj = new UserControlJournal();
+                        GridMain.Children.Add(ucj);
+                        /*usc = new UserControlEditor();
+                        GridMain.Children.Add(usc);*/
                         break;
                     case "ItemOrder":
                         usc = new UserControlOrder();
