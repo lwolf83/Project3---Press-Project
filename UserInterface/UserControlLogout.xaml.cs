@@ -22,22 +22,19 @@ namespace UserInterface
             
             if (UserSingleton.GetInstance.IsAuthenticated is false)
             {
-                UserControl usc = new UserControlLogin();
-                this.Content = usc;
+                UserControlSetter.SetGridMain(this, "ItemLogin");
             }           
         }
 
         private void ButtonLogoutApplicationYes_Click(object sender, RoutedEventArgs e)
         {
             UserSingleton.GetInstance.Disconnect();
-            UserControl usc = new UserControlLogin();
-            this.Content = usc;
+            UserControlSetter.SetGridMain(this, "ItemLogin");
         }
 
         private void ButtonLogoutApplicationNo_Click(object sender, RoutedEventArgs e)
         {
-            UserControl usc = new UserControlShop();
-            this.Content = usc;
+            UserControlSetter.SetGridMain(this, "ItemShop");
         }
     }
 }
