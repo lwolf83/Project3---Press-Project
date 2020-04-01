@@ -110,11 +110,13 @@ namespace Project_3___Press_Project
             IEnumerable<Shop> shops = context.Shops.AsEnumerable();
             IEnumerable<Catalog> catalogs = context.Catalogs.AsEnumerable();
             IEnumerable<Newspaper> newspapers = context.Newspapers.AsEnumerable();
+            IEnumerable<Editor> editors = context.Editors.AsEnumerable();
 
             IEnumerable<ShopCatalog> dataShopCatalog = from sc in shopCatalogs
                                                 join s in shops on sc.Shop.ShopId equals s.ShopId
                                                 join cat in catalogs on sc.Catalog.CatalogId equals cat.CatalogId
                                                 join n in newspapers on cat.Newspaper.NewspaperId equals n.NewspaperId
+                                                join e in editors on n.Editor.EditorId equals e.EditorId
                                                 orderby s.Name
                                                 select sc;
             return dataShopCatalog.ToList();

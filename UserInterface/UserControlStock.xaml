@@ -7,20 +7,6 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              Background="IndianRed" Width="950" Height="450">
-    <UserControl.Resources>
-        <Style x:Key="alternateColor" TargetType="{x:Type ListViewItem}">
-
-            <Style.Triggers>
-                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                    <Setter Property="Background" Value="LightBlue"/>
-                </Trigger>
-                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                    <Setter Property="Background" Value="AliceBlue"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
@@ -37,7 +23,7 @@
             <ComboBox Name="cmbShops" Background="White" Foreground="#FF4086C1" FontWeight="Bold" Height="30">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}" />
+                        <TextBlock Text="{Binding Name}" FontSize="17" />
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
@@ -51,8 +37,7 @@
             <ListView x:Name="stockList" 
                       HorizontalAlignment="Center" 
                       HorizontalContentAlignment="Center" 
-                      AlternationCount="2" 
-                      ItemContainerStyle="{StaticResource alternateColor}" 
+                      AlternationCount="2"  
                       ScrollViewer.VerticalScrollBarVisibility="Visible"
                       >
                 <ListView.Resources>
@@ -68,6 +53,20 @@
                         <GridViewColumn Header="Qty" DisplayMemberBinding="{Binding Quantity}" Width="100"></GridViewColumn>
                     </GridView>
                 </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="MouseDoubleClick"  Handler="ListViewItem_MouseDoubleClick" />
+                        <Setter Property="Cursor" Value="Hand" />
+                        <Style.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                <Setter Property="Background" Value="LightBlue"/>
+                            </Trigger>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                <Setter Property="Background" Value="AliceBlue"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
     </Grid>
