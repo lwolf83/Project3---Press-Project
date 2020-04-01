@@ -22,6 +22,7 @@ namespace UserInterface
         {
             InitializeComponent();
             EditorNameFilteringSelection_comboBox.ItemsSource = GetAllEditors();
+            ModifyNewspaper_lv.ItemsSource = GetAllNewspapers();
         }
 
         public List<Editor> GetAllEditors()
@@ -30,10 +31,22 @@ namespace UserInterface
             using (var context = new PressContext())
             {
                 editors = (from i in context.Editors
-                            select i).ToList();
+                           select i).ToList();
 
             }
             return editors;
+        }
+
+        public List<Newspaper> GetAllNewspapers()
+        {
+            List<Newspaper> newspapers = new List<Newspaper>();
+            using (var context = new PressContext())
+            {
+                newspapers = (from i in context.Newspapers
+                              orderby i.Name
+                              select i).ToList();
+            }
+            return newspapers;
         }
 
         public void ConfirmNewspaperAddition_Btn(object sender, RoutedEventArgs e)
@@ -153,7 +166,6 @@ namespace UserInterface
             }
         }
 
-
         public bool CheckUserFieldsAreComplete(object sender, RoutedEventArgs e)
         {
             string newspaperName = NewspaperName_textBox.Text;
@@ -221,9 +233,7 @@ namespace UserInterface
 
         private void ModifySelectedNewspaper_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            MessageBox.Show("OK");
         }
-
-        
     }
 }

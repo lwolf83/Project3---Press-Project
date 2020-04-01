@@ -95,7 +95,7 @@
 
         
         <!-- Modifying newspaper Grid-->
-        <Grid Grid.Row="1" Grid.Column="1" Visibility="Collapsed" x:Name="ModifyNewspaperlv_grid">
+        <Grid Grid.Row="1" Grid.Column="1" Visibility="Visible" x:Name="ModifyNewspaperlv_grid">
             <ListView  Name="ModifyNewspaper_lv">
                 <ListView.Resources>
                     <Style TargetType="{x:Type GridViewColumnHeader}">
