@@ -78,24 +78,11 @@
                 <TextBlock Text="Confirm newspaper addition" TextWrapping="Wrap"/>
             </Button>
             
-            <!-- Wrong input message -->
-            <StackPanel x:Name="WarningCheckInputs_Display" Visibility="Collapsed" Height="150" Width="320" Background="#cd5c5c" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3">
-                <TextBlock Text="! Invalid inputs" TextWrapping="Wrap" FontSize="25" Width="300" Foreground="Yellow" Margin="0,30" TextAlignment="Center" VerticalAlignment="Center"/>
-                <Button Content="OK" Click="WarningCheckInputs_Btn" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-            </StackPanel>
-            <StackPanel x:Name="NewspaperAdditionOk_Display" Visibility="Collapsed" Height="100" Width="300" Background="#253d5a" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3">
-                <TextBlock Text="Newspaper added" TextWrapping="Wrap" FontSize="20" Width="300" Foreground="Yellow" Margin="0,15" TextAlignment="Center" VerticalAlignment="Center"/>
-                <Button Content="OK" Click="NewspaperAddedWell_Btn" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-            </StackPanel>
-            <StackPanel x:Name="ErrorInput_Display" Visibility="Collapsed" Height="100" Width="300" Background="#cd5c5c" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3">
-                <TextBlock Name="ErrorNewspaperAddition_TextBlock" TextWrapping="Wrap" FontSize="15" Width="300" Foreground="Yellow" Margin="0,15" TextAlignment="Center" VerticalAlignment="Center"/>
-                <Button Content="OK" Click="ErrorInput_Btn" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-            </StackPanel>
         </Grid>
 
         
         <!-- Modifying newspaper Grid-->
-        <Grid Grid.Row="1" Grid.Column="1" Visibility="Visible" x:Name="ModifyNewspaperlv_grid">
+        <Grid Grid.Row="1" Grid.Column="1" Visibility="Collapsed" x:Name="ModifyNewspaperlv_grid">
             <ListView  Name="ModifyNewspaper_lv">
                 <ListView.Resources>
                     <Style TargetType="{x:Type GridViewColumnHeader}">
@@ -148,5 +135,71 @@
                 </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
+
+
+        <!-- Modifying newspaper Grid -->
+        <Grid Grid.Row="1" Grid.Column="1" Visibility="Visible" x:Name="ModifyNewspaper_Grid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Margin="0,0,0,0">
+                <TextBlock Text="Name" VerticalAlignment="Center" Margin="20"/>
+                <TextBox Name="ModifyNewspaperName_textBox" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="18" Foreground="Black" Background="White"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0">
+                <TextBlock Text="Periodicity (D) :" VerticalAlignment="Center" Margin="20"/>
+                <TextBox Name="ModifyNewspaperPeriodicity_textBox" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="18" Foreground="Black" Background="White" PreviewTextInput="CheckInputHasOnlyNumbers"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" Margin="0,0,0,0">
+                <TextBlock Text="EAN13" Margin="20" VerticalAlignment="Center" />
+                <TextBox x:Name="ModifyNewspaperEAN13_textBox" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="18" Foreground="Black" Background="White" PreviewTextInput="CheckInputHasOnlyNumbers"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                <TextBlock Text="Price (€)" Margin="20" VerticalAlignment="Center"/>
+                <TextBox x:Name="ModifyNewspaperPrice_textBox" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="18" Foreground="Black" Background="White" PreviewTextInput="CheckNewspaperPrice_textBox"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Vertical" HorizontalAlignment="Center">
+                <TextBlock Text="Editor" Margin="20" VerticalAlignment="Center"/>
+                <ComboBox Margin="0" Name="ModifyEditorNameFilteringSelection_comboBox" Foreground="Black" Width="130">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <TextBlock Text="{Binding Name}" />
+                            </Border>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+
+            <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Margin="50" Height="60" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#253d5a" Click="ConfirmNewspaperModification_Btn">
+                <TextBlock Text="Confirm modifications" TextWrapping="Wrap"/>
+            </Button>
+
+            
+        </Grid>
+
+        <!-- Wrong input message -->
+        <StackPanel Grid.Column="1" Grid.Row="1" x:Name="WarningCheckInputs_Display" Visibility="Collapsed" Height="150" Width="320" Background="#cd5c5c" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="! Invalid inputs" TextWrapping="Wrap" FontSize="25" Width="300" Foreground="Yellow" Margin="0,30" TextAlignment="Center" VerticalAlignment="Center"/>
+            <Button Content="OK" Click="WarningCheckInputs_Btn" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        </StackPanel>
+        <StackPanel x:Name="NewspaperAdditionOk_Display" Visibility="Collapsed" Height="100" Width="300" Background="#253d5a" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1">
+            <TextBlock Text="Newspaper added" TextWrapping="Wrap" FontSize="20" Width="300" Foreground="Yellow" Margin="0,15" TextAlignment="Center" VerticalAlignment="Center"/>
+            <Button Content="OK" Click="NewspaperAddedWell_Btn" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        </StackPanel>
+        <StackPanel x:Name="ErrorInput_Display" Visibility="Collapsed" Height="100" Width="300" Background="#cd5c5c" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1">
+            <TextBlock Name="ErrorNewspaperAddition_TextBlock" TextWrapping="Wrap" FontSize="15" Width="300" Foreground="Yellow" Margin="0,15" TextAlignment="Center" VerticalAlignment="Center"/>
+            <Button Content="OK" Click="ErrorInput_Btn" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        </StackPanel>
+
     </Grid>
 </UserControl>

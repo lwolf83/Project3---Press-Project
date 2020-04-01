@@ -21,41 +21,19 @@ namespace UserInterface
         public UserControlNewspaper()
         {
             InitializeComponent();
-            EditorNameFilteringSelection_comboBox.ItemsSource = GetAllEditors();
-            ModifyNewspaper_lv.ItemsSource = GetAllNewspapers();
+            EditorNameFilteringSelection_comboBox.ItemsSource = Editor.GetAllEditors();
+            ModifyNewspaper_lv.ItemsSource = Newspaper.GetAllNewspapers();
         }
-
-        public List<Editor> GetAllEditors()
-        {
-            List<Editor> editors = new List<Editor>();
-            using (var context = new PressContext())
-            {
-                editors = (from i in context.Editors
-                           select i).ToList();
-
-            }
-            return editors;
-        }
-
-        public List<Newspaper> GetAllNewspapers()
-        {
-            List<Newspaper> newspapers = new List<Newspaper>();
-            using (var context = new PressContext())
-            {
-                newspapers = (from i in context.Newspapers
-                              orderby i.Name
-                              select i).ToList();
-            }
-            return newspapers;
-        }
-
+        public Newspaper Newspaper = new Newspaper();
+        public Editor Editor = new Editor();
+        public Newspaper NewspaperToModify { get; set; }
+        
         public void ConfirmNewspaperAddition_Btn(object sender, RoutedEventArgs e)
         {
-            
             if(CheckUserFieldsAreComplete(sender, e) == true)
             {
                 if((CheckPublicationDateFormat(NewspaperFirstPublicationDate_textBox.Text) == true)
-                    && CheckPriceFormat(NewspaperPrice_textBox.Text)==true
+                    && CheckPriceFormat(NewspaperPrice_textBox.Text) == true
                     && CheckPeriodicityLength(NewspaperPeriodicity_textBox.Text) == true)
                 {
                     CreateNewspaper(sender, e);
@@ -233,7 +211,18 @@ namespace UserInterface
 
         private void ModifySelectedNewspaper_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("OK");
+            NewspaperToModify = ((ListViewItem) sender).Content as Newspaper;
+            ModifyNewspaperName_textBox.Text = NewspaperToModify.Name;
+            ModifyNewspaperPeriodicity_textBox.Text = NewspaperToModify.Periodicity.ToString();
+            ModifyNewspaperEAN13_textBox.Text = NewspaperToModify.EAN13;
+            ModifyNewspaperPrice_textBox.Text = NewspaperToModify.Price.ToString();
+            ModifyEditorNameFilteringSelection_comboBox.SelectedItem = NewspaperToModify.Editor;
+            ModifyNewspaper_Grid.Visibility = Visibility.Visible;
+        }
+
+        private void ConfirmNewspaperModification_Btn(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
