@@ -28,7 +28,7 @@
         </StackPanel>
 
         <!-- Adding newspaper Grid -->
-        <Grid Grid.Row="1" Grid.Column="1" Visibility="Visible" x:Name="AddNewspaper_Grid">
+        <Grid Grid.Row="1" Grid.Column="1" Visibility="Collapsed" x:Name="AddNewspaper_Grid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -63,7 +63,7 @@
 
             <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center">
                 <TextBlock Text="Editor" Margin="20" VerticalAlignment="Center"/>
-                <ComboBox Margin="10" Name="EditorNameFilteringSelection_comboBox" Foreground="Black">
+                <ComboBox Margin="0" Name="EditorNameFilteringSelection_comboBox" Foreground="Black" Width="130">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Border>
@@ -74,12 +74,12 @@
                 </ComboBox>
             </StackPanel>
             
-            <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="50" Height="60" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#253d5a" Click="ConfirmNewspaperAddition_Btn">
+            <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Margin="50" Height="60" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#253d5a" Click="ConfirmNewspaperAddition_Btn">
                 <TextBlock Text="Confirm newspaper addition" TextWrapping="Wrap"/>
             </Button>
             
             <!-- Wrong input message -->
-            <StackPanel x:Name="WarningCheckInputs_Display" Visibility="Collapsed" Height="150" Width="320" Background="Red" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3">
+            <StackPanel x:Name="WarningCheckInputs_Display" Visibility="Collapsed" Height="150" Width="320" Background="#cd5c5c" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3">
                 <TextBlock Text="! Invalid inputs" TextWrapping="Wrap" FontSize="25" Width="300" Foreground="Yellow" Margin="0,30" TextAlignment="Center" VerticalAlignment="Center"/>
                 <Button Content="OK" Click="WarningCheckInputs_Btn" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
             </StackPanel>
@@ -87,8 +87,8 @@
                 <TextBlock Text="Newspaper added" TextWrapping="Wrap" FontSize="20" Width="300" Foreground="Yellow" Margin="0,15" TextAlignment="Center" VerticalAlignment="Center"/>
                 <Button Content="OK" Click="NewspaperAddedWell_Btn" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
             </StackPanel>
-            <StackPanel x:Name="ErrorInput_Display" Visibility="Collapsed" Height="100" Width="300" Background="#253d5a" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3">
-                <TextBlock Name="ErrorNewspaperAddition_TextBlock" TextWrapping="Wrap" FontSize="20" Width="300" Foreground="Yellow" Margin="0,15" TextAlignment="Center" VerticalAlignment="Center"/>
+            <StackPanel x:Name="ErrorInput_Display" Visibility="Collapsed" Height="100" Width="300" Background="#cd5c5c" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3">
+                <TextBlock Name="ErrorNewspaperAddition_TextBlock" TextWrapping="Wrap" FontSize="15" Width="300" Foreground="Yellow" Margin="0,15" TextAlignment="Center" VerticalAlignment="Center"/>
                 <Button Content="OK" Click="ErrorInput_Btn" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
             </StackPanel>
         </Grid>

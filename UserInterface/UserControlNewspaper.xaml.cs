@@ -38,10 +38,16 @@ namespace UserInterface
 
         public void ConfirmNewspaperAddition_Btn(object sender, RoutedEventArgs e)
         {
-            if(CheckUserInputs(sender, e) == true)
+            
+            if(CheckUserFieldsAreComplete(sender, e) == true)
             {
-                CreateNewspaper(sender, e);
-                NewspaperAdditionOk_Display.Visibility = Visibility.Visible;
+                if((CheckPublicationDateFormat(NewspaperFirstPublicationDate_textBox.Text) == true)
+                    && CheckPriceFormat(NewspaperPrice_textBox.Text)==true
+                    && CheckPeriodicityLength(NewspaperPeriodicity_textBox.Text) == true)
+                {
+                    CreateNewspaper(sender, e);
+                    NewspaperAdditionOk_Display.Visibility = Visibility.Visible;
+                }
             }
             else
             {
@@ -78,21 +84,77 @@ namespace UserInterface
         {
             Catalog catalog = new Catalog();
             string publicationDateString = NewspaperFirstPublicationDate_textBox.Text;
+            catalog.PublicationDate = DateTime.ParseExact(publicationDateString, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            return catalog;
+        }
+
+        public bool CheckPublicationDateFormat(string publicationDateString)
+        {
             try
             {
-                catalog.PublicationDate = DateTime.ParseExact(publicationDateString, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-                return catalog;
+                DateTime publicationDate = DateTime.ParseExact(publicationDateString, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                if (publicationDate >= DateTime.Today)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            catch (Exception f)
+            catch
             {
-                string message = "Invalid date format \n allows only dd/MM/yyyy format " + f;
+                string message = "Invalid date format. \n Allows only dd/MM/yyyy format.";
                 ErrorNewspaperAddition_TextBlock.Text = message;
                 ErrorInput_Display.Visibility = Visibility.Visible;
-                throw new Exception();
+                return false;
             }
         }
-        
-        public bool CheckUserInputs(object sender, RoutedEventArgs e)
+
+        public bool CheckPriceFormat(string newspaperPriceString)
+        {
+            try
+            {
+                decimal newspaperPrice = Convert.ToDecimal(newspaperPriceString);
+                string[] a = newspaperPriceString.Split(new char[] { ',' });
+                int decimals = a[1].Length;
+
+                if (newspaperPrice > 0 && (decimals<=2))
+                {
+                    return true;
+                }
+                else
+                {
+                    string message = "Invalid price format.";
+                    ErrorNewspaperAddition_TextBlock.Text = message;
+                    ErrorInput_Display.Visibility = Visibility.Visible;
+                    return false;
+                }
+
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool CheckPeriodicityLength(string periodicityString)
+        {
+            if(Convert.ToInt32(periodicityString) <=366)
+            {
+                return true;
+            }
+            else
+            {
+                string message = "Periodiciy is higher than a year.";
+                ErrorNewspaperAddition_TextBlock.Text = message;
+                ErrorInput_Display.Visibility = Visibility.Visible;
+                return false;
+            }
+        }
+
+
+        public bool CheckUserFieldsAreComplete(object sender, RoutedEventArgs e)
         {
             string newspaperName = NewspaperName_textBox.Text;
             string periodicity = NewspaperPeriodicity_textBox.Text;
@@ -141,7 +203,7 @@ namespace UserInterface
 
         private void CheckNewspaperPrice_textBox(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("[^0-9.]+");
+            Regex regex = new Regex("[^0-9,]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 
