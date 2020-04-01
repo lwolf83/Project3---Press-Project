@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Project_3___Press_Project;
 
 namespace UserInterface
@@ -35,29 +25,7 @@ namespace UserInterface
             if (IsValidOrderParameters(shop, catalog, txtQuantity.Text))
             {
                 int quantity = Convert.ToInt32(txtQuantity.Text);
-                Order order = OrderFactory.Create(UserSingleton.GetInstance.User, shop, DateTime.Now);
-                OrderCatalog orderCatalog;
-                if (OrderCatalog.Exist(order, catalog))
-                {
-                    string msgtext = "An order already exist. Do you want to replace it ?";
-                    string txt = "Delete Order";
-                    MessageBoxButton button = MessageBoxButton.YesNo;
-                    MessageBoxResult result = MessageBox.Show(msgtext, txt, button);
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        orderCatalog = OrderCatalogFactory.Load(order, catalog);
-                        orderCatalog.Quantity = quantity;
-                        orderCatalog.Save();
-                        orderCatalog.ActivateOrder("In progress");
-                    }
-                }
-                else
-                {
-                    orderCatalog = OrderCatalogFactory.Create(order, catalog);
-                    orderCatalog.Quantity = quantity;
-                    orderCatalog.Save();
-                    orderCatalog.ActivateOrder("In progress");
-                }
+                OrderAction.CreateOrder(shop, catalog, quantity);
                 DisplayCurrent();
             }
         }
@@ -72,38 +40,6 @@ namespace UserInterface
             quantityOk = quantityOk && Convert.ToInt32(quantity) < 200;
 
             return shopOk && catalogOk && quantityOk;
-        }
-
-        public void BtnDeleteOrderCommand(object sender, RoutedEventArgs e)
-        {
-
-            using (var context = new PressContext())
-            {
-                var orderCatalog = ((ListViewItem)sender).Content;
-                string tag = (string)BtnSeeHistory.Tag;
-                if (tag == "current")
-                {
-                    string msgtext = "Are you sure to delete this order ?";
-                    string txt = "Delete Order";
-                    MessageBoxButton button = MessageBoxButton.YesNo;
-                    MessageBoxResult result = MessageBox.Show(msgtext, txt, button);
-
-                    switch (result)
-                    {
-                        case MessageBoxResult.Yes:
-                            context.Remove(orderCatalog);
-                            context.SaveChanges();
-                            DisplayCurrent();
-                            break;
-                        case MessageBoxResult.No:
-                            break;
-                        case MessageBoxResult.Cancel:
-                            break;
-                    }
-                }
-
-            }
-
         }
 
         public void BtnSeeHistoriqueCommand(object sender, RoutedEventArgs e)
@@ -121,9 +57,8 @@ namespace UserInterface
 
         public void BtnValidateOrderCommand(object sender, RoutedEventArgs e)
         {
-            OrderCatalogFactory.PutOrderCurrentInProduction();
+            OrderAction.PutCurrentInProduction();
             DisplayCurrent();
-
         }
 
         private void DisplayHistory()
@@ -142,6 +77,26 @@ namespace UserInterface
             BtnValidateOrder.Visibility = Visibility.Visible;
         }
 
+        private void lvOrderCatalog_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var context = new PressContext();
 
+            OrderCatalog orderCatalog = (OrderCatalog) ((ListView)sender).SelectedItem;
+            string tag = (string)BtnSeeHistory.Tag;
+            if (tag == "current")
+            {
+               string msgtext = "Are you sure to delete this order ?";
+               string txt = "Delete Order";
+               bool resultDeleteQuestion = DialogBox.YesOrNoCancel(msgtext, txt);
+
+               if (resultDeleteQuestion)
+               {
+                  context.OrderCatalogs.Remove(orderCatalog);
+                  context.SaveChanges();
+                  DisplayCurrent();
+               }
+            }
+            
+        }
     }
 }
