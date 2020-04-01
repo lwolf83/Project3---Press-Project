@@ -22,12 +22,11 @@ namespace UserInterface
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ShopFilter ShopFilter = new ShopFilter();
+        
         public MainWindow()
         {
             InitializeComponent();
-            UserControl usc = new UserControlLogin();
-            GridMain.Children.Add(usc);
+            UserControlSetter.SetGridMain(GridMain, "ItemLogin");
         }
                 
         private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
@@ -44,30 +43,23 @@ namespace UserInterface
 
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
-            UserControl usc = new UserControlLogout();
-            GridMain.Children.Clear();
-            GridMain.Children.Add(usc);
+            UserControlSetter.SetGridMain(GridMain, "ItemLogout");
         }
 
         private void ButtonCloseApplication_Click(object sender, RoutedEventArgs e)
-        {            
-            UserControl usc = new UserControlClose();
-            GridMain.Children.Clear();
-            GridMain.Children.Add(usc);                      
+        {
+            UserControlSetter.SetGridMain(GridMain, "ItemClose");                     
         }
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            UserControl usc = null;
-            GridMain.Children.Clear();
-            
+        {           
             if(!UserSingleton.GetInstance.IsAuthenticated)
             {
-                usc = new UserControlLogin();
-                GridMain.Children.Add(usc);
+                UserControlSetter.SetGridMain(GridMain, "ItemLogin");
             }
             else
             {
+<<<<<<< HEAD
                 switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
                 {
                     case "ItemShop":
@@ -99,6 +91,10 @@ namespace UserInterface
                     default:
                         break;
                 }
+=======
+                string menuAction = ((ListViewItem)((ListView)sender).SelectedItem).Name;
+                UserControlSetter.SetGridMain(GridMain, menuAction);
+>>>>>>> master
             }            
         }
     }
