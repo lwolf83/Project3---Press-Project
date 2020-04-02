@@ -180,7 +180,7 @@ namespace Project_3___Press_Project
                 for (int i = 0; i < numberOfNewspaperPerEditor; i++)
                 {
                     Newspaper newspaper = new Newspaper();
-                    newspaper.Name = $"Newspaper n° {editorCounter}; {numberOfNewspaperPerEditor}";
+                    newspaper.Name = $"Newspaper n° {editorCounter}; {i}";
                     newspaper.EAN13 = $"{editorCounter}{numberOfNewspaperPerEditor}{randomGenerator.Next(100, 10000)}";
                     newspaper.Price = randomGenerator.Next(1, 10);
                     newspaper.Editor = editor;
