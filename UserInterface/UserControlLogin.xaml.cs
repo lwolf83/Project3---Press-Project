@@ -50,6 +50,7 @@ namespace UserInterface
             UserSingleton.GetInstance.Init(txtUserNameBox.Text, txtPasswordBox.Password);
             if (UserSingleton.GetInstance.IsAuthenticated)
             {
+                MenuVisibility.ShowMenu();
                 UserControlSetter.SetGridMain(this, "ItemShop");
             }
             else
@@ -70,5 +71,7 @@ namespace UserInterface
             txtPasswordBox.Password = String.Empty;
             txtUserNameBox.Focus();
         }
+
+
     }
 }

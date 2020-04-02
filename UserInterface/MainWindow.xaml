@@ -31,7 +31,7 @@
 
     <StackPanel Orientation="Vertical">
         <Grid Height="50">
-            <DockPanel x:Name="menu">
+            <DockPanel x:Name="menuNav" Visibility="Hidden">
                 <Menu DockPanel.Dock="Top">
                     <MenuItem Header="_File">
                         <MenuItem Header="_Logout" Click="ButtonLogout_Click"/>
