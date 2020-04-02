@@ -116,5 +116,11 @@ namespace UserInterface
             UserControl usc = new UserControlDisplayShopDetails(shopId);
             this.Content = usc;
         }
+
+        private void ButtonSeeStocks_Click(object sender, RoutedEventArgs e)
+        {
+            UserControl usc = new UserControlStock();
+            this.Content = usc;
+        }
     }
 }

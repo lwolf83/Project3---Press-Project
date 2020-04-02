@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="UserInterface.UserControlStock"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UserInterface"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             Background="IndianRed" Width="1000" Height="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="180, 0, 60, 0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+            <Label x:Name="lblShop" FontSize="22" Style="{StaticResource DefaultInput}">Choose a Shop:</Label>
+            <ComboBox Name="cmbShops" Background="White" Foreground="#FF4086C1" FontWeight="Bold" Height="30">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" FontSize="17" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="3" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Button Margin="0, 34, 0, 0" FontSize="18" x:Name="btnCheck" Click="btnCheck_Click" Width="150" Height="35">Check stocks</Button>
+        </StackPanel>
+
+        <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
+            <ListView x:Name="stockList" 
+                      HorizontalAlignment="Center" 
+                      HorizontalContentAlignment="Center" 
+                      AlternationCount="2"  
+                      ScrollViewer.VerticalScrollBarVisibility="Visible"
+                      >
+                <ListView.Resources>
+                    <Style TargetType="GridViewColumnHeader">
+                        <Setter Property="Visibility" Value="Visible" />
+                    </Style>
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="EAN13 code" DisplayMemberBinding="{Binding Catalog.Newspaper.EAN13}" Width="140"></GridViewColumn>
+                        <GridViewColumn Header="Newspaper" DisplayMemberBinding="{Binding Catalog.Newspaper.Name}" Width="150"></GridViewColumn>
+                        <GridViewColumn Header="Edition" DisplayMemberBinding="{Binding Catalog.Name}" Width="190"></GridViewColumn>
+                        <GridViewColumn Header="Qty" DisplayMemberBinding="{Binding Quantity}" Width="100"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="MouseDoubleClick"  Handler="ListViewItem_MouseDoubleClick" />
+                        <Setter Property="Cursor" Value="Hand" />
+                        <Style.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                <Setter Property="Background" Value="LightBlue"/>
+                            </Trigger>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                <Setter Property="Background" Value="AliceBlue"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </Grid>
+    </Grid>
+
+</UserControl>

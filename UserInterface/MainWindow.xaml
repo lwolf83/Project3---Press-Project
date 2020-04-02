@@ -55,7 +55,7 @@
             </DockPanel>
         </Grid>
         <Grid Background="#FF4086C1" Height="536">
-            <Grid x:Name="GridMain" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="509" Width="1010"/>
+            <Grid x:Name="GridMain" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="560" Width="1010"/>
            
             <Grid x:Name="GridMenu" Width="70" HorizontalAlignment="Left" Background="#FF31577E">
                 <Grid.Effect>

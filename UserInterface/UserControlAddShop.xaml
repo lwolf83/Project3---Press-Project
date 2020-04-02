@@ -38,11 +38,11 @@
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <WrapPanel Margin="0,0,0,10">
                         <Label Content="ZipCode : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="100" FontFamily="Segoe UI Semibold" FontSize="20"/>
-                        <TextBox x:Name="Zip" VerticalContentAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                        <TextBlock x:Name="Zip" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
                     </WrapPanel>
                     <WrapPanel Margin="10,0,0,10">
                         <Label Content="Departement : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="150" FontFamily="Segoe UI Semibold" FontSize="20"/>
-                        <TextBox x:Name="Dept" VerticalContentAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                        <TextBlock x:Name="Dept" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
                     </WrapPanel>
                 </StackPanel>
                 <Label Content="* - required field" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI" FontSize="16"/>
