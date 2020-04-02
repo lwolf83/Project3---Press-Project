@@ -62,9 +62,6 @@
     <Page Update="UserControlAccount.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UserControlNewspaper.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="UserControlEditor.xaml">
       <SubType>Designer</SubType>
     </Page>

@@ -7,8 +7,6 @@
              mc:Ignorable="d" 
              >
     <Grid Background="#FFA48748" Height="800" Width="800">
-        <Button Click="NewspaperModificationPage_Btn">
-            <TextBlock Text="Newspaper addition and modifications" TextWrapping="Wrap"/>
-        </Button>
+        
     </Grid>
 </UserControl>

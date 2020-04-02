@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Project_3___Press_Project
 {
-    public partial class Newspaper 
+    public class Newspaper 
     {
         public Guid NewspaperId { get; set; }
         public string Name { get; set; }

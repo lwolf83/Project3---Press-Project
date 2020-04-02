@@ -34,12 +34,10 @@ namespace UserInterface
                     && CheckPeriodicityLength(NewspaperPeriodicity_textBox.Text) == true)
                 {
                     CreateNewspaper(sender, e);
-                    NewspaperAdditionOk_Display.Visibility = Visibility.Visible;
+                    string msgtext = "Newspaper has been correctly added.";
+                    string txt = "Newspaper addition";
+                    bool answserOverwrite = DialogBox.OK(msgtext, txt);
                 }
-            }
-            else
-            {
-                WarningCheckInputs_Display.Visibility = Visibility.Visible;
             }
         }
 
@@ -87,14 +85,19 @@ namespace UserInterface
                 }
                 else
                 {
+                    string msgtext = "Date should be superior or equal to today.";
+                    string txt = "Invalid date";
+                    bool answserOverwrite = DialogBox.OK(msgtext, txt);
+                    NewspaperFirstPublicationDate_textBox.Background = Brushes.IndianRed;
                     return false;
                 }
             }
             catch
             {
-                string message = "Invalid date format. \n Allows only dd/MM/yyyy format.";
-                ErrorNewspaperAddition_TextBlock.Text = message;
-                ErrorInput_Display.Visibility = Visibility.Visible;
+                string msgtext = "Allows only dd/MM/yyyy format.";
+                string txt = "Invalid date format";
+                bool answserOverwrite = DialogBox.OK(msgtext, txt);
+                NewspaperFirstPublicationDate_textBox.Background = Brushes.IndianRed;
                 return false;
             }
         }
@@ -113,14 +116,19 @@ namespace UserInterface
                 }
                 else
                 {
-                    string message = "Invalid price format.";
-                    ErrorNewspaperAddition_TextBlock.Text = message;
-                    ErrorInput_Display.Visibility = Visibility.Visible;
+                    string msgtext = "Invalid price format.";
+                    string txt = "Invalid input";
+                    bool answserOverwrite = DialogBox.OK(msgtext, txt);
+                    NewspaperPrice_textBox.Background = Brushes.IndianRed;
                     return false;
                 }
             }
             catch
             {
+                string msgtext = "Invalid price.";
+                string txt = "Invalid input";
+                bool answserOverwrite = DialogBox.OK(msgtext, txt);
+                NewspaperPrice_textBox.Background = Brushes.IndianRed;
                 return false;
             }
         }
@@ -133,9 +141,10 @@ namespace UserInterface
             }
             else
             {
-                string message = "Periodiciy is higher than a year.";
-                ErrorNewspaperAddition_TextBlock.Text = message;
-                ErrorInput_Display.Visibility = Visibility.Visible;
+                string msgtext = "Periodicity should be lower than a year.";
+                string txt = "Invalid input";
+                bool answserOverwrite = DialogBox.OK(msgtext, txt);
+                NewspaperPeriodicity_textBox.Background = Brushes.IndianRed;
                 return false;
             }
         }
@@ -156,23 +165,11 @@ namespace UserInterface
             }
             else
             {
+                string msgtext = "Please fulfill every inputs.";
+                string txt = "Invalid inputs";
+                bool answserOverwrite = DialogBox.OK(msgtext, txt);
                 return false;
             }
-        }
-
-        private void WarningCheckInputs_Btn(object sender, RoutedEventArgs e)
-        {
-            WarningCheckInputs_Display.Visibility = Visibility.Collapsed;
-        }
-
-        private void NewspaperAddedWell_Btn(object sender, RoutedEventArgs e)
-        {
-            NewspaperAdditionOk_Display.Visibility = Visibility.Collapsed;
-        }
-
-        private void ErrorInput_Btn(object sender, RoutedEventArgs e)
-        {
-            ErrorInput_Display.Visibility = Visibility.Collapsed;
         }
 
         private void CheckNewspaperPrice_textBox(object sender, TextCompositionEventArgs e)
