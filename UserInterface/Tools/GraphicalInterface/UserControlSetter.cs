@@ -38,7 +38,7 @@ namespace UserInterface
                     resControl = new UserControlClose();
                     break;
                 case "ItemEditor":
-                    resControl = new UserControlEditor();
+                    resControl = new UserControlJournal();
                     break;
                 case "ItemLogin":
                     resControl = new UserControlLogin();
