@@ -22,7 +22,7 @@
         <!-- Newspaper addition / modification buttons -->
         <StackPanel Grid.Row="1" Grid.Column="0">
             <Button x:Name="AddNewspaper" Content="Add a newspaper" HorizontalAlignment="Center" Click="AddNewspaper_Btn" Margin="10,100,10,30"/>
-            <Button x:Name="ModifyNewspaper" HorizontalAlignment="Center" Click="ModifyNewspaper_Btn" Height="58" Width="140">
+            <Button x:Name="ModifyNewspaperMain" HorizontalAlignment="Center" Click="ModifyNewspaper_Btn" Height="58" Width="140">
                 <TextBlock Text="Modify existing newspaper" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button>
         </StackPanel>
@@ -138,7 +138,7 @@
 
 
         <!-- Modifying newspaper Grid -->
-        <Grid Grid.Row="1" Grid.Column="1" Visibility="Visible" x:Name="ModifyNewspaper_Grid">
+        <Grid Grid.Row="1" Grid.Column="1" Visibility="Collapsed" x:Name="ModifyNewspaper_Grid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>

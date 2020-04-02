@@ -23,6 +23,7 @@ namespace UserInterface
             InitializeComponent();
             EditorNameFilteringSelection_comboBox.ItemsSource = Editor.GetAllEditors();
             ModifyNewspaper_lv.ItemsSource = Newspaper.GetAllNewspapers();
+            ModifyEditorNameFilteringSelection_comboBox.ItemsSource = Editor.GetAllEditors();
         }
         public Newspaper Newspaper = new Newspaper();
         public Editor Editor = new Editor();
@@ -121,7 +122,6 @@ namespace UserInterface
                     ErrorInput_Display.Visibility = Visibility.Visible;
                     return false;
                 }
-
             }
             catch
             {
@@ -168,12 +168,14 @@ namespace UserInterface
         {
             AddNewspaper_Grid.Visibility = Visibility.Visible;
             ModifyNewspaperlv_grid.Visibility = Visibility.Collapsed;
+            ModifyNewspaper_Grid.Visibility = Visibility.Collapsed;
         }
 
         private void ModifyNewspaper_Btn(object sender, RoutedEventArgs e)
         {
             AddNewspaper_Grid.Visibility = Visibility.Collapsed;
             ModifyNewspaperlv_grid.Visibility = Visibility.Visible;
+            ModifyNewspaper_Grid.Visibility = Visibility.Collapsed;
         }
 
         private void WarningCheckInputs_Btn(object sender, RoutedEventArgs e)
@@ -211,18 +213,76 @@ namespace UserInterface
 
         private void ModifySelectedNewspaper_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            ModifyNewspaperlv_grid.Visibility = Visibility.Collapsed;
             NewspaperToModify = ((ListViewItem) sender).Content as Newspaper;
             ModifyNewspaperName_textBox.Text = NewspaperToModify.Name;
             ModifyNewspaperPeriodicity_textBox.Text = NewspaperToModify.Periodicity.ToString();
             ModifyNewspaperEAN13_textBox.Text = NewspaperToModify.EAN13;
             ModifyNewspaperPrice_textBox.Text = NewspaperToModify.Price.ToString();
-            ModifyEditorNameFilteringSelection_comboBox.SelectedItem = NewspaperToModify.Editor;
+            ModifyEditorNameFilteringSelection_comboBox.SelectedItem = (from c in Editor.GetAllEditors()
+                                                                        where c.EditorId == NewspaperToModify.Editor.EditorId
+                                                                        select c);
             ModifyNewspaper_Grid.Visibility = Visibility.Visible;
         }
 
         private void ConfirmNewspaperModification_Btn(object sender, RoutedEventArgs e)
         {
+            if (CheckModifyingFieldsAreComplete(sender, e) == true)
+            {
+                if (CheckPriceFormat(ModifyNewspaperPrice_textBox.Text) == true
+                    && CheckPeriodicityLength(ModifyNewspaperPeriodicity_textBox.Text) == true)
+                {
+                    ModifyNewspaperInDb(sender, e);
+                    NewspaperAdditionOk_Display.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                WarningCheckInputs_Display.Visibility = Visibility.Visible;
+            }
+        }
 
+        public bool CheckModifyingFieldsAreComplete(object sender, RoutedEventArgs e)
+        {
+            string newspaperName = ModifyNewspaperName_textBox.Text;
+            string periodicity = ModifyNewspaperPeriodicity_textBox.Text;
+            string ean13 = ModifyNewspaperEAN13_textBox.Text;
+            string price = ModifyNewspaperPrice_textBox.Text;
+            if ((newspaperName != string.Empty)
+                && (periodicity != string.Empty)
+                && (ean13 != string.Empty)
+                && (price != string.Empty)
+                && (!string.IsNullOrEmpty(ModifyEditorNameFilteringSelection_comboBox.Text)))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private Newspaper ModifyNewspaperInDb(object sender, RoutedEventArgs e)
+        {
+            Newspaper newspaper = new Newspaper();
+            using (var context = new PressContext())
+            {
+                newspaper = (from n in context.Newspapers
+                             where n.NewspaperId == NewspaperToModify.NewspaperId
+                             select n).First();
+
+                newspaper.Name = ModifyNewspaperName_textBox.Text;
+                newspaper.Periodicity = Convert.ToInt32(ModifyNewspaperPeriodicity_textBox.Text);
+                newspaper.EAN13 = ModifyNewspaperEAN13_textBox.Text;
+                newspaper.Price = Convert.ToDecimal(ModifyNewspaperPrice_textBox.Text);
+                Editor selectedEditor = (Editor)ModifyEditorNameFilteringSelection_comboBox.SelectedItem;
+                var editor = (from i in context.Editors
+                              where i.EditorId == selectedEditor.EditorId
+                              select i).First();
+                newspaper.Editor = editor;
+                context.SaveChanges();
+            }
+            return newspaper;
         }
     }
 }
