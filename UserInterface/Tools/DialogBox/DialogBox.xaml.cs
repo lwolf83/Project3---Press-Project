@@ -54,5 +54,15 @@ namespace UserInterface
 			return YesOrNo.Result;
 		}
 
+		public static bool OK(string question, string title)
+		{
+			DialogBox OK = new DialogBox(question, title);
+			OK.btnDialogCancel.Visibility = Visibility.Collapsed;
+			OK.btnDialogKo.Visibility = Visibility.Collapsed;
+			OK.btnDialogOk.HorizontalAlignment = HorizontalAlignment.Center;
+			OK.ShowDialog();
+			return OK.Result;
+		}
+
 	}
 }

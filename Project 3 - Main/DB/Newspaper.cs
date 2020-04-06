@@ -13,6 +13,5 @@ namespace Project_3___Press_Project
         public Editor Editor { get; set; }
         public int Periodicity { get; set; }
         public ICollection<Catalog> Catalogs { get; set; }
-
     }
 }

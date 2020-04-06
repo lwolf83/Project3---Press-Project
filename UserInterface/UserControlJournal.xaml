@@ -39,6 +39,8 @@
                 </ComboBox>
                 <Button Margin="10,20" Content="Search" Click="Search_Click" />
                 <Button Margin="10,20" Content="Reset" Click="Reset_Click"/>
+                <Button Margin="10,20" Content="Add newspaper" Click="AddNewspaper_Click"/>
+
             </StackPanel>
         </Grid>
 
