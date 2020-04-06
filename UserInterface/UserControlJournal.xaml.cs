@@ -53,5 +53,11 @@ namespace UserInterface
             UserControlEdition uscEdition = new UserControlEdition();
             this.Content = uscEdition;
         }
+
+        private void AddNewspaper_Click(object sender, RoutedEventArgs e)
+        {
+            UserControlAddNewspaper uscAddNewspaper = new UserControlAddNewspaper();
+            this.Content = uscAddNewspaper;
+        }
     }  
 }
