@@ -29,18 +29,6 @@ namespace UserInterface
             UserControlSetter.SetGridMain(GridMain, "ItemLogin");
         }
                 
-        private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
-        {
-            ButtonCloseMenu.Visibility = Visibility.Visible;
-            ButtonOpenMenu.Visibility = Visibility.Collapsed;
-        }
-
-        private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
-        {
-            ButtonCloseMenu.Visibility = Visibility.Collapsed;
-            ButtonOpenMenu.Visibility = Visibility.Visible;
-        }
-
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
             UserControlSetter.SetGridMain(GridMain, "ItemLogout");
@@ -49,6 +37,31 @@ namespace UserInterface
         private void ButtonCloseApplication_Click(object sender, RoutedEventArgs e)
         {
             UserControlSetter.SetGridMain(GridMain, "ItemClose");                     
+        }
+
+        public void ButtonSeeOrder_Click(object sender, RoutedEventArgs e)
+        {
+            UserControlSetter.SetGridMain(GridMain, "ItemOrder");
+        }
+
+        public void ButtonSeeShop_Click(object sender, RoutedEventArgs e)
+        {
+            UserControlSetter.SetGridMain(GridMain, "ItemShop");
+        }
+
+        public void ButtonSeeNewspapers_Click(object sender, RoutedEventArgs e)
+        {
+            UserControlSetter.SetGridMain(GridMain, "ItemNewspaper");
+        }
+
+        public void ButtonSeeStock_Click(object sender, RoutedEventArgs e)
+        {
+            UserControlSetter.SetGridMain(GridMain, "ItemStock");
+        }
+
+        public void ButtonAddNewspapers_click(object sender, RoutedEventArgs e)
+        {
+            UserControlSetter.SetGridMain(GridMain, "ItemAddNewspapers");
         }
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
