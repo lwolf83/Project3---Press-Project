@@ -22,35 +22,38 @@
             <StackPanel Orientation="Vertical">
                 <TextBlock FontFamily="Arial" FontWeight="Heavy" FontSize="15" HorizontalAlignment="Center"> Filter by:</TextBlock>
                 <StackPanel Orientation="Vertical">
-                    <ComboBox Margin="10" Name="EditorFilteringSelection" Foreground="Black" Visibility="Visible" SelectionChanged="OnEditorSelectionChanged">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Name}" />
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <ComboBox Margin="10" Name="NewspaperNameFilteringSelection" Foreground="Black" Visibility="Visible" SelectionChanged="OnNewspapersSelectionChanged">
-                       <!-- <ComboBoxItem IsSelected="True">
-                            <TextBlock Text="Newspaper" IsHitTestVisible="False"/>
-                        </ComboBoxItem> -->
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Name}" />
-                                        <TextBlock Text=" - "/>
-                                        <TextBlock Text="{Binding Periodicity}" />
-                                        <TextBlock Text=" - "/>
-                                        <TextBlock Text="{Binding EAN13}" />
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Editor" Margin="10,15,23,0" />
+                        <ComboBox Margin="10" Name="EditorFilteringSelection" Foreground="Black" Visibility="Visible" SelectionChanged="OnEditorSelectionChanged" Width="110" HorizontalAlignment="Right">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Newspaper" Margin="10,15,0,0" />
+                        <ComboBox Margin="10" Name="NewspaperNameFilteringSelection" Foreground="Black" Visibility="Visible" SelectionChanged="OnNewspapersSelectionChanged" Width="110" HorizontalAlignment="Right">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}" />
+                                            <TextBlock Text=" - "/>
+                                            <TextBlock Text="{Binding Periodicity}" />
+                                            <TextBlock Text=" - "/>
+                                            <TextBlock Text="{Binding EAN13}" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="10">
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                             <TextBlock Text="First Date" Margin="0,0,10,0"/>

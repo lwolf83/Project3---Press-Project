@@ -39,7 +39,7 @@ namespace UserInterface
             }
             return catalogs;
         }
-
+        
         private void OnEditorSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(EditorFilteringSelection.SelectedIndex != -1)
@@ -81,14 +81,14 @@ namespace UserInterface
                 {
                     string msgtext = "Wrong dates input.";
                     string txt = "Invalid dates";
-                    bool answserOverwrite = DialogBox.YesOrNoCancel(msgtext, txt); //Replace by dialogbox OK
+                    bool answserOverwrite = DialogBox.OK(msgtext, txt);
                 }
             }
             else
             {
                 string msgtext = "Allows only dd/MM/yyyy format.";
                 string txt = "Invalid date format";
-                bool answserOverwrite = DialogBox.YesOrNoCancel(msgtext, txt); //Replace by dialogbox OK
+                bool answserOverwrite = DialogBox.OK(msgtext, txt);
             }
         }
 
@@ -108,7 +108,7 @@ namespace UserInterface
             {
                 string msgtext = $"No newspaper with ean13 {ean13} recorded.";
                 string txt = "Invalid input";
-                bool answserOverwrite = DialogBox.YesOrNoCancel(msgtext, txt); //Replace by dialogbox OK
+                bool answserOverwrite = DialogBox.OK(msgtext, txt);
             }
         }
 
