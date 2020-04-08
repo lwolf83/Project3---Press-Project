@@ -34,10 +34,13 @@ namespace UserInterface
                 case "ItemAccount":
                     resControl = new UserControlAccount();
                     break;
+                case "ItemAddNewspapers":
+                    resControl = new UserControlAddNewspaper();
+                    break;
                 case "ItemClose":
                     resControl = new UserControlClose();
                     break;
-                case "ItemEditor":
+                case "ItemNewspaper":
                     resControl = new UserControlJournal();
                     break;
                 case "ItemLogin":
@@ -57,6 +60,12 @@ namespace UserInterface
                     break;
                 case "ItemStat":
                     resControl = new UserControlStat();
+                    break;
+                case "ItemStock":
+                    resControl = new UserControlStock();
+                    break;
+                case "AddShop":
+                    resControl = new UserControlAddShop();
                     break;
                 default:
                     resControl = new UserControlShop();
