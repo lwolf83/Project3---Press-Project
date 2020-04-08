@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:UserInterface"
              mc:Ignorable="d" 
              >
-    <Grid Background="#a5bdda" Height="1000" Width="1000" Margin="0,20,0,40" HorizontalAlignment="Right">
+    <Grid Background="#a5bdda" Height="1000" Width="1000" Margin="0,20,0,40" HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="4*"/>

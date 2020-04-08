@@ -47,5 +47,11 @@ namespace UserInterface
 
             Displaying_ListView.ItemsSource = JournalFilter.GetNewspaper(selectedEditor, selectedPeriodicity);
         }
+
+        private void AddNewspaper_Click(object sender, RoutedEventArgs e)
+        {
+            UserControlAddNewspaper uscAddNewspaper = new UserControlAddNewspaper();
+            this.Content = uscAddNewspaper;
+        }
     }  
 }

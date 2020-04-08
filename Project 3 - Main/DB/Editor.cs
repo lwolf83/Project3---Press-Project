@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Project_3___Press_Project
 {
-    public class Editor
+    public partial class Editor
     {
         public Guid EditorId { get; set; }
         public string Name { get; set; }

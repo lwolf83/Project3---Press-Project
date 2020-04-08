@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UserInterface"
              mc:Ignorable="d">
-    <Grid Background="#FFCECFB7" Height="1000" Width="1000" Margin="0,20,0,40" HorizontalAlignment="Right">
+    <Grid Background="#FFCECFB7" Height="480" Width="1000" HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="4*"/>
@@ -13,7 +13,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="5*"/>
-            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Newspapers" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center" FontWeight="Bold" Foreground="#253d5a"/>
         <Grid Grid.Column="0" Grid.Row="1">
@@ -39,6 +38,8 @@
                 </ComboBox>
                 <Button Margin="10,20" Content="Search" Click="Search_Click" />
                 <Button Margin="10,20" Content="Reset" Click="Reset_Click"/>
+                <Button Margin="10,20" Content="Add newspaper" Click="AddNewspaper_Click"/>
+
             </StackPanel>
         </Grid>
 

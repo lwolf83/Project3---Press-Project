@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:UserInterface"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             Background="#FF4086C1" Width="800" Height="400">
+             Background="#FF4086C1" Width="800" Height="500" VerticalAlignment="Top">
     <UserControl.Resources>
         <Style x:Key="alternateColor" TargetType="{x:Type ListViewItem}">
             
@@ -81,6 +81,7 @@
                       ItemContainerStyle="{StaticResource alternateColor}" 
                       ScrollViewer.VerticalScrollBarVisibility="Visible" 
                       MouseDoubleClick="lvOrderCatalog_MouseDoubleClick"
+                      Height="340"
                       >
                 <ListView.Resources>
                     <Style TargetType="GridViewColumnHeader">
