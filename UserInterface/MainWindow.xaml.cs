@@ -76,5 +76,10 @@ namespace UserInterface
                 UserControlSetter.SetGridMain(GridMain, menuAction);
             }            
         }
+
+        private void ButtonAddShops_Click(object sender, RoutedEventArgs e)
+        {
+            UserControlSetter.SetGridMain(GridMain, "AddShop");
+        }
     }
 }

@@ -64,6 +64,9 @@ namespace UserInterface
                 case "ItemStock":
                     resControl = new UserControlStock();
                     break;
+                case "AddShop":
+                    resControl = new UserControlAddShop();
+                    break;
                 default:
                     resControl = new UserControlShop();
                     break;
