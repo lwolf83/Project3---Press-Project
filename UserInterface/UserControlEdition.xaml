@@ -57,11 +57,11 @@
                     <StackPanel Orientation="Vertical" Margin="10">
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                             <TextBlock Text="First Date" Margin="0,0,10,0"/>
-                            <TextBox Name="FirstDateUserInput" Width="130"/>
+                            <TextBox Name="FirstDateUserInput" Width="130" PreviewTextInput="ControlDateInput"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                             <TextBlock Text="Last Date" Margin="0,0,10,0"/>
-                            <TextBox Name="LastDateUserInput" Width="130"/>
+                            <TextBox Name="LastDateUserInput" Width="130" PreviewTextInput="ControlDateInput"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center">
                             <Button x:Name="DatesFilteringSelection_Btn" Content="Go!" Click="FilterByDates_Btn"/>
@@ -70,7 +70,7 @@
                     <StackPanel Orientation="Vertical" Margin="10">
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                             <TextBlock Text="Enter EAN13:" Margin="0,0,10,0"/>
-                            <TextBox Name="EAN13UserInput" Width="130"/>
+                            <TextBox Name="EAN13UserInput" Width="130" PreviewTextInput="ControlOnlyNumberInput"/>
                         </StackPanel>
                         <Button x:Name="EAN13_Btn" Content="Go" Click="EAN13FilterSelection_Btn" Margin="0,10,0,0" Width="50"/>
                     </StackPanel>
@@ -80,7 +80,7 @@
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Margin="20,20,10,60">
-            <ListView HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" Name="EditionsDisplaying_ListView">
+            <ListView HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" Name="CatalogsDisplaying_ListView">
                 <ListView.Resources>
                     <Style TargetType="{x:Type GridViewColumnHeader}">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>

@@ -23,7 +23,7 @@
   <Class Name="Project_3___Press_Project.Newspaper">
     <Position X="13.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAQAABAACQAAAAAQAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <HashCode>AAQAAAAAAQAABAACQAAAAAQAAAAAQAAAAAAAEAAAAAA=</HashCode>
       <FileName>DB\Newspaper.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -37,7 +37,7 @@
   <Class Name="Project_3___Press_Project.Editor">
     <Position X="15.75" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAQAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAQAAAAAAAAAAQAABAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DB\Editor.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -63,7 +63,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Project_3___Press_Project.OrderCatalog">
-    <Position X="7.75" Y="3" Width="1.5" />
+    <Position X="9" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ECEAAIAAAAAAAAAAACAEAAABAAAAAAAAAAAAgAEAAAg=</HashCode>
       <FileName>DB\OrderCatalog.cs</FileName>

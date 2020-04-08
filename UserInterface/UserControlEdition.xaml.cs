@@ -23,9 +23,9 @@ namespace UserInterface
             InitializeComponent();
             Catalog catalog = new Catalog();
             Catalogs = catalog.GetAllCatalogs();
-            EditorFilteringSelection.ItemsSource = catalog.GetEditorsHavingEditions(Catalogs);
-            NewspaperNameFilteringSelection.ItemsSource = catalog.GetNewspapersHavingEditions(Catalogs);
-            EditionsDisplaying_ListView.ItemsSource = Catalogs;
+            EditorFilteringSelection.ItemsSource = catalog.GetEditorsHavingCatalogs(Catalogs);
+            NewspaperNameFilteringSelection.ItemsSource = catalog.GetNewspapersHavingCatalogs(Catalogs);
+            CatalogsDisplaying_ListView.ItemsSource = Catalogs;
         }
         List<Catalog> Catalogs { get; set; }
 
@@ -47,7 +47,7 @@ namespace UserInterface
                 Editor selectedEditor = (Editor)(sender as ComboBox).SelectedItem;
                 Catalog catalog = new Catalog();
                 Catalogs = catalog.GetCatalogsFromAnEditor(Catalogs, selectedEditor);
-                EditionsDisplaying_ListView.ItemsSource = Catalogs;
+                CatalogsDisplaying_ListView.ItemsSource = Catalogs;
             }
         }
 
@@ -58,37 +58,37 @@ namespace UserInterface
                 Newspaper selectedNewspaper = (Newspaper)(sender as ComboBox).SelectedItem;
                 Catalog catalog = new Catalog();
                 Catalogs = catalog.GetCatalogsFromANewspaper(Catalogs, selectedNewspaper);
-                EditionsDisplaying_ListView.ItemsSource = Catalogs;
+                CatalogsDisplaying_ListView.ItemsSource = Catalogs;
             }
         }
 
         private void FilterByDates_Btn(object sender, RoutedEventArgs e)
         {
             Catalog catalog = new Catalog();
-            bool isFirstDateFormatOk = catalog.CheckDateFormatFromString(FirstDateUserInput.Text);
-            bool isLastDateFormatOk = catalog.CheckDateFormatFromString(LastDateUserInput.Text);
-            
-            if(isFirstDateFormatOk && isLastDateFormatOk)
+            bool isFirstDateFormatOk = InputChecker.CheckDateFormatFromString(FirstDateUserInput.Text);
+            bool isLastDateFormatOk = InputChecker.CheckDateFormatFromString(LastDateUserInput.Text);
+
+            if (isFirstDateFormatOk && isLastDateFormatOk)
             {
                 DateTime firstDate = DateTime.ParseExact(FirstDateUserInput.Text, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                 DateTime lastDate = DateTime.ParseExact(LastDateUserInput.Text, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-                if(catalog.CheckDates(firstDate, lastDate))
+                if(InputChecker.CheckDates(firstDate, lastDate))
                 {
-                    Catalogs = catalog.GetEditionsFromDates(Catalogs, firstDate, lastDate);
-                    EditionsDisplaying_ListView.ItemsSource = Catalogs;
+                    Catalogs = catalog.GetCatalogsFromDates(Catalogs, firstDate, lastDate);
+                    CatalogsDisplaying_ListView.ItemsSource = Catalogs;
                 }
                 else
                 {
                     string msgtext = "Wrong dates input.";
                     string txt = "Invalid dates";
-                    bool answserOverwrite = DialogBox.OK(msgtext, txt);
+                    DialogBox.OK(msgtext, txt);
                 }
             }
             else
             {
                 string msgtext = "Allows only dd/MM/yyyy format.";
                 string txt = "Invalid date format";
-                bool answserOverwrite = DialogBox.OK(msgtext, txt);
+                DialogBox.OK(msgtext, txt);
             }
         }
 
@@ -101,14 +101,14 @@ namespace UserInterface
             Newspaper np = new Newspaper();
             if(np.IsEAN13Registered(ean13))
             {
-                Catalogs = catalog.GetEditionsFromEAN13(Catalogs, ean13);
-                EditionsDisplaying_ListView.ItemsSource = Catalogs;
+                Catalogs = catalog.GetCatalogsFromEAN13(Catalogs, ean13);
+                CatalogsDisplaying_ListView.ItemsSource = Catalogs;
             }
             else
             {
                 string msgtext = $"No newspaper with ean13 {ean13} recorded.";
                 string txt = "Invalid input";
-                bool answserOverwrite = DialogBox.OK(msgtext, txt);
+                DialogBox.OK(msgtext, txt);
             }
         }
 
@@ -126,12 +126,22 @@ namespace UserInterface
             EAN13UserInput.Text = String.Empty;
             Catalog catalog = new Catalog();
             Catalogs = catalog.GetAllCatalogs();
-            EditionsDisplaying_ListView.ItemsSource = Catalogs;
+            CatalogsDisplaying_ListView.ItemsSource = Catalogs;
         }
 
         private void ViewEditionDetails_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Display Edition Details
+        }
+
+        private void ControlDateInput(object sender, TextCompositionEventArgs e)
+        {
+            InputChecker.ControlInputOnlyDateCaracters(sender, e);
+        }
+
+        private void ControlOnlyNumberInput(object sender, TextCompositionEventArgs e)
+        {
+            InputChecker.ControlInputOnlyNumbersCaracters(sender, e);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Project_3___Press_Project
             return catalogList;
         }
        
-        public List<Editor> GetEditorsHavingEditions(List<Catalog> catalogs)
+        public List<Editor> GetEditorsHavingCatalogs(List<Catalog> catalogs)
         {
             var editors = (from e in catalogs
                            orderby e.Newspaper.Editor.Name
@@ -45,7 +45,7 @@ namespace Project_3___Press_Project
             return selectedCatalogs;
         }
 
-        public List<Newspaper> GetNewspapersHavingEditions(List<Catalog> catalogs)
+        public List<Newspaper> GetNewspapersHavingCatalogs(List<Catalog> catalogs)
         {
             var newspapers = (from c in catalogs
                               orderby c.Newspaper.Name
@@ -61,32 +61,7 @@ namespace Project_3___Press_Project
             return selectedCatalogs;
         }
 
-        public bool CheckDateFormatFromString(string stringDateFormat)
-        {
-            try
-            {
-                DateTime dateTimeFormat = DateTime.ParseExact(stringDateFormat, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public bool CheckDates(DateTime firstDate, DateTime lastDate)
-        {
-            if(firstDate <= lastDate)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public List<Catalog> GetEditionsFromDates(List<Catalog> catalogs, DateTime firstDate, DateTime lastDate)
+        public List<Catalog> GetCatalogsFromDates(List<Catalog> catalogs, DateTime firstDate, DateTime lastDate)
         {
             List<Catalog> selectedCatalogs = (from c in catalogs
                                               where c.PublicationDate >= firstDate && c.PublicationDate <= lastDate
@@ -94,7 +69,7 @@ namespace Project_3___Press_Project
             return selectedCatalogs;
         }
 
-        public List<Catalog> GetEditionsFromEAN13(List<Catalog> catalogs, string ean13)
+        public List<Catalog> GetCatalogsFromEAN13(List<Catalog> catalogs, string ean13)
         {
             List<Catalog> selectedCatalogs = (from c in catalogs
                                               where c.Newspaper.EAN13 == ean13
