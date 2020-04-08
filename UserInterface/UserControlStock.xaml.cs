@@ -28,9 +28,9 @@ namespace UserInterface
         public UserControlStock()
         {
             InitializeComponent();
+            DataContext = this;
             AllShopCatalogs = ShopFilter.GetAllShopCatalogs();
             AllShops = UserSingleton.GetInstance.AllShops;
-            cmbShops.ItemsSource = AllShops;
         }
 
         private void btnCheck_Click(object sender, RoutedEventArgs e)
@@ -38,7 +38,7 @@ namespace UserInterface
             Shop selectedShop = (Shop)cmbShops.SelectedItem;
             if (selectedShop != null)
             {
-                stockList.ItemsSource = AllShopCatalogs.Where(sc => sc.Shop.ShopId == selectedShop.ShopId);
+                stockList.ItemsSource = ShopFilter.GetShopCatalogsByShop(selectedShop.ShopId);
             }
         }
 

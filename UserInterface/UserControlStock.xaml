@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:UserInterface"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             Background="IndianRed" Width="1000" Height="500" VerticalAlignment="Top">
+             Background="IndianRed" Width="1000" Height="600" VerticalAlignment="Top">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
@@ -20,7 +20,7 @@
 
         <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="180, 0, 60, 0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Label x:Name="lblShop" FontSize="22" Style="{StaticResource DefaultInput}">Choose a Shop:</Label>
-            <ComboBox Name="cmbShops" Background="White" Foreground="#FF4086C1" FontWeight="Bold" Height="30">
+            <ComboBox Name="cmbShops" ItemsSource="{Binding Path=AllShops}" Background="White" Foreground="#FF4086C1" FontWeight="Bold" Height="30">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" FontSize="17" />

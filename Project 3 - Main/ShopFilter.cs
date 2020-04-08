@@ -122,5 +122,12 @@ namespace Project_3___Press_Project
             return dataShopCatalog.ToList();
         }
 
+        public IEnumerable<ShopCatalog> GetShopCatalogsByShop(Guid ShopId)
+        {
+            IEnumerable<ShopCatalog> shopCatalogs = 
+                                            GetAllShopCatalogs().Where(sc => sc.Shop.ShopId == ShopId);
+            return shopCatalogs;
+        }
+
     }
 }
