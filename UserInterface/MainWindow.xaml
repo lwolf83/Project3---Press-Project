@@ -17,6 +17,7 @@
                     <MenuItem Header="_Show">
                         <MenuItem Header="_Editor"/>
                         <MenuItem Header="_Newspaper" Click="ButtonSeeNewspapers_Click"/>
+                        <MenuItem Header="_Editions" Click="ButtonSeeEditions_Click"/>
                         <MenuItem Header="_Shop" Click="ButtonSeeShop_Click"/>
                         <MenuItem Header="_Order" Click="ButtonSeeOrder_Click"/>
                     </MenuItem>

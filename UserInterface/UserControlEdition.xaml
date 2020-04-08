@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UserInterface"
              mc:Ignorable="d">
-    <Grid Background="#a5bdda" Height="1000" Width="1000" Margin="0,20,0,40" HorizontalAlignment="Right">
+    <Grid Background="#a5bdda"  Height="480" Width="1000" HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="4*"/>
@@ -18,7 +18,7 @@
 
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Editions finder" Name="EditionFilteringTitleTextBlock" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center" FontWeight="Bold" Foreground="#253d5a"/>
 
-        <Grid Grid.Column="0" Grid.Row="1">
+        <Grid Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Margin="0,20,0,0">
             <StackPanel Orientation="Vertical">
                 <TextBlock FontFamily="Arial" FontWeight="Heavy" FontSize="15" HorizontalAlignment="Center"> Filter by:</TextBlock>
                 <StackPanel Orientation="Vertical">
@@ -79,7 +79,7 @@
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="1" Margin="20,0,10,60">
+        <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Margin="20,20,10,60">
             <ListView HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" Name="EditionsDisplaying_ListView">
                 <ListView.Resources>
                     <Style TargetType="{x:Type GridViewColumnHeader}">
