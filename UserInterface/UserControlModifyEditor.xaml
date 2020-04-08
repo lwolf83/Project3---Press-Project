@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="UserInterface.UserControlModifyEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UserInterface"
+             mc:Ignorable="d">
+    <Grid Background="#a5bdda" Height="500" Width="1000"  HorizontalAlignment="Center" VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="Modify Editor" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center" FontWeight="Bold" Foreground="#253d5a"/>
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
+            <TextBlock Text="Editors" VerticalAlignment="Center" Margin="20" FontSize="20" TextAlignment="Center" FontWeight="Normal"/>
+            <ComboBox Name="EditorList" Foreground="Black" Width="200" Height="30" SelectionChanged="OnEditorChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0">
+            <TextBlock Text="Editor Name" VerticalAlignment="Center" Margin="20" FontSize="20" TextAlignment="Center" FontWeight="Normal"/>
+            <TextBox Name="EditorName_textBox" KeyDown="txtEditorName_KeyDown" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="20" Foreground="Black" Background="White"/>
+            <TextBlock x:Name="Message_TextBlock" Margin="0,20" Text="" VerticalAlignment="Center" FontSize="16" TextAlignment="Center" FontWeight="Normal"/>
+        </StackPanel>
+        <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Margin="300,0,0,30" Height="40" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#253d5a" Click="Save_Btn">
+            <TextBlock Text="Save" TextWrapping="Wrap" FontSize="20"/>
+        </Button>
+        <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Margin="600,0,0,30" Height="40" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#253d5a" Click="Cancel_Btn">
+            <TextBlock Text="Cancel" TextWrapping="Wrap" FontSize="20"/>
+        </Button>
+    </Grid>
+</UserControl>

@@ -81,5 +81,14 @@ namespace UserInterface
         {
             UserControlSetter.SetGridMain(GridMain, "AddShop");
         }
-    }
+
+        public void ButtonAddEditors_click(object sender, RoutedEventArgs e)
+        {
+            UserControlSetter.SetGridMain(GridMain, "ItemAddEditors");
+        }
+        public void ButtonModifyEditors_click(object sender, RoutedEventArgs e)
+        {
+            UserControlSetter.SetGridMain(GridMain, "ItemModifyEditors");
+        }
+    }    
 }
