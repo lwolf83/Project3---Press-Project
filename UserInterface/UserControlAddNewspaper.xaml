@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:UserInterface"
              mc:Ignorable="d" 
              >
-    <Grid Background="#a5bdda" Height="1000" Width="1000" Margin="0,20,0,40" HorizontalAlignment="Right">
+    <Grid Background="#a5bdda" Height="500" Width="1000"  HorizontalAlignment="Center" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -16,10 +16,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="3*"/>
-
-
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="Newspapers" Name="ShopTextBlock" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center" FontWeight="Bold" Foreground="#253d5a"/>

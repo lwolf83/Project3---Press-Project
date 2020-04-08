@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:UserInterface"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             Background="IndianRed" Width="1000" Height="600">
+             Background="IndianRed" Width="1000" Height="500" VerticalAlignment="Top">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
