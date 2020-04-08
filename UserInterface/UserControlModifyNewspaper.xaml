@@ -14,15 +14,15 @@
             <StackPanel x:Name="TextStack">
                 <WrapPanel Margin="0,10,0,20">
                     <Label Content="Newspaper name : " HorizontalAlignment="Left" Margin="10,0,10,0" VerticalAlignment="Top" Height="auto" Width="220" FontFamily="Segoe UI Semibold" FontSize="24"/>
-                    <TextBox x:Name="NewsName" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="650" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                    <TextBox x:Name="NewsName" HorizontalAlignment="Left" VerticalContentAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,0" Width="650" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
                 </WrapPanel>
                 <WrapPanel Margin="0,0,0,20">
                     <Label Content="Price per unit :" HorizontalAlignment="Left" Margin="10,0,10,0" VerticalAlignment="Top" Height="auto" Width="220" FontFamily="Segoe UI Semibold" FontSize="24"/>
-                    <TextBox x:Name="Price" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="650" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                    <TextBox x:Name="Price" PreviewTextInput="CheckInputIsDecimal" HorizontalAlignment="Left" VerticalContentAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,0" Width="650" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
                 </WrapPanel>
                 <WrapPanel Margin="0,0,0,10">
                     <Label Content="Periodicity : " HorizontalAlignment="Left" Margin="10,0,10,0" VerticalAlignment="Top" Height="auto" Width="220" FontFamily="Segoe UI Semibold" FontSize="24"/>
-                    <TextBox x:Name="Period" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="650" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                    <TextBox x:Name="Period" PreviewTextInput="CheckInputHasOnlyNumbers" HorizontalAlignment="Left" VerticalContentAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,0" Width="650" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
                 </WrapPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <WrapPanel Margin="10,0,0,10">
