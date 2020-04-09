@@ -70,13 +70,21 @@ namespace UserInterface
                 case "AddShop":
                     resControl = new UserControlAddShop();
                     break;
+
+                case "ItemAddEditors":
+                    resControl = new UserControlAddEditor();
+                    break;
+                case "ItemModifyEditors":
+                    resControl = new UserControlModifyEditor();
+
                 case "ItemEditions":
                     resControl = new UserControlEdition();
+
                     break;
                 default:
                     resControl = new UserControlShop();
                     break;
-            }
+            }      
 
             return resControl;
         }
