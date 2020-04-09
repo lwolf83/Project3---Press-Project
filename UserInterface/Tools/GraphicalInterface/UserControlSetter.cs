@@ -37,6 +37,9 @@ namespace UserInterface
                 case "ItemAddNewspapers":
                     resControl = new UserControlAddNewspaper();
                     break;
+                case "ItemCatalog":
+                    resControl = new UserControlCatalog();
+                    break;
                 case "ItemClose":
                     resControl = new UserControlClose();
                     break;
@@ -67,11 +70,16 @@ namespace UserInterface
                 case "AddShop":
                     resControl = new UserControlAddShop();
                     break;
+
                 case "ItemAddEditors":
                     resControl = new UserControlAddEditor();
                     break;
                 case "ItemModifyEditors":
                     resControl = new UserControlModifyEditor();
+
+                case "ItemEditions":
+                    resControl = new UserControlEdition();
+
                     break;
                 default:
                     resControl = new UserControlShop();

@@ -28,19 +28,19 @@
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0">
             <TextBlock Text="Periodicity (D) :" VerticalAlignment="Center" Margin="20"/>
-            <TextBox Name="NewspaperPeriodicity_textBox" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="18" Foreground="Black" Background="White" PreviewTextInput="CheckInputHasOnlyNumbers"/>
+            <TextBox Name="NewspaperPeriodicity_textBox" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="18" Foreground="Black" Background="White" PreviewTextInput="ControlInputHasOnlyNumbers"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top">
             <TextBlock Text="EAN13" Margin="20" VerticalAlignment="Center" />
-            <TextBox x:Name="NewspaperEAN13_textBox" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="18" Foreground="Black" Background="White" PreviewTextInput="CheckInputHasOnlyNumbers"/>
+            <TextBox x:Name="NewspaperEAN13_textBox" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="18" Foreground="Black" Background="White" PreviewTextInput="ControlInputHasOnlyNumbers"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" Grid.Column="0" HorizontalAlignment="Center">
             <TextBlock Text="Price (€)" Margin="20" VerticalAlignment="Center"/>
-            <TextBox x:Name="NewspaperPrice_textBox" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="18" Foreground="Black" Background="White" PreviewTextInput="CheckNewspaperPrice_textBox"/>
+            <TextBox x:Name="NewspaperPrice_textBox" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="18" Foreground="Black" Background="White" PreviewTextInput="ControlNewspaperPrice_textBox"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center"  HorizontalAlignment="Center">
             <TextBlock Text="First publication date (dd/MM/yyyy)" Margin="0,20,0,20" VerticalAlignment="Center"/>
-            <TextBox x:Name="NewspaperFirstPublicationDate_textBox" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="18" Foreground="Black" Background="White" PreviewTextInput="CheckDateInputCaracters"/>
+            <TextBox x:Name="NewspaperFirstPublicationDate_textBox" HorizontalAlignment="Left" Width="200" Height="30" VerticalAlignment="Center" FontSize="18" Foreground="Black" Background="White" PreviewTextInput="ControlDateInputCaracters"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center">

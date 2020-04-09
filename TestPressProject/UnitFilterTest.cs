@@ -80,7 +80,7 @@ namespace Project_3___Press_Project
         public void TestShopFilterByCity()
         {
             List<Shop> shopsTest = new List<Shop>() { Shops[0], Shops[1], Shops[2], Shops[3] };
-            ShopFilter shopFilter = new ShopFilter();
+            Shop shopFilter = new Shop();
             City colmar = (from c in Cities
                            where c.Name == "Colmar"
                            select c).First();
@@ -93,7 +93,7 @@ namespace Project_3___Press_Project
         public void TestShopFilterByWrongCity()
         {
             List<Shop> shopsTest = new List<Shop>() { Shops[0], Shops[1], Shops[2], Shops[3] };
-            ShopFilter shopFilter = new ShopFilter();
+            Shop shopFilter = new Shop();
             City strasbourg = (from c in Cities
                            where c.Name == "Strasbourg"
                            select c).First();
@@ -105,7 +105,7 @@ namespace Project_3___Press_Project
         public void TestShopFilteredByDepartments()
         {
             List<Shop> shopsTest = new List<Shop>() { Shops[0], Shops[1], Shops[2], Shops[3], Shops[4], Shops[5], Shops[6], Shops[7] };
-            ShopFilter shopFilter = new ShopFilter();
+            Shop shopFilter = new Shop();
             Department hautRhin = (from d in Departments
                                  where d.DepartmentName == "Haut-Rhin"
                                  select d).First();
@@ -118,7 +118,7 @@ namespace Project_3___Press_Project
         public void TestShopFilteredByWrongDepartments()
         {
             List<Shop> shopsTest = new List<Shop>() { Shops[0], Shops[1], Shops[2], Shops[3], Shops[4], Shops[5], Shops[6], Shops[7] };
-            ShopFilter shopFilter = new ShopFilter();
+            Shop shopFilter = new Shop();
             Department Doubs = (from d in Departments
                                    where d.DepartmentName == "Doubs"
                                    select d).First();
@@ -138,7 +138,7 @@ namespace Project_3___Press_Project
             List<Shop> ordererShopsTest = (from s in shopsTest
                                           orderby s.Name
                                           select s).ToList();
-            ShopFilter shopFilter = new ShopFilter();
+            Shop shopFilter = new Shop();
             Province alsace = (from p in Provinces
                                  where p.Name == "Alsace"
                                  select p).First();
@@ -158,7 +158,7 @@ namespace Project_3___Press_Project
             List<Shop> ordererShopsTest = (from s in shopsTest
                                            orderby s.Name
                                            select s).ToList();
-            ShopFilter shopFilter = new ShopFilter();
+            Shop shopFilter = new Shop();
             Province francheComte = (from p in Provinces
                                where p.Name == "Franche-Comté"
                                select p).First();
@@ -174,7 +174,7 @@ namespace Project_3___Press_Project
             List<Province> alsace = (from p in Provinces
                                       where p.Name == "Alsace"
                                       select p).ToList();
-            ShopFilter shopFilter = new ShopFilter();
+            Shop shopFilter = new Shop();
             List<Province> getProvinceFromShops = shopFilter.GetProvincesHavingShops(shopsOfAlsace).ToList();
             Assert.AreEqual(getProvinceFromShops, alsace);
         }
@@ -186,7 +186,7 @@ namespace Project_3___Press_Project
             List<Province> francheComte = (from p in Provinces
                                      where p.Name == "Franche-Comté"
                                      select p).ToList();
-            ShopFilter shopFilter = new ShopFilter();
+            Shop shopFilter = new Shop();
             List<Province> getProvinceFromShops = shopFilter.GetProvincesHavingShops(shopsOfAlsace).ToList();
             Assert.AreNotEqual(getProvinceFromShops, francheComte);
         }
@@ -198,7 +198,7 @@ namespace Project_3___Press_Project
             List<Department> hautRhin = (from d in Departments
                                      where d.DepartmentName == "Haut-Rhin"
                                      select d).ToList();
-            ShopFilter shopFilter = new ShopFilter();
+            Shop shopFilter = new Shop();
             List<Department> getDepartmentFromShops = shopFilter.GetDepartmentsHavingShops(shopsOfHautRhin).ToList();
             Assert.AreEqual(getDepartmentFromShops, hautRhin);
         }
@@ -210,7 +210,7 @@ namespace Project_3___Press_Project
             List<Department> doubs = (from d in Departments
                                          where d.DepartmentName == "Doubs"
                                          select d).ToList();
-            ShopFilter shopFilter = new ShopFilter();
+            Shop shopFilter = new Shop();
             List<Department> getDepartmentFromShops = shopFilter.GetDepartmentsHavingShops(shopsOfHautRhin).ToList();
             Assert.AreNotEqual(getDepartmentFromShops, doubs);
         }
@@ -226,7 +226,7 @@ namespace Project_3___Press_Project
             cities.Add((from c in Cities
                           where c.Name == "Strasbourg"
                           select c).First());
-            ShopFilter shopFilter = new ShopFilter();
+            Shop shopFilter = new Shop();
             List<City> getDepartmentFromShops = shopFilter.GetCitiesHavingShops(shopsOfBesanconAndStrasbourg).ToList();
             Assert.AreEqual(getDepartmentFromShops, cities);
         }
@@ -238,7 +238,7 @@ namespace Project_3___Press_Project
             List<City> strasbourg = (from c in Cities
                                    where c.Name == "Strasbourg"
                                    select c).ToList();
-            ShopFilter shopFilter = new ShopFilter();
+            Shop shopFilter = new Shop();
             List<City> getDepartmentFromShops = shopFilter.GetCitiesHavingShops(shopsOfBesancon).ToList();
             Assert.AreNotEqual(getDepartmentFromShops, strasbourg);
         }
