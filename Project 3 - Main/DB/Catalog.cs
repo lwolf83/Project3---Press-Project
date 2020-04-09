@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Project_3___Press_Project
 {
-    public class Catalog
+    public partial class Catalog
     {
         public Guid CatalogId { get; set; }
         public Newspaper Newspaper { get; set; }

@@ -43,7 +43,7 @@ namespace UserInterface
 
         public Newspaper CreateNewspaper(object sender, RoutedEventArgs e)
         {
-            Newspaper newspaper = new Newspaper();
+           Newspaper newspaper = new Newspaper();
             using (var context = new PressContext())
             {
                 Catalog catalog = CreateCatalog(sender, e);
@@ -76,25 +76,13 @@ namespace UserInterface
 
         public bool CheckPublicationDateFormat(string publicationDateString)
         {
-            try
+            if(InputChecker.IsDateValidAndHigherThanToday(publicationDateString))
             {
-                DateTime publicationDate = DateTime.ParseExact(publicationDateString, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-                if (publicationDate >= DateTime.Today)
-                {
-                    return true;
-                }
-                else
-                {
-                    string msgtext = "Date should be superior or equal to today.";
-                    string txt = "Invalid date";
-                    bool answserOverwrite = DialogBox.OK(msgtext, txt);
-                    NewspaperFirstPublicationDate_textBox.Background = Brushes.IndianRed;
-                    return false;
-                }
+                return true;
             }
-            catch
+            else
             {
-                string msgtext = "Allows only dd/MM/yyyy format.";
+                string msgtext = "Allows only dd/MM/yyyy format \n with dates equal or higher than today.";
                 string txt = "Invalid date format";
                 bool answserOverwrite = DialogBox.OK(msgtext, txt);
                 NewspaperFirstPublicationDate_textBox.Background = Brushes.IndianRed;
@@ -104,26 +92,11 @@ namespace UserInterface
 
         public bool CheckPriceFormat(string newspaperPriceString)
         {
-            try
+            if(InputChecker.IsDecimalFormatValidWithTwoZeroAfterComa(newspaperPriceString))
             {
-                decimal newspaperPrice = Convert.ToDecimal(newspaperPriceString);
-                string[] a = newspaperPriceString.Split(new char[] { ',' });
-                int decimals = a[1].Length;
-
-                if (newspaperPrice > 0 && (decimals<=2))
-                {
-                    return true;
-                }
-                else
-                {
-                    string msgtext = "Invalid price format.";
-                    string txt = "Invalid input";
-                    bool answserOverwrite = DialogBox.OK(msgtext, txt);
-                    NewspaperPrice_textBox.Background = Brushes.IndianRed;
-                    return false;
-                }
+                return true;
             }
-            catch
+            else
             {
                 string msgtext = "Invalid price.";
                 string txt = "Invalid input";
@@ -135,7 +108,7 @@ namespace UserInterface
 
         public bool CheckPeriodicityLength(string periodicityString)
         {
-            if(Convert.ToInt32(periodicityString) <=366)
+            if(InputChecker.IsPeriodicityLowerThanReferencedDays(periodicityString, 366))
             {
                 return true;
             }
@@ -151,15 +124,16 @@ namespace UserInterface
 
         public bool CheckUserFieldsAreComplete(object sender, RoutedEventArgs e)
         {
-            string newspaperName = NewspaperName_textBox.Text;
-            string periodicity = NewspaperPeriodicity_textBox.Text;
-            string ean13 = NewspaperEAN13_textBox.Text;
-            string price = NewspaperPrice_textBox.Text;
-            if((newspaperName != string.Empty) 
-                && (periodicity != string.Empty) 
-                && (ean13 != string.Empty) 
-                && (price != string.Empty) 
-                && (!string.IsNullOrEmpty(EditorNameFilteringSelection_comboBox.Text)))
+            List<String> inputs = new List<string>()
+            {
+                NewspaperName_textBox.Text,
+                NewspaperPeriodicity_textBox.Text,
+                NewspaperEAN13_textBox.Text,
+                NewspaperPrice_textBox.Text,
+                EditorNameFilteringSelection_comboBox.Text
+            };
+
+            if (InputChecker.AreAllStringFieldsComplete(inputs))
             {
                 return true;
             }
@@ -172,22 +146,19 @@ namespace UserInterface
             }
         }
 
-        private void CheckNewspaperPrice_textBox(object sender, TextCompositionEventArgs e)
+        private void ControlNewspaperPrice_textBox(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("[^0-9,]+");
-            e.Handled = regex.IsMatch(e.Text);
+            InputChecker.ControlInputOnlyDecimalCaracters(sender, e);
         }
 
-        private void CheckInputHasOnlyNumbers(object sender, TextCompositionEventArgs e)
+        private void ControlInputHasOnlyNumbers(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
+            InputChecker.ControlInputOnlyNumbersCaracters(sender, e);
         }
 
-        private void CheckDateInputCaracters(object sender, TextCompositionEventArgs e)
+        private void ControlDateInputCaracters(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("[^0-9/]+");
-            e.Handled = regex.IsMatch(e.Text);
+            InputChecker.ControlInputOnlyDateCaracters(sender, e);
         }
     }
 }

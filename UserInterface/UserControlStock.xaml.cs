@@ -23,7 +23,7 @@ namespace UserInterface
     {
         public IEnumerable<Shop> AllShops { get; set; }
         public IEnumerable<ShopCatalog> AllShopCatalogs { get; set; }
-        public ShopFilter ShopFilter = new ShopFilter();
+        public Shop ShopFilter = new Shop();
 
         public UserControlStock()
         {

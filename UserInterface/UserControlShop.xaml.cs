@@ -32,7 +32,7 @@ namespace UserInterface
         public string CityFilteringSelection { get => Name; }
         public string DepartmentFilteringSelection { get => Name; }
         public string ProvinceFilteringSelection { get => Name; }
-        public ShopFilter ShopFilter = new ShopFilter();
+        public Shop ShopFilter = new Shop();
         public MainWindow mainWindow { get => new MainWindow(); }
         public IEnumerable<Shop> AllShops { get; set; }
         
@@ -73,7 +73,7 @@ namespace UserInterface
         public void OnCitiesSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
             City selectedCity = (City) (sender as ComboBox).SelectedItem;
-            ShopFilter shopFilter = new ShopFilter();
+            Shop shopFilter = new Shop();
             ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromACity(AllShops, selectedCity);
         }
 
@@ -81,14 +81,14 @@ namespace UserInterface
         public void OnDepartmentsSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
             Department selectedDepartment = (Department)(sender as ComboBox).SelectedItem;
-            ShopFilter shopFilter = new ShopFilter();
+            Shop shopFilter = new Shop();
             ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromADepartment(AllShops, selectedDepartment);
         }
 
         public void OnProvincesSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
             Province selectedProvince = (Province)(sender as ComboBox).SelectedItem;
-            ShopFilter shopFilter = new ShopFilter();
+            Shop shopFilter = new Shop();
             ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromAProvince(AllShops, selectedProvince);
         }
 

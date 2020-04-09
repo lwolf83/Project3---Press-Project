@@ -22,7 +22,7 @@ namespace UserInterface
         public UserControlDisplayShopDetails(Guid shopId)
         {
             InitializeComponent();
-            ShopFilter shopFilter = new ShopFilter();
+            Shop shopFilter = new Shop();
             GridForm.DataContext = shopFilter.GetShopDetail(shopId);
         }
     }
