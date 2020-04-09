@@ -48,7 +48,7 @@ namespace TestPressProject
         public void TestAutomaticOrderAddition()
         {
             AutomaticOrder ao = new AutomaticOrder();
-            ao = AutomaticOrder.CreateAutomaticOrder(UserShop, Newspaper, StartingDate, EndDate);
+            //ao = AutomaticOrder.CreateAutomaticOrder(UserShop, Newspaper, StartingDate, EndDate, 150);
             Assert.AreEqual(AutomaticOrder, ao);
         }
 

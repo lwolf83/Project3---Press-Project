@@ -33,6 +33,15 @@ namespace Project_3___Press_Project
             return orderLoaded;
         }
 
+        public static OrderCatalog CreateOrderCatalogForAutomaticOrder(AutomaticOrder automaticOrder, Catalog catalog)
+        {
+            OrderCatalog orderCatalog = new OrderCatalog();
+            orderCatalog.Catalog = catalog;
+            orderCatalog.CatalogId = catalog.CatalogId;
+            orderCatalog.CreatedAt = DateTime.Now;
+            orderCatalog.Quantity = automaticOrder.Quantity;
+            return orderCatalog;
+        }
 
 
     }

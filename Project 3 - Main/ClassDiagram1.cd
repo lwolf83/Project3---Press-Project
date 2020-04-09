@@ -147,15 +147,15 @@
       <Property Name="User" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="Project_3___Press_Project.AutomaticOrder">
-    <Position X="7.5" Y="1" Width="1.5" />
+  <Class Name="Project_3___Press_Project.AutomaticOrder" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAABAAAAAAAAAAAAAAAAAAAgAACAiAAAAAAAAIAAAAA=</HashCode>
+      <HashCode>AAAFAAAAABAAAAJAAAAAAAAhAAKAiBAAAAEAgIAAAAA=</HashCode>
       <FileName>DB\AutomaticOrder.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Shop" />
       <Property Name="Newspaper" />
+      <Property Name="Shop" />
     </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
