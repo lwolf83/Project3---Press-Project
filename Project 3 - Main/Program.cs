@@ -9,8 +9,9 @@ namespace Project_3___Press_Project
         static void Main(string[] args)
         {
             ContextPopulator populator = new ContextPopulator();
-            populator.Populate();
-            ShopFilter filter = new ShopFilter();
+            //populator.Populate();
+
+
             Console.WriteLine("fini");
         }
     }

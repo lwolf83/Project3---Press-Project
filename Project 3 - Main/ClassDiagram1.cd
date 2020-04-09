@@ -50,7 +50,7 @@
   <Class Name="Project_3___Press_Project.Editor">
     <Position X="13" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAQAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAQAAAAAAAAAAQAABAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DB\Editor.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -145,6 +145,17 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Project_3___Press_Project.AutomaticOrder">
+    <Position X="7.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAgAACAiAAAAAAAAIAAAAA=</HashCode>
+      <FileName>DB\AutomaticOrder.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Shop" />
+      <Property Name="Newspaper" />
     </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
