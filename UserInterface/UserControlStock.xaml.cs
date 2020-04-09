@@ -12,7 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Linq;
 using Project_3___Press_Project;
-
+using System.Text.RegularExpressions;
 
 namespace UserInterface
 {
@@ -52,6 +52,57 @@ namespace UserInterface
             usc.EAN13 = EAN13;
             usc.PrefillEAN13();
             this.Content = usc;
+        }
+
+        private void btnOrder_Click(object sender, RoutedEventArgs e)
+        {
+            Quantity.Background = Brushes.White;
+            ShopCatalog stock = (ShopCatalog)stockList.SelectedItem;
+            if (stock == null)
+            {
+                DialogBox.OK("Select a stock of the journal whose next edition you want to order!", "No stock chosen");
+            }
+            else
+            {
+                if (Quantity.Text == String.Empty || Convert.ToInt32(Quantity.Text) > 200)
+                {
+                    Quantity.Background = Brushes.PaleVioletRed;
+                    DialogBox.OK("You can order 0 to 200 newspapers per edition", "Provide a valid quantity!");
+                }
+                else
+                {
+                    int quantity = Convert.ToInt32(Quantity.Text);
+                    OrderNextEdition(stock, quantity);
+                }
+            }
+        }
+
+        private void OrderNextEdition(ShopCatalog stock, int quantity)
+        {
+            Newspaper np = stock.Catalog.Newspaper;
+            Shop shop = stock.Shop;
+            bool nextEditions = np.Catalogs.Where(n => n.PublicationDate > DateTime.Today).Any();
+
+            if (nextEditions)
+            {
+                var nextEdition = np.Catalogs.Where(n => n.PublicationDate > DateTime.Today)
+                                 .FirstOrDefault();
+                bool placed = OrderAction.CreateOrder(shop, nextEdition, quantity);
+                if (placed)
+                {
+                    DialogBox.OK("Your order has been successfully placed", "Success");
+                }
+            }
+            else
+            {
+                DialogBox.OK("According to our database, the selected newspaper has no future additions. Sorry!", "No future additions");
+            }
+        }
+        
+        private void Quantity_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }
