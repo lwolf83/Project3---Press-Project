@@ -1,0 +1,136 @@
+﻿<UserControl x:Class="UserInterface.UserControlEdition"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UserInterface"
+             mc:Ignorable="d">
+    <Grid Background="#a5bdda"  Height="480" Width="1000" HorizontalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="6*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Editions finder" Name="EditionFilteringTitleTextBlock" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center" FontWeight="Bold" Foreground="#253d5a"/>
+
+        <Grid Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Margin="0,20,0,0">
+            <StackPanel Orientation="Vertical">
+                <TextBlock FontFamily="Arial" FontWeight="Heavy" FontSize="15" HorizontalAlignment="Center"> Filter by:</TextBlock>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Editor" Margin="10,15,23,0" />
+                        <ComboBox Margin="10" Name="EditorFilteringSelection" Foreground="Black" Visibility="Visible" SelectionChanged="OnEditorSelectionChanged" Width="110" HorizontalAlignment="Right">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Newspaper" Margin="10,15,0,0" />
+                        <ComboBox Margin="10" Name="NewspaperNameFilteringSelection" Foreground="Black" Visibility="Visible" SelectionChanged="OnNewspapersSelectionChanged" Width="110" HorizontalAlignment="Right">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}" />
+                                            <TextBlock Text=" - "/>
+                                            <TextBlock Text="{Binding Periodicity}" />
+                                            <TextBlock Text=" - "/>
+                                            <TextBlock Text="{Binding EAN13}" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="10">
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <TextBlock Text="First Date" Margin="0,0,10,0"/>
+                            <TextBox Name="FirstDateUserInput" Width="130" PreviewTextInput="ControlDateInput"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <TextBlock Text="Last Date" Margin="0,0,10,0"/>
+                            <TextBox Name="LastDateUserInput" Width="130" PreviewTextInput="ControlDateInput"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center">
+                            <Button x:Name="DatesFilteringSelection_Btn" Content="Go!" Click="FilterByDates_Btn"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="10">
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <TextBlock Text="Enter EAN13:" Margin="0,0,10,0"/>
+                            <TextBox Name="EAN13UserInput" Width="130" PreviewTextInput="ControlOnlyNumberInput"/>
+                        </StackPanel>
+                        <Button x:Name="EAN13_Btn" Content="Go" Click="EAN13FilterSelection_Btn" Margin="0,10,0,0" Width="50"/>
+                    </StackPanel>
+                    <Button Margin="10,11,10,10" Content="Reset filters" Click="ReinitializeCatalogList_Btn"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Margin="20,20,10,60">
+            <ListView HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" Name="CatalogsDisplaying_ListView">
+                <ListView.Resources>
+                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="130" Header="Name" x:Name="EditionNames">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" Cursor="Arrow"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="150" Header="Newspapers name" x:Name="NewspaperNames">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Newspaper.Name}" Cursor="Arrow"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="150" Header="EAN13" x:Name="NewspaperEAN13">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Newspaper.EAN13}" Cursor="Arrow"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="160" Header="Editor name" x:Name="Editors">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Newspaper.Editor.Name}" Cursor="Hand"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="150" Header="Publication date" x:Name="PublicationDate">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding PublicationDate}" Cursor="Hand"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="MouseDoubleClick"  Handler="ViewEditionDetails_MouseDoubleClick" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </Grid>
+    </Grid>
+</UserControl>
