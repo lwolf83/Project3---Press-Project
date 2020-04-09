@@ -18,8 +18,8 @@ namespace Project_3___Press_Project
 
         private UserSingleton()
         {
-            ShopFilter sf = new ShopFilter();
-            AllShops = sf.GetAllShops();
+            Shop shop = new Shop();
+            AllShops = shop.GetAllShops();
         }        
 
         public static UserSingleton GetInstance
