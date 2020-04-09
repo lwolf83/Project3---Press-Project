@@ -81,5 +81,10 @@ namespace UserInterface
         {
             UserControlSetter.SetGridMain(GridMain, "AddShop");
         }
+
+        private void ButtonSeeCatalog_Click(object sender, RoutedEventArgs e)
+        {
+            UserControlSetter.SetGridMain(GridMain, "ItemCatalog");
+        }
     }
 }
