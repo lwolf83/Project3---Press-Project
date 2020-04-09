@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -90,7 +91,15 @@ namespace Project_3___Press_Project
         {
             using (var context = new PressContext())
             {
-                context.Catalogs.Update(this);
+                if(this.CatalogId == Guid.Empty)
+                {
+                    context.Entry(Newspaper).State = EntityState.Unchanged;
+                    context.Catalogs.Add(this);
+                }
+                else
+                {
+                    context.Catalogs.Update(this);
+                }
                 context.SaveChanges();
             }
         }
