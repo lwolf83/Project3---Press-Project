@@ -1,18 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Project_3___Press_Project;
 using System.Linq;
-using System.ComponentModel;
 
 namespace UserInterface
 {
@@ -21,21 +12,13 @@ namespace UserInterface
     /// </summary>
     public partial class UserControlCatalog : UserControl
     {
-
         private string _currentAction;
 
         public UserControlCatalog()
         {
             InitializeComponent();
-            using(var context = new PressContext())
-            {
-                List<Newspaper> newspapers = (from n in context.Newspapers.ToList()
-                                              join c in context.Catalogs.ToList()
-                                              on n.NewspaperId equals c.Newspaper.NewspaperId
-                                              select n).ToList();
-    
-                neswpaperselector_comboBox.ItemsSource = newspapers.OrderBy(n => n.Name);
-            }
+            IEnumerable<Newspaper> newspapers = NewspaperReader.GetAll();
+            neswpaperselector_comboBox.ItemsSource = newspapers.ToList().OrderBy(n => n.Name);
         }
 
         private void neswpaperselector_comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -45,33 +28,30 @@ namespace UserInterface
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if(neswpaperselector_comboBox.SelectedItem != null)
-            { 
-                _currentAction = "Add";
-                GetInfoCatalog.Visibility = Visibility.Visible;
-                FreezeWindow();
-            }
-            else
+            if (neswpaperselector_comboBox.SelectedItem == null)
             {
                 DialogBox.OK("Please select a newspaper to add an edition.", "Newspaper not selected");
+                return;
             }
+            _currentAction = "Add";
+            GetInfoCatalog.Visibility = Visibility.Visible;
+            FreezeWindow();
         }
 
         private void ModifyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (catalog_listview.SelectedItem != null)
-            {
-                _currentAction = "Update";
-                Catalog catalog = (Catalog)catalog_listview.SelectedItem;
-                name_TextBox.Text = catalog.Name;
-                PublicationDate_DatePicker.DisplayDate = catalog.PublicationDate;
-                FreezeWindow();
-                GetInfoCatalog.Visibility = Visibility.Visible;
-            }
-            else
+            if (catalog_listview.SelectedItem == null)
             {
                 DialogBox.OK("Please select a catalog to update.", "Catalog selection missing");
+                return;
             }
+            _currentAction = "Update";
+            Catalog catalog = (Catalog)catalog_listview.SelectedItem;
+            name_TextBox.Text = catalog.Name;
+            PublicationDate_DatePicker.DisplayDate = catalog.PublicationDate;
+            PublicationDate_DatePicker.Text = catalog.PublicationDate.ToString("dd/MM/yyyy");
+            FreezeWindow();
+            GetInfoCatalog.Visibility = Visibility.Visible;
         }
 
         private void FreezeWindow()
@@ -94,59 +74,63 @@ namespace UserInterface
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            if(catalog_listview.SelectedItem != null)
-            {
-                bool confirmDelete = DialogBox.YesOrNoCancel("Confirm deletion ?", "Delete confirmation");
-                if(confirmDelete)
-                {
-                    Catalog catalog = (Catalog)catalog_listview.SelectedItem;
-                    catalog.DeleteInDB();
-                    RefreshListViewCatalog();
-                }
-            }
-            else
+            if (catalog_listview.SelectedItem == null)
             {
                 DialogBox.OK("Please select a catalog to delete.", "Catalog selection missing");
+                return;
             }
+            FreezeWindow();
+            bool confirmDelete = DialogBox.YesOrNoCancel("Confirm deletion ?", "Delete confirmation");
+            if(confirmDelete)
+            {
+                Catalog catalog = (Catalog)catalog_listview.SelectedItem;
+                catalog.DeleteInDB();
+                RefreshListViewCatalog();
+            }
+            UnFreezeWindow();
+ 
         }
 
         private void RefreshListViewCatalog()
         {
             Newspaper newspaper = (Newspaper)neswpaperselector_comboBox.SelectedItem;
-            List<Catalog> catalogs;
-            using (var context = new PressContext())
-            {
-                catalogs = context.Catalogs.Where(c => c.Newspaper.NewspaperId == newspaper.NewspaperId).ToList();
-            }
-            catalog_listview.ItemsSource = catalogs;
+            IEnumerable<Catalog> catalogs = CatalogGet.Get(newspaper);
+            catalog_listview.ItemsSource = catalogs.ToList().OrderByDescending(c => c.PublicationDate);
         }
 
         private void Ok_Click(object sender, RoutedEventArgs e)
         {
             string name = name_TextBox.Text;
             Newspaper newspaper = (Newspaper)neswpaperselector_comboBox.SelectedItem;
-            DateTime PublicationDate = PublicationDate_DatePicker.SelectedDate.Value;
+
+            if(PublicationDate_DatePicker.SelectedDate == null)
+            {
+                DialogBox.OK("Wrong date format", "Wrond date format");
+                return;
+            }
+            DateTime publicationDate = PublicationDate_DatePicker.SelectedDate.Value;
             Catalog catalog;
             if (_currentAction == "Add")
             {
-                catalog = CatalogFactory.Create(name, PublicationDate, newspaper);
+                catalog = CatalogFactory.Create(name, publicationDate, newspaper);
             }
             else
             {
                 catalog = (Catalog) catalog_listview.SelectedItem;
-                catalog.PublicationDate = PublicationDate;
+                catalog.PublicationDate = publicationDate;
                 catalog.Name = name;
             }
             catalog.SaveInDB();
             RefreshListViewCatalog();
             ResetForm();
+            
         }
 
         public void ResetForm()
         {
             GetInfoCatalog.Visibility = Visibility.Collapsed;
             name_TextBox.Text = "";
-            PublicationDate_DatePicker.DisplayDate = DateTime.Now;
+            PublicationDate_DatePicker.SelectedDate = null;
             UnFreezeWindow();
         }
 
