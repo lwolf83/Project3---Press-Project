@@ -94,6 +94,7 @@ namespace UserInterface
         private void ButtonSeeEditions_Click(object sender, RoutedEventArgs e)
         {
             UserControlSetter.SetGridMain(GridMain, "ItemEditions");
+        }
 
         private void ButtonSeeCatalog_Click(object sender, RoutedEventArgs e)
         {
