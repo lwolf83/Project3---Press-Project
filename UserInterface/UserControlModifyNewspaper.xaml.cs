@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Linq;
 using Project_3___Press_Project;
+using System.Text.RegularExpressions;
 
 namespace UserInterface
 {
@@ -122,6 +123,18 @@ namespace UserInterface
             Period.Text = String.Empty;
             Editor.Text = String.Empty;
             eanNum.Text = String.Empty;
+        }
+
+        private void CheckInputHasOnlyNumbers(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void CheckInputIsDecimal(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9.]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }
