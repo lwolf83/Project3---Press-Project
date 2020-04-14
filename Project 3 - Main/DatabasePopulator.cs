@@ -23,25 +23,23 @@ namespace Project_3___Press_Project
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
-       /*     string france = "France";
-            List<String> countries = new List<string>();
-            countries.Add(france);*/
             populator.CreateCountry();
             populator.ImportProvincesInDB();
             populator.ImportDepartmentsInDB();
             populator.ImportCitiesInDB();
             populator.LinkLocations();
 
-            populator.CreateAddresses(100);
+            populator.CreateAddresses(10);
             populator.CreateShops();
             populator.CreateEditors(3);
             populator.CreateNewspapers(3);
             populator.CreateCatalogs(2);
-            populator.CreateUsers(100);
+            populator.CreateUsers(20);
             populator.LinkUserToShop();
             populator.CreateShopCatalogs();
             populator.CreateOrders();
             populator.CreateOrderCatalogs();
+            populator.CreateAutomaticOrders();
         }
 
         public void CreateCountry()
@@ -386,6 +384,39 @@ namespace Project_3___Press_Project
             }
             context.SaveChanges();
 
+        }
+
+        public void CreateAutomaticOrders()
+        {
+            var newspapers = (from n in context.Newspapers
+                              select n).ToList();
+            var users = (from u in context.Users
+                         select u).ToList();
+            var userShops = (from us in context.UserShops
+                             select us).ToList();
+
+            var shops = (from u in users
+                        join us in userShops on u.UserId equals us.UserId
+                        join s in context.Shops on us.ShopId equals s.ShopId
+                        select s).ToList();
+
+            Random randomGenerator = new Random();
+            foreach (Shop shop in shops)
+            {
+                foreach(Newspaper newspaper in newspapers)
+                {
+                    AutomaticOrder ao = new AutomaticOrder();
+                    ao.Newspaper = newspaper;
+                    ao.Shop = shop;
+                    ao.User = shop.UserShops.ToList()[0].User;
+                    DateTime startingDate = DateTime.Now + TimeSpan.FromDays(randomGenerator.Next(1, 30));
+                    ao.StartingDate = startingDate;
+                    ao.EndDate = startingDate + TimeSpan.FromDays(randomGenerator.Next(100,1000));
+                    ao.Quantity = randomGenerator.Next(0, 100);
+                    context.Add(ao);
+                }
+            }
+            context.SaveChanges();
         }
     }
 }

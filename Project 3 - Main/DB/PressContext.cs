@@ -24,6 +24,7 @@ namespace Project_3___Press_Project
         public DbSet<ShopCatalog> ShopCatalogs { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserShop> UserShops { get; set; }
+        public DbSet<AutomaticOrder> AutomaticOrders { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
