@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="UserInterface.UserControlNewspapersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UserInterface"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <Grid HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"> Filter by:</TextBlock>
+                    <ComboBox Name="FilteringEditors" Background="#FFCECFB7" Foreground="Black" Margin="10">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Editor.Name}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ComboBox Name="FilteringPeriodicity" Background="#FFCECFB7" Foreground="Black" Margin="10">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Periodicity }" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button Margin="10,20" Content="Search" Click="Search_Click" />
+                    <Button Margin="10,20" Content="Reset" Click="Reset_Click"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1" Grid.Row="1" Margin="20,0,10,60">
+                <ListView HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" x:Name="Displaying_ListView">
+                    <ListView.Resources>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </ListView.Resources>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="260" Header="Newspaper Name">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" Cursor="Arrow"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="260" Header="Periodicity">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Periodicity}" Cursor="Hand"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

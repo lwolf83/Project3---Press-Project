@@ -25,7 +25,7 @@ namespace UserInterface
 
         private void CreateAutomaticDelivery_Btn(object sender, RoutedEventArgs e)
         {
-
+            var test = Newspaper_ListView.Displaying_ListView.SelectedItem;
         }
     }
 }
