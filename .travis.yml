@@ -4,4 +4,4 @@ install:
     - msbuild restore "TestPressProject/TestPressProject.csproj"
     - nuget install NUnit.Console -ExcludeVersion
 script:
-    - msbuild /p Configuration=Debug "TestPressProject/TestPressProject.sln"
+    - msbuild /p Configuration=Debug "TestPressProject/TestPressProject.csproj"
