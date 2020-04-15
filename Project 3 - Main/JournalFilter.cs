@@ -44,5 +44,10 @@ namespace Project_3___Press_Project
             
             return newspaper;
         }
+
+        public IEnumerable<Newspaper> GetNewspaperEditor(Editor editor)
+        {            
+            return Newspaperlist.Where(x => x.Editor.EditorId.Equals(editor.EditorId));        
+        }
     }
 }
