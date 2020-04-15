@@ -1,0 +1,7 @@
+language: csharp
+solution: "Project 3 - Main/Project 3 - Press Project.sln"
+install:
+    - msbuild restore "Project 3 - Main/Project 3 - Press Project.sln"
+    - nuget install NUnit.Console -ExcludeVersion
+script:
+    - msbuild /p Configuration=Debug "Project 3 - Main/Project 3 - Press Project.sln"

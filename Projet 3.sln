@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project 3 - Press Project",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserInterface", "UserInterface\UserInterface.csproj", "{EF10D7A0-A45E-46E5-9452-956B9B9D5D73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPressProject", "TestPressProject\TestPressProject.csproj", "{821A44C8-3F4E-4E70-8DD5-8A7B6CE21AD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestPressProject", "TestPressProject\TestPressProject.csproj", "{821A44C8-3F4E-4E70-8DD5-8A7B6CE21AD9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DF219435-CB47-4309-B571-544EF606B271}"
+	ProjectSection(SolutionItems) = preProject
+		.travis.yml = .travis.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
