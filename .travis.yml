@@ -5,6 +5,5 @@ solution: "Project 3 - Main/Project 3 - Press Project.sln"
 script:
     - cd TestPressProject 
     - dotnet add package NUnit.Console
-    - ls
     - dotnet restore TestPressProject.csproj
-    - dotnet build TestPressProject/TestPressProject.csproj
+    - dotnet build TestPressProject.csproj
