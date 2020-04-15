@@ -1,7 +1,6 @@
 language: csharp
+dotnet: 2.0.0
 solution: "Project 3 - Main/Project 3 - Press Project.sln"
-install:
-    - msbuild restore "TestPressProject/TestPressProject.csproj"
-    - nuget install NUnit.Console -ExcludeVersion
 script:
-    - msbuild /p Configuration=Debug "TestPressProject/TestPressProject.csproj"
+    - dotnet restore
+    - dotnet build
