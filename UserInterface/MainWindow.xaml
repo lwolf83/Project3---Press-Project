@@ -18,17 +18,18 @@
                         <MenuItem Header="_Editor"/>
                         <MenuItem Header="_Newspaper" Click="ButtonSeeNewspapers_Click"/>
                         <MenuItem Header="_Editions" Click="ButtonSeeEditions_Click"/>
-                        <MenuItem Header="_Catalog" Click="ButtonSeeCatalog_Click"/>
                         <MenuItem Header="_Shop" Click="ButtonSeeShop_Click"/>
                         <MenuItem Header="_Order" Click="ButtonSeeOrder_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Add">
                         <MenuItem Header="_Editor" Click="ButtonAddEditors_click"/>
+                        <MenuItem Header="_Edition" Click="ButtonSeeCatalog_Click"/>
                         <MenuItem Header="_Newspaper" Click="ButtonAddNewspapers_click"/>
                         <MenuItem Header="_Shop" Click="ButtonAddShops_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Modify">
                         <MenuItem Header="_Editor" Click="ButtonModifyEditors_click"/>
+                        <MenuItem Header="_Edition" Click="ButtonSeeCatalog_Click"/>
                         <MenuItem Header="_Newspaper"/>
                         <MenuItem Header="_Shop"/>
                     </MenuItem>
