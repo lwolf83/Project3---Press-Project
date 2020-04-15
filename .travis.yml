@@ -2,6 +2,9 @@ language: csharp
 mono: none
 dotnet: 3.1
 solution: "Project 3 - Main/Project 3 - Press Project.sln"
+install:
+    - dotnet add package NUnit.Console
+    - ls
 script:
     - dotnet restore TestPressProject/TestPressProject.csproj
     - dotnet build TestPressProject/TestPressProject.csproj
