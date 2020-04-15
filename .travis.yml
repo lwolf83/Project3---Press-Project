@@ -2,9 +2,16 @@ language: csharp
 mono: none
 dotnet: 3.1
 solution: "Project 3 - Main/Project 3 - Press Project.sln"
-script:
-    - cd TestPressProject 
-    - dotnet add package NUnit.Console
-    - dotnet restore TestPressProject.csproj
-    - dotnet build TestPressProject.csproj
-    - dotnet test TestPressProject.csproj
+jobs:
+    include:
+        - stage: build
+        script:
+            - dotnet restore 'Project 3 - Main/Project 3 - Press Project.csproj'
+            - dotnet build 'Project 3 - Main/Project 3 - Press Project.csproj'
+        - stage: test
+            - cd TestPressProject 
+            - dotnet add package NUnit.Console
+            - dotnet restore TestPressProject.csproj
+            - dotnet build TestPressProject.csproj
+            - dotnet test TestPressProject.csproj
+    
