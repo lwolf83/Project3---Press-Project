@@ -41,12 +41,13 @@
             </StackPanel>
         </StackPanel>
 
-        <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
+        <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Height="375" VerticalAlignment="Top">
             <ListView x:Name="stockList" 
                       HorizontalAlignment="Center" 
                       HorizontalContentAlignment="Center" 
                       AlternationCount="2"  
                       ScrollViewer.VerticalScrollBarVisibility="Visible"
+                     
                       >
                 <ListView.Resources>
                     <Style TargetType="GridViewColumnHeader">
