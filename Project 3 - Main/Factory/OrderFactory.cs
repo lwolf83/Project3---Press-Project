@@ -39,5 +39,19 @@ namespace Project_3___Press_Project
             return resOrder;
         }
 
+        public static Order CreateOrderForAutomaticOrder(OrderCatalog orderCatalog, AutomaticOrder automaticOrder)
+        {
+            List<OrderCatalog> orderCatalogs = new List<OrderCatalog>() { orderCatalog };
+            Order order = new Order();
+            order.OrderCatalogs = orderCatalogs;
+            order.OrderDate = orderCatalog.CreatedAt;
+            order.Shop = automaticOrder.Shop;
+            order.ShopId = automaticOrder.Shop.ShopId;
+            order.User = automaticOrder.User;
+            order.UserId = automaticOrder.User.UserId;
+            order.State = "In progress";
+            return order;
+        }
+
     }
 }

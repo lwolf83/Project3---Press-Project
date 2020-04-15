@@ -10,7 +10,7 @@ namespace Project_3___Press_Project
         {
             ContextPopulator populator = new ContextPopulator();
             populator.Populate();
-            Shop filter = new Shop();
+
             Console.WriteLine("fini");
         }
     }

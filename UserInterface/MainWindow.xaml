@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UserInterface"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" Height="600" Width="1080" Foreground="White" ResizeMode="CanMinimize" WindowStartupLocation="Manual" WindowStyle="SingleBorderWindow" FontFamily="Garamond">
+        mc:Ignorable="d" Height="630" Width="1080" Foreground="White" ResizeMode="CanMinimize" WindowStartupLocation="Manual" WindowStyle="SingleBorderWindow" FontFamily="Garamond">
     <StackPanel Orientation="Vertical">
         <Grid Height="50">
             <DockPanel x:Name="menuNav" Visibility="Hidden">
@@ -39,7 +39,7 @@
                 <TextBox AcceptsReturn="True" />
             </DockPanel>
         </Grid>
-        <Grid Background="#FF4086C1" Height="536">
+        <Grid Background="#FF4086C1" Height="580">
             <Grid x:Name="GridMain" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Grid>
     </StackPanel>

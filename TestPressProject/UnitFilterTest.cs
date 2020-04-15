@@ -14,6 +14,21 @@ namespace Project_3___Press_Project
         public List<Province> Provinces { get; set; } = new List<Province>();
         public List<Country> Countries { get; set; } = new List<Country>();
 
+
+        // Pour les tests, regarder : https://stackoverflow.com/questions/19861619/nunit-comparing-two-lists
+        // Lorsque l'on compare des listes, avec AssertAreEqual, on compare les références des listes
+        // En utilisant Assert.That(actual, Is.EquivalentTo(expected)); , on compare directement les valeurs.
+        // Il faut alors aussi modifier la classe:
+        //public class Example
+        //{
+        //    public int ID { get; set; }
+
+        //    public override bool Equals(object obj)
+        //    {
+        //        return this.ID == (obj as Example).ID;
+        //    }
+        //}
+
         [SetUp]
         public void Setup()
         {
