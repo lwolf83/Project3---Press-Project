@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Project_3___Press_Project
 {
-    class AutomaticOrderFactory
+    public class AutomaticOrderFactory
     {
 
         public static AutomaticOrder CreateAutomaticOrder(UserShop userShop, Newspaper newspaper, DateTime startDate, DateTime endDate, int quantity)
@@ -14,11 +14,15 @@ namespace Project_3___Press_Project
             ao.Newspaper = newspaper;
             ao.StartingDate = startDate;
             ao.EndDate = endDate;
-            ao.User = userShop.User;
-            ao.Shop = userShop.Shop;
+            ao.User = UsersLoader.FromUserShop(userShop);
+            ao.Shop = ShopsLoader.FromUserShop(userShop);
             ao.Quantity = quantity;
 
             return ao;
         }
+
+       
+        
+
     }
 }

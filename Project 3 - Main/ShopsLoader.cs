@@ -23,6 +23,17 @@ namespace Project_3___Press_Project
             return shopList;
         }
 
+        public static Shop FromUserShop(UserShop us)
+        {
+            Shop shop = null;
+            using (var context = new PressContext())
+            {
+                shop = (from s in context.Shops
+                        where s.ShopId == us.ShopId
+                        select s).First();
+            }
+            return shop;
+        }
 
     }
 }

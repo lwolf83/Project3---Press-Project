@@ -101,6 +101,11 @@ namespace UserInterface
             UserControlSetter.SetGridMain(GridMain, "ItemCatalog");
 
         }
+
+        private void ButtonAddAutomaticDelivery_Click(object sender, RoutedEventArgs e)
+        {
+            UserControlSetter.SetGridMain(GridMain, "ItemAutomaticDelivery");
+        }
     }
 }
 
