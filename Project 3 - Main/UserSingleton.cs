@@ -7,9 +7,6 @@ namespace Project_3___Press_Project
 {
     public sealed class UserSingleton
     {
-        /// <summary>
-        /// Current user actions (connect / disconnect / etc)
-        /// </summary>
         private static UserSingleton instance = null;
 
         public User User { get; private set; } = new User();
@@ -18,8 +15,7 @@ namespace Project_3___Press_Project
 
         private UserSingleton()
         {
-            Shop shop = new Shop();
-            AllShops = shop.GetAllShops();
+            AllShops = ShopsLoader.GetAll();
         }        
 
         public static UserSingleton GetInstance
