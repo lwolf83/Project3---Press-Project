@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UserInterface"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" Height="600" Width="1080" Foreground="White" ResizeMode="CanMinimize" WindowStartupLocation="Manual" WindowStyle="SingleBorderWindow" FontFamily="Garamond">
+        mc:Ignorable="d" Height="630" Width="1080" Foreground="White" ResizeMode="CanMinimize" WindowStartupLocation="Manual" WindowStyle="SingleBorderWindow" FontFamily="Garamond">
     <StackPanel Orientation="Vertical">
         <Grid Height="50">
             <DockPanel x:Name="menuNav" Visibility="Hidden">
@@ -18,18 +18,19 @@
                         <MenuItem Header="_Editor"/>
                         <MenuItem Header="_Newspaper" Click="ButtonSeeNewspapers_Click"/>
                         <MenuItem Header="_Editions" Click="ButtonSeeEditions_Click"/>
-                        <MenuItem Header="_Catalog" Click="ButtonSeeCatalog_Click"/>
                         <MenuItem Header="_Shop" Click="ButtonSeeShop_Click"/>
                         <MenuItem Header="_Order" Click="ButtonSeeOrder_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Add">
                         <MenuItem Header="_Editor" Click="ButtonAddEditors_click"/>
+                        <MenuItem Header="_Edition" Click="ButtonSeeCatalog_Click"/>
                         <MenuItem Header="_Newspaper" Click="ButtonAddNewspapers_click"/>
                         <MenuItem Header="_Shop" Click="ButtonAddShops_Click"/>
                         <MenuItem Header="_AutomaticDelivery" Click="ButtonAddAutomaticDelivery_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Modify">
                         <MenuItem Header="_Editor" Click="ButtonModifyEditors_click"/>
+                        <MenuItem Header="_Edition" Click="ButtonSeeCatalog_Click"/>
                         <MenuItem Header="_Newspaper"/>
                         <MenuItem Header="_Shop"/>
                     </MenuItem>
@@ -40,7 +41,7 @@
                 <TextBox AcceptsReturn="True" />
             </DockPanel>
         </Grid>
-        <Grid Background="#FF4086C1" Height="536">
+        <Grid Background="#FF4086C1" Height="580">
             <Grid x:Name="GridMain" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Grid>
     </StackPanel>

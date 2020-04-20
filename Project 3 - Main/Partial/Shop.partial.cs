@@ -132,5 +132,12 @@ namespace Project_3___Press_Project
             }
             return shop;
         }
+
+        public IEnumerable<ShopCatalog> GetShopCatalogsByShop(Guid ShopId)
+        {
+            IEnumerable<ShopCatalog> shopCatalogs = 
+                                            GetAllShopCatalogs().Where(sc => sc.Shop.ShopId == ShopId);
+            return shopCatalogs;
+        }
     }
 }

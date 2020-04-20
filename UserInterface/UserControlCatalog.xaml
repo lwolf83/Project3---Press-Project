@@ -56,12 +56,12 @@
             <ListView x:Name="catalog_listview" 
                       HorizontalAlignment="Center" 
                       HorizontalContentAlignment="Center" 
-                      ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                      ScrollViewer.VerticalScrollBarVisibility="Visible"
                       >
                 <ListView.Resources>
-                    <Style TargetType="GridViewColumnHeader">
-                        <Setter Property="Visibility" Value="Visible" />
-                    </Style>
+                        <Style TargetType="GridViewColumnHeader">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </Style>
                 </ListView.Resources>
                 <ListView.View>
                     <GridView>
