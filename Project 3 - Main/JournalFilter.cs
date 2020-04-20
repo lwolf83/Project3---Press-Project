@@ -25,6 +25,11 @@ namespace Project_3___Press_Project
             }
         }
 
+        public JournalFilter(IEnumerable<Newspaper> newspapers)
+        {
+            Newspaperlist = newspapers;
+        }
+
         public IEnumerable<Newspaper> GetNewspaper(Newspaper sEd = null, Newspaper sP = null)
         {
             var newspaper = Newspaperlist;       
