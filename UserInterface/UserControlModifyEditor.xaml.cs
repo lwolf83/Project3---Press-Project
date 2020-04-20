@@ -13,13 +13,17 @@ namespace UserInterface
     public partial class UserControlModifyEditor : UserControl
     {
         private Editor SelectedEditor { get; set; }
+        private JournalFilter JournalFilter { get; set; }
+
         private EditorAddModify EditorAddModify { get; set; }
 
         public UserControlModifyEditor()
         {
-            EditorAddModify = new EditorAddModify();            
+            EditorAddModify = new EditorAddModify();
+            JournalFilter = new JournalFilter();
             InitializeComponent();
             EditorList.ItemsSource = EditorAddModify.Editors;
+            NewspaperList.ItemsSource = JournalFilter.Newspaperlist;
         }        
 
         public void OnEditorChanged(object sender, SelectionChangedEventArgs args)
@@ -29,6 +33,8 @@ namespace UserInterface
             EditorName_textBox.Focus();
             EditorName_textBox.Select(EditorName_textBox.Text.Length, 0);
             Message_TextBlock.Text = String.Empty;
+
+            NewspaperList.ItemsSource = JournalFilter.GetNewspaperEditor(SelectedEditor);
         }
 
         private void txtEditorName_KeyDown(object sender, KeyEventArgs e)
