@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Project_3___Press_Project
 {
-    public partial class User
+    public class User
     {
         public Guid UserId { get; set; }
         public string Name { get; set; }

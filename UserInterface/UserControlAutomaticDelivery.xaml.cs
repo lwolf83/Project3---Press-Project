@@ -31,7 +31,7 @@ namespace UserInterface
                 int newspaperQuantity = Convert.ToInt32(QuantityTextBox.Text);
                 DateTime startindDate = Convert.ToDateTime(StartDate_DatePicker.SelectedDate);
                 DateTime endingDate = Convert.ToDateTime(EndDate_DatePicker.SelectedDate);
-                UserShop userShop = UserShop.GetUserShopFromUser(UserSingleton.GetInstance.User);
+                UserShop userShop = UserShopsLoader.GetUserShopFromUser(UserSingleton.GetInstance.User);
 
                 Newspaper selectedNewspaper = (Newspaper) Newspaper_ListView.Displaying_ListView.SelectedItem;
                 AutomaticOrder ao = new AutomaticOrder();

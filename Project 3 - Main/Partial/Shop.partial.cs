@@ -121,18 +121,6 @@ namespace Project_3___Press_Project
             return dataShopCatalog.ToList();
         }
 
-        public static Shop GetShopFromUserShop(UserShop us)
-        {
-            Shop shop = null;
-            using (var context = new PressContext())
-            {
-                shop = (from s in context.Shops
-                        where s.ShopId == us.ShopId
-                        select s).First();
-            }
-            return shop;
-        }
-
         public IEnumerable<ShopCatalog> GetShopCatalogsByShop(Guid ShopId)
         {
             IEnumerable<ShopCatalog> shopCatalogs = 

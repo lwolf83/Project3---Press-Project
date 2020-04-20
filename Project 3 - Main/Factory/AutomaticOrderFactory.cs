@@ -14,8 +14,8 @@ namespace Project_3___Press_Project
             ao.Newspaper = newspaper;
             ao.StartingDate = startDate;
             ao.EndDate = endDate;
-            ao.User = User.GetUserFromUserShop(userShop);
-            ao.Shop = Shop.GetShopFromUserShop(userShop);
+            ao.User = UsersLoader.FromUserShop(userShop);
+            ao.Shop = ShopsLoader.FromUserShop(userShop);
             ao.Quantity = quantity;
 
             return ao;

@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Project_3___Press_Project
 {
-    public partial class User
+    public class UsersLoader
     {
-        public static User GetUserFromUserShop(UserShop us)
+        public static User FromUserShop(UserShop us)
         {
             User user = null;
             using (var context = new PressContext())
@@ -18,6 +18,5 @@ namespace Project_3___Press_Project
             }
             return user;
         }
-
     }
 }
