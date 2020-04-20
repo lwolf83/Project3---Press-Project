@@ -21,31 +21,9 @@ namespace UserInterface
     /// </summary>
     public partial class UserControlJournal : UserControl
     {
-        JournalFilter JournalFilter { get; set; }
-
         public UserControlJournal()
         {            
             InitializeComponent();
-            JournalFilter = new JournalFilter();
-
-            Displaying_ListView.ItemsSource = JournalFilter.Newspaperlist;
-            FilteringEditors.ItemsSource = JournalFilter.DistinctEditors;
-            FilteringPeriodicity.ItemsSource = JournalFilter.DistinctPeriodicity;
-        }
-
-        private void Reset_Click(object sender, RoutedEventArgs e)
-        {
-            Displaying_ListView.ItemsSource = JournalFilter.Newspaperlist;
-            FilteringEditors.Text = String.Empty;
-            FilteringPeriodicity.Text = String.Empty;
-        }
-
-        private void Search_Click(object sender, RoutedEventArgs e)
-        {
-            Newspaper selectedEditor = (Newspaper)FilteringEditors.SelectedItem;
-            Newspaper selectedPeriodicity = (Newspaper)FilteringPeriodicity.SelectedItem;
-
-            Displaying_ListView.ItemsSource = JournalFilter.GetNewspaper(selectedEditor, selectedPeriodicity);
         }
 
         private void Edition_Click(object sender, RoutedEventArgs e)

@@ -11,11 +11,11 @@ namespace Project_3___Press_Project
         public AutomaticOrder CreateAutomaticOrderInDB(UserShop userShop, Newspaper newspaper, DateTime startDate, DateTime endDate, int quantity)
         {
             AutomaticOrder automaticOrder = AutomaticOrderFactory.CreateAutomaticOrder(userShop, newspaper, startDate, endDate, quantity);
-            automaticOrder.RecordNewAutomaticOrderInDB();
+            automaticOrder.SaveInDB();
             return automaticOrder;
         }
 
-        private void RecordNewAutomaticOrderInDB()
+        private void SaveInDB()
         {
             using (var context = new PressContext())
             {
@@ -24,7 +24,7 @@ namespace Project_3___Press_Project
             }
         }
 
-        public void FromACatalogCreateCommandsWithAutomaticOrders(Catalog catalog)
+        public void CreateCommandsWithAutomaticOrders(Catalog catalog)
         {
             List<AutomaticOrder> automaticOrders = new List<AutomaticOrder>();
             automaticOrders = GetAutomaticOrdersFromACatalog(catalog);
@@ -70,18 +70,9 @@ namespace Project_3___Press_Project
         private void OnAutomaticOrderCreateCommand(AutomaticOrder automaticOrder, Catalog catalog)
         {
             OrderCatalog orderCatalog = OrderCatalogFactory.CreateOrderCatalogForAutomaticOrder(automaticOrder, catalog);
-            Order order = OrderFactory.CreateOrderForAutomaticOrder(orderCatalog, automaticOrder);
-            RecordAutomaticOrderProcessingInDB(order, orderCatalog);
+            Order order = OrderFactory.CreateForAutomaticOrder(orderCatalog, automaticOrder);
+            order.SaveInDb(orderCatalog);
         }
 
-        private void RecordAutomaticOrderProcessingInDB(Order order, OrderCatalog orderCatalog)
-        {
-            using (var context = new PressContext())
-            {
-                context.Update(order);
-                context.Add(orderCatalog);
-                context.SaveChanges();
-            }
-        }
     }
 }

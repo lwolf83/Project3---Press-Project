@@ -127,6 +127,5 @@ namespace Project_3___Press_Project
                                             GetAllShopCatalogs().Where(sc => sc.Shop.ShopId == ShopId);
             return shopCatalogs;
         }
-
     }
 }

@@ -17,59 +17,13 @@
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Newspapers" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center" FontWeight="Bold" Foreground="#253d5a"/>
         <Grid Grid.Column="0" Grid.Row="1">
             <StackPanel Orientation="Vertical">
-                <TextBlock FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"> Filter by:</TextBlock>
-                <ComboBox Name="FilteringEditors" Background="#FFCECFB7" Foreground="Black" Margin="10">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Editor.Name}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <ComboBox Name="FilteringPeriodicity" Background="#FFCECFB7" Foreground="Black" Margin="10">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Periodicity }" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <Button Margin="10,20" Content="Search" Click="Search_Click" />
-                <Button Margin="10,20" Content="Reset" Click="Reset_Click"/>
                 <Button Margin="10,20" Content="Add newspaper" Click="AddNewspaper_Click"/>
-                <Button Margin="10,20" Content="Edition" Click="Edition_Click"/>
-
+                <Button Margin="10,20" Content="Edition" Click="Edition_Click" RenderTransformOrigin="0.688,-2.971"/>
             </StackPanel>
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="1" Margin="20,0,10,60">
-            <ListView HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" Name="Displaying_ListView">
-                <ListView.Resources>
-                    <Style TargetType="{x:Type GridViewColumnHeader}">
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    </Style>
-                </ListView.Resources>
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Width="260" Header="Newspaper Name">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Name}" Cursor="Arrow"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="260" Header="Periodicity">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Periodicity}" Cursor="Hand"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <local:UserControlNewspapersView x:Name="Newspaper_ListView"/>
         </Grid>
     </Grid>
 </UserControl>
