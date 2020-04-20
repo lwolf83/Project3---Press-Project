@@ -27,7 +27,7 @@
         
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"  VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="150">
             <TextBlock Text="Quantity:" HorizontalAlignment="Center"/>
-            <TextBox x:Name="QuantityTextBox" Width="150" Margin="5"/>
+            <TextBox x:Name="QuantityTextBox" Width="150" Margin="5" PreviewTextInput="PreviewInputOnlyNumbersCaracters"/>
             <TextBlock Text="Sarting date:" Margin="5"/>
             <DatePicker x:Name="StartDate_DatePicker"
                         Width="115"

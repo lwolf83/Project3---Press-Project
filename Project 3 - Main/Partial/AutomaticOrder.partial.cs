@@ -11,11 +11,11 @@ namespace Project_3___Press_Project
         public AutomaticOrder CreateAutomaticOrderInDB(UserShop userShop, Newspaper newspaper, DateTime startDate, DateTime endDate, int quantity)
         {
             AutomaticOrder automaticOrder = AutomaticOrderFactory.CreateAutomaticOrder(userShop, newspaper, startDate, endDate, quantity);
-            automaticOrder.RecordNewAutomaticOrderInDB();
+            automaticOrder.SaveNewAutomaticOrderInDB();
             return automaticOrder;
         }
 
-        private void RecordNewAutomaticOrderInDB()
+        public void SaveNewAutomaticOrderInDB()
         {
             using (var context = new PressContext())
             {

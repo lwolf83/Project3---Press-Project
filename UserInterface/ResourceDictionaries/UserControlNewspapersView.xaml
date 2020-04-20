@@ -9,9 +9,21 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <Grid HorizontalAlignment="Center">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"> Filter by:</TextBlock>
-                    <ComboBox Name="FilteringEditors" Background="#FFCECFB7" Foreground="Black" Margin="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"> Filter by:</TextBlock>
+                    <TextBlock Text="Editor" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" Margin="10,0,5,0"/>
+                    <ComboBox Name="FilteringEditors" Background="#FFCECFB7" Foreground="Black" Margin="10,0,0,0" Grid.Column="1" Grid.Row="1">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -20,7 +32,8 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <ComboBox Name="FilteringPeriodicity" Background="#FFCECFB7" Foreground="Black" Margin="10">
+                    <TextBlock Text="Periodicity" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Grid.Row="0" Margin="5,0,0,0"/>
+                    <ComboBox Name="FilteringPeriodicity" Background="#FFCECFB7" Foreground="Black" Margin="10" Grid.Column="2" Grid.Row="1">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -29,11 +42,11 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <Button Margin="10,20" Content="Search" Click="Search_Click" />
-                    <Button Margin="10,20" Content="Reset" Click="Reset_Click"/>
-                </StackPanel>
+                    <Button Margin="10,20" Content="Search" Click="Search_Click" Grid.Column="3" Grid.Row="0" Grid.RowSpan="2"/>
+                    <Button Margin="10,20" Content="Reset" Click="Reset_Click" Grid.Column="4" Grid.Row="0" Grid.RowSpan="2"/>
+                </Grid>
             </Grid>
-            <Grid Grid.Column="1" Grid.Row="1" Margin="20,0,10,60">
+            <Grid Grid.Column="1" Grid.Row="1" Margin="5">
                 <ListView HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" x:Name="Displaying_ListView">
                     <ListView.Resources>
                         <Style TargetType="{x:Type GridViewColumnHeader}">
