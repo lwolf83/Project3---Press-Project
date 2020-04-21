@@ -24,7 +24,6 @@ namespace UserInterface
             Catalog catalog = new Catalog();
             Catalogs = catalog.GetAllCatalogs();
             EditorFilteringSelection.ItemsSource = catalog.GetEditorsHavingCatalogs(Catalogs);
-            NewspaperNameFilteringSelection.ItemsSource = catalog.GetNewspapersHavingCatalogs(Catalogs);
             CatalogsDisplaying_ListView.ItemsSource = Catalogs;
         }
         List<Catalog> Catalogs { get; set; }
@@ -46,7 +45,9 @@ namespace UserInterface
             {
                 Editor selectedEditor = (Editor)(sender as ComboBox).SelectedItem;
                 Catalog catalog = new Catalog();
-                CatalogsDisplaying_ListView.ItemsSource = catalog.GetCatalogsFromAnEditor(Catalogs, selectedEditor);
+                List<Catalog> catalogs = catalog.GetCatalogsFromAnEditor(Catalogs, selectedEditor);
+                CatalogsDisplaying_ListView.ItemsSource = catalogs;
+                NewspaperNameFilteringSelection.ItemsSource = catalog.GetNewspapersHavingCatalogs(catalogs);
                 NewspaperNameFilteringSelection.SelectedIndex = -1;
             }
         }
@@ -58,7 +59,6 @@ namespace UserInterface
                 Newspaper selectedNewspaper = (Newspaper)(sender as ComboBox).SelectedItem;
                 Catalog catalog = new Catalog();
                 CatalogsDisplaying_ListView.ItemsSource = catalog.GetCatalogsFromANewspaper(Catalogs, selectedNewspaper);
-                EditorFilteringSelection.SelectedIndex = -1;
             }
         }
 
