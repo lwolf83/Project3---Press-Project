@@ -2,10 +2,11 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TestPressProject;
 
 namespace Project_3___Press_Project
 {
-    public class FilterTests
+    public class TestShopFiltering
     {
         private List<Shop> Shops { get; set; } = new List<Shop>();
         public List<Address> Addresses { get; set; } = new List<Address>();
@@ -32,6 +33,13 @@ namespace Project_3___Press_Project
         [SetUp]
         public void Setup()
         {
+            Shops  = new List<Shop>();
+            Addresses  = new List<Address>();
+            Cities  = new List<City>();
+            Departments  = new List<Department>();
+            Provinces  = new List<Province>();
+            Countries  = new List<Country>();
+
             Country franceCountry = new Country { Name = "France" };
             Countries.Add(franceCountry);
 
@@ -66,7 +74,7 @@ namespace Project_3___Press_Project
             City arbois = new City { Department = jura, Name = "Arbois", ZipCode = "39013" };
             Cities.Add(arbois);
 
-            List<City> cities = new List<City> { colmar, mulhouse, strasbourg, cronenbourg, besancon, burnevillers, dole, arbois };
+            List<City> cities = new List<City> { colmar, mulhouse , strasbourg, cronenbourg, besancon, burnevillers, dole, arbois };
 
             Random randomGenerator = new Random();
             List<Address> addresses = new List<Address>();
@@ -99,23 +107,23 @@ namespace Project_3___Press_Project
             City colmar = (from c in Cities
                            where c.Name == "Colmar"
                            select c).First();
-            IEnumerable<Shop> shopsInColmar = shopFilter.GetShopsFromACity(Shops, colmar);
+            List<Shop> shopsInColmar = shopFilter.GetShopsFromACity(Shops, colmar).ToList();
             Assert.AreEqual(shopsTest, shopsInColmar);
 
         }
-
+        
         [Test]
         public void TestShopFilterByWrongCity()
         {
             List<Shop> shopsTest = new List<Shop>() { Shops[0], Shops[1], Shops[2], Shops[3] };
             Shop shopFilter = new Shop();
-            City strasbourg = (from c in Cities
+            City current_strasbourg = (from c in Cities
                            where c.Name == "Strasbourg"
                            select c).First();
-            IEnumerable<Shop> filteredShops = shopFilter.GetShopsFromACity(Shops, strasbourg);
+            IEnumerable<Shop> filteredShops = shopFilter.GetShopsFromACity(Shops, current_strasbourg);
             Assert.AreNotEqual(shopsTest, filteredShops);
         }
-
+        
         [Test]
         public void TestShopFilteredByDepartments()
         {
@@ -124,11 +132,11 @@ namespace Project_3___Press_Project
             Department hautRhin = (from d in Departments
                                  where d.DepartmentName == "Haut-Rhin"
                                  select d).First();
-            IEnumerable<Shop> filteredShops = shopFilter.GetShopsFromADepartment(Shops, hautRhin);
+            List<Shop> filteredShops = shopFilter.GetShopsFromADepartment(Shops, hautRhin).ToList();
 
             Assert.AreEqual(shopsTest, filteredShops);
         }
-
+        
         [Test]
         public void TestShopFilteredByWrongDepartments()
         {
@@ -157,7 +165,7 @@ namespace Project_3___Press_Project
             Province alsace = (from p in Provinces
                                  where p.Name == "Alsace"
                                  select p).First();
-            IEnumerable<Shop> filteredShops = shopFilter.GetShopsFromAProvince(Shops, alsace);
+            List<Shop> filteredShops = shopFilter.GetShopsFromAProvince(Shops, alsace).ToList();
 
             Assert.AreEqual(ordererShopsTest, filteredShops);
         }

@@ -10,7 +10,9 @@ namespace Project_3___Press_Project
 
         public AutomaticOrder CreateAutomaticOrderInDB(UserShop userShop, Newspaper newspaper, DateTime startDate, DateTime endDate, int quantity)
         {
-            AutomaticOrder automaticOrder = AutomaticOrderFactory.CreateAutomaticOrder(userShop, newspaper, startDate, endDate, quantity);
+            User user = UsersLoader.FromUserShop(userShop);
+            Shop shop = ShopsLoader.FromUserShop(userShop);
+            AutomaticOrder automaticOrder = AutomaticOrderFactory.CreateAutomaticOrder(user, shop, newspaper, startDate, endDate, quantity);
             automaticOrder.SaveInDB();
             return automaticOrder;
         }
