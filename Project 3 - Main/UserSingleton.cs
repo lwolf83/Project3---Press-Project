@@ -49,19 +49,7 @@ namespace Project_3___Press_Project
 
         public IEnumerable<Shop> GetShops()
         {
-            using (var context = new PressContext())
-            {
-                List<Shop> Shops = context.Shops.ToList();
-                List<UserShop> UserShops = context.UserShops.ToList();
-
-                var currentShop =  (from u in UserShops
-                                    join s in Shops on u.ShopId equals s.ShopId
-                                   where u.UserId == UserSingleton.GetInstance.User.UserId
-                                   select s).ToList();
-
-                return currentShop;
-            }
-
+            return ShopsLoader.FromUser(User);
         }
 
         public IEnumerable<Catalog> GetCatalog()

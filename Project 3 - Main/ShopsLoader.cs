@@ -35,5 +35,18 @@ namespace Project_3___Press_Project
             return shop;
         }
 
+        public static IEnumerable<Shop> FromUser(User user)
+        {
+            using (var context = new PressContext())
+            {
+                var currentShop = (from u in context.UserShops
+                                   join s in context.Shops on u.ShopId equals s.ShopId
+                                   where u.UserId == user.UserId
+                                   select s).ToList();
+
+                return currentShop;
+            }
+        }
+
     }
 }
