@@ -5,7 +5,6 @@ using Project_3___Press_Project;
 using System.Linq;
 using NUnit.Framework;
 
-
 namespace TestPressProject
 {
     public class TestAutomaticOrders
@@ -50,25 +49,9 @@ namespace TestPressProject
         [Test]
         public void TestAutomaticOrderAddition()
         {
-            AutomaticOrder ao = new AutomaticOrder();
-            ao = AutomaticOrderFactory.CreateAutomaticOrder(User, Shop, Newspaper, StartingDate, EndDate, 150);
-            AutomaticOrderAllFieldsComparer.AssertAreEqual(AutomaticOrder, ao);
-            // Cannot use the classical Assert.AreEqual or any other.
-            // Need to compare directly the properties. See : https://stackoverflow.com/questions/6328218/unit-test-assert-areequal-failed
-        }
+            AutomaticOrder ao = AutomaticOrderFactory.CreateAutomaticOrder(User, Shop, Newspaper, StartingDate, EndDate, 150);
 
-        static class AutomaticOrderAllFieldsComparer
-        {
-            public static void AssertAreEqual(AutomaticOrder expected, AutomaticOrder actual)
-            {
-                Assert.AreEqual(expected.EndDate, actual.EndDate);
-                Assert.AreEqual(expected.AutomaticOrderId, actual.AutomaticOrderId);
-                Assert.AreEqual(expected.Newspaper, actual.Newspaper);
-                Assert.AreEqual(expected.Shop, actual.Shop);
-                Assert.AreEqual(expected.StartingDate, actual.StartingDate);
-                Assert.AreEqual(expected.User, actual.User);
-            }
+            MultiplePropertiesAssertion.AssertAreEqual(AutomaticOrder, ao);
         }
-
     }
 }
