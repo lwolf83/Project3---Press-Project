@@ -38,11 +38,11 @@
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <WrapPanel Margin="0,0,0,10">
                         <Label Content="ZipCode : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="100" FontFamily="Segoe UI Semibold" FontSize="20"/>
-                        <TextBlock x:Name="Zip" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                        <Label x:Name="Zip" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
                     </WrapPanel>
                     <WrapPanel Margin="10,0,0,10">
                         <Label Content="Departement : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="150" FontFamily="Segoe UI Semibold" FontSize="20"/>
-                        <TextBlock x:Name="Dept" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                        <Label x:Name="Dept" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
                     </WrapPanel>
                 </StackPanel>
                 <Label Content="* - required field" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI" FontSize="16"/>
@@ -50,7 +50,7 @@
         </Grid>
         <Grid Margin="53,434,57,101" Background="#FFF7BCEF">
             <Button x:Name="ButtonSave" Content="Save" HorizontalAlignment="Left" Margin="42,0,0,0" VerticalAlignment="Center" Height="40" Width="180" FontFamily="Segoe UI Semibold" FontSize="23" Click="ButtonSave_Click"/>
-            <Button x:Name="ButtonCancel" Content="Cancel" HorizontalAlignment="Left" Margin="290,0,0,0" VerticalAlignment="Center" Height="40" Width="180" FontFamily="Segoe UI Semibold" FontSize="23" Click="ButtonCancel_Click"/>
+            <Button x:Name="ButtonCancel" Content="Reset fields" HorizontalAlignment="Left" Margin="290,0,0,0" VerticalAlignment="Center" Height="40" Width="180" FontFamily="Segoe UI Semibold" FontSize="23" Click="ButtonCancel_Click"/>
         </Grid>
         <Grid x:Name="MessageGrid" Background="LightGreen" Width="800" Height="200" Visibility="Hidden" Margin="100,178,100,222">
             <WrapPanel Margin="0,0,0,0" Orientation="Vertical">

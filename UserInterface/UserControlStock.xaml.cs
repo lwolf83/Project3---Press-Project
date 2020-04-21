@@ -46,11 +46,19 @@ namespace UserInterface
         {
             ListViewItem item = sender as ListViewItem;
             object obj = item.Content;
+           
+            string npaperName = ((ShopCatalog)obj).Catalog.Newspaper.Name;
+            var npPrice = ((ShopCatalog)obj).Catalog.Newspaper.Price;
+            var periodicity = ((ShopCatalog)obj).Catalog.Newspaper.Periodicity;
             string EAN13 = ((ShopCatalog)obj).Catalog.Newspaper.EAN13;
+            var editor = ((ShopCatalog)obj).Catalog.Newspaper.Editor.Name;
 
             UserControlModifyNewspaper usc = new UserControlModifyNewspaper();
-            usc.EAN13 = EAN13;
-            usc.PrefillEAN13();
+            usc.NewsName.Text = npaperName;
+            usc.Price.Text = Convert.ToString(npPrice);
+            usc.Period.Text = Convert.ToString(periodicity);
+            usc.Editor.Text = editor;
+            usc.eanNum.Text = EAN13;  
             this.Content = usc;
         }
 

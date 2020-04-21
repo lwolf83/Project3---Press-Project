@@ -78,8 +78,8 @@ namespace UserInterface
             {
                 tB.Text = String.Empty;
             }
-            Zip.Text = String.Empty;
-            Dept.Text = String.Empty;
+            Zip.Content = String.Empty;
+            Dept.Content = String.Empty;
             City.Text = String.Empty;
         }
 
@@ -104,15 +104,6 @@ namespace UserInterface
         private List<TextBox> GetTextFieldsFromChildren()
         {
             List<TextBox> textChildren = new List<TextBox>();
-
-            //foreach(UIElement child in parent.Children)
-            //{
-            //    if (child.GetType() == typeof(TextBox))
-            //    { textChildren.Add((TextBox)child); }
-            //    else if (child.GetType() == typeof(Panel))
-            //    { GetTextFieldsFromChildren((Panel)child); }
-            //}
-
             var wrapChildren = from child in TextStack.Children.OfType<WrapPanel>()
                                select child;
 
@@ -143,26 +134,25 @@ namespace UserInterface
             else
             {
                 Border.Visibility = Visibility.Visible;
-            }
+                resultStack.Children.Clear();
 
-            resultStack.Children.Clear();
-  
-            foreach (var city in cityNames)
-            {
-                if (city.ToLower().StartsWith(query.ToLower()))
-                { 
-                    AddItem(city);
-                    found = true;
+                foreach (var city in cityNames)
+                {
+                    if (city.ToLower().StartsWith(query.ToLower()))
+                    {
+                        AddItem(city);
+                        found = true;
+                    }
                 }
-            }
-            if (!found)
-            {
-                TextBlock block = new TextBlock();
-                block.Text = "No results found.";
-                block.Margin = new Thickness(2, 3, 2, 3);
-                block.Foreground = Brushes.Black;
-                resultStack.Children.Add(block);
-            }
+                if (!found)
+                {
+                    TextBlock block = new TextBlock();
+                    block.Text = "No results found.";
+                    block.Margin = new Thickness(2, 3, 2, 3);
+                    block.Foreground = Brushes.Black;
+                    resultStack.Children.Add(block);
+                }
+            }        
         }
 
         private void AddItem(string text)
@@ -180,8 +170,8 @@ namespace UserInterface
                 City.Text = (sender as TextBlock).Text;
                 Border.Visibility = Visibility.Collapsed;
                 string deptCode = cities.Where(c => c.Name.Equals(City.Text)).Select(c => c.DepartmentCode).FirstOrDefault();
-                Zip.Text = cities.Where(c => c.Name.Equals(City.Text)).Select(c => c.ZipCode).FirstOrDefault();
-                Dept.Text = departments.Where(d => d.DepartmentCode.Equals(deptCode)).Select(d => d.DepartmentName).FirstOrDefault();
+                Zip.Content = cities.Where(c => c.Name.Equals(City.Text)).Select(c => c.ZipCode).FirstOrDefault();
+                Dept.Content = departments.Where(d => d.DepartmentCode.Equals(deptCode)).Select(d => d.DepartmentName).FirstOrDefault();
             };
 
             block.MouseEnter += (sender, e) =>
