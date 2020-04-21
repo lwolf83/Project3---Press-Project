@@ -2,10 +2,11 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TestPressProject;
 
 namespace Project_3___Press_Project
 {
-    public class FilterTests
+    public class TestShopFiltering
     {
         private List<Shop> Shops { get; set; } = new List<Shop>();
         public List<Address> Addresses { get; set; } = new List<Address>();
@@ -99,9 +100,9 @@ namespace Project_3___Press_Project
             City colmar = (from c in Cities
                            where c.Name == "Colmar"
                            select c).First();
-            IEnumerable<Shop> shopsInColmar = shopFilter.GetShopsFromACity(Shops, colmar);
-            Assert.AreEqual(shopsTest, shopsInColmar);
-
+            List<Shop> shopsInColmar = shopFilter.GetShopsFromACity(Shops, colmar).ToList();
+            //Assert.AreEqual(shopsTest, shopsInColmar);
+            ListComparer.AssertAreEqual(shopsInColmar, shopsTest);
         }
 
         [Test]
@@ -124,9 +125,10 @@ namespace Project_3___Press_Project
             Department hautRhin = (from d in Departments
                                  where d.DepartmentName == "Haut-Rhin"
                                  select d).First();
-            IEnumerable<Shop> filteredShops = shopFilter.GetShopsFromADepartment(Shops, hautRhin);
+            List<Shop> filteredShops = shopFilter.GetShopsFromADepartment(Shops, hautRhin).ToList();
 
-            Assert.AreEqual(shopsTest, filteredShops);
+            //Assert.AreEqual(shopsTest, filteredShops);
+            ListComparer.AssertAreEqual(filteredShops, shopsTest);
         }
 
         [Test]
@@ -157,9 +159,10 @@ namespace Project_3___Press_Project
             Province alsace = (from p in Provinces
                                  where p.Name == "Alsace"
                                  select p).First();
-            IEnumerable<Shop> filteredShops = shopFilter.GetShopsFromAProvince(Shops, alsace);
+            List<Shop> filteredShops = shopFilter.GetShopsFromAProvince(Shops, alsace).ToList();
 
-            Assert.AreEqual(ordererShopsTest, filteredShops);
+            //Assert.AreEqual(ordererShopsTest, filteredShops);
+            ListComparer.AssertAreEqual(filteredShops, ordererShopsTest);
         }
 
         [Test]
@@ -191,7 +194,8 @@ namespace Project_3___Press_Project
                                       select p).ToList();
             Shop shopFilter = new Shop();
             List<Province> getProvinceFromShops = shopFilter.GetProvincesHavingShops(shopsOfAlsace).ToList();
-            Assert.AreEqual(getProvinceFromShops, alsace);
+            //Assert.AreEqual(getProvinceFromShops, alsace);
+            ListComparer.AssertAreEqual(alsace, getProvinceFromShops);
         }
 
         [Test]
@@ -215,7 +219,8 @@ namespace Project_3___Press_Project
                                      select d).ToList();
             Shop shopFilter = new Shop();
             List<Department> getDepartmentFromShops = shopFilter.GetDepartmentsHavingShops(shopsOfHautRhin).ToList();
-            Assert.AreEqual(getDepartmentFromShops, hautRhin);
+            //Assert.AreEqual(getDepartmentFromShops, hautRhin);
+            ListComparer.AssertAreEqual(hautRhin, getDepartmentFromShops);
         }
 
         [Test]
