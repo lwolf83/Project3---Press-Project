@@ -8,10 +8,11 @@ using NUnit.Framework;
 
 namespace TestPressProject
 {
-    public class TestAutomaticNewspaperByEditor
+    public class TestAutomaticNewspaperFilter
     {
         public List<Newspaper> Newspapers { get; set; }
-       
+        JournalFilter journalFilter;
+
         [SetUp]
         public void Setup()
         {
@@ -23,31 +24,34 @@ namespace TestPressProject
             }
 
             Newspapers = new List<Newspaper>();
-            for(int i = 0; i < 10; i++)
+            for(int i = 0; i < 16; i++)
             {
                 Newspaper currentNewspaper = new Newspaper();
                 currentNewspaper.Editor = editors[i%3];
+                currentNewspaper.Periodicity = i % 2 == 0 ? 3 : 7;
                 Newspapers.Add(currentNewspaper);
             }
+            
+            journalFilter = new JournalFilter(Newspapers);
         }
 
         [Test]
         public void FilteringNewspapersByEdition()
         {
-            JournalFilter journalFilter = new JournalFilter(Newspapers);
             List<Newspaper> resComputed = journalFilter.GetNewspaper(Newspapers[0]).ToList();
             List<Newspaper> resExpected = new List<Newspaper>();
             resExpected.Add(Newspapers[0]);
             resExpected.Add(Newspapers[3]);
             resExpected.Add(Newspapers[6]);
             resExpected.Add(Newspapers[9]);
+            resExpected.Add(Newspapers[12]);
+            resExpected.Add(Newspapers[15]);
             Assert.AreEqual(resComputed, resExpected);
         }
 
         [Test]
-        public void FilteringNewspapersByEditionNoFilter()
+        public void FilteringNewspapersNoFilter()
         {
-            JournalFilter journalFilter = new JournalFilter(Newspapers);
             List<Newspaper> resComputed = journalFilter.GetNewspaper().ToList();
             Assert.AreEqual(resComputed, Newspapers);
         }
@@ -57,10 +61,54 @@ namespace TestPressProject
         {
             Newspaper currentNewspaper = new Newspaper();
             currentNewspaper.Editor = new Editor();
-            JournalFilter journalFilter = new JournalFilter(Newspapers);
             List<Newspaper> resComputed = journalFilter.GetNewspaper(currentNewspaper).ToList();
             Assert.AreEqual(resComputed, new List<Newspaper>());
         }
 
+        [Test]
+        public void FilteringNewspapersByPeriodicity()
+        {
+            List<Newspaper> resComputed = journalFilter.GetNewspaper(null, Newspapers[1]).ToList();
+            List<Newspaper> resExpected = new List<Newspaper>();
+            resExpected.Add(Newspapers[1]);
+            resExpected.Add(Newspapers[3]);
+            resExpected.Add(Newspapers[5]);
+            resExpected.Add(Newspapers[7]);
+            resExpected.Add(Newspapers[9]);
+            resExpected.Add(Newspapers[11]);
+            resExpected.Add(Newspapers[13]);
+            resExpected.Add(Newspapers[15]);
+            Assert.AreEqual(resComputed, resExpected);
+        }
+
+        [Test]
+        public void FilteringNewspapersByPeriodicityKO()
+        {
+            Newspaper dummyNewspaper = new Newspaper();
+            dummyNewspaper.Periodicity = 5;
+            List<Newspaper> resComputed = journalFilter.GetNewspaper(null, dummyNewspaper).ToList();
+            Assert.AreEqual(resComputed, new List<Newspaper>());
+        }
+
+        [Test]
+        public void FilteringNewspapersByEditorAndPeriodicity()
+        {
+            List<Newspaper> resComputed = journalFilter.GetNewspaper(Newspapers[0], Newspapers[1]).ToList();
+            List<Newspaper> resExpected = new List<Newspaper>();
+            resExpected.Add(Newspapers[3]);
+            resExpected.Add(Newspapers[9]);
+            resExpected.Add(Newspapers[15]);
+            Assert.AreEqual(resComputed, resExpected);
+        }
+
+        [Test]
+        public void FilteringNewspapersByEditorAndPeriodicityKO()
+        {
+            Newspaper dummyNewspaper = new Newspaper();
+            dummyNewspaper.Editor = new Editor();
+            dummyNewspaper.Periodicity = 5;
+            List<Newspaper> resComputed = journalFilter.GetNewspaper(dummyNewspaper, dummyNewspaper).ToList();
+            Assert.AreEqual(resComputed, new List<Newspaper>());
+        }
     }
 }
