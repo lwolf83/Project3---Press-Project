@@ -11,86 +11,82 @@ namespace TestPressProject
     {
         public Catalog Catalog { get; set; }
         public Newspaper Newspaper { get; set; }
-        public Editor Editor1 { get; set; }
-        public List<Newspaper> Newspapers1 { get; set; }
-        public Editor Editor2 { get; set; }
-        public List<Newspaper> Newspapers2 { get; set; }
         public List<Newspaper> Newspapers { get; set; }
-
         public List<Editor> Editors { get; set; }
         public List<Catalog> Catalogs { get; set; }
-
-        public List<Catalog> TestCatalogs { get; set; }
-
 
         [SetUp]
         public void Setup()
         {
             Editors = new List<Editor>();
             Newspapers = new List<Newspaper>();
-            Newspapers1 = new List<Newspaper>();
-            Newspapers2 = new List<Newspaper>();
-            Catalogs = new List<Catalog>();
+            List<Newspaper> newspapers1 = new List<Newspaper>();
+            List<Newspaper> newspapers2 = new List<Newspaper>();
 
-            Editor1 = new Editor();
-            Editor1.Name = "Editor1";
-            Editor1.Newspapers = Newspapers1;
-            Editor1.EditorId = Guid.NewGuid();
-            Editors.Add(Editor1);
+            Editor editor1 = new Editor();
+            editor1.Name = "Editor1";
+            editor1.Newspapers = newspapers1;
+            editor1.EditorId = Guid.NewGuid();
+            Editors.Add(editor1);
 
-            Editor2 = new Editor();
-            Editor2.Name = "Editor2";
-            Editor2.Newspapers = Newspapers2;
-            Editor2.EditorId = Guid.NewGuid();
-            Editors.Add(Editor2);
+            Editor editor2 = new Editor();
+            editor2.Name = "Editor2";
+            editor2.Newspapers = newspapers2;
+            editor2.EditorId = Guid.NewGuid();
+            Editors.Add(editor2);
 
+            int counter = 0;
             foreach(Editor e in Editors)
             {
                 for (int i = 0; i < 2; i++)
                 {
                     Newspaper newspaper = new Newspaper();
                     newspaper.Name = $"Newspaper {e.Name}:{i}";
+                    newspaper.EAN13 = $"12345{counter}";
                     newspaper.Periodicity = i;
                     newspaper.Price = 5+i;
                     newspaper.Editor = e;
                     newspaper.NewspaperId = Guid.NewGuid();
                     Newspapers.Add(newspaper);
+                    counter = counter + 1;
                 }
             }
-            Newspapers1.Add(Newspapers[0]);
-            Newspapers1.Add(Newspapers[1]);
-            Newspapers2.Add(Newspapers[2]);
-            Newspapers2.Add(Newspapers[3]);
+            newspapers1.Add(Newspapers[0]);
+            newspapers1.Add(Newspapers[1]);
+            newspapers2.Add(Newspapers[2]);
+            newspapers2.Add(Newspapers[3]);
 
-            foreach(Newspaper np in Newspapers)
+            counter = 0;
+            List<Catalog> tempCatalogs = new List<Catalog>();
+            foreach (Newspaper np in Newspapers)
             {
                 for (int i = 0; i < 2; i++)
                 {
                     Catalog catalog = new Catalog();
-                    Catalog = new Catalog();
-                    Catalog.Name = $"Catalog {np.Name}:{i}";
-                    Catalog.Newspaper = np;
-                    Catalog.PublicationDate = DateTime.Today + TimeSpan.FromDays(i);
-                    Catalog.CatalogId = Guid.NewGuid();
-                    Catalogs.Add(catalog);
+                    catalog.Name = $"Catalog {counter}";
+                    catalog.Newspaper = np;
+                    catalog.PublicationDate = DateTime.Today + TimeSpan.FromDays(i);
+                    catalog.CatalogId = Guid.NewGuid();
+                    tempCatalogs.Add(catalog);
+                    counter = counter + 1;
                 }
             }
+
+            Catalogs = (from c in tempCatalogs
+                            join n in Newspapers on c.Newspaper.NewspaperId equals n.NewspaperId
+                            join e in Editors on n.Editor.EditorId equals e.EditorId
+                            select c).ToList();
 
             Newspaper = new Newspaper();
             Newspaper.Name = "newspaperName";
             Newspaper.Periodicity = 15;
             Newspaper.Price = 5;
-            Newspaper.Editor = Editor1;
+            Newspaper.Editor = editor1;
 
             Catalog = new Catalog();
             Catalog.Name = "CatalogName";
             Catalog.Newspaper = Newspaper;
             Catalog.PublicationDate = DateTime.Today;
-
-            TestCatalogs = (from c in Catalogs
-                        join n in Newspapers on c.Newspaper.NewspaperId equals n.NewspaperId
-                        join e in Editors on n.Editor.EditorId equals e.EditorId
-                        select c).ToList();
         }
 
         [Test]
@@ -105,9 +101,32 @@ namespace TestPressProject
         [Test]
         public void TestGetCatalogsFromAnEditor()
         {
-            List<Catalog> testCatalogs = new List<Catalog>() { TestCatalogs[0], TestCatalogs[1], TestCatalogs[2], TestCatalogs[3] };
-            List<Catalog> selectedCatalogs = Catalog.GetCatalogsFromAnEditor(TestCatalogs, Editor1);
-            Assert.AreEqual(testCatalogs, selectedCatalogs);
+            List<Catalog> testCatalogs = new List<Catalog>() { Catalogs[0], Catalogs[1], Catalogs[2], Catalogs[3] };
+            List<Catalog> filteredCatalogs = Catalog.GetCatalogsFromAnEditor(Catalogs, Editors[0]);
+            Assert.AreEqual(testCatalogs, filteredCatalogs);
+        }
+
+        [Test]
+        public void TestGetCatalogsFromEAN13()
+        {
+            List<Catalog> testCatalogs = new List<Catalog>() { Catalogs[0], Catalogs[1] };
+            List<Catalog> filteredCatalogs = Catalog.GetCatalogsFromEAN13(Catalogs, "123450");
+            Assert.AreEqual(testCatalogs, filteredCatalogs);
+        }
+
+        [Test]
+        public void GetCatalogsFromDates()
+        {
+            List<Catalog> testCatalogs = new List<Catalog>() { Catalogs[0], Catalogs[2], Catalogs[4], Catalogs[6] };
+            List<Catalog> filteredCatalogs = Catalog.GetCatalogsFromDates(Catalogs, DateTime.Today, DateTime.Today);
+            Assert.AreEqual(testCatalogs, filteredCatalogs);
+        }
+
+        [Test]
+        public void GetCatalogsFromNewspaper()
+        {
+            List<Catalog> testCatalogs = new List<Catalog>() { Catalogs[0], Catalogs[1] };
+            List<Catalog> filteredCatalogs = Catalog.GetCatalogsFromANewspaper(Catalogs, Newspapers[0]);
         }
     }
 }
