@@ -37,8 +37,6 @@ namespace UserInterface
         public IEnumerable<Shop> AllShops { get; set; }
         
 
-
-
         public void OnLocationFilteringSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBoxItem selectedItem = (ComboBoxItem) ShopFilteringEntity.SelectedItem;
@@ -77,7 +75,6 @@ namespace UserInterface
             ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromACity(AllShops, selectedCity);
         }
 
-
         public void OnDepartmentsSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
             Department selectedDepartment = (Department)(sender as ComboBox).SelectedItem;
@@ -100,6 +97,8 @@ namespace UserInterface
             CityNameFilteringSelection.Visibility = Visibility.Collapsed;
             ProvinceNameFilteringSelection.Visibility = Visibility.Collapsed;
             DepartmentNameFilteringSelection.Visibility = Visibility.Collapsed;
+            UserControl usc = new UserControlShop();
+            this.Content = usc;
         }
 
         private void ButtonAddShopPage_Click(object sender, RoutedEventArgs e)
