@@ -7,40 +7,57 @@
              xmlns:local="clr-namespace:UserInterface"
              mc:Ignorable="d"
              >
-    <Grid Background="#a5bdda"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+    <Grid Background="#a5bdda"  HorizontalAlignment="Stretch" VerticalAlignment="Top" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="Automatic deliveries" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center" FontWeight="Bold" Foreground="#253d5a"/>
 
-        <Grid Grid.Row="1" Grid.Column="1" Height="300" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalAlignment="Top">
-            <local:UserControlNewspapersView x:Name="Newspaper_ListView"/>
-        </Grid>
-        
-        <StackPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"  VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="150">
-            <TextBlock Text="Quantity:" HorizontalAlignment="Center"/>
-            <TextBox x:Name="QuantityTextBox" Width="150" Margin="5" PreviewTextInput="PreviewInputOnlyNumbersCaracters"/>
-            <TextBlock Text="Sarting date:" Margin="5"/>
-            <DatePicker x:Name="StartDate_DatePicker"
+        <GroupBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" Grid.RowSpan="2" Height="350"  VerticalAlignment="Stretch" Margin="5" Background="White" Header="Select a newspaper">
+            <local:UserControlNewspapersView x:Name="Newspaper_ListView" materialDesign:ScrollBarAssist.ButtonsVisibility="Visible"/>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="500" Background="White" Margin="5" Header="Select information">
+            <StackPanel>
+                <TextBlock Text="Quantity" HorizontalAlignment="Center"/>
+                <TextBox x:Name="QuantityTextBox" Width="150" Margin="5" PreviewTextInput="PreviewInputOnlyNumbersCaracters"/>
+                <TextBlock Text="Sarting date:" Margin="5"/>
+                <DatePicker x:Name="StartDate_DatePicker"
                         Width="115"
                         materialDesign:HintAssist.Hint="Pick Date"
                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Foreground="Black" />
-            <TextBlock Text="Ending date:" Margin="5"/>
-            <DatePicker x:Name="EndDate_DatePicker"
+                <TextBlock Text="Ending date:" Margin="5"/>
+                <DatePicker x:Name="EndDate_DatePicker"
                         Width="115"
                         materialDesign:HintAssist.Hint="Pick Date"
                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Foreground="Black"/>
-            <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Center" Content="Create" Click="CreateAutomaticDelivery_Btn" VerticalAlignment="Top" Margin="30"/>
-        </StackPanel>
+                            </StackPanel>
+        </GroupBox>
 
+        <GroupBox Background="White" Grid.Row="1" Grid.Column="1" Height="350"  Margin="5" VerticalAlignment="Stretch" Header="Select one or more shops">
+                <StackPanel Orientation="Horizontal">
+                <ListBox x:Name="allShop_ListBox"/>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <Button Content="+++" Height="25"/>
+                        <Button Content="+" Height="25"/>
+                        <Button Content="-" Height="25"/>
+                        <Button Content="---" Height="25"/>
+                    </StackPanel>
+                <ListBox  x:Name="selectedShop_ListBox"/>
+            </StackPanel>
+        </GroupBox>
         
+        <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2">
+            <Button  HorizontalAlignment="Center" Content="Create" Click="CreateAutomaticDelivery_Btn" VerticalAlignment="Top" Margin="30" />
+        </Grid>
     </Grid>
+
 </UserControl>
