@@ -18,3 +18,11 @@ jobs:
            - dotnet restore TestPressProject.csproj
            - dotnet build TestPressProject.csproj
            - dotnet test TestPressProject.csproj
+     - stage: "qualimetry"
+       if: branch = sonar
+       Name: "Build on .NET Core and send to sonar"
+       script:
+          - dotnet tool install --global dotnet-sonarscanner --version 4.8.0
+          - dotnet sonarscanner begin /k:"kali-ci"
+          - dotnet build "Projet 3.sln"
+          - dotnet sonarscanner end
