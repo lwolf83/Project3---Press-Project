@@ -25,5 +25,11 @@ namespace UserInterface
             Shop shopFilter = new Shop();
             GridForm.DataContext = shopFilter.GetShopDetail(shopId);
         }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            UserControl usc = new UserControlShop();
+            this.Content = usc;
+        }
     }
 }
