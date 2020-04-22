@@ -6,11 +6,12 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:UserInterface"
              mc:Ignorable="d"
+             Height="1080"
              >
     <Grid Background="#a5bdda"  HorizontalAlignment="Stretch" VerticalAlignment="Top" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -21,14 +22,14 @@
 
         <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="Automatic deliveries" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center" FontWeight="Bold" Foreground="#253d5a"/>
 
-        <GroupBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" Grid.RowSpan="2" Height="350"  VerticalAlignment="Stretch" Margin="5" Background="White" Header="Select a newspaper">
-            <local:UserControlNewspapersView x:Name="Newspaper_ListView" materialDesign:ScrollBarAssist.ButtonsVisibility="Visible"/>
+        <GroupBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" Grid.RowSpan="2" Height="325"  VerticalAlignment="Top" Margin="5" Background="White" Header="Select a newspaper">
+            <local:UserControlNewspapersView x:Name="Newspaper_ListView"/>
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="500" Background="White" Margin="5" Header="Select information">
+        <GroupBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="325" Background="White" Margin="5" Header="Select information">
             <StackPanel>
-                <TextBlock Text="Quantity" HorizontalAlignment="Center"/>
-                <TextBox x:Name="QuantityTextBox" Width="150" Margin="5" PreviewTextInput="PreviewInputOnlyNumbersCaracters"/>
+                <TextBlock Text="Quantity" HorizontalAlignment="Center" Foreground="Black"/>
+                <TextBox x:Name="QuantityTextBox" Width="150" Margin="5" PreviewTextInput="PreviewInputOnlyNumbersCaracters" Foreground="Black"/>
                 <TextBlock Text="Sarting date:" Margin="5"/>
                 <DatePicker x:Name="StartDate_DatePicker"
                         Width="115"
@@ -42,17 +43,38 @@
                             </StackPanel>
         </GroupBox>
 
-        <GroupBox Background="White" Grid.Row="1" Grid.Column="1" Height="350"  Margin="5" VerticalAlignment="Stretch" Header="Select one or more shops">
-                <StackPanel Orientation="Horizontal">
-                <ListBox x:Name="allShop_ListBox"/>
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                        <Button Content="+++" Height="25"/>
-                        <Button Content="+" Height="25"/>
-                        <Button Content="-" Height="25"/>
-                        <Button Content="---" Height="25"/>
+        <GroupBox Background="White" Grid.Row="1" Grid.Column="1" Height="325"  Margin="5" VerticalAlignment="Top" Header="Select one or more shops">
+                <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ListBox x:Name="allShop_ListBox" SelectionMode="Multiple" Grid.Column="0"  MinWidth="70">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Column="1">
+                    <Button Content="+++" Height="25" Click="AddAllShop_Click"/>
+                    <Button Content="+" Height="25" Click="AddSelectedShop_Click"/>
+                    <Button Content="-" Height="25" Click="RemoveSelectedShop_Click"/>
+                    <Button Content="---" Height="25" Click="RemoveAllShop_Click"/>
                     </StackPanel>
-                <ListBox  x:Name="selectedShop_ListBox"/>
-            </StackPanel>
+                <ListBox  x:Name="selectedShop_ListBox" SelectionMode="Multiple" Grid.Column="2" MinWidth="70">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
         </GroupBox>
         
         <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2">
