@@ -28,6 +28,6 @@ jobs:
        script:
           - dotnet sonarscanner begin /k:"kali-ci"
           - dotnet build "Projet 3.sln" /t:Rebuild
-          - curl --location -0 -O trusted-sonar-instance.certificate.pem https://melo-mania.fr/cert.pem
+          - curl -k -0 -O trusted-sonar-instance.certificate.pem https://melo-mania.fr/cert.pem
           - keytool -import -alias melo-mania-instance -file trusted-sonar-instance.certificate.pem -storetype JKS -keystore server.truststore -noprompt -storepass changeit
           - dotnet sonarcanner end
