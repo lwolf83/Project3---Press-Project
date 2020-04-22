@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UserInterface"
              mc:Ignorable="d" 
-             Background="#FFFCE4E4">
-    <Grid>
+             >
+    <Grid Background="#FFFCE4E4">
         <Grid Margin="12,25,103,512">
             <Label Content="Shop details: " HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Arial" FontSize="25" FontWeight="Bold" Margin="25,6,0,0"/>
         </Grid>
@@ -39,6 +39,9 @@
                     </WrapPanel>
                 </StackPanel>
             </StackPanel>
+        </Grid>
+        <Grid Margin="53,410,57,101" Background="#FFF7BCEF" Height="65">
+            <Button x:Name="ButtonBack" Content="Back" HorizontalAlignment="Left" Margin="42,0,0,0" VerticalAlignment="Center" Height="40" Width="180" FontFamily="Segoe UI Semibold" FontSize="23" Click="ButtonBack_Click" />
         </Grid>
     </Grid>
 </UserControl>
