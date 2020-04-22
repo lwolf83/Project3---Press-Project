@@ -22,7 +22,7 @@ namespace UserInterface
         {
             InitializeComponent();
             Catalog catalog = new Catalog();
-            Catalogs = catalog.GetAllCatalogs();
+            Catalogs = CatalogLoader.GetAll();
             EditorFilteringSelection.ItemsSource = catalog.GetEditorsHavingCatalogs(Catalogs);
             CatalogsDisplaying_ListView.ItemsSource = Catalogs;
         }
@@ -123,7 +123,7 @@ namespace UserInterface
             LastDateUserInput.Text = String.Empty;
             EAN13UserInput.Text = String.Empty;
             Catalog catalog = new Catalog();
-            Catalogs = catalog.GetAllCatalogs();
+            Catalogs = CatalogLoader.GetAll();
             CatalogsDisplaying_ListView.ItemsSource = Catalogs;
         }
 

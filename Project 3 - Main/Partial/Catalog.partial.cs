@@ -9,27 +9,6 @@ namespace Project_3___Press_Project
 {
     public partial class Catalog
     {
-        public List<Catalog> GetAllCatalogs()
-        {
-            List<Editor> editors = new List<Editor>();
-            List<Newspaper> newspapers = new List<Newspaper>();
-            List<Catalog> catalogs = new List<Catalog>();
-            using (var context = new PressContext())
-            {
-                editors = (from e in context.Editors
-                           select e).ToList();
-                newspapers = (from n in context.Newspapers
-                              select n).ToList();
-                catalogs = (from c in context.Catalogs
-                            select c).ToList();
-            }
-            List<Catalog> catalogList = (from c in catalogs
-                                         join n in newspapers on c.Newspaper.NewspaperId equals n.NewspaperId
-                                         join e in editors on n.Editor.EditorId equals e.EditorId
-                                         select c).Distinct().ToList();
-            return catalogList;
-        }
-
         public List<Editor> GetEditorsHavingCatalogs(List<Catalog> catalogs)
         {
             var editors = (from e in catalogs

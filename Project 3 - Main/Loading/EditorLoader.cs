@@ -9,13 +9,14 @@ namespace Project_3___Press_Project
     {
         public static Editor Get(Editor editor)
         {
+            Editor editorInDb;
             using (var context = new PressContext())
             {
-                var editorInDb = (from i in context.Editors
+                editorInDb = (from i in context.Editors
                               where i.EditorId == editor.EditorId
                               select i).First();
             }
-            return editor;
+            return editorInDb;
         }
     }
 }

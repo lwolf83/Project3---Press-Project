@@ -31,6 +31,9 @@ namespace UserInterface
             UserControl resControl;
             switch (name)
             {
+                case "MainMenu":
+                    resControl = new UserControlMainMenu();
+                    break;
                 case "ItemAccount":
                     resControl = new UserControlAccount();
                     break;

@@ -15,28 +15,27 @@
                         <MenuItem Header="_Exit" Click="ButtonCloseApplication_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Show">
+                        <MenuItem Header="_Editions" Click="ButtonSeeEditions_Click"/>
                         <MenuItem Header="_Editor" Click="ButtonSeeEditors_Click"/>
                         <MenuItem Header="_Newspaper" Click="ButtonSeeNewspapers_Click"/>
-                        <MenuItem Header="_Editions" Click="ButtonSeeEditions_Click"/>
-                        <MenuItem Header="_Shop" Click="ButtonSeeShop_Click"/>
+                        <MenuItem Header="_Newspapers Stock" Click="ButtonSeeStock_Click"/>
                         <MenuItem Header="_Order" Click="ButtonSeeOrder_Click"/>
+                        <MenuItem Header="_Shop" Click="ButtonSeeShop_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Add">
+                        <MenuItem Header="_AutomaticDelivery" Click="ButtonAddAutomaticDelivery_Click"/>
                         <MenuItem Header="_Editor" Click="ButtonAddEditors_click"/>
                         <MenuItem Header="_Edition" Click="ButtonSeeCatalog_Click"/>
                         <MenuItem Header="_Newspaper" Click="ButtonAddNewspapers_click"/>
                         <MenuItem Header="_Shop" Click="ButtonAddShops_Click"/>
-                        <MenuItem Header="_AutomaticDelivery" Click="ButtonAddAutomaticDelivery_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Modify">
-                        <MenuItem Header="_Editor" Click="ButtonModifyEditors_click"/>
                         <MenuItem Header="_Edition" Click="ButtonSeeCatalog_Click"/>
+                        <MenuItem Header="_Editor" Click="ButtonModifyEditors_click"/>
                         <MenuItem Header="_Newspaper" Click="ButtonModifyNewspaper_Click"/>
                         <MenuItem Header="_Shop" Click="ButtonModifyShop_Click"/>
                     </MenuItem>
-                    <MenuItem Header="_Stock">
-                        <MenuItem Header="Newspapers" Click="ButtonSeeStock_Click"/>
-                    </MenuItem>
+                    <MenuItem Header="_Main menu" Click="ButtonMainMenu_Click"/>
                 </Menu>
                 <TextBox AcceptsReturn="True" />
             </DockPanel>
