@@ -26,6 +26,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBlock FontFamily="Arial" FontWeight="Heavy" FontSize="15" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center"> Filter by:</TextBlock>
             <ComboBox Grid.Row="1" Name="ShopFilteringEntity" Background="#c9d7e9" Foreground="Black" FontSize="15" Margin="10" SelectionChanged="OnLocationFilteringSelectionChanged">
@@ -65,8 +66,6 @@
                         <Border>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding Name}" />
-                                <TextBlock Text=" - "/>
-                                <TextBlock Text="{Binding ProvinceCode}" />
                             </StackPanel>
                         </Border>
                     </DataTemplate>
@@ -75,6 +74,7 @@
             <Button Grid.Row="3" Margin="10,10,10,10" Content="Refresh" Click="ReinitializeShopList_Btn"/>
             <Button Grid.Row="4" Margin="10,10,10,10" Content="AddShop" Click="ButtonAddShopPage_Click" />
             <Button Grid.Row="5" Margin="10,10,10,10" Content="Stock" Click="ButtonSeeStocks_Click" />
+            <Button Grid.Row="6" Margin="10,10,10,10" Content="Command" Click="ButtonCommand_Click" />
         </Grid>
         
         <Grid Grid.Column="1" Grid.Row="1" Margin="20,15,10,20">

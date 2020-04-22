@@ -20,7 +20,7 @@
 
         <StackPanel Grid.Column="0" Grid.Row="0"  Margin="60, 0, 30, 0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Label x:Name="lblShop" FontSize="21" Style="{StaticResource DefaultInput}">Choose a Shop:</Label>
-            <ComboBox Name="cmbShops" ItemsSource="{Binding Path=AllShops}" Background="White" Foreground="#FF4086C1" FontWeight="Bold" Height="30">
+            <ComboBox Name="cmbShops" Background="White" Foreground="#FF4086C1" FontWeight="Bold" Height="30">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" FontSize="17" />

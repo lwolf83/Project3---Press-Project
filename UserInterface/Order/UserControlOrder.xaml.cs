@@ -8,12 +8,21 @@ namespace UserInterface
 {
     public partial class UserControlOrder : UserControl
     {
-        public UserControlOrder()
+        public UserControlOrder(Shop shop = null)
         {
             InitializeComponent();
-
             cmbShops.ItemsSource = UserSingleton.GetInstance.GetShops();
             cmbCatalog.ItemsSource = UserSingleton.GetInstance.GetCatalog();
+            if(shop != null)
+            {
+                foreach(Shop item in cmbShops.Items)
+                {
+                    if(item.ShopId == shop.ShopId)
+                    {
+                        cmbShops.SelectedItem = item;
+                    }
+                }
+            }
             lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();
         }
 

@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Linq;
 using Project_3___Press_Project;
 using System.Text.RegularExpressions;
@@ -21,16 +15,26 @@ namespace UserInterface
     /// </summary>
     public partial class UserControlStock : UserControl
     {
-        public IEnumerable<Shop> AllShops { get; set; }
         public IEnumerable<ShopCatalog> AllShopCatalogs { get; set; }
         public Shop ShopFilter = new Shop();
 
-        public UserControlStock()
+        public UserControlStock(Shop shop = null)
         {
             InitializeComponent();
             DataContext = this;
             AllShopCatalogs = ShopFilter.GetAllShopCatalogs();
-            AllShops = UserSingleton.GetInstance.AllShops;
+            cmbShops.ItemsSource = UserSingleton.GetInstance.AllShops;
+
+            if (shop != null)
+            {
+                foreach (Shop item in cmbShops.Items)
+                {
+                    if (item.ShopId == shop.ShopId)
+                    {
+                        cmbShops.SelectedItem = item;
+                    }
+                }
+            }
         }
 
         private void btnCheck_Click(object sender, RoutedEventArgs e)
