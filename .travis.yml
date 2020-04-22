@@ -25,11 +25,10 @@ jobs:
           - wget -O sonar.zip https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.8.0.12008/sonar-scanner-msbuild-4.8.0.12008-netcoreapp3.0.zip
           - mkdir -p tools/sonar
           - unzip -qq sonar.zip -d tools/sonar
-          # - chmod +x tools/sonar/sonar-scanner-4.8.0.12008/bin/sonar-scanner
        script:  
+         - dotnet tools/sonar/SonarScanner.MSBuild.dll begin /k:"kali-ci" /d:sonar.login=6140e582e9c5202ae8d7eda1bb67af824e4c924a
          - dotnet restore 'Project 3 - Main (Only NonUI for Travis).sln'
-         - dotnet build 'Project 3 - Main (Only NonUI for Travis).sln'
-         - dotnet tool install --global dotnet-sonarscanner --version 4.8.0
-         - dotnet sonarscanner begin /k:"kali-ci" curl -0 -O trusted-sonar-instance.certificate.pem https://melo-mania.fr/cert.pem
+         - dotnet build 'Project 3 - Main (Only NonUI for Travis).sln' /t:Rebuild
+         - curl -k https://melo-mania.fr/cert.pem --output trusted-sonar-instance.certificate.pem 
          - keytool -import -alias melo-mania-instance -file trusted-sonar-instance.certificate.pem -storetype JKS -keystore server.truststore -noprompt -storepass changeit
-         - dotnet sonarcanner end
+         - dotnet tools/sonar/SonarScanner.MSBuild.dll end /d:sonar.login=6140e582e9c5202ae8d7eda1bb67af824e4c924a
