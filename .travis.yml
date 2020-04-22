@@ -21,8 +21,11 @@ jobs:
      - stage: "qualimetry"
        if: branch = sonar
        Name: "Build on .NET Core and send to sonar"
-       script:
+       install:
           - dotnet tool install --global dotnet-sonarscanner --version 4.8.0
+       before_script:
+          - export PATH="$PATH:HOME/.dotnet/tools"
+       script:
           - dotnet sonarscanner begin /k:"kali-ci"
           - dotnet build "Projet 3.sln" /t:Rebuild
           - curl --location -0 -O trusted-sonar-instance.certificate.pem https://melo-mania.fr/cert.pem
