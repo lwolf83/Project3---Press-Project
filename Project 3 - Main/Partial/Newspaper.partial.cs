@@ -18,7 +18,7 @@ namespace Project_3___Press_Project
             }
         }
 
-        public bool DoesExist()
+        public bool Exists()
         {
             using (var context = new PressContext())
             {

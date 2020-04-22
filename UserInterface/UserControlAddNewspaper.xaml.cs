@@ -52,7 +52,7 @@ namespace UserInterface
             Editor editor = EditorLoader.Get((Editor)EditorNameFilteringSelection_comboBox.SelectedItem);
             Newspaper newspaper = NewspaperFactory.Create(name, periodicity, ean13, price, catalogs, editor);
 
-            if (!newspaper.DoesExist() && !newspaper.IsEAN13Registered(ean13))
+            if (!newspaper.Exists() && !newspaper.IsEAN13Registered(ean13))
             {
                 newspaper.SaveWithNewCatalog(catalog);
                 string msgtext = "Newspaper has been correctly added.";
