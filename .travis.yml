@@ -32,4 +32,5 @@ jobs:
          - dotnet build 'Project 3 - Main (Only NonUI for Travis).sln' /t:Rebuild
          - curl -k https://melo-mania.fr/cert.pem --output trusted-sonar-instance.certificate.pem 
          - keytool -import -alias melo-mania-instance -file trusted-sonar-instance.certificate.pem -storetype JKS -keystore server.truststore -noprompt -storepass changeit
+         - curl -k https://sonar.melo-mania.fr
          - dotnet tools/sonar/SonarScanner.MSBuild.dll end /d:sonar.login=6140e582e9c5202ae8d7eda1bb67af824e4c924a
