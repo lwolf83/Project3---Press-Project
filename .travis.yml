@@ -26,8 +26,10 @@ jobs:
        before_script:
           - export PATH="$PATH:HOME/.dotnet/tools"
        script:
+          - dotnet --help
           - dotnet sonarscanner begin /k:"kali-ci"
-          - dotnet build "Projet 3.sln" /t:Rebuild
-          - curl -k -0 -O trusted-sonar-instance.certificate.pem https://melo-mania.fr/cert.pem
+          - dotnet restore 'Project 3 - Main/Project 3 - Press Project.csproj'
+          - dotnet build 'Project 3 - Main/Project 3 - Press Project.csproj'
+          - curl -k https://melo-mania.fr/cert.pem --output trusted-sonar-instance.certificate.pem 
           - keytool -import -alias melo-mania-instance -file trusted-sonar-instance.certificate.pem -storetype JKS -keystore server.truststore -noprompt -storepass changeit
           - dotnet sonarcanner end
