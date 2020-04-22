@@ -7,9 +7,6 @@ namespace Project_3___Press_Project
 {
     public sealed class UserSingleton
     {
-        /// <summary>
-        /// Current user actions (connect / disconnect / etc)
-        /// </summary>
         private static UserSingleton instance = null;
 
         public User User { get; private set; } = new User();
@@ -18,8 +15,7 @@ namespace Project_3___Press_Project
 
         private UserSingleton()
         {
-            Shop shop = new Shop();
-            AllShops = shop.GetAllShops();
+            AllShops = ShopsLoader.GetAll();
         }        
 
         public static UserSingleton GetInstance
@@ -53,19 +49,7 @@ namespace Project_3___Press_Project
 
         public IEnumerable<Shop> GetShops()
         {
-            using (var context = new PressContext())
-            {
-                List<Shop> Shops = context.Shops.ToList();
-                List<UserShop> UserShops = context.UserShops.ToList();
-
-                var currentShop =  (from u in UserShops
-                                    join s in Shops on u.ShopId equals s.ShopId
-                                   where u.UserId == UserSingleton.GetInstance.User.UserId
-                                   select s).ToList();
-
-                return currentShop;
-            }
-
+            return ShopsLoader.FromUser(User);
         }
 
         public IEnumerable<Catalog> GetCatalog()

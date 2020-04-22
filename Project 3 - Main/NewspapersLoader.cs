@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Project_3___Press_Project
 {
-    public class NewspaperReader
+    public class NewspapersLoader
     {
         public static IEnumerable<Newspaper> GetAll()
         {

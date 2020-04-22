@@ -8,10 +8,10 @@ namespace Project_3___Press_Project
     public partial class AutomaticOrder
     {
 
-        public AutomaticOrder CreateAutomaticOrderInDB(UserShop userShop, Newspaper newspaper, DateTime startDate, DateTime endDate, int quantity)
+        public AutomaticOrder CreateAutomaticOrderInDB(Shop selectedShop, Newspaper newspaper, DateTime startDate, DateTime endDate, int quantity)
         {
-            User user = UsersLoader.FromUserShop(userShop);
-            Shop shop = ShopsLoader.FromUserShop(userShop);
+            User user = UserSingleton.GetInstance.User;
+            Shop shop = selectedShop;
             AutomaticOrder automaticOrder = AutomaticOrderFactory.CreateAutomaticOrder(user, shop, newspaper, startDate, endDate, quantity);
             automaticOrder.SaveInDB();
             return automaticOrder;
