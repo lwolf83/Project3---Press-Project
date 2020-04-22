@@ -18,14 +18,7 @@
                 </WrapPanel>
                 <WrapPanel Margin="0,0,0,10">
                     <Label Content="* City : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
-                    <StackPanel Orientation="Vertical">
-                        <TextBox x:Name="City" KeyUp="City_KeyUp" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="650" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
-                        <Border x:Name="Border" Width="645" MouseLeave="Border_MouseLeave" Visibility="Collapsed" Height="150" BorderBrush="Black" BorderThickness="1">
-                            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <StackPanel Name="resultStack"></StackPanel>
-                            </ScrollViewer>
-                        </Border>
-                    </StackPanel>
+                    <local:CityAutocompletor x:Name="Autocompletor"/>
                 </WrapPanel>
                 <WrapPanel Margin="0,0,0,10">
                     <Label Content="* Street name:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
@@ -38,11 +31,11 @@
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <WrapPanel Margin="0,0,0,10">
                         <Label Content="ZipCode : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="100" FontFamily="Segoe UI Semibold" FontSize="20"/>
-                        <Label x:Name="Zip" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                        <Label x:Name="Zip" Content="{Binding Path=CurrZip, ElementName=Autocompletor, Mode=TwoWay}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
                     </WrapPanel>
                     <WrapPanel Margin="10,0,0,10">
                         <Label Content="Departement : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="150" FontFamily="Segoe UI Semibold" FontSize="20"/>
-                        <Label x:Name="Dept" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                        <Label x:Name="Dept" Content="{Binding Path=CurrDep, ElementName=Autocompletor, Mode=TwoWay}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
                     </WrapPanel>
                 </StackPanel>
                 <Label Content="* - required field" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI" FontSize="16"/>

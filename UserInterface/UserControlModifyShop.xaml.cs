@@ -58,9 +58,7 @@ namespace UserInterface
 
         private void ButtonModify_Click(object sender, RoutedEventArgs e)
         {
-            bool allFieldsFilled = !(ShopName.Text == String.Empty) && !(Autocompletor.City.Text == String.Empty)
-                                    && !(StrName.Text == String.Empty) && !(StrNum.Text == String.Empty);
-            if (allFieldsFilled)
+            if (CheckFormFilled())
             {
                 string zip = Convert.ToString(Zip.Content);
                 SelectedShop.ModifyShop(ShopName.Text, StrNum.Text, StrName.Text, zip, Autocompletor.City.Text);
@@ -75,6 +73,13 @@ namespace UserInterface
                 Message.Content = "Empty fields detected !";
                 MessageGrid.Visibility = Visibility.Visible;
             }
+        }
+
+        private bool CheckFormFilled()
+        {
+            bool isFilled = !(ShopName.Text == String.Empty) && !(Autocompletor.City.Text == String.Empty)
+                                    && !(StrName.Text == String.Empty) && !(StrNum.Text == String.Empty);
+            return isFilled;
         }
 
         private void Reset()

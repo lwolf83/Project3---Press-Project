@@ -19,28 +19,20 @@ namespace UserInterface
     /// Interaction logic for UserControlAddShop.xaml
     /// </summary>
     public partial class UserControlAddShop : UserControl
-    {
-        public IEnumerable<City> cities { get; set; }
-        public IEnumerable<Department> departments { get; set; }
-        public IEnumerable<string> cityNames { get; set; }
-        
+    {   
         public UserControlAddShop()
         {
             InitializeComponent();
-            departments = ShopAdder_DB.GetDepartment();
-            cities = ShopAdder_DB.GetCity();
-            cityNames = cities.Select(x => x.Name).ToList().Distinct();
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            bool formFilled = CheckFormFilled();
-            if (formFilled)
+            if (CheckFormFilled())
             {
                 string shopName = ShopName.Text;
                 string streetNumber = StrNum.Text;
                 string streetName = StrName.Text;
-                string cityName = City.Text;
+                string cityName = Autocompletor.City.Text;
                 bool shopCreated = ShopAdder_DB.AddShop(shopName, streetNumber, streetName, cityName);
                 if (shopCreated)
                 {
@@ -63,7 +55,6 @@ namespace UserInterface
                 Message.Content = "Please fill up all the required fields !";
                 MessageGrid.Visibility = Visibility.Visible;
             }
-
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
@@ -73,124 +64,24 @@ namespace UserInterface
         
         private void Reset()
         {
-            List<TextBox> textChildren = GetTextFieldsFromChildren();
-            foreach (TextBox tB in textChildren)
-            {
-                tB.Text = String.Empty;
-            }
+            ShopName.Text = String.Empty;
             Zip.Content = String.Empty;
             Dept.Content = String.Empty;
-            City.Text = String.Empty;
+            StrName.Text = String.Empty;
+            StrNum.Text = String.Empty;
+            Autocompletor.City.Text = String.Empty;
         }
 
         private bool CheckFormFilled()
         {
-            bool isFilled = true;
-            List<TextBox> textChildren = GetTextFieldsFromChildren();
-            foreach (TextBox tB in textChildren)
-            {
-                if (tB.Text == String.Empty)
-                {
-                    isFilled = false;
-                }
-            }
-            if (City.Text == String.Empty)
-            {
-                isFilled = false;
-            }
+            bool isFilled = !(ShopName.Text == String.Empty) && !(Autocompletor.City.Text == String.Empty)
+                                    && !(StrName.Text == String.Empty) && !(StrNum.Text == String.Empty);
             return isFilled;
-        }
-
-        private List<TextBox> GetTextFieldsFromChildren()
-        {
-            List<TextBox> textChildren = new List<TextBox>();
-            var wrapChildren = from child in TextStack.Children.OfType<WrapPanel>()
-                               select child;
-
-            foreach (WrapPanel child in wrapChildren)
-            {
-                var textBoxes = (from tB in child.Children.OfType<TextBox>()
-                                 select tB).ToList();
-                textChildren.AddRange(textBoxes);
-            }
-            return textChildren;
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             MessageGrid.Visibility = Visibility.Hidden;
-        }
-
-        private void City_KeyUp(object sender, KeyEventArgs e)
-        {
-            bool found = false;
-            string query = City.Text;
-            
-            if (query.Length == 0)
-            {
-                resultStack.Children.Clear();
-                Border.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                Border.Visibility = Visibility.Visible;
-                resultStack.Children.Clear();
-
-                foreach (var city in cityNames)
-                {
-                    if (city.ToLower().StartsWith(query.ToLower()))
-                    {
-                        AddItem(city);
-                        found = true;
-                    }
-                }
-                if (!found)
-                {
-                    TextBlock block = new TextBlock();
-                    block.Text = "No results found.";
-                    block.Margin = new Thickness(2, 3, 2, 3);
-                    block.Foreground = Brushes.Black;
-                    resultStack.Children.Add(block);
-                }
-            }        
-        }
-
-        private void AddItem(string text)
-        {
-            TextBlock block = new TextBlock(); 
-            block.Text = text;
- 
-            block.Margin = new Thickness(2, 3, 2, 3);
-            block.Cursor = Cursors.Hand;
-            block.Foreground = Brushes.Black;
-
-            // Mouse events   
-            block.MouseLeftButtonUp += (sender, e) =>
-            {
-                City.Text = (sender as TextBlock).Text;
-                Border.Visibility = Visibility.Collapsed;
-                string deptCode = cities.Where(c => c.Name.Equals(City.Text)).Select(c => c.DepartmentCode).FirstOrDefault();
-                Zip.Content = cities.Where(c => c.Name.Equals(City.Text)).Select(c => c.ZipCode).FirstOrDefault();
-                Dept.Content = departments.Where(d => d.DepartmentCode.Equals(deptCode)).Select(d => d.DepartmentName).FirstOrDefault();
-            };
-
-            block.MouseEnter += (sender, e) =>
-            {
-                TextBlock b = sender as TextBlock;
-                b.Background = Brushes.PeachPuff;
-            };
-
-            block.MouseLeave += (sender, e) =>
-            {
-                TextBlock b = sender as TextBlock;
-                b.Background = Brushes.Transparent;
-            };
-            resultStack.Children.Add(block);
-        }
-
-        private void Border_MouseLeave(object sender, MouseEventArgs e)
-        {
-            Border.Visibility = Visibility.Collapsed;
         }
     }
 }
