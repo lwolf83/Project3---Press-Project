@@ -28,9 +28,9 @@ jobs:
           - chmod +x tools/sonar/sonar-scanner-3.3.0.1492/bin/sonar-scanner
        script:
           - ls
-          - dotnet ../tools/sonar/SonarScanner.MSBuild.dll begin /k:"kali-ci" /d:sonar.host.url="https://sonar.melo-mania.fr" /d:sonar.verbose=true /d:sonar.login=6140e582e9c5202ae8d7eda1bb67af824e4c924a
+          - dotnet tools/sonar/SonarScanner.MSBuild.dll begin /k:"kali-ci" /d:sonar.host.url="https://sonar.melo-mania.fr" /d:sonar.verbose=true /d:sonar.login=6140e582e9c5202ae8d7eda1bb67af824e4c924a
           - dotnet restore 'Project 3 - Main/Project 3 - Press Project.csproj'
           - dotnet build 'Project 3 - Main/Project 3 - Press Project.csproj'
           - curl -k https://melo-mania.fr/cert.pem --output trusted-sonar-instance.certificate.pem 
           - keytool -import -alias melo-mania-instance -file trusted-sonar-instance.certificate.pem -storetype JKS -keystore server.truststore -noprompt -storepass changeit
-          - dotnet ../tools/sonar/SonarScanner.MSBuild.dll end /d:sonar.login=6140e582e9c5202ae8d7eda1bb67af824e4c924a
+          - dotnet tools/sonar/SonarScanner.MSBuild.dll end /d:sonar.login=6140e582e9c5202ae8d7eda1bb67af824e4c924a
