@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UserInterface"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" Height="630" Width="1080" Foreground="White" ResizeMode="CanMinimize" WindowStartupLocation="Manual" WindowStyle="SingleBorderWindow" FontFamily="Garamond">
+        mc:Ignorable="d" Height="650" Width="1080" Foreground="White" ResizeMode="CanMinimize" WindowStartupLocation="Manual" WindowStyle="SingleBorderWindow" FontFamily="Garamond">
     <StackPanel Orientation="Vertical">
         <Grid Height="50">
             <DockPanel x:Name="menuNav" Visibility="Hidden">
@@ -31,8 +31,8 @@
                     <MenuItem Header="_Modify">
                         <MenuItem Header="_Editor" Click="ButtonModifyEditors_click"/>
                         <MenuItem Header="_Edition" Click="ButtonSeeCatalog_Click"/>
-                        <MenuItem Header="_Newspaper"/>
-                        <MenuItem Header="_Shop"/>
+                        <MenuItem Header="_Newspaper" Click="ButtonModifyNewspaper_Click"/>
+                        <MenuItem Header="_Shop" Click="ButtonModifyShop_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Stock">
                         <MenuItem Header="Newspapers" Click="ButtonSeeStock_Click"/>
@@ -41,7 +41,7 @@
                 <TextBox AcceptsReturn="True" />
             </DockPanel>
         </Grid>
-        <Grid Background="#FF4086C1" Height="580">
+        <Grid Background="#FF4086C1" Height="600">
             <Grid x:Name="GridMain" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Grid>
     </StackPanel>

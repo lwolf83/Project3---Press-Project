@@ -21,36 +21,31 @@ namespace UserInterface
     /// </summary>
     public partial class UserControlModifyNewspaper : UserControl
     {
-        public string EAN13 { get; set; }
+        
         public IEnumerable<Newspaper> AllNespapers { get; set; }
 
         public UserControlModifyNewspaper()
         {
             InitializeComponent();
-            AllNespapers = NewspaperModifier.GetNewspaperData();
-        }
-
-        public void PrefillEAN13()
-        {
-            eanNum.Text = EAN13;
+            AllNespapers = Newspaper.GetNewspaperData();
         }
 
         private void ButtonFetchNewspaper_Click(object sender, RoutedEventArgs e)
         {
-            string EAN13 = eanNum.Text;
-            if (EAN13 == String.Empty)
+            string newspaperName = NewsName.Text;
+            if (newspaperName == String.Empty)
             {
                 MessageGrid.Background = Brushes.LightGoldenrodYellow;
-                Message.Content = "Provide a EAN13 code first !";
+                Message.Content = "Provide an existing newspaper name !";
                 MessageGrid.Visibility = Visibility.Visible;
             }
             else
             {
-                bool validCode = AllNespapers.Where(n => n.EAN13.Equals(EAN13)).Any();
-                if (validCode)
+                bool validName = AllNespapers.Where(n => n.Name.Equals(newspaperName)).Any();
+                if (validName)
                 {
-                    Newspaper np = AllNespapers.Where(n => n.EAN13.Equals(EAN13)).First();
-                    NewsName.Text = np.Name;
+                    Newspaper np = AllNespapers.Where(n => n.Name.Equals(newspaperName)).First();
+                    eanNum.Text = np.EAN13;
                     Price.Text = Convert.ToString(np.Price);
                     Period.Text = Convert.ToString(np.Periodicity);
                     Editor.Text = np.Editor.Name;
@@ -58,7 +53,7 @@ namespace UserInterface
                 else
                 {
                     MessageGrid.Background = Brushes.IndianRed;
-                    Message.Content = "Non-valid EAN13 code!";
+                    Message.Content = "Non-valid Newspaper name!";
                     MessageGrid.Visibility = Visibility.Visible;
                 }
             }
@@ -89,7 +84,7 @@ namespace UserInterface
                 string newName = NewsName.Text;
                 decimal newprice = Decimal.Parse(Price.Text);
                 int newPeriodicity = int.Parse(Period.Text);
-                bool modifOk = NewspaperModifier.ModifyNewspaper(EAN13, newName, newprice, newPeriodicity);
+                bool modifOk = Newspaper.ModifyNewspaper(EAN13, newName, newprice, newPeriodicity);
                 if (modifOk)
                 {
                     Reset();

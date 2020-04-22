@@ -127,5 +127,16 @@ namespace Project_3___Press_Project
                                             GetAllShopCatalogs().Where(sc => sc.Shop.ShopId == ShopId);
             return shopCatalogs;
         }
+
+        public void ModifyShop(string name, string strNum, string strName, string zip, string cityName)
+        {
+            Name = name;
+            City city = context.Cities.Where(c => c.Name == cityName && c.ZipCode == zip).FirstOrDefault();
+            Adress.City = city;
+            Adress.StreetNumber = strNum;
+            Adress.StreetName = strName;
+            context.Update(this);
+            context.SaveChanges();
+        }
     }
 }

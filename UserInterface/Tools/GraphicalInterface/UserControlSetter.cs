@@ -85,6 +85,12 @@ namespace UserInterface
                 case "ItemAutomaticDelivery":
                     resControl = new UserControlAutomaticDelivery();
                     break;
+                case "ItemModifyNewspaper":
+                    resControl = new UserControlModifyNewspaper();
+                    break;
+                case "ItemModifyShop":
+                    resControl = new UserControlModifyShop();
+                    break;
                 default:
                     resControl = new UserControlShop();
                     break;
