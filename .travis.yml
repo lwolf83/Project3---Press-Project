@@ -24,8 +24,7 @@ jobs:
        script:
           - dotnet tool install --global dotnet-sonarscanner --version 4.8.0
           - dotnet sonarscanner begin /k:"kali-ci"
-          - dotnet build "Projet 3.sln"
-          - dotnet sonarscanner end
-          - curl -O trusted-sonar-instance.certificate.pem melo-mania.fr/cert.pem;
-          - keytool -import -alias melo-mania-instance -file trusted-sonar-instance.certificate.pem -storetype JKS -keystore server.truststore
+          - ls
+          - curl -O trusted-sonar-instance.certificate.pem melo-mania.fr/cert.pem
+          - keytool -import -alias melo-mania-instance -file trusted-sonar-instance.certificate.pem -storetype JKS -keystore server.truststore -noprompt -storepass changeit
           - dotnet sonarcanner end
