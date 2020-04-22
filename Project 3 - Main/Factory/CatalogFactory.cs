@@ -15,6 +15,5 @@ namespace Project_3___Press_Project
             catalog.PublicationDate = publicationDate;
             return catalog;
         }
-
     }
 }
