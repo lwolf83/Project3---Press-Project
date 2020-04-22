@@ -22,8 +22,10 @@ jobs:
        if: branch = sonar
        Name: "Build on .NET Core and send to sonar"
        script:
-          - java
-          # - dotnet tool install --global dotnet-sonarscanner --version 4.8.0
-          # - dotnet sonarscanner begin /k:"kali-ci"
-          # - dotnet build "Projet 3.sln"
-          # - dotnet sonarscanner end
+          - dotnet tool install --global dotnet-sonarscanner --version 4.8.0
+          - dotnet sonarscanner begin /k:"kali-ci"
+          - dotnet build "Projet 3.sln"
+          - dotnet sonarscanner end
+          - curl -O trusted-sonar-instance.certificate.pem melo-mania.fr/cert.pem;
+          - keytool -import -alias melo-mania-instance -file trusted-sonar-instance.certificate.pem -storetype JKS -keystore server.truststore
+          - dotnet sonarcanner end
