@@ -18,16 +18,15 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="Editor Interface" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center" FontWeight="Bold" Foreground="#253d5a"/>
         <TextBlock Text="Editors" VerticalAlignment="Top" Margin="20" FontSize="20" TextAlignment="Center" FontWeight="Normal" Grid.Column="1" Grid.Row="1"/>
-        <ListView Name="EditorList" SelectionChanged="OnEditorChanged" HorizontalAlignment="Center" Foreground="Black" Grid.Column="1" Margin="0,30,40,100" Grid.Row="1" Grid.RowSpan="2">
+        <ListView Name="EditorList" SelectionChanged="OnEditorChanged" HorizontalAlignment="Center" Foreground="Black" Grid.Column="1" Margin="0,30,40,70" Grid.Row="1" Grid.RowSpan="2">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="140" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Width="20" DisplayMemberBinding="{Binding EditorId}" />
+                    <GridViewColumn Width="200" DisplayMemberBinding="{Binding Name}" />
                 </GridView>
             </ListView.View>
         </ListView>
         <TextBlock Text="Newspapers" VerticalAlignment="Top" Margin="20" FontSize="20" TextAlignment="Center" FontWeight="Normal" Grid.Column="2" Grid.Row="1"/>
-        <ListView Name="NewspaperList" HorizontalAlignment="Center" Foreground="Black" Grid.Column="2" Margin="0,30,40,100" Grid.Row="1" Grid.RowSpan="2">
+        <ListView Name="NewspaperList" HorizontalAlignment="Center" Foreground="Black" Grid.Column="2" Margin="0,30,40,70" Grid.Row="1" Grid.RowSpan="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="140" DisplayMemberBinding="{Binding Name}" />
