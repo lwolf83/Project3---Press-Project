@@ -27,7 +27,7 @@ namespace UserInterface
         public UserControlModifyNewspaper()
         {
             InitializeComponent();
-            AllNespapers = NewspaperModifier.GetNewspaperData();
+            AllNespapers = Newspaper.GetNewspaperData();
         }
 
         private void ButtonFetchNewspaper_Click(object sender, RoutedEventArgs e)
@@ -84,7 +84,7 @@ namespace UserInterface
                 string newName = NewsName.Text;
                 decimal newprice = Decimal.Parse(Price.Text);
                 int newPeriodicity = int.Parse(Period.Text);
-                bool modifOk = NewspaperModifier.ModifyNewspaper(EAN13, newName, newprice, newPeriodicity);
+                bool modifOk = Newspaper.ModifyNewspaper(EAN13, newName, newprice, newPeriodicity);
                 if (modifOk)
                 {
                     Reset();

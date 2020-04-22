@@ -5,8 +5,51 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UserInterface"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             >
+    <Grid x:Name="Main" Background="#FFFCE4E4" Height="600" Width="1000">
+        <Grid Margin="12,35,103,512">
+            <Label Content="Modify Shop: " HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Arial" FontSize="25" FontWeight="Bold" Margin="25,6,0,0"/>
+        </Grid>
+        <Grid x:Name="GridForm" Margin="20,92,20,197" Background="#FFFAFAFA">
+            <StackPanel x:Name="TextStack">
+                <WrapPanel Margin="0,10,0,10">
+                    <Label Content="Shop name : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                    <TextBox x:Name="ShopName" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="650" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                </WrapPanel>
+                <WrapPanel Margin="0,0,0,10">
+                    <Label Content="City name : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                    <local:CityAutocompletor x:Name="Autocompletor"/>
+                </WrapPanel>
+                
+                <WrapPanel Margin="0,0,0,10">
+                    <Label Content="Street name:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                    <TextBox x:Name="StrName" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="650" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                </WrapPanel>
+                <WrapPanel Margin="0,0,0,10">
+                    <Label Content="Street number : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                    <TextBox x:Name="StrNum" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="650" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                </WrapPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <WrapPanel Margin="0,0,0,10">
+                        <Label Content="ZipCode : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="100" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                        <Label x:Name="Zip" Content="{Binding Path=CurrZip, ElementName=Autocompletor, Mode=TwoWay}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                    </WrapPanel>
+                    <WrapPanel Margin="10,0,0,10">
+                        <Label Content="Departement : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="auto" Width="150" FontFamily="Segoe UI Semibold" FontSize="20"/>
+                        <Label x:Name="Dept" Content="{Binding Path=CurrDep, ElementName=Autocompletor, Mode=TwoWay}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
+                    </WrapPanel>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Margin="53,434,57,101" Background="#FFF7BCEF">
+            <Button x:Name="ButtonFill" Click="ButtonFill_Click" Content="Get Shop Info" HorizontalAlignment="Left" Margin="42,0,0,0" VerticalAlignment="Center" Height="auto" Width="180" FontFamily="Segoe UI Semibold" FontSize="22" />
+            <Button x:Name="ButtonModify" Click="ButtonModify_Click" Content="Modify" HorizontalAlignment="Left" Margin="290,0,0,0" VerticalAlignment="Center" Height="auto" Width="180" FontFamily="Segoe UI Semibold" FontSize="22" />
+        </Grid>
+        <Grid x:Name="MessageGrid" Background="LightGreen" Width="800" Height="200" Visibility="Hidden" Margin="100,178,100,222">
+            <WrapPanel Margin="0,0,0,0" Orientation="Vertical">
+                <Label x:Name="Message" Content="" HorizontalAlignment="Left" Margin="80,40,5,0" VerticalAlignment="Top" Height="auto" Width="600" FontFamily="Segoe UI Semibold" FontSize="27" Foreground="Navy" RenderTransformOrigin="1.016,0.456"/>
+                <Button x:Name="OkButton" Content="OK" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="160" FontFamily="Segoe UI Semibold" FontSize="25" Click="OkButton_Click" Margin="-150,130,-3,0" Background="#FF137F89"/>
+            </WrapPanel>
+        </Grid>
     </Grid>
 </UserControl>
