@@ -26,7 +26,7 @@ jobs:
           - mkdir -p tools/sonar
           - unzip -qq sonar.zip -d tools/sonar
        script:  
-         - dotnet tools/sonar/SonarScanner.MSBuild.dll begin /k:"kali-ci" /d:sonar.login=6140e582e9c5202ae8d7eda1bb67af824e4c924a
+         - dotnet tools/sonar/SonarScanner.MSBuild.dll begin /k:"kali-ci" /d:sonar.host.url="https://sonar.melo-mania.fr" /d:sonar.login=6140e582e9c5202ae8d7eda1bb67af824e4c924a
          - dotnet restore 'Project 3 - Main (Only NonUI for Travis).sln'
          - dotnet build 'Project 3 - Main (Only NonUI for Travis).sln' /t:Rebuild
          - curl -k https://melo-mania.fr/cert.pem --output trusted-sonar-instance.certificate.pem 
