@@ -24,7 +24,6 @@ namespace UserInterface
             Catalog catalog = new Catalog();
             Catalogs = catalog.GetAllCatalogs();
             EditorFilteringSelection.ItemsSource = catalog.GetEditorsHavingCatalogs(Catalogs);
-            NewspaperNameFilteringSelection.ItemsSource = catalog.GetNewspapersHavingCatalogs(Catalogs);
             CatalogsDisplaying_ListView.ItemsSource = Catalogs;
         }
         List<Catalog> Catalogs { get; set; }
@@ -46,8 +45,10 @@ namespace UserInterface
             {
                 Editor selectedEditor = (Editor)(sender as ComboBox).SelectedItem;
                 Catalog catalog = new Catalog();
-                Catalogs = catalog.GetCatalogsFromAnEditor(Catalogs, selectedEditor);
-                CatalogsDisplaying_ListView.ItemsSource = Catalogs;
+                List<Catalog> catalogs = catalog.GetCatalogsFromAnEditor(Catalogs, selectedEditor);
+                CatalogsDisplaying_ListView.ItemsSource = catalogs;
+                NewspaperNameFilteringSelection.ItemsSource = catalog.GetNewspapersHavingCatalogs(catalogs);
+                NewspaperNameFilteringSelection.SelectedIndex = -1;
             }
         }
 
@@ -57,8 +58,7 @@ namespace UserInterface
             {
                 Newspaper selectedNewspaper = (Newspaper)(sender as ComboBox).SelectedItem;
                 Catalog catalog = new Catalog();
-                Catalogs = catalog.GetCatalogsFromANewspaper(Catalogs, selectedNewspaper);
-                CatalogsDisplaying_ListView.ItemsSource = Catalogs;
+                CatalogsDisplaying_ListView.ItemsSource = catalog.GetCatalogsFromANewspaper(Catalogs, selectedNewspaper);
             }
         }
 
@@ -74,8 +74,7 @@ namespace UserInterface
                 DateTime lastDate = DateTime.ParseExact(LastDateUserInput.Text, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                 if(InputChecker.CheckDates(firstDate, lastDate))
                 {
-                    Catalogs = catalog.GetCatalogsFromDates(Catalogs, firstDate, lastDate);
-                    CatalogsDisplaying_ListView.ItemsSource = Catalogs;
+                    CatalogsDisplaying_ListView.ItemsSource = catalog.GetCatalogsFromDates(Catalogs, firstDate, lastDate);
                 }
                 else
                 {
@@ -101,8 +100,7 @@ namespace UserInterface
             Newspaper np = new Newspaper();
             if(np.IsEAN13Registered(ean13))
             {
-                Catalogs = catalog.GetCatalogsFromEAN13(Catalogs, ean13);
-                CatalogsDisplaying_ListView.ItemsSource = Catalogs;
+                CatalogsDisplaying_ListView.ItemsSource = catalog.GetCatalogsFromEAN13(Catalogs, ean13);
             }
             else
             {
