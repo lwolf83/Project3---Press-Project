@@ -5,24 +5,25 @@ solution: "Project 3 - Main/Project 3 - Press Project.sln"
 
 jobs:
    include:
-     - stage: "build"
-       Name: "Build core application on .NET Core 3.1"
-       script: 
-           - dotnet restore 'Project 3 - Main/Project 3 - Press Project.csproj'
-           - dotnet build 'Project 3 - Main/Project 3 - Press Project.csproj'
-     - stage: "test"
-       Name: "Test core application on .NET Core 3.1"
-       script:
-           - cd TestPressProject 
-           - dotnet add package NUnit.Console
-           - dotnet restore TestPressProject.csproj
-           - dotnet build TestPressProject.csproj
-           - dotnet test TestPressProject.csproj
+   #  - stage: "build"
+   #    Name: "Build core application on .NET Core 3.1"
+   #    script: 
+   #        - dotnet restore 'Project 3 - Main/Project 3 - Press Project.csproj'
+   #        - dotnet build 'Project 3 - Main/Project 3 - Press Project.csproj'
+   #  - stage: "test"
+   #    Name: "Test core application on .NET Core 3.1"
+   #    script:
+   #        - cd TestPressProject 
+   #        - dotnet add package NUnit.Console
+   #        - dotnet restore TestPressProject.csproj
+   #        - dotnet build TestPressProject.csproj
+   #        - dotnet test TestPressProject.csproj
      - stage: "qualimetry"
        if: branch = sonar
        Name: "Build on .NET Core and send to sonar"
        script:
-          - dotnet tool install --global dotnet-sonarscanner --version 4.8.0
-          - dotnet sonarscanner begin /k:"kali-ci"
-          - dotnet build "Projet 3.sln"
-          - dotnet sonarscanner end
+          - java
+          # - dotnet tool install --global dotnet-sonarscanner --version 4.8.0
+          # - dotnet sonarscanner begin /k:"kali-ci"
+          # - dotnet build "Projet 3.sln"
+          # - dotnet sonarscanner end
