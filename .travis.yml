@@ -21,15 +21,13 @@ jobs:
      - stage: "qualimetry"
        if: branch = sonar
        Name: "Build on .NET Core and send to sonar"
-       install:
-          - dotnet tool install --global dotnet-sonarscanner --version 4.8.0
-       before_script:
-          - export PATH="$PATH:HOME/.dotnet/tools"
        script:
-          - dotnet --help
-          - dotnet sonarscanner begin /k:"kali-ci"
+          - wget -O sonar.zip https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.6.1.2049/sonar-scanner-msbuild-4.6.1.2049-netcoreapp2.0.zip
+          - unzip -qq sonar.zip -d tools/sonar
+          - chmod +x tools/sonar/sonar-scanner-3.3.0.1492/bin/sonar-scanner
+          - dotnet ../tools/sonar/SonarScanner.MSBuild.dll begin /k:"kali-ci" /d:sonar.host.url="https://sonar.melo-mania.fr" /d:sonar.verbose=true /d:sonar.login=6140e582e9c5202ae8d7eda1bb67af824e4c924a
           - dotnet restore 'Project 3 - Main/Project 3 - Press Project.csproj'
           - dotnet build 'Project 3 - Main/Project 3 - Press Project.csproj'
           - curl -k https://melo-mania.fr/cert.pem --output trusted-sonar-instance.certificate.pem 
           - keytool -import -alias melo-mania-instance -file trusted-sonar-instance.certificate.pem -storetype JKS -keystore server.truststore -noprompt -storepass changeit
-          - dotnet sonarcanner end
+          - dotnet ../tools/sonar/SonarScanner.MSBuild.dll end /d:sonar.login=6140e582e9c5202ae8d7eda1bb67af824e4c924a
