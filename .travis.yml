@@ -22,12 +22,11 @@ jobs:
        if: branch = sonar
        Name: "Build on .NET Core and send to sonar"
        before_script:          
-          - wget -O sonar.zip https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.6.1.2049/sonar-scanner-msbuild-4.6.1.2049-netcoreapp2.0.zip
+          - wget -O sonar.zip https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.8.0.12008/sonar-scanner-msbuild-4.8.0.12008-netcoreapp3.0.zip
           - mkdir -p tools/sonar
           - unzip -qq sonar.zip -d tools/sonar
-          - chmod +x tools/sonar/sonar-scanner-3.3.0.1492/bin/sonar-scanner
+          - chmod +x tools/sonar/sonar-scanner-4.8.0.12008/bin/sonar-scanner
        script:
-          - ls
           - dotnet tools/sonar/SonarScanner.MSBuild.dll begin /k:"kali-ci" /d:sonar.host.url="https://sonar.melo-mania.fr" /d:sonar.verbose=true /d:sonar.login=6140e582e9c5202ae8d7eda1bb67af824e4c924a
           - dotnet restore 'Project 3 - Main/Project 3 - Press Project.csproj'
           - dotnet build 'Project 3 - Main/Project 3 - Press Project.csproj'
