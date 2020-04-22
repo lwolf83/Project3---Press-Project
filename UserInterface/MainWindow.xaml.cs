@@ -39,6 +39,11 @@ namespace UserInterface
             UserControlSetter.SetGridMain(GridMain, "ItemClose");                     
         }
 
+        public void ButtonSeeEditors_Click(object sender, RoutedEventArgs e)
+        {
+            UserControlSetter.SetGridMain(GridMain, "ItemEditors");
+        }
+
         public void ButtonSeeOrder_Click(object sender, RoutedEventArgs e)
         {
             UserControlSetter.SetGridMain(GridMain, "ItemOrder");
