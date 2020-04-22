@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Project_3___Press_Project
 {
-    public class CatalogGet
+    public class CatalogLoader
     {
         public static IEnumerable<Catalog> Get(Newspaper newspaper)
         {

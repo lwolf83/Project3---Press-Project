@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:UserInterface"
              mc:Ignorable="d" 
              >
-    <Grid Background="#a5bdda" Height="1000" Width="1000" Margin="0,20,0,40" HorizontalAlignment="Center">
+    <Grid Height="500" Width="1000" Margin="0,20,0,40" HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="4*"/>
@@ -14,65 +14,70 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="5*"/>
-            <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
         
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Shops interface" Name="ShopTextBlock" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center" FontWeight="Bold" Foreground="#253d5a"/>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Shops interface" Name="ShopTextBlock" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center" FontWeight="Bold" Foreground="White"/>
 
         <Grid Grid.Column="0" Grid.Row="1">
-            <StackPanel Orientation="Vertical">
-                <TextBlock FontFamily="Arial" FontWeight="Heavy" FontSize="15" HorizontalAlignment="Center"> Filter by:</TextBlock>
-                <ComboBox Name="ShopFilteringEntity" Background="#c9d7e9" Foreground="Black" Margin="10" SelectionChanged="OnLocationFilteringSelectionChanged">
-                    <ComboBoxItem Name="CitiesSelection">Cities</ComboBoxItem>
-                    <ComboBoxItem Name="DepartmentsSelection">Departments</ComboBoxItem>
-                    <ComboBoxItem Name="ProvincesSelection">Provinces</ComboBoxItem>
-                </ComboBox>
-                <ComboBox Margin="10" Name="CityNameFilteringSelection" Foreground="Black" Visibility="Collapsed" SelectionChanged="OnCitiesSelectionChanged">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Name}" />
-                                    <TextBlock Text=" - "/>
-                                    <TextBlock Text="{Binding ZipCode}" />
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <ComboBox Margin="10" Name="DepartmentNameFilteringSelection" Foreground="Black" Visibility="Collapsed" SelectionChanged="OnDepartmentsSelectionChanged">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding DepartmentName}" />
-                                    <TextBlock Text=" - "/>
-                                    <TextBlock Text="{Binding DepartmentCode}" />
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <ComboBox Margin="10" Name="ProvinceNameFilteringSelection" Foreground="Black" Visibility="Collapsed" SelectionChanged="OnProvincesSelectionChanged">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Name}" />
-                                    <TextBlock Text=" - "/>
-                                    <TextBlock Text="{Binding ProvinceCode}" />
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <Button Margin="10,110,10,10" Content="Refresh" Click="ReinitializeShopList_Btn"/>
-                <Button Margin="10,10,10,10" Content="AddShop" Click="ButtonAddShopPage_Click" />
-                <Button Margin="10,10,10,10" Content="Stock" Click="ButtonSeeStocks_Click" />
-            </StackPanel>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.6*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock FontFamily="Arial" FontWeight="Heavy" FontSize="15" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center"> Filter by:</TextBlock>
+            <ComboBox Grid.Row="1" Name="ShopFilteringEntity" Background="#c9d7e9" Foreground="Black" FontSize="15" Margin="10" SelectionChanged="OnLocationFilteringSelectionChanged">
+                <ComboBoxItem Name="CitiesSelection">Cities</ComboBoxItem>
+                <ComboBoxItem Name="DepartmentsSelection">Departments</ComboBoxItem>
+                <ComboBoxItem Name="ProvincesSelection">Provinces</ComboBoxItem>
+            </ComboBox>
+            <ComboBox Grid.Row="2" Margin="10" Name="CityNameFilteringSelection" Background="#c9d7e9" Foreground="Black" FontSize="15" Visibility="Collapsed" SelectionChanged="OnCitiesSelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" />
+                                <TextBlock Text=" - "/>
+                                <TextBlock Text="{Binding ZipCode}" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox Grid.Row="2" Margin="10" Name="DepartmentNameFilteringSelection" Background="#c9d7e9" Foreground="Black" FontSize="15" Visibility="Collapsed" SelectionChanged="OnDepartmentsSelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding DepartmentName}" />
+                                <TextBlock Text=" - "/>
+                                <TextBlock Text="{Binding DepartmentCode}" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox Grid.Row="2" Margin="10" Name="ProvinceNameFilteringSelection" Background="#c9d7e9" Foreground="Black" FontSize="15" Visibility="Collapsed" SelectionChanged="OnProvincesSelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" />
+                                <TextBlock Text=" - "/>
+                                <TextBlock Text="{Binding ProvinceCode}" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Grid.Row="3" Margin="10,10,10,10" Content="Refresh" Click="ReinitializeShopList_Btn"/>
+            <Button Grid.Row="4" Margin="10,10,10,10" Content="AddShop" Click="ButtonAddShopPage_Click" />
+            <Button Grid.Row="5" Margin="10,10,10,10" Content="Stock" Click="ButtonSeeStocks_Click" />
         </Grid>
         
-        <Grid Grid.Column="1" Grid.Row="1" Margin="20,0,10,60">
+        <Grid Grid.Column="1" Grid.Row="1" Margin="20,15,10,20">
             <ListView HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" Name="ShopDisplaying_ListView">
                 <ListView.Resources>
                     <Style TargetType="{x:Type GridViewColumnHeader}">
