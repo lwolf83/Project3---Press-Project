@@ -34,44 +34,36 @@ namespace UserInterface
                     && CheckPeriodicityLength(NewspaperPeriodicity_textBox.Text) == true)
                 {
                     CreateNewspaper(sender, e);
-                    string msgtext = "Newspaper has been correctly added.";
-                    string txt = "Newspaper addition";
-                    bool answserOverwrite = DialogBox.OK(msgtext, txt);
                 }
             }
         }
 
         public Newspaper CreateNewspaper(object sender, RoutedEventArgs e)
         {
-           Newspaper newspaper = new Newspaper();
-            using (var context = new PressContext())
+            DateTime publicationDate = DateTime.ParseExact(NewspaperFirstPublicationDate_textBox.Text, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            Catalog catalog = CatalogFactory.Create("First edition", publicationDate, null);
+
+            string name = NewspaperName_textBox.Text;
+            int periodicity = Convert.ToInt32(NewspaperPeriodicity_textBox.Text);
+            string ean13 = NewspaperEAN13_textBox.Text;
+            decimal price = Convert.ToDecimal(NewspaperPrice_textBox.Text);
+            List<Catalog> catalogs = new List<Catalog>();
+            catalogs.Add(catalog);
+            Editor editor = EditorLoader.Get((Editor)EditorNameFilteringSelection_comboBox.SelectedItem);
+            Newspaper newspaper = NewspaperFactory.Create(name, periodicity, ean13, price, catalogs, editor);
+
+            if (!newspaper.Exists() && !newspaper.IsEAN13Registered(ean13))
             {
-                Catalog catalog = CreateCatalog(sender, e);
-                List<Catalog> catalogs = new List<Catalog>();
-                catalogs.Add(catalog);
-                newspaper.Name = NewspaperName_textBox.Text;
-                newspaper.Periodicity = Convert.ToInt32(NewspaperPeriodicity_textBox.Text);
-                newspaper.EAN13 = NewspaperEAN13_textBox.Text;
-                newspaper.Price = Convert.ToDecimal(NewspaperPrice_textBox.Text);
-                newspaper.Catalogs = catalogs;
-                Editor selectedEditor = (Editor)EditorNameFilteringSelection_comboBox.SelectedItem;
-                var editor = (from i in context.Editors
-                              where i.EditorId == selectedEditor.EditorId
-                              select i).First();
-                newspaper.Editor = editor;
-                context.Add(catalog);
-                context.Add(newspaper);
-                context.SaveChanges();
+                newspaper.SaveWithNewCatalog(catalog);
+                string msgtext = "Newspaper has been correctly added.";
+                string txt = "Newspaper addition";
+                bool answserOverwrite = DialogBox.OK(msgtext, txt);
+            }
+            else
+            {
+                DialogBox.OK("Already recorded in DB", "Error");
             }
             return newspaper;
-        }
-
-        public Catalog CreateCatalog(object sender, RoutedEventArgs e)
-        {
-            Catalog catalog = new Catalog();
-            string publicationDateString = NewspaperFirstPublicationDate_textBox.Text;
-            catalog.PublicationDate = DateTime.ParseExact(publicationDateString, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-            return catalog;
         }
 
         public bool CheckPublicationDateFormat(string publicationDateString)
