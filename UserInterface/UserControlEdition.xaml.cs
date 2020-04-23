@@ -22,7 +22,7 @@ namespace UserInterface
 
         public List<Catalog> GetCatalogs()
         {
-            List<Catalog> catalogs = new List<Catalog>();
+            List<Catalog> catalogs;
             using (var context = new PressContext())
             {
                 catalogs = (from c in context.Catalogs

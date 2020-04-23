@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Project_3___Press_Project
 {
-    public class CatalogLoader
+    public static class CatalogLoader
     {
         public static IEnumerable<Catalog> Get(Newspaper newspaper)
         {
@@ -38,8 +38,7 @@ namespace Project_3___Press_Project
         public static List<Catalog> GetLatests(DateTime startingDate)
         {
             List<Catalog> allCatalogs = CatalogLoader.GetAll().ToList();
-            List<Catalog> latestCatalogs = new List<Catalog>();
-            latestCatalogs = allCatalogs.Where(c => c.PublicationDate >= startingDate).OrderBy(c => c.PublicationDate).ToList();
+            List<Catalog> latestCatalogs = allCatalogs.Where(c => c.PublicationDate >= startingDate).OrderBy(c => c.PublicationDate).ToList();
             return latestCatalogs;
         }
     }

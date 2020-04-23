@@ -33,7 +33,7 @@ namespace Project_3___Press_Project
 
         private static void OnLoadLatestOrderCatalogs()
         {
-            UserSingleton.GetInstance.LatestOrderCatalogs = UserSingleton.GetInstance.GetOrderCatalogs().ToList().Where(o => o.CreatedAt >= DateTime.Today).ToList();
+            UserSingleton.GetInstance.LatestOrderCatalogs = UserSingleton.GetInstance.GetOrderCatalogs().Where(o => o.CreatedAt >= DateTime.Today).ToList();
         }
     }
 }
