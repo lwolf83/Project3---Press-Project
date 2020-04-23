@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TinyCsvParser.Mapping;
+﻿using TinyCsvParser.Mapping;
 
 namespace Project_3___Press_Project.Importer.Mappings
 {
