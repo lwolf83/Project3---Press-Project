@@ -48,8 +48,8 @@ namespace UserInterface
         public CityAutocompletor()
         {
             InitializeComponent();
-            departments = ShopAdder_DB.GetDepartment();
-            cities = ShopAdder_DB.GetCity();
+            departments = ShopAdderDb.GetDepartment();
+            cities = ShopAdderDb.GetCity();
             cityNames = cities.Select(x => x.Name).AsEnumerable().Distinct();
         }
 

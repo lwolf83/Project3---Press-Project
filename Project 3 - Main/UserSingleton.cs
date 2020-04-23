@@ -38,8 +38,6 @@ namespace Project_3___Press_Project
         public void Disconnect()
         {
             UserSingleton.instance = null;
-            User = null;
-            IsAuthenticated = false;
         }
 
         public IEnumerable<Shop> GetShops()
@@ -51,17 +49,17 @@ namespace Project_3___Press_Project
         {
             using (var context = new PressContext())
             {
-                List<Newspaper> newspapers = context.Newspapers.ToList();
                 List<Catalog> catalogs = context.Catalogs.ToList();
                 return catalogs;
             }
            
         }
 
+        // Dans la fonction suivante, ne pas effacer le code, même si Sonar le dit car les "useless"
+        // permettent de charger les dépendances de la liste.
         public IEnumerable<OrderCatalog> GetOrderCatalogs(string state = "In progress")
         {
             var context = new PressContext();
-
 
             List<Order> orders = context.Orders.Where(x => (x.UserId == UserSingleton.GetInstance.User.UserId) && (x.State == state)).ToList();
 
@@ -69,7 +67,7 @@ namespace Project_3___Press_Project
                                                 join oc in context.OrderCatalogs.AsEnumerable()
                                                 on o.OrderId equals oc.OrderId
                                                 select oc).ToList();
-
+            
             List<Shop> shops = (from o in orders
                                 join s in context.Shops.AsEnumerable()
                                 on o.ShopId equals s.ShopId
@@ -77,7 +75,7 @@ namespace Project_3___Press_Project
 
             List<Catalog> catalog = context.Catalogs.ToList();
             List<Newspaper> newspapers = context.Newspapers.ToList();
-                                  
+
 
             return orderCatalogs.OrderByDescending(o => o.CreatedAt);
         }

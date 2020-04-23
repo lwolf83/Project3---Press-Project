@@ -24,7 +24,7 @@ namespace UserInterface
                 string streetNumber = StrNum.Text;
                 string streetName = StrName.Text;
                 string cityName = Autocompletor.City.Text;
-                bool shopCreated = ShopAdder_DB.AddShop(shopName, streetNumber, streetName, cityName);
+                bool shopCreated = ShopAdderDb.AddShop(shopName, streetNumber, streetName, cityName);
                 if (shopCreated)
                 {
                     Reset();
