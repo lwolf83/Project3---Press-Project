@@ -5,22 +5,22 @@ solution: "Project 3 - Main/Project 3 - Press Project.sln"
 
 jobs:
    include: 
-   #  - stage:  "build"
-   #    Name: "Build core application on .NET Core 3.1"
-   #    script: 
-   #        - dotnet restore 'Project 3 - Main/Project 3 - Press Project.csproj'
-   #        - dotnet build 'Project 3 - Main/Project 3 - Press Project.csproj'
-   #  - stage: "test"
-   #    Name: "Test core application on .NET Core 3.1"
-   #    script:
-   #        - cd TestPressProject 
-   #        - dotnet add package NUnit.Console
-   #        - dotnet restore TestPressProject.csproj
-   #        - dotnet build TestPressProject.csproj
-   #        - do0tnet test TestPressProject.csproj
+     - stage:  "build"
+       Name: "Build core application on .NET Core 3.1"
+       script: 
+           - dotnet restore 'Project 3 - Main/Project 3 - Press Project.csproj'
+           - dotnet build 'Project 3 - Main/Project 3 - Press Project.csproj'
+     - stage: "test"
+       Name: "Test core application on .NET Core 3.1"
+       script:
+           - cd TestPressProject 
+           - dotnet add package NUnit.Console
+           - dotnet restore TestPressProject.csproj
+           - dotnet build TestPressProject.csproj
+           - do0tnet test TestPressProject.csproj
      - stage: "qualimetry"
        sudo: required
-       if: branch = sonar
+       if: branch = master
        Name: "Build on .NET Core and send to sonar"
        before_script:          
           - wget -O sonar.zip https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.8.0.12008/sonar-scanner-msbuild-4.8.0.12008-netcoreapp3.0.zip
