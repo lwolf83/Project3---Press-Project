@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer;
+﻿using Microsoft.EntityFrameworkCore;
 
 
 namespace Project_3___Press_Project

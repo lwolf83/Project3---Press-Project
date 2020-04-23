@@ -1,6 +1,4 @@
 ﻿using Project_3___Press_Project;
-using System;
-using System.Linq;
 using System.Windows.Controls;
 
 namespace UserInterface
