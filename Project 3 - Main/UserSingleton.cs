@@ -76,7 +76,6 @@ namespace Project_3___Press_Project
             List<Catalog> catalog = context.Catalogs.ToList();
             List<Newspaper> newspapers = context.Newspapers.ToList();
 
-
             return orderCatalogs.OrderByDescending(o => o.CreatedAt);
         }
 
