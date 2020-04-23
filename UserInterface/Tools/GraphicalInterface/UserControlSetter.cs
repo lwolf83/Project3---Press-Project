@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace UserInterface
@@ -19,11 +18,11 @@ namespace UserInterface
         public static void SetGridMain(Grid grid, String name)
         {
             UserControl destination = GetUserControlByName(name);
-            if (grid.Name == "GridMain")
-            {
-                grid.Children.Clear();
-                grid.Children.Add(destination);
-            }
+            Application curApp = Application.Current;
+            Window mainWindow = curApp.MainWindow;
+            Grid gridMain = (Grid) mainWindow.FindName("GridMain");
+            gridMain.Children.Clear();
+            gridMain.Children.Add(destination);
         }
 
         private static UserControl GetUserControlByName(string name)
@@ -81,6 +80,9 @@ namespace UserInterface
                     break;
                 case "ItemEditions":
                     resControl = new UserControlEdition();
+                    break;
+                case "ItemAddAutomaticDelivery":
+                    resControl = new UserControlAddAutomaticDelivery();
                     break;
                 case "ItemAutomaticDelivery":
                     resControl = new UserControlAutomaticDelivery();

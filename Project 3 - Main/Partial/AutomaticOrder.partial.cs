@@ -17,11 +17,20 @@ namespace Project_3___Press_Project
             return automaticOrder;
         }
 
-        private void SaveInDB()
+        public void SaveInDB()
         {
             using (var context = new PressContext())
             {
                 context.Update(this);
+                context.SaveChanges();
+            }
+        }
+
+        public void Delete()
+        {
+            using (var context = new PressContext())
+            {
+                context.AutomaticOrders.Remove(this);
                 context.SaveChanges();
             }
         }

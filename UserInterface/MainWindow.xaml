@@ -20,6 +20,7 @@
                         <MenuItem Header="_Editions" Click="ButtonSeeEditions_Click"/>
                         <MenuItem Header="_Shop" Click="ButtonSeeShop_Click"/>
                         <MenuItem Header="_Order" Click="ButtonSeeOrder_Click"/>
+                        <MenuItem Header="_AutomaticDelivery" Click="ButtonSeeAutomaticDelivery_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Add">
                         <MenuItem Header="_Editor" Click="ButtonAddEditors_click"/>
