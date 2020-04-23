@@ -37,7 +37,7 @@ namespace Project_3___Press_Project
 
         public void Disconnect()
         {
-            instance = null;
+            UserSingleton.instance = null;
             User = null;
             IsAuthenticated = false;
         }
