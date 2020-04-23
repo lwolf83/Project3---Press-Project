@@ -2,7 +2,7 @@
 
 namespace Project_3___Press_Project
 {
-    public class CatalogFactory
+    public static class CatalogFactory
     {
         public static Catalog Create(string name, DateTime publicationDate, Newspaper newspaper)
         {

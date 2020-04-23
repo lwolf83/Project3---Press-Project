@@ -47,7 +47,7 @@ namespace UserInterface
 
         private void Save_Btn(object sender, RoutedEventArgs e)
         {
-            bool nameExist = EditorAddModify.Editors.Where(n => n.Name.Equals(EditorName_textBox.Text)).Any();
+            bool nameExist = EditorAddModify.Editors.Any(n => n.Name.Equals(EditorName_textBox.Text));
 
             if (EditorName_textBox.Text.Equals(String.Empty))
             {

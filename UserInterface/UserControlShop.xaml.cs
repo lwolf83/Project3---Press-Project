@@ -55,7 +55,6 @@ namespace UserInterface
                 CityNameFilteringSelection.Visibility = Visibility.Collapsed;
                 ProvinceNameFilteringSelection.Visibility = Visibility.Collapsed;
                 DepartmentNameFilteringSelection.Visibility = Visibility.Collapsed;
-                throw new Exception();
             }
         }
 

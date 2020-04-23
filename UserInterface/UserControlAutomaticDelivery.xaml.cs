@@ -49,15 +49,12 @@ namespace UserInterface
         private Boolean areAllFieldsWellCompleted()
         {
             bool isStartingDateOK = false;
-            if(StartDate_DatePicker.SelectedDate != null && EndDate_DatePicker.SelectedDate != null)
+            if((StartDate_DatePicker.SelectedDate != null)
+                && (EndDate_DatePicker.SelectedDate != null)
+                && ((DateTime)StartDate_DatePicker.SelectedDate >= DateTime.Today)
+                && (InputChecker.CheckDates((DateTime)StartDate_DatePicker.SelectedDate, (DateTime)EndDate_DatePicker.SelectedDate)))
             {
-                if ((DateTime)StartDate_DatePicker.SelectedDate >= DateTime.Today)
-                {
-                    if (InputChecker.CheckDates((DateTime)StartDate_DatePicker.SelectedDate, (DateTime)EndDate_DatePicker.SelectedDate))
-                    {
-                        isStartingDateOK = true;
-                    }
-                }
+                isStartingDateOK = true;
             }
 
             bool isSelectedShops = false;

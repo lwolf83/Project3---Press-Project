@@ -50,7 +50,7 @@ namespace UserInterface
             InitializeComponent();
             departments = ShopAdder_DB.GetDepartment();
             cities = ShopAdder_DB.GetCity();
-            cityNames = cities.Select(x => x.Name).ToList().Distinct();
+            cityNames = cities.Select(x => x.Name).AsEnumerable().Distinct();
         }
 
         protected 

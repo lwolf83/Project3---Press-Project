@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Project_3___Press_Project
 {
-    public class OrderFactory
+    public static class OrderFactory
     {
         public static Order CreateOrLoad(User user, Shop shop, DateTime orderDate)
         {

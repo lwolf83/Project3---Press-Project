@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Project_3___Press_Project
 {
-    public class OrderCatalogFactory
+    public static class OrderCatalogFactory
     {
         public static OrderCatalog Create(Order order, Catalog catalog)
         {
@@ -40,7 +40,6 @@ namespace Project_3___Press_Project
             orderCatalog.Quantity = automaticOrder.Quantity;
             return orderCatalog;
         }
-
 
     }
 }

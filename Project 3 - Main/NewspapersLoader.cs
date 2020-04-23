@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Project_3___Press_Project
 {
-    public class NewspapersLoader
+    public static class NewspapersLoader
     {
         public static IEnumerable<Newspaper> GetAll()
         {
