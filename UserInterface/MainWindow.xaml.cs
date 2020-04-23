@@ -121,6 +121,11 @@ namespace UserInterface
         {
             UserControlSetter.SetGridMain(GridMain, "ItemModifyShop");
         }
+
+        private void ButtonMainMenu_Click(object sender, RoutedEventArgs e)
+        {
+            UserControlSetter.SetGridMain(GridMain, "MainMenu");
+        }
     }
 }
 

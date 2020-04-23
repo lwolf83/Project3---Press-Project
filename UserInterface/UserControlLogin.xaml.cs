@@ -51,7 +51,7 @@ namespace UserInterface
             if (UserSingleton.GetInstance.IsAuthenticated)
             {
                 MenuVisibility.ShowMenu();
-                UserControlSetter.SetGridMain(this, "ItemShop");
+                UserControlSetter.SetGridMain(this, "MainMenu");
             }
             else
             {
