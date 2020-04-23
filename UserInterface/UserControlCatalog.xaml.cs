@@ -18,7 +18,7 @@ namespace UserInterface
         {
             InitializeComponent();
             IEnumerable<Newspaper> newspapers = NewspapersLoader.GetAll();
-            neswpaperselector_comboBox.ItemsSource = newspapers.ToList().OrderBy(n => n.Name);
+            neswpaperselector_comboBox.ItemsSource = newspapers.AsEnumerable().OrderBy(n => n.Name);
         }
 
         private void neswpaperselector_comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -95,7 +95,7 @@ namespace UserInterface
         {
             Newspaper newspaper = (Newspaper)neswpaperselector_comboBox.SelectedItem;
             IEnumerable<Catalog> catalogs = CatalogLoader.Get(newspaper);
-            catalog_listview.ItemsSource = catalogs.ToList().OrderByDescending(c => c.PublicationDate);
+            catalog_listview.ItemsSource = catalogs.AsEnumerable().OrderByDescending(c => c.PublicationDate);
         }
 
         private void Ok_Click(object sender, RoutedEventArgs e)

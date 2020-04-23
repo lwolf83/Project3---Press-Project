@@ -38,10 +38,10 @@ namespace UserInterface
         private void ButtonFill_Click(object sender, RoutedEventArgs e)
         {
             string shopName = ShopName.Text;
-            bool shopExists = AllShops.Where(s => s.Name == shopName).Any();
+            bool shopExists = AllShops.Any(s => s.Name == shopName);
             if (shopExists)
             {
-                SelectedShop = AllShops.Where(s => s.Name == shopName).FirstOrDefault();
+                SelectedShop = AllShops.FirstOrDefault(s => s.Name == shopName);
                 Autocompletor.City.Text = SelectedShop.Adress.City.Name;
                 StrName.Text = SelectedShop.Adress.StreetName;
                 StrNum.Text = SelectedShop.Adress.StreetNumber;

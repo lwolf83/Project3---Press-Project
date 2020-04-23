@@ -27,14 +27,12 @@ namespace UserInterface
         
         public void ConfirmNewspaperAddition_Btn(object sender, RoutedEventArgs e)
         {
-            if(CheckUserFieldsAreComplete(sender, e) == true)
+            if((CheckUserFieldsAreComplete(sender, e) == true) 
+                && (CheckPublicationDateFormat(NewspaperFirstPublicationDate_textBox.Text) == true)
+                && CheckPriceFormat(NewspaperPrice_textBox.Text) == true
+                && CheckPeriodicityLength(NewspaperPeriodicity_textBox.Text) == true)
             {
-                if((CheckPublicationDateFormat(NewspaperFirstPublicationDate_textBox.Text) == true)
-                    && CheckPriceFormat(NewspaperPrice_textBox.Text) == true
-                    && CheckPeriodicityLength(NewspaperPeriodicity_textBox.Text) == true)
-                {
-                    CreateNewspaper(sender, e);
-                }
+                CreateNewspaper(sender, e);
             }
         }
 

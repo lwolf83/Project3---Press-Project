@@ -41,10 +41,10 @@ namespace UserInterface
             }
             else
             {
-                bool validName = AllNespapers.Where(n => n.Name.Equals(newspaperName)).Any();
+                bool validName = AllNespapers.Any(n => n.Name.Equals(newspaperName));
                 if (validName)
                 {
-                    Newspaper np = AllNespapers.Where(n => n.Name.Equals(newspaperName)).First();
+                    Newspaper np = AllNespapers.First(n => n.Name.Equals(newspaperName));
                     eanNum.Text = np.EAN13;
                     Price.Text = Convert.ToString(np.Price);
                     Period.Text = Convert.ToString(np.Periodicity);

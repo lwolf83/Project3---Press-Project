@@ -8,7 +8,7 @@ namespace UserInterface
     /// <summary>
     /// Set the Grid MainGrid 
     /// </summary>
-    public class UserControlSetter
+    public static class UserControlSetter
     {
         public static void SetGridMain(UserControl origin, String name)
         {

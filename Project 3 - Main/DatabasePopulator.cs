@@ -9,7 +9,7 @@ namespace Project_3___Press_Project
 {
     public class ContextPopulator
     {
-        private PressContext context;
+        private readonly PressContext context;
 
         public ContextPopulator()
         {
@@ -228,8 +228,8 @@ namespace Project_3___Press_Project
             var catalogs = (from Catalogs in context.Catalogs
                            select Catalogs).ToList();
 
-            int numberOfOrdersPerCatalogs = orders.Count() / catalogs.Count();
-            int restOffOrdersDividedByCatalogs = orders.Count() % catalogs.Count();
+            int numberOfOrdersPerCatalogs = orders.Count / catalogs.Count;
+            int restOffOrdersDividedByCatalogs = orders.Count % catalogs.Count;
             int counter = 0;
 
             foreach(Catalog catalog in catalogs)
@@ -321,9 +321,9 @@ namespace Project_3___Press_Project
             var users = (from Users in context.Users
                         select Users).ToList();
 
-            int usersCount = users.Count();
-            int usersPerShops = usersCount/(shops.Count());
-            int restUsers = usersCount % (shops.Count());
+            int usersCount = users.Count;
+            int usersPerShops = usersCount/(shops.Count);
+            int restUsers = usersCount % (shops.Count);
             int counter = 0;
 
             foreach (Shop shop in shops)

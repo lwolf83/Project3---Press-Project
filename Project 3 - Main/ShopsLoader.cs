@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Project_3___Press_Project
 {
-    public class ShopsLoader
+    public static class ShopsLoader
     {
         public static IEnumerable<Shop> GetAll()
         {

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Project_3___Press_Project
 {
-    public class UserShopsLoader
+    public static class UserShopsLoader
     {
         public static UserShop GetUserShopFromUser(User user)
         {

@@ -9,7 +9,7 @@ namespace Project_3___Press_Project
     {
         public List<Editor> GetAllEditors()
         {
-            List<Editor> editors = new List<Editor>();
+            List<Editor> editors;
             using (var context = new PressContext())
             {
                 editors = (from i in context.Editors
