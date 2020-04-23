@@ -22,9 +22,9 @@ namespace Project_3___Press_Project
         public DbSet<UserShop> UserShops { get; set; }
         public DbSet<AutomaticOrder> AutomaticOrders { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder builder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            builder.UseSqlServer(@"Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=Project3_PressV2;Integrated Security=True; MultipleActiveResultSets=True");
+            optionsBuilder.UseSqlServer(@"Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=Project3_PressV2;Integrated Security=True; MultipleActiveResultSets=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
