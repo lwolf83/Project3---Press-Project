@@ -35,9 +35,9 @@ namespace Project_3___Press_Project
             }
         }
 
-        public void Disconnect()
+        public static void Disconnect()
         {
-            UserSingleton.instance = null;
+            instance = null;
         }
 
         public IEnumerable<Shop> GetShops()
