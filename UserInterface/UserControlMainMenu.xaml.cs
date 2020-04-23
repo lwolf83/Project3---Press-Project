@@ -51,7 +51,7 @@ namespace UserInterface
 
         private void Exiting(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            UserControl usc = new UserControlLogout();
+            UserControl usc = new UserControlClose();
             this.Content = usc;
         }
     }
