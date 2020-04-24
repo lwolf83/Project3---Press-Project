@@ -28,7 +28,6 @@ jobs:
           - unzip -qq sonar.zip -d tools/sonar
           - chmod 777 tools/sonar/ -R
        script:
-         - echo Start
          - dotnet tools/sonar/SonarScanner.MSBuild.dll begin /k:"kali-ci" /d:sonar.host.url="https://sonar.melo-mania.fr" /d:sonar.login=99fc4397f326f81e6ff80646d0ad2571882bac1d
          - dotnet restore 'Project 3 - Main (Only NonUI for Travis).sln'
          - dotnet build 'Project 3 - Main (Only NonUI for Travis).sln' /t:Rebuild
