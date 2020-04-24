@@ -20,7 +20,9 @@
                         <MenuItem Header="_Newspaper" Click="ButtonSeeNewspapers_Click"/>
                         <MenuItem Header="_Newspapers Stock" Click="ButtonSeeStock_Click"/>
                         <MenuItem Header="_Order" Click="ButtonSeeOrder_Click"/>
+                        <MenuItem Header="_AutomaticDelivery" Click="ButtonSeeAutomaticDelivery_Click"/>
                         <MenuItem Header="_Shop" Click="ButtonSeeShop_Click"/>
+
                     </MenuItem>
                     <MenuItem Header="_Add">
                         <MenuItem Header="_AutomaticDelivery" Click="ButtonAddAutomaticDelivery_Click"/>
