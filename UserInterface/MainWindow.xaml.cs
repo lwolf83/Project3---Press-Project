@@ -91,10 +91,14 @@ namespace UserInterface
         private void ButtonSeeCatalog_Click(object sender, RoutedEventArgs e)
         {
             UserControlSetter.SetGridMain(GridMain, "ItemCatalog");
-
         }
 
         private void ButtonAddAutomaticDelivery_Click(object sender, RoutedEventArgs e)
+        {
+            UserControlSetter.SetGridMain(GridMain, "ItemAddAutomaticDelivery");
+        }
+
+        private void ButtonSeeAutomaticDelivery_Click(object sender, RoutedEventArgs e)
         {
             UserControlSetter.SetGridMain(GridMain, "ItemAutomaticDelivery");
         }

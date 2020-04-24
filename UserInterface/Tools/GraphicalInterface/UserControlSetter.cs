@@ -91,6 +91,9 @@ namespace UserInterface
                 case "ItemEditions":
                     resControl = new UserControlEdition();
                     break;
+                case "ItemAddAutomaticDelivery":
+                    resControl = new UserControlAddAutomaticDelivery();
+                    break;
                 case "ItemAutomaticDelivery":
                     resControl = new UserControlAutomaticDelivery();
                     break;

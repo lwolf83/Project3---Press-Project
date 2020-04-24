@@ -3,83 +3,55 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:UserInterface"
-             mc:Ignorable="d"
-             Height="1080"
-             >
-    <Grid Background="#a5bdda"  HorizontalAlignment="Stretch" VerticalAlignment="Top" >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="Automatic deliveries" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center" FontWeight="Bold" Foreground="#253d5a"/>
-
-        <GroupBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" Grid.RowSpan="2" Height="325"  VerticalAlignment="Top" Margin="5" Background="White" Header="Select a newspaper">
-            <local:UserControlNewspapersView x:Name="Newspaper_ListView"/>
-        </GroupBox>
-
-        <GroupBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="325" Background="White" Margin="5" Header="Select information">
-            <StackPanel>
-                <TextBlock Text="Quantity" HorizontalAlignment="Center" Foreground="Black"/>
-                <TextBox x:Name="QuantityTextBox" Width="150" Margin="5" PreviewTextInput="PreviewInputOnlyNumbersCaracters" Foreground="Black"/>
-                <TextBlock Text="Sarting date:" Margin="5"/>
-                <DatePicker x:Name="StartDate_DatePicker"
-                        Width="115"
-                        materialDesign:HintAssist.Hint="Pick Date"
-                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Foreground="Black" />
-                <TextBlock Text="Ending date:" Margin="5"/>
-                <DatePicker x:Name="EndDate_DatePicker"
-                        Width="115"
-                        materialDesign:HintAssist.Hint="Pick Date"
-                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Foreground="Black"/>
-                            </StackPanel>
-        </GroupBox>
-
-        <GroupBox Background="White" Grid.Row="1" Grid.Column="1" Height="325"  Margin="5" VerticalAlignment="Top" Header="Select one or more shops">
-                <Grid HorizontalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <ListBox x:Name="allShop_ListBox" SelectionMode="Multiple" Grid.Column="0"  MinWidth="70">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Name}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Column="1">
-                    <Button Content="+++" Height="25" Click="AddAllShop_Click"/>
-                    <Button Content="+" Height="25" Click="AddSelectedShop_Click"/>
-                    <Button Content="-" Height="25" Click="RemoveSelectedShop_Click"/>
-                    <Button Content="---" Height="25" Click="RemoveAllShop_Click"/>
-                    </StackPanel>
-                <ListBox  x:Name="selectedShop_ListBox" SelectionMode="Multiple" Grid.Column="2" MinWidth="70">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Name}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </Grid>
-        </GroupBox>
-        
-        <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2">
-            <Button  HorizontalAlignment="Center" Content="Create" Click="CreateAutomaticDelivery_Btn" VerticalAlignment="Top" Margin="30" />
+        <Grid Grid.Row="0">
+            <TextBlock HorizontalAlignment="Center" FontSize="40">
+                Automatic Deliveries
+            </TextBlock>
         </Grid>
+        <ListView Margin="10" Name="lvDataBinding" HorizontalAlignment="Stretch"  Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid MinWidth="950">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Shop :" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Path=Shop.Name}"  />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="Newspaper :" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Path=Newspaper.Name}"  />
+                            <TextBlock Text="Quantity :" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Path=Quantity}"  />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Starting Date :" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Path=StartingDate}"  />
+                            <TextBlock Text="End Date :" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Path=EndDate}"  />
+                        </StackPanel>
+                        <StackPanel Grid.Column="3">
+                            <Button Content="Modify" Click="ModifyAutomaticOrder_Click" CommandParameter="{Binding Path=.}"/>
+                            <Button Content="Delete" Click="DeleteAutomaticOrder_Click" CommandParameter="{Binding Path=.}"/> 
+                        </StackPanel>
+                    </Grid>
+                  
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
-
 </UserControl>

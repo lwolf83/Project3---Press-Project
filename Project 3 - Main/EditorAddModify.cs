@@ -7,7 +7,7 @@ namespace Project_3___Press_Project
     public class EditorAddModify
     {
         private readonly PressContext context;
-        public List<Editor> Editors { get; set; } = new List<Editor>();
+        public List<Editor> Editors { get; set; } 
 
         public EditorAddModify()
         {

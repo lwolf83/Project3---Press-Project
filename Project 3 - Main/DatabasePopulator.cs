@@ -49,7 +49,7 @@ namespace Project_3___Press_Project
 
         public void ImportProvincesInDB()
         {
-            CSVImporter importer = new CSVImporter();
+            CsvImporter importer = new CsvImporter();
             importer.BaseDirectoryPath = AppDomain.CurrentDomain.BaseDirectory;
             IEnumerable<Province> provinces = importer.ImportProvinces();
 
@@ -59,7 +59,7 @@ namespace Project_3___Press_Project
 
         public void ImportDepartmentsInDB()
         {
-            CSVImporter importer = new CSVImporter();
+            CsvImporter importer = new CsvImporter();
             importer.BaseDirectoryPath = AppDomain.CurrentDomain.BaseDirectory;
             IEnumerable<Department> departments = importer.ImportDepartments();
 
@@ -70,7 +70,7 @@ namespace Project_3___Press_Project
 
         public void ImportCitiesInDB()
         {
-            CSVImporter importer = new CSVImporter();
+            CsvImporter importer = new CsvImporter();
             importer.BaseDirectoryPath = AppDomain.CurrentDomain.BaseDirectory;
             IEnumerable<City> cities = importer.ImportCities();
 

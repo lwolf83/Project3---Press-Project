@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Project_3___Press_Project
 {
@@ -16,7 +14,7 @@ namespace Project_3___Press_Project
             return automaticOrder;
         }
 
-        private void SaveInDB()
+        public void SaveInDB()
         {
             using (var context = new PressContext())
             {
@@ -25,5 +23,14 @@ namespace Project_3___Press_Project
             }
         }
 
+
+        public void Delete()
+        {
+            using (var context = new PressContext())
+            {
+                context.AutomaticOrders.Remove(this);
+                context.SaveChanges();
+            }
+        }
     }
 }
