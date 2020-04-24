@@ -19,7 +19,7 @@ namespace UserInterface
 
         private void ButtonLogoutApplicationYes_Click(object sender, RoutedEventArgs e)
         {
-            UserSingleton.GetInstance.Disconnect();
+            UserSingleton.Disconnect();
             MenuVisibility.HideMenu();
             UserControlSetter.SetGridMain(this, "ItemLogin");
         }

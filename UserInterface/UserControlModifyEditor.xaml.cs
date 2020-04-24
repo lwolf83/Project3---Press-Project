@@ -52,23 +52,23 @@ namespace UserInterface
             if (EditorName_textBox.Text.Equals(String.Empty))
             {
                 Message_TextBlock.Foreground = new SolidColorBrush(Colors.Red);
-                Message_TextBlock.Text = "Please Fill the Case";
+                Message_TextBlock.Text = "Please fill every fields.";
             }
             else if (SelectedEditor.Name.Equals(EditorName_textBox.Text))
             {
                 Message_TextBlock.Foreground = new SolidColorBrush(Colors.Red);
-                Message_TextBlock.Text = "No Changes Have Occured";
+                Message_TextBlock.Text = "No changes have occured.";
             }
             else if (nameExist)
             {
                 Message_TextBlock.Foreground = new SolidColorBrush(Colors.Red);
-                Message_TextBlock.Text = "This Name Already Exists";
+                Message_TextBlock.Text = "This name already exists.";
             }
             else
             {
                 EditorAddModify.ModifyEditor(SelectedEditor, EditorName_textBox.Text);
                 Message_TextBlock.Foreground = new SolidColorBrush(Colors.Green);
-                Message_TextBlock.Text = "Editor Has Succefully Modified";
+                Message_TextBlock.Text = "Editor has been sucessfully modified.";
             }
         }
 

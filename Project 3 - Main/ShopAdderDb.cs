@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Project_3___Press_Project
 {
-    public static class ShopAdder_DB
+    public static class ShopAdderDb
     {
         public static IEnumerable<City> GetCity()
         {
