@@ -39,4 +39,4 @@ jobs:
          - dotnet test TestPressProject.csproj
          - curl -k https://melo-mania.fr/cert.pem --output trusted-sonar-instance.certificate.pem 
          - sudo keytool -importcert -file trusted-sonar-instance.certificate.pem -keystore $JAVA_HOME/lib/security/cacerts -noprompt -storepass changeit
-         - dotnet ../tools/sonar/SonarScanner.MSBuild.dll end /d:sonar.login=99fc4397f326f81e6ff80646d0ad2571882bac1d
+         - dotnet tools/sonar/SonarScanner.MSBuild.dll end /d:sonar.login=99fc4397f326f81e6ff80646d0ad2571882bac1d
