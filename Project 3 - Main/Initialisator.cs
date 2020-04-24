@@ -7,18 +7,25 @@ namespace Project_3___Press_Project
 {
     public static class Initialisator
     {
+        private static List<Thread> _threads;
+
         public static void OnApplicationStart()
         {
             var loadAllShops = new ThreadStart(OnLoadAllShopStart);
             var loadLatestCatalogs = new ThreadStart(OnLoadLatestCatalogs);
             var loadLatestOrderCatalogs = new ThreadStart(OnLoadLatestOrderCatalogs);
-            List<Thread> threads = new List<Thread>()
+            _threads = new List<Thread>()
             {
                 new Thread(loadAllShops),
                 new Thread(loadLatestCatalogs),
                 new Thread(loadLatestOrderCatalogs)
             };
-            threads.ForEach(t => t.Start());
+            _threads.ForEach(t => t.Start());
+        }
+
+        public static void Finish()
+        {
+            _threads.ForEach(t => t.Join());
         }
 
         private static void OnLoadAllShopStart()

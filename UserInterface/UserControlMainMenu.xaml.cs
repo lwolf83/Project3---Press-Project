@@ -1,4 +1,5 @@
 ﻿using Project_3___Press_Project;
+using System;
 using System.Windows.Controls;
 
 namespace UserInterface
@@ -6,21 +7,33 @@ namespace UserInterface
     /// <summary>
     /// Logique d'interaction pour UserControlMainMenu.xaml
     /// </summary>
-    public partial class UserControlMainMenu : UserControl
+    public partial class UserControlMainMenu : UserControl, IDisposable
     {
+        private bool Disposed = false;
+
         public UserControlMainMenu()
         {
+            Initialisator.OnApplicationStart();
             InitializeComponent();
             TextBlock_UserName.Text = "Welcome " + UserSingleton.GetInstance.User.Name;
-            Initialisator.OnApplicationStart();
             lv_OrderCatalogs.ItemsSource = UserSingleton.GetInstance.LatestOrderCatalogs;
             lv_LatestsCatalogs.ItemsSource = UserSingleton.GetInstance.LatestCatalogs;
+            
+        }
+
+        public void Dispose()
+        {
+            if(!Disposed)
+            {
+                Initialisator.Finish();
+                GC.SuppressFinalize(this);
+                Disposed = true;
+            }
         }
 
         private void GoShop(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            UserControl usc = new UserControlShop();
-            this.Content = usc;
+            UserControlSetter.SetGridMain(this, "ItemShop");
         }
 
         private void GoOrders(object sender, System.Windows.Input.MouseButtonEventArgs e)

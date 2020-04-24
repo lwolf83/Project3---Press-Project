@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace UserInterface
 {
@@ -10,15 +13,20 @@ namespace UserInterface
     {
         public static void SetGridMain(UserControl origin, String name)
         {
+            if(origin.GetType() == typeof(UserControlMainMenu))
+            {
+                UserControlMainMenu mainMenu = (UserControlMainMenu) origin;
+                mainMenu.Dispose();
+            }
             Grid GridParent = (origin.Parent as Grid);
             SetGridMain(GridParent, name);
-        }
+        } 
 
         public static void SetGridMain(Grid grid, String name)
         {
             UserControl destination = GetUserControlByName(name);
             if (grid.Name == "GridMain")
-            {
+            {                
                 grid.Children.Clear();
                 grid.Children.Add(destination);
             }
