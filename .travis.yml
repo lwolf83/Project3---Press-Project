@@ -20,7 +20,7 @@ jobs:
            - dotnet test TestPressProject.csproj
      - stage: "qualimetry"
        sudo: required
-       if: branch = master
+       if: branch = sonar
        Name: "Build on .NET Core and send to sonar"
        before_script:          
           - wget -O sonar.zip https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.8.0.12008/sonar-scanner-msbuild-4.8.0.12008-netcoreapp3.0.zip
