@@ -20,7 +20,7 @@ jobs:
            - dotnet test TestPressProject.csproj
      - stage: "qualimetry"
        sudo: required
-       if: branch = master
+       if: branch = sonar
        Name: "Build on .NET Core and send to sonar"
        before_script:          
           - wget -O sonar.zip https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.8.0.12008/sonar-scanner-msbuild-4.8.0.12008-netcoreapp3.0.zip
@@ -31,6 +31,11 @@ jobs:
          - dotnet tools/sonar/SonarScanner.MSBuild.dll begin /k:"kali-ci" /d:sonar.host.url="https://sonar.melo-mania.fr" /d:sonar.login=99fc4397f326f81e6ff80646d0ad2571882bac1d
          - dotnet restore 'Project 3 - Main (Only NonUI for Travis).sln'
          - dotnet build 'Project 3 - Main (Only NonUI for Travis).sln' /t:Rebuild
+         - cd TestPressProject 
+         - dotnet add package NUnit.Console
+         - dotnet restore TestPressProject.csproj
+         - dotnet build TestPressProject.csproj
+         - dotnet test TestPressProject.csproj
          - curl -k https://melo-mania.fr/cert.pem --output trusted-sonar-instance.certificate.pem 
          - sudo keytool -importcert -file trusted-sonar-instance.certificate.pem -keystore $JAVA_HOME/lib/security/cacerts -noprompt -storepass changeit
          - dotnet tools/sonar/SonarScanner.MSBuild.dll end /d:sonar.login=99fc4397f326f81e6ff80646d0ad2571882bac1d
