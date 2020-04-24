@@ -17,7 +17,6 @@ namespace UserInterface
             TextBlock_UserName.Text = "Welcome " + UserSingleton.GetInstance.User.Name;
             lv_OrderCatalogs.ItemsSource = UserSingleton.GetInstance.LatestOrderCatalogs;
             lv_LatestsCatalogs.ItemsSource = UserSingleton.GetInstance.LatestCatalogs;
-            
         }
 
         public void Dispose()
