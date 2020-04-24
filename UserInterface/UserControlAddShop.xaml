@@ -9,6 +9,9 @@
     <Grid x:Name="Main" Background="#FFFCE4E4" Height="600" Width="1000">
         <Grid Margin="12,35,103,512">
             <Label Content="Add a new Shop: " HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Arial" FontSize="25" FontWeight="Bold" Margin="25,6,0,0"/>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Click="BackShopBtn">
+                <TextBlock Text="Back to shop" FontSize="23" FontFamily="Segoe UI Semibold" TextAlignment="Center" VerticalAlignment="Center"/>
+            </Button>
         </Grid>
         <Grid x:Name="GridForm" Margin="20,92,20,197" Background="#FFFAFAFA">
             <StackPanel x:Name="TextStack">

@@ -32,7 +32,13 @@ namespace UserInterface
         {
             ComboBoxItem selectedItem = (ComboBoxItem) ShopFilteringEntity.SelectedItem;
 
-            if (selectedItem.Name == "CitiesSelection")
+            if(selectedItem == null)
+            {
+                CityNameFilteringSelection.Visibility = Visibility.Collapsed;
+                ProvinceNameFilteringSelection.Visibility = Visibility.Collapsed;
+                DepartmentNameFilteringSelection.Visibility = Visibility.Collapsed;
+            }
+            else if (selectedItem.Name == "CitiesSelection")
             {
                 CityNameFilteringSelection.Visibility = Visibility.Visible;
                 ProvinceNameFilteringSelection.Visibility = Visibility.Collapsed;
@@ -134,6 +140,11 @@ namespace UserInterface
                 usc = new UserControlOrder();
             }
             this.Content = usc;
+        }
+
+        private void ResetFilter_btn(object sender, MouseButtonEventArgs e)
+        {
+            ShopFilteringEntity.SelectedIndex = -1;
         }
     }
 }

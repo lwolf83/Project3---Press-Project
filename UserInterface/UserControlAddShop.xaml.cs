@@ -74,5 +74,11 @@ namespace UserInterface
         {
             MessageGrid.Visibility = Visibility.Hidden;
         }
+
+        private void BackShopBtn(object sender, RoutedEventArgs e)
+        {
+            UserControl usc = new UserControlShop();
+            this.Content = usc;
+        }
     }
 }
