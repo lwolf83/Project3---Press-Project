@@ -6,12 +6,12 @@ using TinyCsvParser; // Library available here: https://bytefish.github.io/TinyC
 
 namespace Project_3___Press_Project
 {
-    public class CSVImporter
+    public class CsvImporter
     {
         public String BaseDirectoryPath { get; set; }
         public CsvParserOptions ParserOptions { get; private set; }
 
-        public CSVImporter()
+        public CsvImporter()
         {
             ParserOptions = new CsvParserOptions(false, ',');
         }

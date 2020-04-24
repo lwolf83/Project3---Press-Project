@@ -31,7 +31,7 @@ namespace UserInterface
             if (name.Equals(String.Empty))
             {
                 Message_TextBlock.Foreground = new SolidColorBrush(Colors.Red);
-                Message_TextBlock.Text = "Please Fill the Case";
+                Message_TextBlock.Text = "Please fill every fields.";
                 EditorName_textBox.Focus();
             }
             else
@@ -53,13 +53,13 @@ namespace UserInterface
             if(existEditor)
             {
                 Message_TextBlock.Foreground = new SolidColorBrush(Colors.Red);
-                Message_TextBlock.Text = "Editor Already Exists";
+                Message_TextBlock.Text = "Editor already exists";
                 Reset();
             }
             else
             {
                 Message_TextBlock.Foreground = new SolidColorBrush(Colors.Green);
-                Message_TextBlock.Text = "Editor Has Succefully Added";
+                Message_TextBlock.Text = "Editor has been sucessfully added.";
                 Reset();
             }
         }

@@ -90,7 +90,7 @@
                 </ListView.Resources>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Shop" DisplayMemberBinding="{Binding Path=Order.OrderDate, StringFormat='{}{0:dd/MM/yyyy}'}" Width="100"></GridViewColumn>
+                        <GridViewColumn Header="Order date" DisplayMemberBinding="{Binding Path=Order.OrderDate, StringFormat='{}{0:dd/MM/yyyy}'}" Width="100"></GridViewColumn>
                         <GridViewColumn Header="Shop" DisplayMemberBinding="{Binding Order.Shop.Name}" Width="150"></GridViewColumn>
                         <GridViewColumn Header="Newspaper" DisplayMemberBinding="{Binding Catalog.Newspaper.Name}" Width="190"></GridViewColumn>
                         <GridViewColumn Header="Edition" DisplayMemberBinding="{Binding Catalog.Name}" Width="150"></GridViewColumn>
