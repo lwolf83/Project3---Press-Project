@@ -36,10 +36,10 @@ namespace UserInterface
         {
             Button button = sender as Button;
             AutomaticOrder currentAutomaticOrder = button.CommandParameter as AutomaticOrder;
-           
+
             bool confirmDelete = DialogBox.YesOrNoCancel("Are you sur to delete this Automatic Delevery?", "Delete validation");
 
-            if(confirmDelete)
+            if (confirmDelete)
             {
                 currentAutomaticOrder.Delete();
                 InitializeListView();

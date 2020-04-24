@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Linq;
 using Project_3___Press_Project;
 using System.Text.RegularExpressions;
@@ -21,16 +15,26 @@ namespace UserInterface
     /// </summary>
     public partial class UserControlStock : UserControl
     {
-        public IEnumerable<Shop> AllShops { get; set; }
         public IEnumerable<ShopCatalog> AllShopCatalogs { get; set; }
         public Shop ShopFilter = new Shop();
 
-        public UserControlStock()
+        public UserControlStock(Shop shop = null)
         {
             InitializeComponent();
             DataContext = this;
             AllShopCatalogs = ShopFilter.GetAllShopCatalogs();
-            AllShops = UserSingleton.GetInstance.AllShops;
+            cmbShops.ItemsSource = UserSingleton.GetInstance.AllShops;
+
+            if (shop != null)
+            {
+                foreach (Shop item in cmbShops.Items)
+                {
+                    if (item.ShopId == shop.ShopId)
+                    {
+                        cmbShops.SelectedItem = item;
+                    }
+                }
+            }
         }
 
         private void btnCheck_Click(object sender, RoutedEventArgs e)
@@ -46,11 +50,19 @@ namespace UserInterface
         {
             ListViewItem item = sender as ListViewItem;
             object obj = item.Content;
+           
+            string npaperName = ((ShopCatalog)obj).Catalog.Newspaper.Name;
+            var npPrice = ((ShopCatalog)obj).Catalog.Newspaper.Price;
+            var periodicity = ((ShopCatalog)obj).Catalog.Newspaper.Periodicity;
             string EAN13 = ((ShopCatalog)obj).Catalog.Newspaper.EAN13;
+            var editor = ((ShopCatalog)obj).Catalog.Newspaper.Editor.Name;
 
             UserControlModifyNewspaper usc = new UserControlModifyNewspaper();
-            usc.EAN13 = EAN13;
-            usc.PrefillEAN13();
+            usc.NewsName.Text = npaperName;
+            usc.Price.Text = Convert.ToString(npPrice);
+            usc.Period.Text = Convert.ToString(periodicity);
+            usc.Editor.Text = editor;
+            usc.eanNum.Text = EAN13;  
             this.Content = usc;
         }
 
@@ -81,12 +93,11 @@ namespace UserInterface
         {
             Newspaper np = stock.Catalog.Newspaper;
             Shop shop = stock.Shop;
-            bool nextEditions = np.Catalogs.Where(n => n.PublicationDate > DateTime.Today).Any();
+            bool nextEditions = np.Catalogs.Any(n => n.PublicationDate > DateTime.Today);
 
             if (nextEditions)
             {
-                var nextEdition = np.Catalogs.Where(n => n.PublicationDate > DateTime.Today)
-                                 .FirstOrDefault();
+                var nextEdition = np.Catalogs.FirstOrDefault(n => n.PublicationDate > DateTime.Today);
                 bool placed = OrderAction.CreateOrder(shop, nextEdition, quantity);
                 if (placed)
                 {

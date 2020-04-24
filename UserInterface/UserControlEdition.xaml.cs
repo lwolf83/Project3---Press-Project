@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Project_3___Press_Project;
 
 namespace UserInterface
@@ -22,7 +14,7 @@ namespace UserInterface
         {
             InitializeComponent();
             Catalog catalog = new Catalog();
-            Catalogs = catalog.GetAllCatalogs();
+            Catalogs = CatalogLoader.GetAll();
             EditorFilteringSelection.ItemsSource = catalog.GetEditorsHavingCatalogs(Catalogs);
             CatalogsDisplaying_ListView.ItemsSource = Catalogs;
         }
@@ -30,7 +22,7 @@ namespace UserInterface
 
         public List<Catalog> GetCatalogs()
         {
-            List<Catalog> catalogs = new List<Catalog>();
+            List<Catalog> catalogs;
             using (var context = new PressContext())
             {
                 catalogs = (from c in context.Catalogs
@@ -123,7 +115,7 @@ namespace UserInterface
             LastDateUserInput.Text = String.Empty;
             EAN13UserInput.Text = String.Empty;
             Catalog catalog = new Catalog();
-            Catalogs = catalog.GetAllCatalogs();
+            Catalogs = CatalogLoader.GetAll();
             CatalogsDisplaying_ListView.ItemsSource = Catalogs;
         }
 

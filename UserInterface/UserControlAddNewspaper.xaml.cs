@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Linq;
 using Project_3___Press_Project;
-using System.Text.RegularExpressions;
 
 namespace UserInterface
 {
@@ -27,14 +19,12 @@ namespace UserInterface
         
         public void ConfirmNewspaperAddition_Btn(object sender, RoutedEventArgs e)
         {
-            if(CheckUserFieldsAreComplete(sender, e) == true)
+            if((CheckUserFieldsAreComplete(sender, e) == true) 
+                && (CheckPublicationDateFormat(NewspaperFirstPublicationDate_textBox.Text) == true)
+                && CheckPriceFormat(NewspaperPrice_textBox.Text) == true
+                && CheckPeriodicityLength(NewspaperPeriodicity_textBox.Text) == true)
             {
-                if((CheckPublicationDateFormat(NewspaperFirstPublicationDate_textBox.Text) == true)
-                    && CheckPriceFormat(NewspaperPrice_textBox.Text) == true
-                    && CheckPeriodicityLength(NewspaperPeriodicity_textBox.Text) == true)
-                {
-                    CreateNewspaper(sender, e);
-                }
+                CreateNewspaper(sender, e);
             }
         }
 

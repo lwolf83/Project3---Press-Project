@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Project_3___Press_Project
 {
     public class EditorAddModify
     {
-        private PressContext context;
+        private readonly PressContext context;
         public List<Editor> Editors { get; set; } = new List<Editor>();
 
         public EditorAddModify()
@@ -18,7 +17,7 @@ namespace Project_3___Press_Project
 
         public bool CheckEditor(string name)
         {
-            bool editorExist = Editors.Where(n => n.Name.Equals(name)).Any();
+            bool editorExist = Editors.Any(n => n.Name.Equals(name));
 
             if (editorExist)
             {

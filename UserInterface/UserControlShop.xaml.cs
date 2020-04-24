@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Project_3___Press_Project;
 
 
@@ -64,7 +55,6 @@ namespace UserInterface
                 CityNameFilteringSelection.Visibility = Visibility.Collapsed;
                 ProvinceNameFilteringSelection.Visibility = Visibility.Collapsed;
                 DepartmentNameFilteringSelection.Visibility = Visibility.Collapsed;
-                throw new Exception();
             }
         }
 
@@ -118,7 +108,31 @@ namespace UserInterface
 
         private void ButtonSeeStocks_Click(object sender, RoutedEventArgs e)
         {
-            UserControl usc = new UserControlStock();
+            Shop selectedShop = (Shop)ShopDisplaying_ListView.SelectedItem;
+            UserControl usc;
+            if(selectedShop != null)
+            {
+                usc = new UserControlStock(selectedShop);
+            }
+            else
+            {
+                usc = new UserControlStock();
+            }
+            this.Content = usc;
+        }
+
+        private void ButtonCommand_Click(object sender, RoutedEventArgs e)
+        {
+            Shop selectedShop = (Shop) ShopDisplaying_ListView.SelectedItem;
+            UserControl usc;
+            if (selectedShop != null)
+            {
+                usc = new UserControlOrder(selectedShop);
+            }
+            else
+            {
+                usc = new UserControlOrder();
+            }
             this.Content = usc;
         }
     }

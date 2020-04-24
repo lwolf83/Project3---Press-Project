@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Project_3___Press_Project;
 
 namespace UserInterface
 {
-    public class OrderAction
+    public static class OrderAction
     {
         public static bool CreateOrder(Shop shop, Catalog catalog, int quantity)
         {

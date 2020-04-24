@@ -30,19 +30,18 @@
                         <TextBlock x:Name="Editor" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="300" Height="auto" FontSize="18" Foreground="Black" Background="White"/>
                     </WrapPanel>
                     <WrapPanel Margin="30,0,0,10">
-                        <Label Content="*EAN13 :" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="auto" Width="110" Foreground="DarkViolet" FontFamily="Segoe UI Semibold" FontSize="22"/>
+                        <Label Content="EAN13 :" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="auto" Width="110" Foreground="Black" FontFamily="Segoe UI Semibold" FontSize="22"/>
                         <TextBox x:Name="eanNum" VerticalContentAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="0,0,0,0" Width="300" Height="auto" FontSize="20" Foreground="DarkViolet" Background="White"/>
                     </WrapPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                    <Label Content="* - required field" HorizontalAlignment="Left" Margin="20,0,150,0" VerticalAlignment="Top" Height="auto" Width="200" FontFamily="Segoe UI" FontSize="16"/>
-                    <Button x:Name="ButtonFetchNewspaper" Content="Fetch data by EAN13" HorizontalAlignment="Left" Margin="220,0,0,0" VerticalAlignment="Center" Height="40" Width="250" FontFamily="Segoe UI Semibold" FontSize="22" Click="ButtonFetchNewspaper_Click"/>
+                    <Button x:Name="ButtonFetchNewspaper" Content="Look up info by Name" HorizontalAlignment="Left" Margin="320,0,0,0" VerticalAlignment="Center" Height="35" Width="250" FontFamily="Segoe UI Semibold" FontSize="20" Click="ButtonFetchNewspaper_Click"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
         <Grid Margin="53,434,57,101" Background="#FFF7BCEF">
             <Button x:Name="ButtonModify" Content="Modify" HorizontalAlignment="Left" Margin="42,0,0,0" VerticalAlignment="Center" Height="40" Width="180" FontFamily="Segoe UI Semibold" FontSize="23" Click="ButtonModify_Click"/>
-            <Button x:Name="ButtonCancel" Content="Cancel" HorizontalAlignment="Left" Margin="290,0,0,0" VerticalAlignment="Center" Height="40" Width="180" FontFamily="Segoe UI Semibold" FontSize="23" Click="ButtonCancel_Click"/>
+            <Button x:Name="ButtonCancel" Content="Reset fields" HorizontalAlignment="Left" Margin="290,0,0,0" VerticalAlignment="Center" Height="40" Width="180" FontFamily="Segoe UI Semibold" FontSize="23" Click="ButtonCancel_Click"/>
         </Grid>
         <Grid x:Name="MessageGrid" Background="LightGreen" Width="800" Height="200" Visibility="Hidden" Margin="100,178,100,222">
             <WrapPanel Margin="0,0,0,0" Orientation="Vertical">

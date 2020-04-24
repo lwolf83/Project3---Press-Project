@@ -102,6 +102,21 @@ namespace UserInterface
         {
             UserControlSetter.SetGridMain(GridMain, "ItemAutomaticDelivery");
         }
+
+        private void ButtonModifyNewspaper_Click(object sender, RoutedEventArgs e)
+        {
+            UserControlSetter.SetGridMain(GridMain, "ItemModifyNewspaper");
+        }
+
+        private void ButtonModifyShop_Click(object sender, RoutedEventArgs e)
+        {
+            UserControlSetter.SetGridMain(GridMain, "ItemModifyShop");
+        }
+
+        private void ButtonMainMenu_Click(object sender, RoutedEventArgs e)
+        {
+            UserControlSetter.SetGridMain(GridMain, "MainMenu");
+        }
     }
 }
 

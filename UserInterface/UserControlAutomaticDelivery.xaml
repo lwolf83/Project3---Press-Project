@@ -10,12 +10,12 @@
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <TextBlock>
-                Filter
+            <TextBlock HorizontalAlignment="Center" FontSize="40">
+                Automatic Deliveries
             </TextBlock>
         </Grid>
         <ListView Margin="10" Name="lvDataBinding" HorizontalAlignment="Stretch"  Grid.Row="1">
@@ -35,6 +35,8 @@
                         <StackPanel Grid.Column="1">
                             <TextBlock Text="Newspaper :" FontWeight="Bold"/>
                             <TextBlock Text="{Binding Path=Newspaper.Name}"  />
+                            <TextBlock Text="Quantity :" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Path=Quantity}"  />
                         </StackPanel>
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="Starting Date :" FontWeight="Bold"/>

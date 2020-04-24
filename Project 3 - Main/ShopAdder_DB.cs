@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using Microsoft.EntityFrameworkCore.SqlServer;
-using Microsoft.EntityFrameworkCore;
 
 namespace Project_3___Press_Project
 {
-    public class ShopAdder_DB
+    public static class ShopAdder_DB
     {
         public static IEnumerable<City> GetCity()
         {

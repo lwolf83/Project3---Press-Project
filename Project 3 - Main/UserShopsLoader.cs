@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Project_3___Press_Project
 {
-    public class UserShopsLoader
+    public static class UserShopsLoader
     {
         public static UserShop GetUserShopFromUser(User user)
         {

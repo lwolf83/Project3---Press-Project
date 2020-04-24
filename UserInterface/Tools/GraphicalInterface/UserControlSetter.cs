@@ -7,7 +7,7 @@ namespace UserInterface
     /// <summary>
     /// Set the Grid MainGrid 
     /// </summary>
-    public class UserControlSetter
+    public static class UserControlSetter
     {
         public static void SetGridMain(UserControl origin, String name)
         {
@@ -30,6 +30,9 @@ namespace UserInterface
             UserControl resControl;
             switch (name)
             {
+                case "MainMenu":
+                    resControl = new UserControlMainMenu();
+                    break;
                 case "ItemAccount":
                     resControl = new UserControlAccount();
                     break;
@@ -86,6 +89,12 @@ namespace UserInterface
                     break;
                 case "ItemAutomaticDelivery":
                     resControl = new UserControlAutomaticDelivery();
+                    break;
+                case "ItemModifyNewspaper":
+                    resControl = new UserControlModifyNewspaper();
+                    break;
+                case "ItemModifyShop":
+                    resControl = new UserControlModifyShop();
                     break;
                 default:
                     resControl = new UserControlShop();

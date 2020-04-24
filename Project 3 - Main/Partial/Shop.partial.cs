@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace Project_3___Press_Project
@@ -99,7 +98,7 @@ namespace Project_3___Press_Project
         public Shop GetShopDetail(Guid shopId)
         {
             IEnumerable<Shop> AllShops = UserSingleton.GetInstance.AllShops;
-            return AllShops.Where(i => i.ShopId.Equals(shopId)).FirstOrDefault();
+            return AllShops.FirstOrDefault(i => i.ShopId.Equals(shopId));
         }
 
 
@@ -126,6 +125,17 @@ namespace Project_3___Press_Project
             IEnumerable<ShopCatalog> shopCatalogs = 
                                             GetAllShopCatalogs().Where(sc => sc.Shop.ShopId == ShopId);
             return shopCatalogs;
+        }
+
+        public void ModifyShop(string name, string strNum, string strName, string zip, string cityName)
+        {
+            Name = name;
+            City city = context.Cities.Where(c => c.Name == cityName && c.ZipCode == zip).FirstOrDefault();
+            Adress.City = city;
+            Adress.StreetNumber = strNum;
+            Adress.StreetName = strName;
+            context.Update(this);
+            context.SaveChanges();
         }
     }
 }

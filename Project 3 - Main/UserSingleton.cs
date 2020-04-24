@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Project_3___Press_Project
@@ -12,11 +10,8 @@ namespace Project_3___Press_Project
         public User User { get; private set; } = new User();
         public bool IsAuthenticated { get; private set; } = false;
         public IEnumerable<Shop> AllShops { get; set; }
-
-        private UserSingleton()
-        {
-            AllShops = ShopsLoader.GetAll();
-        }        
+        public List<OrderCatalog>  LatestOrderCatalogs { get; set; }
+        public List<Catalog> LatestCatalogs { get; set; }
 
         public static UserSingleton GetInstance
         {
@@ -42,7 +37,7 @@ namespace Project_3___Press_Project
 
         public void Disconnect()
         {
-            instance = null;
+            UserSingleton.instance = null;
             User = null;
             IsAuthenticated = false;
         }
