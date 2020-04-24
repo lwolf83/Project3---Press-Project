@@ -38,12 +38,12 @@
             <TextBlock x:Name="TextBlock_UserName" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontFamily="Script MT Bold" FontSize="40" Margin="20"/>
         </Grid>
 
-        <materialDesign:PackIcon MouseDoubleClick="GoShop" Kind="Store" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="80" Width="80" Foreground="White" ToolTip="See shops"/>
-        <materialDesign:PackIcon MouseDoubleClick="GoOrders" Kind="ShoppingCartArrowDown" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="80" Width="80" Foreground="White" ToolTip="See orders"/>
-        <materialDesign:PackIcon MouseDoubleClick="GoStocks" Kind="Garage" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="80" Width="80" Foreground="White" ToolTip="See stocks"/>
-        <materialDesign:PackIcon MouseDoubleClick="GoNewspapers" Kind="NewspaperVariantMultiple" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="80" Width="80" Foreground="White" ToolTip="See newspapers"/>
-        <materialDesign:PackIcon MouseDoubleClick="GoEditors" Kind="Factory" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="80" Width="80" Foreground="White" ToolTip="See editors"/>
-        <materialDesign:PackIcon MouseDoubleClick="Exiting" Kind="Power" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="80" Width="80" Foreground="White" ToolTip="Exit application"/>
+        <materialDesign:PackIcon MouseLeftButtonDown="GoShop" Kind="Store" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="80" Width="80" Foreground="White" ToolTip="See shops"/>
+        <materialDesign:PackIcon MouseLeftButtonDown="GoOrders" Kind="ShoppingCartArrowDown" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="80" Width="80" Foreground="White" ToolTip="See orders"/>
+        <materialDesign:PackIcon MouseLeftButtonDown="GoStocks" Kind="Garage" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="80" Width="80" Foreground="White" ToolTip="See stocks"/>
+        <materialDesign:PackIcon MouseLeftButtonDown="GoNewspapers" Kind="NewspaperVariantMultiple" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="80" Width="80" Foreground="White" ToolTip="See newspapers"/>
+        <materialDesign:PackIcon MouseLeftButtonDown="GoEditors" Kind="Factory" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="80" Width="80" Foreground="White" ToolTip="See editors"/>
+        <materialDesign:PackIcon MouseLeftButtonDown="Exiting" Kind="Power" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="80" Width="80" Foreground="White" ToolTip="Exit application"/>
 
         <Separator Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Bottom"/>
         <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Text="Latest news" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" />

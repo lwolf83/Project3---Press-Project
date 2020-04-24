@@ -32,6 +32,7 @@ namespace Project_3___Press_Project
             if(User != null)
             {
                 IsAuthenticated = true;
+                BackgroundLoading.Load();
             }
         }
 

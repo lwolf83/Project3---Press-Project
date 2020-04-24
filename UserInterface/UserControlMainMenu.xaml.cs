@@ -13,7 +13,6 @@ namespace UserInterface
 
         public UserControlMainMenu()
         {
-            Initialisator.OnApplicationStart();
             InitializeComponent();
             TextBlock_UserName.Text = "Welcome " + UserSingleton.GetInstance.User.Name;
             lv_OrderCatalogs.ItemsSource = UserSingleton.GetInstance.LatestOrderCatalogs;
@@ -25,7 +24,7 @@ namespace UserInterface
         {
             if(!Disposed)
             {
-                Initialisator.Finish();
+                BackgroundLoading.Finish();
                 GC.SuppressFinalize(this);
                 Disposed = true;
             }

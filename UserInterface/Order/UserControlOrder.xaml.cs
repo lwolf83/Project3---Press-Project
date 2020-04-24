@@ -37,6 +37,10 @@ namespace UserInterface
                 OrderAction.CreateOrder(shop, catalog, quantity);
                 DisplayCurrent();
             }
+            else
+            {
+                DialogBox.OK("Invalid fields", "Error");
+            }
         }
 
         private bool IsValidOrderParameters(Shop shop, Catalog catalog, string quantity)
