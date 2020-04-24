@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:UserInterface"
              mc:Ignorable="d" 
              >
@@ -28,7 +29,10 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock FontFamily="Arial" FontWeight="Heavy" FontSize="15" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center"> Filter by:</TextBlock>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10,0,0,0">
+                <materialDesign:PackIcon MouseLeftButtonDown="ResetFilter_btn" Kind="RestoreFromTrash" Margin="0,0,10,0" Width="30" Height="30" Background="DeepSkyBlue" VerticalAlignment="Center"></materialDesign:PackIcon>
+                <TextBlock FontFamily="Arial" FontWeight="Heavy" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"> Filter by:</TextBlock>
+            </StackPanel>
             <ComboBox Grid.Row="1" Name="ShopFilteringEntity" Background="#c9d7e9" Foreground="Black" FontSize="15" Margin="10" SelectionChanged="OnLocationFilteringSelectionChanged">
                 <ComboBoxItem Name="CitiesSelection">Cities</ComboBoxItem>
                 <ComboBoxItem Name="DepartmentsSelection">Departments</ComboBoxItem>
