@@ -1,4 +1,5 @@
 ﻿using Project_3___Press_Project;
+using Project_3___Press_Project.Entity;
 using System.Windows.Controls;
 
 namespace UserInterface

@@ -21,7 +21,7 @@ namespace UserInterface
 
         private void ButtonCloseApplicationNo_Click(object sender, RoutedEventArgs e)
         {
-            if (UserSingleton.GetInstance.IsAuthenticated is true)
+            if (UserSingleton.Instance.IsAuthenticated is true)
             {
                 UserControl usc = new UserControlShop();
                 this.Content = usc;

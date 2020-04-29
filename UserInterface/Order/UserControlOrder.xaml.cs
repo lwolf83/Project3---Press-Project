@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Project_3___Press_Project;
+using Project_3___Press_Project.Entity;
 
 namespace UserInterface
 {
@@ -11,8 +12,8 @@ namespace UserInterface
         public UserControlOrder(Shop shop = null)
         {
             InitializeComponent();
-            cmbShops.ItemsSource = UserSingleton.GetInstance.GetShops();
-            cmbCatalog.ItemsSource = UserSingleton.GetInstance.GetCatalog();
+            cmbShops.ItemsSource = UserSingleton.Instance.GetShops();
+            cmbCatalog.ItemsSource = UserSingleton.Instance.GetCatalog();
             if(shop != null)
             {
                 foreach(Shop item in cmbShops.Items)
@@ -23,7 +24,7 @@ namespace UserInterface
                     }
                 }
             }
-            lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();
+            lvOrderCatalog.ItemsSource = UserSingleton.Instance.GetOrderCatalogs();
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
@@ -73,7 +74,7 @@ namespace UserInterface
         private void DisplayHistory()
         {
             BtnSeeHistory.Content = "See current order";
-            lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs("In Production");
+            lvOrderCatalog.ItemsSource = UserSingleton.Instance.GetOrderCatalogs("In Production");
             BtnSeeHistory.Tag = "history";
             BtnValidateOrder.Visibility = Visibility.Collapsed;
         }
@@ -81,7 +82,7 @@ namespace UserInterface
         private void DisplayCurrent()
         {
             BtnSeeHistory.Content = "See order history";
-            lvOrderCatalog.ItemsSource = UserSingleton.GetInstance.GetOrderCatalogs();
+            lvOrderCatalog.ItemsSource = UserSingleton.Instance.GetOrderCatalogs();
             BtnSeeHistory.Tag = "current";
             BtnValidateOrder.Visibility = Visibility.Visible;
         }

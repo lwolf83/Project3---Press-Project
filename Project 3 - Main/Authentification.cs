@@ -2,10 +2,11 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Linq;
+using Project_3___Press_Project.Entity;
 
 namespace Project_3___Press_Project
 {
-    public class Authentification : IAuthentification
+    public class Authentification
     {
 
         public User LoginUsers(string login, string password)

@@ -2,6 +2,7 @@
 using Project_3___Press_Project;
 using System.Linq;
 using NUnit.Framework;
+using Project_3___Press_Project.Entity;
 
 
 namespace TestPressProject

@@ -3,6 +3,7 @@ using System.Text;
 using System.IO;
 using System.Collections.Generic;
 using TinyCsvParser; // Library available here: https://bytefish.github.io/TinyCsvParser/sections/userguide/parser.html#contructing-a-parser 
+using Project_3___Press_Project.Entity;
 
 namespace Project_3___Press_Project
 {

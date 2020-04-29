@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
+using Project_3___Press_Project.Entity;
 
-namespace Project_3___Press_Project
+namespace Project_3___Press_Project.Factory
 {
     public static class OrderCatalogFactory
     {

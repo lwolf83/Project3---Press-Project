@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using Project_3___Press_Project;
+using Project_3___Press_Project.Entity;
 
 namespace UserInterface
 {

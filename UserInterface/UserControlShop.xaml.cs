@@ -4,28 +4,33 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Project_3___Press_Project;
-
+using Project_3___Press_Project.Entity;
+using Project_3___Press_Project.Filter;
+using Project_3___Press_Project.Repository;
 
 namespace UserInterface
 {
     public partial class UserControlShop : UserControl
     {
-        public UserControlShop()
-        {
-            InitializeComponent();
-            AllShops = UserSingleton.GetInstance.AllShops;
-            ShopDisplaying_ListView.ItemsSource = AllShops;
-            CityNameFilteringSelection.ItemsSource = ShopFilter.GetCitiesHavingShops(AllShops);
-            DepartmentNameFilteringSelection.ItemsSource = ShopFilter.GetDepartmentsHavingShops(AllShops);
-            ProvinceNameFilteringSelection.ItemsSource = ShopFilter.GetProvincesHavingShops(AllShops);
-        }
-
         public string CityFilteringSelection { get => Name; }
         public string DepartmentFilteringSelection { get => Name; }
         public string ProvinceFilteringSelection { get => Name; }
         public Shop ShopFilter = new Shop();
         public MainWindow mainWindow { get => new MainWindow(); }
-        public IEnumerable<Shop> AllShops { get; set; }
+        public ICollection<Shop> AllShops { get; set; }
+
+        private readonly ShopRepository _shopRepository;
+  
+        public UserControlShop()
+        {
+            _shopRepository = new ShopRepository();
+            InitializeComponent();
+            AllShops = UserSingleton.Instance.AllShops;
+            ShopDisplaying_ListView.ItemsSource = AllShops;
+            CityNameFilteringSelection.ItemsSource = _shopRepository.GetCitiesHavingShops(AllShops);
+            DepartmentNameFilteringSelection.ItemsSource = _shopRepository.GetDepartmentsHavingShops(AllShops);
+            ProvinceNameFilteringSelection.ItemsSource = _shopRepository.GetProvincesHavingShops(AllShops);
+        }
         
 
         public void OnLocationFilteringSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -33,7 +38,7 @@ namespace UserInterface
             ComboBoxItem selectedItem = (ComboBoxItem) ShopFilteringEntity.SelectedItem;
 
             if (selectedItem.Name == "CitiesSelection")
-            {
+            {   
                 CityNameFilteringSelection.Visibility = Visibility.Visible;
                 ProvinceNameFilteringSelection.Visibility = Visibility.Collapsed;
                 DepartmentNameFilteringSelection.Visibility = Visibility.Collapsed;
@@ -61,28 +66,33 @@ namespace UserInterface
         public void OnCitiesSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
             City selectedCity = (City) (sender as ComboBox).SelectedItem;
-            Shop shopFilter = new Shop();
-            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromACity(AllShops, selectedCity);
+            var filter = new ShopFilter(AllShops)
+            {
+                ["city"] = selectedCity.Name
+            };
+            ShopDisplaying_ListView.ItemsSource = filter.Results;
         }
 
         public void OnDepartmentsSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
             Department selectedDepartment = (Department)(sender as ComboBox).SelectedItem;
-            Shop shopFilter = new Shop();
-            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromADepartment(AllShops, selectedDepartment);
+            var filter = new ShopFilter(AllShops)
+            {
+                ["department"] = selectedDepartment.Name
+            };
+            ShopDisplaying_ListView.ItemsSource = filter.Results;
         }
 
         public void OnProvincesSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
             Province selectedProvince = (Province)(sender as ComboBox).SelectedItem;
-            Shop shopFilter = new Shop();
-            ShopDisplaying_ListView.ItemsSource = shopFilter.GetShopsFromAProvince(AllShops, selectedProvince);
+            ShopDisplaying_ListView.ItemsSource = _shopRepository.GetShopsFromAProvince(AllShops, selectedProvince);
         }
 
         private void ReinitializeShopList_Btn(object sender, RoutedEventArgs e)
         {
-            UserSingleton.GetInstance.AllShops = ShopFilter.GetAllShops();
-            AllShops = UserSingleton.GetInstance.AllShops;
+            UserSingleton.Instance.AllShops = _shopRepository.FindAll();
+            AllShops = UserSingleton.Instance.AllShops;
             ShopDisplaying_ListView.ItemsSource = AllShops;
             CityNameFilteringSelection.Visibility = Visibility.Collapsed;
             ProvinceNameFilteringSelection.Visibility = Visibility.Collapsed;

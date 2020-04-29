@@ -7,6 +7,8 @@ using System.Windows.Media;
 using System.Linq;
 using Project_3___Press_Project;
 using System.Text.RegularExpressions;
+using Project_3___Press_Project.Entity;
+using Project_3___Press_Project.Repository;
 
 namespace UserInterface
 {
@@ -15,19 +17,17 @@ namespace UserInterface
     /// </summary>
     public partial class UserControlModifyNewspaper : UserControl
     {
-        
-        public IEnumerable<Newspaper> AllNespapers { get; set; }
+        private readonly NewspaperRepository _newspaperRepository;
 
         public UserControlModifyNewspaper()
         {
+            _newspaperRepository = new NewspaperRepository();
             InitializeComponent();
-            AllNespapers = Newspaper.GetNewspaperData();
         }
 
         private void ButtonFetchNewspaper_Click(object sender, RoutedEventArgs e)
         {
-            string newspaperName = NewsName.Text;
-            if (newspaperName == String.Empty)
+            if (NewsName.Text == String.Empty)
             {
                 MessageGrid.Background = Brushes.LightGoldenrodYellow;
                 Message.Content = "Provide an existing newspaper name !";
@@ -35,14 +35,13 @@ namespace UserInterface
             }
             else
             {
-                bool validName = AllNespapers.Any(n => n.Name.Equals(newspaperName));
-                if (validName)
+                Newspaper newspaper = _newspaperRepository.FindByName(NewsName.Text);
+                if (newspaper != null)
                 {
-                    Newspaper np = AllNespapers.First(n => n.Name.Equals(newspaperName));
-                    eanNum.Text = np.EAN13;
-                    Price.Text = Convert.ToString(np.Price);
-                    Period.Text = Convert.ToString(np.Periodicity);
-                    Editor.Text = np.Editor.Name;
+                    eanNum.Text = newspaper.EAN13;
+                    Price.Text = Convert.ToString(newspaper.Price);
+                    Period.Text = Convert.ToString(newspaper.Periodicity);
+                    Editor.Text = newspaper.Editor.Name;
                 }
                 else
                 {
@@ -74,24 +73,15 @@ namespace UserInterface
             }
             else
             {
-                string EAN13 = eanNum.Text;
-                string newName = NewsName.Text;
-                decimal newprice = Decimal.Parse(Price.Text);
-                int newPeriodicity = int.Parse(Period.Text);
-                bool modifOk = Newspaper.ModifyNewspaper(EAN13, newName, newprice, newPeriodicity);
-                if (modifOk)
-                {
-                    Reset();
-                    MessageGrid.Background = Brushes.LightGreen;
-                    Message.Content = "Successfully modified!";
-                    MessageGrid.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    MessageGrid.Background = Brushes.IndianRed;
-                    Message.Content = "Double-check your data..";
-                    MessageGrid.Visibility = Visibility.Visible;
-                }
+                Newspaper newspaper = _newspaperRepository.FindByEAN13(eanNum.Text);
+                newspaper.Name = NewsName.Text;
+                newspaper.Price = Decimal.Parse(Price.Text);
+                newspaper.Periodicity = int.Parse(Period.Text);
+                _newspaperRepository.Update(newspaper);
+                Reset();
+                MessageGrid.Background = Brushes.LightGreen;
+                Message.Content = "Successfully modified!";
+                MessageGrid.Visibility = Visibility.Visible;
             }
         }
 

@@ -7,6 +7,8 @@ using System.Windows.Media;
 using System.Linq;
 using Project_3___Press_Project;
 using System.Text.RegularExpressions;
+using Project_3___Press_Project.Entity;
+using Project_3___Press_Project.Repository;
 
 namespace UserInterface
 {
@@ -16,14 +18,14 @@ namespace UserInterface
     public partial class UserControlStock : UserControl
     {
         public IEnumerable<ShopCatalog> AllShopCatalogs { get; set; }
-        public Shop ShopFilter = new Shop();
+        private readonly ShopRepository _shopRepository;
 
         public UserControlStock(Shop shop = null)
         {
             InitializeComponent();
             DataContext = this;
-            AllShopCatalogs = ShopFilter.GetAllShopCatalogs();
-            cmbShops.ItemsSource = UserSingleton.GetInstance.AllShops;
+            AllShopCatalogs = _shopRepository.GetAllShopCatalogs();
+            cmbShops.ItemsSource = UserSingleton.Instance.AllShops;
 
             if (shop != null)
             {
@@ -42,7 +44,7 @@ namespace UserInterface
             Shop selectedShop = (Shop)cmbShops.SelectedItem;
             if (selectedShop != null)
             {
-                stockList.ItemsSource = ShopFilter.GetShopCatalogsByShop(selectedShop.ShopId);
+                stockList.ItemsSource = _shopRepository.GetShopCatalogsByShop(selectedShop.ShopId);
             }
         }
 

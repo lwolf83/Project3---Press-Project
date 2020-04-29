@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Project_3___Press_Project;
+using Project_3___Press_Project.Entity;
+using Project_3___Press_Project.Factory;
+using Project_3___Press_Project.Repository;
 
 namespace UserInterface
 {
@@ -8,9 +11,10 @@ namespace UserInterface
     {
         public static bool CreateOrder(Shop shop, Catalog catalog, int quantity)
         {
-            Order order = OrderFactory.CreateOrLoad(UserSingleton.GetInstance.User, shop, DateTime.Now);
+            var orderCatalogRepository = new OrderCatalogRepository();
+            Order order = OrderFactory.CreateOrLoad(UserSingleton.Instance.User, shop, DateTime.Now);
 
-            bool orderCatalogExist = OrderCatalog.Exist(order, catalog);
+            bool orderCatalogExist = orderCatalogRepository.Exists(order, catalog);
             OrderCatalog orderCatalog;
             if (orderCatalogExist)
             {
@@ -30,8 +34,8 @@ namespace UserInterface
             }
 
             orderCatalog.Quantity = quantity;
-            orderCatalog.Save();
-            orderCatalog.ActivateOrder("In progress");
+            orderCatalogRepository.Update(orderCatalog);
+            orderCatalog.Order.State = "In Progress";
             return true;
         }
 
@@ -39,14 +43,13 @@ namespace UserInterface
         {
             using (var context = new PressContext())
             {
-                IEnumerable<OrderCatalog> orderValidated = UserSingleton.GetInstance.GetOrderCatalogs();
+                IEnumerable<OrderCatalog> orderValidated = UserSingleton.Instance.GetOrderCatalogs();
                 foreach (OrderCatalog orderCatalog in orderValidated)
                 {
                     orderCatalog.Order.State = "In Production";
                 }
                 context.UpdateRange(orderValidated);
                 context.SaveChanges();
-
             }
         }
 

@@ -5,17 +5,21 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Project_3___Press_Project;
+using Project_3___Press_Project.Entity;
+using Project_3___Press_Project.Repository;
 
 namespace UserInterface
 {
     public partial class UserControlEdition : UserControl
     {
+        private readonly CatalogRepository _catalogRepository;
+        private readonly NewspaperRepository _newspaperRepository;
+
         public UserControlEdition()
         {
             InitializeComponent();
-            Catalog catalog = new Catalog();
             Catalogs = CatalogLoader.GetAll();
-            EditorFilteringSelection.ItemsSource = catalog.GetEditorsHavingCatalogs(Catalogs);
+            EditorFilteringSelection.ItemsSource = _catalogRepository.GetEditorsHavingCatalogs(Catalogs);
             CatalogsDisplaying_ListView.ItemsSource = Catalogs;
         }
         List<Catalog> Catalogs { get; set; }
@@ -36,10 +40,9 @@ namespace UserInterface
             if(EditorFilteringSelection.SelectedIndex != -1)
             {
                 Editor selectedEditor = (Editor)(sender as ComboBox).SelectedItem;
-                Catalog catalog = new Catalog();
-                List<Catalog> catalogs = catalog.GetCatalogsFromAnEditor(Catalogs, selectedEditor);
+                List<Catalog> catalogs = _catalogRepository.GetCatalogsFromAnEditor(Catalogs, selectedEditor);
                 CatalogsDisplaying_ListView.ItemsSource = catalogs;
-                NewspaperNameFilteringSelection.ItemsSource = catalog.GetNewspapersHavingCatalogs(catalogs);
+                NewspaperNameFilteringSelection.ItemsSource = _catalogRepository.GetNewspapersHavingCatalogs(catalogs);
                 NewspaperNameFilteringSelection.SelectedIndex = -1;
             }
         }
@@ -49,14 +52,12 @@ namespace UserInterface
             if(NewspaperNameFilteringSelection.SelectedIndex != -1)
             {
                 Newspaper selectedNewspaper = (Newspaper)(sender as ComboBox).SelectedItem;
-                Catalog catalog = new Catalog();
-                CatalogsDisplaying_ListView.ItemsSource = catalog.GetCatalogsFromANewspaper(Catalogs, selectedNewspaper);
+                CatalogsDisplaying_ListView.ItemsSource = _catalogRepository.GetCatalogsFromANewspaper(Catalogs, selectedNewspaper);
             }
         }
 
         private void FilterByDates_Btn(object sender, RoutedEventArgs e)
         {
-            Catalog catalog = new Catalog();
             bool isFirstDateFormatOk = InputChecker.CheckDateFormatFromString(FirstDateUserInput.Text);
             bool isLastDateFormatOk = InputChecker.CheckDateFormatFromString(LastDateUserInput.Text);
 
@@ -66,7 +67,7 @@ namespace UserInterface
                 DateTime lastDate = DateTime.ParseExact(LastDateUserInput.Text, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                 if(InputChecker.CheckDates(firstDate, lastDate))
                 {
-                    CatalogsDisplaying_ListView.ItemsSource = catalog.GetCatalogsFromDates(Catalogs, firstDate, lastDate);
+                    CatalogsDisplaying_ListView.ItemsSource = _catalogRepository.GetCatalogsFromDates(Catalogs, firstDate, lastDate);
                 }
                 else
                 {
@@ -88,11 +89,9 @@ namespace UserInterface
             string ean13 = EAN13UserInput.Text;
             Reset();
             EAN13UserInput.Text = ean13;
-            Catalog catalog = new Catalog();
-            Newspaper np = new Newspaper();
-            if(np.IsEAN13Registered(ean13))
+            if(_newspaperRepository.EAN13Exists(ean13))
             {
-                CatalogsDisplaying_ListView.ItemsSource = catalog.GetCatalogsFromEAN13(Catalogs, ean13);
+                CatalogsDisplaying_ListView.ItemsSource = _catalogRepository.GetCatalogsFromEAN13(Catalogs, ean13);
             }
             else
             {
@@ -114,7 +113,6 @@ namespace UserInterface
             FirstDateUserInput.Text = String.Empty;
             LastDateUserInput.Text = String.Empty;
             EAN13UserInput.Text = String.Empty;
-            Catalog catalog = new Catalog();
             Catalogs = CatalogLoader.GetAll();
             CatalogsDisplaying_ListView.ItemsSource = Catalogs;
         }

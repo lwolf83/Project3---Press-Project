@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Project_3___Press_Project.Repository;
 
 namespace Project_3___Press_Project
 {
@@ -23,17 +24,18 @@ namespace Project_3___Press_Project
 
         private static void OnLoadAllShopStart()
         {
-            UserSingleton.GetInstance.AllShops = ShopsLoader.GetAll();
+            ShopRepository shopRepository = new ShopRepository();
+            UserSingleton.Instance.AllShops = shopRepository.FindAll();
         }
 
         private static void OnLoadLatestCatalogs()
         {
-            UserSingleton.GetInstance.LatestCatalogs = CatalogLoader.GetLatests(DateTime.Today - TimeSpan.FromDays(7));
+            UserSingleton.Instance.LatestCatalogs = CatalogLoader.GetLatests(DateTime.Today - TimeSpan.FromDays(7));
         }
 
         private static void OnLoadLatestOrderCatalogs()
         {
-            UserSingleton.GetInstance.LatestOrderCatalogs = UserSingleton.GetInstance.GetOrderCatalogs().Where(o => o.CreatedAt >= DateTime.Today).ToList();
+            UserSingleton.Instance.LatestOrderCatalogs = UserSingleton.Instance.GetOrderCatalogs().Where(o => o.CreatedAt >= DateTime.Today).ToList();
         }
     }
 }

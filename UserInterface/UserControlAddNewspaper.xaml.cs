@@ -5,15 +5,22 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Project_3___Press_Project;
+using Project_3___Press_Project.Entity;
+using Project_3___Press_Project.Factory;
+using Project_3___Press_Project.Repository;
 
 namespace UserInterface
 {
     public partial class UserControlAddNewspaper : UserControl
     {
+        private readonly EditorRepository _editorRepository;
+        private readonly NewspaperRepository _newspaperRepository;
+        private readonly CatalogRepository _catalogRepository;
+
         public UserControlAddNewspaper()
         {
             InitializeComponent();
-            EditorNameFilteringSelection_comboBox.ItemsSource = Editor.GetAllEditors();
+            EditorNameFilteringSelection_comboBox.ItemsSource = _editorRepository.GetAllEditors();
         }
         public Editor Editor = new Editor();
         
@@ -42,12 +49,13 @@ namespace UserInterface
             Editor editor = EditorLoader.Get((Editor)EditorNameFilteringSelection_comboBox.SelectedItem);
             Newspaper newspaper = NewspaperFactory.Create(name, periodicity, ean13, price, catalogs, editor);
 
-            if (!newspaper.Exists() && !newspaper.IsEAN13Registered(ean13))
+            if (!_newspaperRepository.Exists(newspaper))
             {
-                newspaper.SaveWithNewCatalog(catalog);
+                _catalogRepository.Update(catalog);
+                _newspaperRepository.Update(newspaper);
                 string msgtext = "Newspaper has been correctly added.";
                 string txt = "Newspaper addition";
-                bool answserOverwrite = DialogBox.OK(msgtext, txt);
+                DialogBox.OK(msgtext, txt);
             }
             else
             {
@@ -66,7 +74,7 @@ namespace UserInterface
             {
                 string msgtext = "Allows only dd/MM/yyyy format \n with dates equal or higher than today.";
                 string txt = "Invalid date format";
-                bool answserOverwrite = DialogBox.OK(msgtext, txt);
+                DialogBox.OK(msgtext, txt);
                 NewspaperFirstPublicationDate_textBox.Background = Brushes.IndianRed;
                 return false;
             }
@@ -82,7 +90,7 @@ namespace UserInterface
             {
                 string msgtext = "Invalid price.";
                 string txt = "Invalid input";
-                bool answserOverwrite = DialogBox.OK(msgtext, txt);
+                DialogBox.OK(msgtext, txt);
                 NewspaperPrice_textBox.Background = Brushes.IndianRed;
                 return false;
             }
@@ -98,7 +106,7 @@ namespace UserInterface
             {
                 string msgtext = "Periodicity should be lower than a year.";
                 string txt = "Invalid input";
-                bool answserOverwrite = DialogBox.OK(msgtext, txt);
+                DialogBox.OK(msgtext, txt);
                 NewspaperPeriodicity_textBox.Background = Brushes.IndianRed;
                 return false;
             }
@@ -123,7 +131,7 @@ namespace UserInterface
             {
                 string msgtext = "Please fulfill every inputs.";
                 string txt = "Invalid inputs";
-                bool answserOverwrite = DialogBox.OK(msgtext, txt);
+                DialogBox.OK(msgtext, txt);
                 return false;
             }
         }

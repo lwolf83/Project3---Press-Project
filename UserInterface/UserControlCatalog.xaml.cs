@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using Project_3___Press_Project;
+using Project_3___Press_Project.Entity;
+using Project_3___Press_Project.Factory;
 using System.Linq;
+using Project_3___Press_Project.Repository;
 
 namespace UserInterface
 {
@@ -12,6 +15,7 @@ namespace UserInterface
     /// </summary>
     public partial class UserControlCatalog : UserControl
     {
+        private readonly CatalogRepository _catalogRepository;
         private string _currentAction;
 
         public UserControlCatalog()
@@ -83,8 +87,8 @@ namespace UserInterface
             bool confirmDelete = DialogBox.YesOrNoCancel("Confirm deletion ?", "Delete confirmation");
             if(confirmDelete)
             {
-                Catalog catalog = (Catalog)catalog_listview.SelectedItem;
-                catalog.DeleteInDB();
+                var catalog = catalog_listview.SelectedItem as Catalog;
+                _catalogRepository.Delete(catalog);
                 RefreshListViewCatalog();
             }
             UnFreezeWindow();
@@ -120,7 +124,7 @@ namespace UserInterface
                 catalog.PublicationDate = publicationDate;
                 catalog.Name = name;
             }
-            catalog.SaveInDB();
+            _catalogRepository.Update(catalog);
             RefreshListViewCatalog();
             ResetForm();
             

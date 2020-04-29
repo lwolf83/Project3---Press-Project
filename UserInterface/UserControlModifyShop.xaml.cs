@@ -5,6 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Linq;
 using Project_3___Press_Project;
+using Project_3___Press_Project.Entity;
+using Project_3___Press_Project.Repository;
 
 namespace UserInterface
 {
@@ -13,13 +15,13 @@ namespace UserInterface
     /// </summary>
     public partial class UserControlModifyShop : UserControl
     {
-        public IEnumerable<Shop> AllShops { get; set; }
-        public Shop SelectedShop { get; set; }
+        private readonly ShopRepository _shopRepository;
+        private readonly CityRepository _cityRepository;
+
         public UserControlModifyShop()
         {
             InitializeComponent();
             DataContext = this;
-            AllShops = UserSingleton.GetInstance.AllShops;
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
@@ -29,16 +31,14 @@ namespace UserInterface
 
         private void ButtonFill_Click(object sender, RoutedEventArgs e)
         {
-            string shopName = ShopName.Text;
-            bool shopExists = AllShops.Any(s => s.Name == shopName);
-            if (shopExists)
+            Shop shop = _shopRepository.FindByName(ShopName.Text);
+            if (shop != null)
             {
-                SelectedShop = AllShops.FirstOrDefault(s => s.Name == shopName);
-                Autocompletor.City.Text = SelectedShop.Adress.City.Name;
-                StrName.Text = SelectedShop.Adress.StreetName;
-                StrNum.Text = SelectedShop.Adress.StreetNumber;
-                Zip.Content = SelectedShop.Adress.City.ZipCode;
-                Dept.Content = SelectedShop.Adress.City.Department.DepartmentName;
+                Autocompletor.City.Text = shop.Address.City.Name;
+                StreetName.Text = shop.Address.StreetName;
+                StreetNumber.Text = shop.Address.StreetNumber;
+                ZipCode.Content = shop.Address.City.ZipCode;
+                Department.Content = shop.Address.City.Department.Name;
             }
             else
             {
@@ -50,11 +50,14 @@ namespace UserInterface
 
         private void ButtonModify_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckFormFilled())
+            if (IsFormFilled)
             {
-                string zip = Convert.ToString(Zip.Content);
-                SelectedShop.ModifyShop(ShopName.Text, StrNum.Text, StrName.Text, zip, Autocompletor.City.Text);
-                Reset();
+                string zip = Convert.ToString(ZipCode.Content);
+                Shop shop = _shopRepository.FindByName(ShopName.Text);
+                shop.Address.StreetName = StreetName.Text;
+                shop.Address.StreetNumber = StreetNumber.Text;
+                shop.Address.City = _cityRepository.FindByName(Autocompletor.City.Text);
+
                 MessageGrid.Background = Brushes.LightGreen;
                 Message.Content = "Successfully modified!";
                 MessageGrid.Visibility = Visibility.Visible;
@@ -67,21 +70,15 @@ namespace UserInterface
             }
         }
 
-        private bool CheckFormFilled()
+        private bool IsFormFilled
         {
-            bool isFilled = !(ShopName.Text == String.Empty) && !(Autocompletor.City.Text == String.Empty)
-                                    && !(StrName.Text == String.Empty) && !(StrNum.Text == String.Empty);
-            return isFilled;
-        }
-
-        private void Reset()
-        {
-            ShopName.Text = String.Empty;
-            Autocompletor.City.Text = String.Empty;
-            StrName.Text = String.Empty;
-            StrNum.Text = String.Empty;
-            Zip.Content = String.Empty;
-            Dept.Content = String.Empty;
+            get
+            {
+                return (ShopName.Text == String.Empty) ||
+                       (Autocompletor.City.Text == String.Empty) ||
+                       (StreetName.Text == String.Empty) ||
+                       (StreetNumber.Text == String.Empty);
+            }
         }
     }
 }

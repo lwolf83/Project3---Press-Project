@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Project_3___Press_Project.Entity;
 
 namespace Project_3___Press_Project
 {
@@ -34,10 +35,10 @@ namespace Project_3___Press_Project
             {
                 using (var context = new PressContext())
                 {
-                    Address adress = context.Adresses.AsEnumerable().Last();
+                    PostalAddress adress = context.Adresses.AsEnumerable().Last();
                     Shop shop = new Shop();
                     shop.Name = shopName;
-                    shop.Adress = adress;
+                    shop.Address = adress;
                     context.Add(shop);
                     context.SaveChanges();
                 }
@@ -62,7 +63,7 @@ namespace Project_3___Press_Project
                 else
                 {
                     Random randomGenerator = new Random();
-                    Address adress = new Address();
+                    PostalAddress adress = new PostalAddress();
                     adress.StreetNumber = StreetNumber;
                     adress.StreetName = StreetName;
                     adress.City = cities[randomGenerator.Next(0, cities.Count)];

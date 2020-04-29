@@ -52,7 +52,7 @@
                     <DataTemplate>
                         <Border>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding DepartmentName}" />
+                                <TextBlock Text="{Binding Name}" />
                                 <TextBlock Text=" - "/>
                                 <TextBlock Text="{Binding DepartmentCode}" />
                             </StackPanel>
@@ -96,14 +96,14 @@
                         <GridViewColumn Width="200" Header="Cities name" x:Name="ShopCities">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Adress.City.Name}" Cursor="Hand"/>
+                                    <TextBlock Text="{Binding Address.City.Name}" Cursor="Hand"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="200" Header="Cities ZipCode" x:Name="ShopCitiesZipCode">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Adress.City.ZipCode}" Cursor="Hand"/>
+                                    <TextBlock Text="{Binding Address.City.ZipCode}" Cursor="Hand"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

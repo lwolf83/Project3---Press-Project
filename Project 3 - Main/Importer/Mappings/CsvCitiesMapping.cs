@@ -1,4 +1,5 @@
 ﻿using TinyCsvParser.Mapping;
+using Project_3___Press_Project.Entity;
 
 namespace Project_3___Press_Project.Importer.Mappings
 {

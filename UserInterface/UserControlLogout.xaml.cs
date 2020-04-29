@@ -10,7 +10,7 @@ namespace UserInterface
         {
             InitializeComponent();
             
-            if (UserSingleton.GetInstance.IsAuthenticated is false)
+            if (UserSingleton.Instance.IsAuthenticated is false)
             {
                 MenuVisibility.HideMenu();
                 UserControlSetter.SetGridMain(this, "ItemLogin");

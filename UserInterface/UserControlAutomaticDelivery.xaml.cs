@@ -3,6 +3,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Project_3___Press_Project;
+using Project_3___Press_Project.Entity;
+using Project_3___Press_Project.Repository;
 
 namespace UserInterface
 {
@@ -11,6 +13,8 @@ namespace UserInterface
     /// </summary>
     public partial class UserControlAutomaticDelivery : UserControl
     {
+        private readonly AutomaticOrderRepository _automaticOrderRepository;
+
         public UserControlAutomaticDelivery()
         {
             InitializeComponent();
@@ -19,7 +23,7 @@ namespace UserInterface
 
         private void InitializeListView()
         {
-            List<Shop> shops = UserSingleton.GetInstance.GetShops().ToList();
+            List<Shop> shops = UserSingleton.Instance.GetShops().ToList();
             List<AutomaticOrder> automaticOrders = AutomaticOrderLoader.GetFromShop(shops);
             lvDataBinding.ItemsSource = automaticOrders.OrderBy(x => x.Shop.Name);
         }
@@ -41,7 +45,7 @@ namespace UserInterface
 
             if (confirmDelete)
             {
-                currentAutomaticOrder.Delete();
+                _automaticOrderRepository.Delete(currentAutomaticOrder);
                 InitializeListView();
             }
 

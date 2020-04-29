@@ -11,10 +11,10 @@ namespace UserInterface
         public UserControlMainMenu()
         {
             InitializeComponent();
-            TextBlock_UserName.Text = "Welcome " + UserSingleton.GetInstance.User.Name;
+            TextBlock_UserName.Text = "Welcome " + UserSingleton.Instance.User.Name;
             Initialisator.OnApplicationStart();
-            lv_OrderCatalogs.ItemsSource = UserSingleton.GetInstance.LatestOrderCatalogs;
-            lv_LatestsCatalogs.ItemsSource = UserSingleton.GetInstance.LatestCatalogs;
+            lv_OrderCatalogs.ItemsSource = UserSingleton.Instance.LatestOrderCatalogs;
+            lv_LatestsCatalogs.ItemsSource = UserSingleton.Instance.LatestCatalogs;
         }
 
         private void GoShop(object sender, System.Windows.Input.MouseButtonEventArgs e)

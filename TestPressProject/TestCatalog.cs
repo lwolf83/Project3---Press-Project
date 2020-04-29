@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Project_3___Press_Project;
 using System.Linq;
 using NUnit.Framework;
+using Project_3___Press_Project.Entity;
+using Project_3___Press_Project.Filter;
 
 namespace TestPressProject
 {
@@ -14,6 +15,25 @@ namespace TestPressProject
         public List<Editor> Editors { get; set; }
         public List<Catalog> Catalogs { get; set; }
 
+        [Test]
+        public void TestFindCatalogByName()
+        {
+            var catalogs = new List<Catalog>
+            {
+                new Catalog { Name = "in" },
+                new Catalog { Name = "out" }
+            };
+
+            CatalogFilter filter = new CatalogFilter(catalogs)
+            {
+                ["name"] = "in"
+            };
+
+            Assert.AreEqual(1, filter.Results.Count);
+            Assert.IsTrue(filter.Results.Any(c => c == catalogs[0]));
+        }
+
+        /*
         [SetUp]
         public void Setup()
         {
@@ -22,16 +42,20 @@ namespace TestPressProject
             List<Newspaper> newspapers1 = new List<Newspaper>();
             List<Newspaper> newspapers2 = new List<Newspaper>();
 
-            Editor editor1 = new Editor();
-            editor1.Name = "Editor1";
-            editor1.Newspapers = newspapers1;
-            editor1.EditorId = Guid.NewGuid();
+            Editor editor1 = new Editor
+            {
+                Name = "Editor1",
+                Newspapers = newspapers1,
+                EditorId = Guid.NewGuid()
+            };
             Editors.Add(editor1);
 
-            Editor editor2 = new Editor();
-            editor2.Name = "Editor2";
-            editor2.Newspapers = newspapers2;
-            editor2.EditorId = Guid.NewGuid();
+            Editor editor2 = new Editor
+            {
+                Name = "Editor2",
+                Newspapers = newspapers2,
+                EditorId = Guid.NewGuid()
+            };
             Editors.Add(editor2);
 
             int counter = 0;
@@ -39,13 +63,15 @@ namespace TestPressProject
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    Newspaper newspaper = new Newspaper();
-                    newspaper.Name = $"Newspaper {e.Name}:{i}";
-                    newspaper.EAN13 = $"12345{counter}";
-                    newspaper.Periodicity = i;
-                    newspaper.Price = 5+i;
-                    newspaper.Editor = e;
-                    newspaper.NewspaperId = Guid.NewGuid();
+                    Newspaper newspaper = new Newspaper
+                    {
+                        Name = $"Newspaper {e.Name}:{i}",
+                        EAN13 = $"12345{counter}",
+                        Periodicity = i,
+                        Price = 5 + i,
+                        Editor = e,
+                        NewspaperId = Guid.NewGuid()
+                    };
                     Newspapers.Add(newspaper);
                     counter = counter + 1;
                 }
@@ -61,11 +87,13 @@ namespace TestPressProject
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    Catalog catalog = new Catalog();
-                    catalog.Name = $"Catalog {counter}";
-                    catalog.Newspaper = np;
-                    catalog.PublicationDate = DateTime.Today + TimeSpan.FromDays(i);
-                    catalog.CatalogId = Guid.NewGuid();
+                    Catalog catalog = new Catalog
+                    {
+                        Name = $"Catalog {counter}",
+                        Newspaper = np,
+                        PublicationDate = DateTime.Today + TimeSpan.FromDays(i),
+                        CatalogId = Guid.NewGuid()
+                    };
                     tempCatalogs.Add(catalog);
                     counter = counter + 1;
                 }
@@ -76,16 +104,20 @@ namespace TestPressProject
                             join e in Editors on n.Editor.EditorId equals e.EditorId
                             select c).ToList();
 
-            Newspaper = new Newspaper();
-            Newspaper.Name = "newspaperName";
-            Newspaper.Periodicity = 15;
-            Newspaper.Price = 5;
-            Newspaper.Editor = editor1;
+            Newspaper = new Newspaper
+            {
+                Name = "newspaperName",
+                Periodicity = 15,
+                Price = 5,
+                Editor = editor1
+            };
 
-            Catalog = new Catalog();
-            Catalog.Name = "CatalogName";
-            Catalog.Newspaper = Newspaper;
-            Catalog.PublicationDate = DateTime.Today;
+            Catalog = new Catalog
+            {
+                Name = "CatalogName",
+                Newspaper = Newspaper,
+                PublicationDate = DateTime.Today
+            };
         }
 
         [Test]
@@ -101,7 +133,13 @@ namespace TestPressProject
         public void TestGetCatalogsFromAnEditor()
         {
             List<Catalog> testCatalogs = new List<Catalog>() { Catalogs[0], Catalogs[1], Catalogs[2], Catalogs[3] };
-            List<Catalog> filteredCatalogs = Catalog.GetCatalogsFromAnEditor(Catalogs, Editors[0]);
+
+            var filter = new CatalogFilter(testCatalogs)
+            {
+                ["editor"] = Editors[0]
+            };
+            IEnumerable<Catalog> filteredCatalogs = filter.Results;
+
             Assert.AreEqual(testCatalogs, filteredCatalogs);
         }
 
@@ -109,23 +147,29 @@ namespace TestPressProject
         public void TestGetCatalogsFromEAN13()
         {
             List<Catalog> testCatalogs = new List<Catalog>() { Catalogs[0], Catalogs[1] };
-            List<Catalog> filteredCatalogs = Catalog.GetCatalogsFromEAN13(Catalogs, "123450");
-            Assert.AreEqual(testCatalogs, filteredCatalogs);
+
+            CatalogFilter filter = new CatalogFilter(testCatalogs)
+            {
+                ["EAN13"] = "123450"
+            };
+
+            Assert.AreEqual(testCatalogs, filter.Results);
+
         }
 
         [Test]
         public void GetCatalogsFromDates()
         {
             List<Catalog> testCatalogs = new List<Catalog>() { Catalogs[0], Catalogs[2], Catalogs[4], Catalogs[6] };
-            List<Catalog> filteredCatalogs = Catalog.GetCatalogsFromDates(Catalogs, DateTime.Today, DateTime.Today);
-            Assert.AreEqual(testCatalogs, filteredCatalogs);
-        }
 
-        [Test]
-        public void GetCatalogsFromNewspaper()
-        {
-            List<Catalog> testCatalogs = new List<Catalog>() { Catalogs[0], Catalogs[1] };
-            List<Catalog> filteredCatalogs = Catalog.GetCatalogsFromANewspaper(Catalogs, Newspapers[0]);
+            var filter = new CatalogFilter(testCatalogs)
+            {
+                ["startDate"] = DateTime.Today,
+                ["endDate"] = DateTime.Today
+            };
+
+            Assert.AreEqual(testCatalogs, filter.Results);
         }
+        */
     }
 }

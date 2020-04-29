@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Project_3___Press_Project.Entity;
 
 namespace Project_3___Press_Project
 {

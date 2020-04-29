@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Project_3___Press_Project.Entity;
 
 namespace Project_3___Press_Project
 {
@@ -9,11 +10,11 @@ namespace Project_3___Press_Project
 
         public User User { get; private set; } = new User();
         public bool IsAuthenticated { get; private set; } = false;
-        public IEnumerable<Shop> AllShops { get; set; }
+        public ICollection<Shop> AllShops { get; set; }
         public List<OrderCatalog>  LatestOrderCatalogs { get; set; }
         public List<Catalog> LatestCatalogs { get; set; }
 
-        public static UserSingleton GetInstance
+        public static UserSingleton Instance
         {
             get
             {
@@ -27,7 +28,7 @@ namespace Project_3___Press_Project
 
         public void Init(string login, string password)
         {
-            IAuthentification authentification = new Authentification();
+            Authentification authentification = new Authentification();
             User = authentification.LoginUsers(login, password);
             if(User != null)
             {
@@ -61,7 +62,7 @@ namespace Project_3___Press_Project
         {
             var context = new PressContext();
 
-            List<Order> orders = context.Orders.Where(x => (x.UserId == UserSingleton.GetInstance.User.UserId) && (x.State == state)).ToList();
+            List<Order> orders = context.Orders.Where(x => (x.UserId == UserSingleton.Instance.User.UserId) && (x.State == state)).ToList();
 
             List<OrderCatalog> orderCatalogs = (from o in orders
                                                 join oc in context.OrderCatalogs.AsEnumerable()
@@ -94,8 +95,8 @@ namespace Project_3___Press_Project
                 order.State = "In progress";
                 order.Shop = shop;
                 order.ShopId = shop.ShopId;
-                order.User = UserSingleton.GetInstance.User;
-                order.UserId = UserSingleton.GetInstance.User.UserId;
+                order.User = UserSingleton.Instance.User;
+                order.UserId = UserSingleton.Instance.User.UserId;
                 context.Orders.Update(order);
                 context.SaveChanges();
                 return order;

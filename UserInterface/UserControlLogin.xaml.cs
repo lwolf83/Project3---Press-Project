@@ -21,7 +21,7 @@ namespace UserInterface
 
         private void OnKeyDownHandler(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Enter && e.Key == Key.Tab)
             {
                 txtPasswordBox.Focus();
             }
@@ -37,8 +37,8 @@ namespace UserInterface
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            UserSingleton.GetInstance.Init(txtUserNameBox.Text, txtPasswordBox.Password);
-            if (UserSingleton.GetInstance.IsAuthenticated)
+            UserSingleton.Instance.Init(txtUserNameBox.Text, txtPasswordBox.Password);
+            if (UserSingleton.Instance.IsAuthenticated)
             {
                 MenuVisibility.ShowMenu();
                 UserControlSetter.SetGridMain(this, "MainMenu");
@@ -61,7 +61,5 @@ namespace UserInterface
             txtPasswordBox.Password = String.Empty;
             txtUserNameBox.Focus();
         }
-
-
     }
 }

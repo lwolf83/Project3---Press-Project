@@ -7,6 +7,7 @@ using System.Windows.Media;
 using System.Linq;
 using Project_3___Press_Project;
 using System.ComponentModel;
+using Project_3___Press_Project.Entity;
 
 namespace UserInterface
 {
@@ -105,7 +106,7 @@ namespace UserInterface
                 Border.Visibility = Visibility.Collapsed;
                 string deptCode = cities.Where(c => c.Name.Equals(City.Text)).Select(c => c.DepartmentCode).FirstOrDefault();
                 CurrZip = cities.Where(c => c.Name.Equals(City.Text)).Select(c => c.ZipCode).FirstOrDefault();
-                CurrDep = departments.Where(d => d.DepartmentCode.Equals(deptCode)).Select(d => d.DepartmentName).FirstOrDefault();
+                CurrDep = departments.Where(d => d.DepartmentCode.Equals(deptCode)).Select(d => d.Name).FirstOrDefault();
             };
 
             block.MouseEnter += (sender, e) =>

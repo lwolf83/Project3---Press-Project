@@ -1,4 +1,5 @@
 ﻿using TinyCsvParser.Mapping;
+using Project_3___Press_Project.Entity;
 
 namespace Project_3___Press_Project.Importer.Mappings
 {
@@ -8,7 +9,7 @@ namespace Project_3___Press_Project.Importer.Mappings
         {
             MapProperty(0, d => d.ProvinceCode);
             MapProperty(1, d => d.DepartmentCode);
-            MapProperty(2, d => d.DepartmentName);
+            MapProperty(2, d => d.Name);
 
         }
 

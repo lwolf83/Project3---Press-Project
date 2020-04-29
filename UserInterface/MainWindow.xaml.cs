@@ -58,7 +58,7 @@ namespace UserInterface
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {           
-            if(!UserSingleton.GetInstance.IsAuthenticated)
+            if(!UserSingleton.Instance.IsAuthenticated)
             {
                 UserControlSetter.SetGridMain(GridMain, "ItemLogin");
             }
@@ -78,6 +78,7 @@ namespace UserInterface
         {
             UserControlSetter.SetGridMain(GridMain, "ItemAddEditors");
         }
+
         public void ButtonModifyEditors_click(object sender, RoutedEventArgs e)
         {
             UserControlSetter.SetGridMain(GridMain, "ItemModifyEditors");

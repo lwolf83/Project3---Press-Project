@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Project_3___Press_Project;
+using Project_3___Press_Project.Entity;
+using Project_3___Press_Project.Repository;
 
 namespace UserInterface
 {
@@ -20,19 +15,21 @@ namespace UserInterface
     /// </summary>
     public partial class UserControlAddAutomaticDelivery : UserControl
     {
-        private AutomaticOrder _automaticOrder;
+        private readonly AutomaticOrderRepository _automaticOrderRepository;
+        private readonly AutomaticOrder _currentOrder;
+
         public UserControlAddAutomaticDelivery()
         {
             InitializeComponent();
-            allShop_ListBox.ItemsSource = ShopsLoader.FromUser(UserSingleton.GetInstance.User).ToList();
+            allShop_ListBox.ItemsSource = ShopsLoader.FromUser(UserSingleton.Instance.User).ToList();
             selectedShop_ListBox.ItemsSource = new List<Shop>();
         }
 
         public UserControlAddAutomaticDelivery(AutomaticOrder automaticOrder)
         {
             InitializeComponent();
-            _automaticOrder = automaticOrder;
-            allShop_ListBox.ItemsSource = ShopsLoader.FromUser(UserSingleton.GetInstance.User).ToList();
+            _currentOrder = automaticOrder;
+            allShop_ListBox.ItemsSource = ShopsLoader.FromUser(UserSingleton.Instance.User).ToList();
             selectedShop_ListBox.ItemsSource = new List<Shop>() { automaticOrder.Shop };
 
             QuantityTextBox.Text = automaticOrder.Quantity.ToString();
@@ -60,15 +57,14 @@ namespace UserInterface
                 int newspaperQuantity = Convert.ToInt32(QuantityTextBox.Text);
                 DateTime startindDate = Convert.ToDateTime(StartDate_DatePicker.SelectedDate);
                 DateTime endingDate = Convert.ToDateTime(EndDate_DatePicker.SelectedDate);
-                UserShop userShop = UserShopsLoader.GetUserShopFromUser(UserSingleton.GetInstance.User);
+                UserShop userShop = UserShopsLoader.GetUserShopFromUser(UserSingleton.Instance.User);
 
                 Newspaper selectedNewspaper = (Newspaper) Newspaper_ListView.Displaying_ListView.SelectedItem;
-                AutomaticOrder ao = new AutomaticOrder();
 
                 List<Shop> selectedShop = (List<Shop>)selectedShop_ListBox.ItemsSource;
                 foreach(Shop shop in selectedShop)
                 {
-                    ao.CreateAutomaticOrderInDB(shop, selectedNewspaper, startindDate, endingDate, newspaperQuantity);
+                    _automaticOrderRepository.CreateAutomaticOrderInDB(shop, selectedNewspaper, startindDate, endingDate, newspaperQuantity);
                 }
 
                 DialogBox.OK("Automatic orders has been recorded", "Info");
@@ -87,10 +83,10 @@ namespace UserInterface
                 DateTime startindDate = Convert.ToDateTime(StartDate_DatePicker.SelectedDate);
                 DateTime endingDate = Convert.ToDateTime(EndDate_DatePicker.SelectedDate);
 
-                _automaticOrder.StartingDate = startindDate;
-                _automaticOrder.Quantity = newspaperQuantity;
-                _automaticOrder.EndDate = endingDate;
-                _automaticOrder.SaveInDB();
+                _currentOrder.StartingDate = startindDate;
+                _currentOrder.Quantity = newspaperQuantity;
+                _currentOrder.EndDate = endingDate;
+                _automaticOrderRepository.Update(_currentOrder);
 
                 DialogBox.OK("Update done!", "Info");
                 UserControlSetter.SetGridMain(this, "ItemAutomaticDelivery");
